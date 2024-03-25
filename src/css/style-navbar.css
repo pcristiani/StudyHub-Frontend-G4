@@ -69,3 +69,15 @@ body {
     display: block;
   }
 }
+
+
+
+.navInformation{
+    display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .navInformation{
+        display: inline-block;
+    }
+}
