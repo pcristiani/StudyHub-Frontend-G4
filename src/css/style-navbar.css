@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    background-color: #f1f1f1;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#navbar {
+    background-color: #333;
+    position: fixed;
+    top: -50px;
+    width: 500%;
+    display: block;
+    transition: top 0.3s;
+}
+
+.navbar-brand {
+  display: none; 
+}
+
+#navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+#navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+
+.scrollspy-example {
+    position: fixed;
+    display: block;
+    height: 100%;
+    width: 100%;
+    color: rgb(6, 27, 143);
+    margin-top: .5rem;
+    overflow: auto
+}
+
+.scrollspy-example-2 {
+    height: 350px;
+    overflow: auto
+}
+
+.simple-list-example-scrollspy .active {
+    background-color: rgba(var(--bd-violet-rgb), 0.15)
+}
+
+.bd-example-border-utils [class^="border"] {
+    display: inline-block;
+    width: 5rem;
+    height: 5rem;
+    margin: .25rem;
+    background-color: var(--bs-tertiary-bg)
+}
+
+.bd-example-rounded-utils [class*="rounded"] {
+    margin: .25rem
+}
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    display: block;
+  }
+}

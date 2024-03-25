@@ -1,9 +1,0 @@
-npm i -g yarn
-yarn create vite frontend-studyhub
-(Selecciono React y luego TypeScript)
-Ejecuto yarn para dependencias.
-yarn add @reduxjs/toolkit
-yarn add @reduxjs/toolkit react-redux
-yarn add @mui/material
-
-yarn add react-router-dom
