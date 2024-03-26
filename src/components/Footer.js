@@ -4,7 +4,7 @@ import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-function Copyright(props) {
+function Copyright() {
     return (
         <Typography variant="body2" color="text.secondary" mt={0.2}>
             {'Copyright © '}
@@ -17,13 +17,15 @@ function Copyright(props) {
 
 function Footer() {
     return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: { xs: 2, sm: 4 }, py: { xs: 4, sm: 5 }, textAlign: { sm: 'center', md: 'left' }, }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: { xs: 2, sm: 4 }, width: '100%', borderTop: '1px solid', borderColor: 'divider', }}>
-                <div>
-                    <Copyright />
-                </div>
-            </Box>
-        </Container>
+        <div className='footer py-3'>
+            <Container>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: { xs: 3, sm: 3 }, width: '100%', borderTop: '1px solid', borderColor: 'divider', }}>
+                    <div>
+                        <Copyright />
+                    </div>
+                </Box>
+            </Container>
+        </div>
     );
 }
 export default Footer;

@@ -16,7 +16,6 @@
 .ico-navbar {
   header:90%;
   width: 90%;
-    /* animation: bounce infinite 2s ; */
 }
 
 .App-logo {
@@ -40,9 +39,47 @@ code {
 }
 
 /* ANIMATION */
+.scale-animation {
+  display: flex;
+  margin-top: 50%;
+  align-items: center;
+  transform: scale(0.8);
+  animation: scale-animation 4s 1;
+}
+@keyframes scale-animation {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+     transform: scale(0.5);
+  }
+     100% {
+      transform: scale(0.8);
+  }
+}
+
+.animate-ping {
+  animation: ping 10s 20;
+  user-select: none;
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+
+  75%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin 2 10s linear;
+    /* animation: App-logo-spin infinite 10s linear; */
   }
 }
 
@@ -55,6 +92,28 @@ code {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+
+.animate-bounce {
+  animation-name: bounce;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  user-select: none;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .App-link {
@@ -97,7 +156,6 @@ code {
 }
 
 
-
 /* Pantallas de tamaño 600px o menos (celulares) */
 @media screen and (max-width: 600px) {
 
@@ -110,6 +168,10 @@ code {
   margin: 19px;
   pointer-events: none;
 }
+
+.logo-desktop {
+  display: none; 
+  }
 
 @keyframes bounce {
   0% {
@@ -124,4 +186,50 @@ code {
     transform: translateY(0);
   }
 }
+}
+
+
+.btn2 {
+  text-decoration: none;
+  text-align: left;
+  font-size: 15px;
+  font-family: 'Segoe UI Symbol';
+  user-select: none;
+  padding: auto;
+  font-style: bold;
+  /* hover:text-primary-600;
+    dark: hover:text-primary-300;
+    dark: text-primary-400; */
+}
+
+.btn2:hover {
+  color: #a7e0da;
+}
+
+.btn3 {
+  text-decoration: none;
+  font-size: 16px;
+  font-family: 'Segoe UI Symbol';
+  user-select: none;
+  animation-name: bounce;
+  border-radius: 5px;
+  flood-opacity: 100%;
+}
+
+
+div {
+  user-select: none;
+}
+
+.footer {
+ font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+      position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #ffffff;
+
+    display: flex;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }

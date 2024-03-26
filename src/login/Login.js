@@ -1,6 +1,7 @@
 import '../css/style-navbar.css';
 import logo from '../img/logo.png';
-import * as React from 'react';
+import React from 'react'
+
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -15,23 +16,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '../css/style.css';
 
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://">
-                StudyHub
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
 const defaultTheme = createTheme();
 
- function Login() {
+function Login() {
     const handleSubmit = (event) => {
+
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
@@ -44,16 +33,16 @@ const defaultTheme = createTheme();
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
-                <Box sx={{marginTop: 8,display: 'flex',flexDirection: 'column',alignItems: 'center',}}>
+                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
 
-                     <div sx={{ m: 4, bgcolor: 'secondary.main' }}>
+                    <div sx={{ m: 3, bgcolor: 'secondary.main' }}>
                         <img src={logo} className="animate-bounce" alt="logo" />
-                    </div> 
+                    </div>
 
                     <Typography component="h1" variant="h4">
-                       Iniciar sesión
+                        Iniciar sesión
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 0 }}>
                         <TextField
                             margin="normal"
                             required
@@ -62,7 +51,7 @@ const defaultTheme = createTheme();
                             label="Usuario"
                             name="username"
                             autoComplete="text"
-                            autoFocus/>
+                            autoFocus />
                         <TextField
                             margin="normal"
                             required
@@ -71,15 +60,15 @@ const defaultTheme = createTheme();
                             label="Contraseña"
                             type="password"
                             id="password"
-                            autoComplete="current-password"/>
+                            autoComplete="current-password" />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
-                            label="Recuerdame"/>
+                            label="Recuerdame" />
                         <Button type="submit"
                             fullWidth
                             variant="contained"
-                                                     sx={{ mt: 3, mb: 2 }}>
-                         Iniciar sesión
+                            sx={{ mt: 3, mb: 4 }} >
+                            Iniciar sesión
                         </Button>
                         <Grid container>
                             <Grid item xs>
@@ -88,23 +77,16 @@ const defaultTheme = createTheme();
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="" variant="body2">
+                                <Link href="/registrarte" variant="body2">
                                     {"Registrarte"}
                                 </Link>
                             </Grid>
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
             </Container>
         </ThemeProvider>
     );
 }
 export default Login;
-
-
-
-
-// export default function SignIn() {
-  
-// }

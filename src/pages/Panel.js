@@ -1,15 +1,13 @@
-import React from 'react';
-import Panel from "../components/Panel";
 import { CssVarsProvider } from '@mui/joy/styles';
 
-const Contact = () => {
+const Panel = () => {
+
   return (
     <>
-      <CssVarsProvider data-bs-theme="dark">
-        <Panel />
+      <CssVarsProvider>
+        <h1>Panel</h1>
       </CssVarsProvider>
     </>
   );
-};
-
-export default Contact;
+}
+export default Panel;

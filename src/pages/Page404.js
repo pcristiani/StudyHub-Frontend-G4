@@ -1,13 +1,13 @@
 import { CssVarsProvider } from '@mui/joy/styles';
 
-const NoPage = () => {
+const Page404 = () => {
     return (
         <>
-            <CssVarsProvider data-bs-theme="dark">
+            <CssVarsProvider>
                 <h1>404</h1>
             </CssVarsProvider>
         </>
     );
 };
 
-export default NoPage;
+export default Page404;

@@ -1,13 +1,18 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Login from '../components/Login';
-import { PublicRoute } from './PublicRoute';
 import { AuthContext } from '../auth/AuthContext';
-import Panel from '../pages/Panel';
-import Home from '../pages/Home';
+import { PublicRoute } from './PublicRoute';
 
-// import { Register } from '../components/Register';
+import Home from '../pages/Home';
+import Cursos from '../pages/Cursos';
+import Panel from "../pages/Panel";
+
+import Login from '../login/Login';
+import Register from '../login/Register';
+
 import NavBar from "../components/NavBar";
+import Footer from '../components/Footer';
+
 
 export const AppRouter = () => {
 
@@ -15,12 +20,13 @@ export const AppRouter = () => {
 
     return (
         <BrowserRouter>
-
             <NavBar />
+
             <Routes>
 
                 <Route path="/" element={<Home user={user.id} />} exact />
-                {/* <Route path="/" element={<Panel />} exact /> */}
+                <Route path="/panel" element={<Panel user={user.id} />} exact />
+                <Route path="/cursos" element={<Cursos user={user.id} />} exact />
 
                 <Route path='/login' element={
                     <PublicRoute>
@@ -28,19 +34,20 @@ export const AppRouter = () => {
                     </PublicRoute>
                 } />
 
-                {/* <Route path='/registrarte' element={
+                <Route path='/registrarte' element={
                     <PublicRoute>
-                         <Register /> 
+                        <Register />
                     </PublicRoute>
-                } /> */}
-                {/* 
+                } />
+
                 <Route path='/logout' element={
                     <PublicRoute>
                         <Login />
                     </PublicRoute>
-                } /> */}
+                } />
 
             </Routes>
+            <Footer />
         </BrowserRouter>
     )
 }
