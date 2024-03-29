@@ -19,7 +19,7 @@ function Footer() {
     return (
         <div className='footer py-3'>
             <Container>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: { xs: 3, sm: 3 }, width: '100%', borderTop: '1px solid', borderColor: 'divider', }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: { xs: 3, sm: 3 }, width: '100%', borderTop: '1px solid', borderColor: 'divider' }}>
                     <div>
                         <Copyright />
                     </div>

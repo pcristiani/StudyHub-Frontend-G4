@@ -28,9 +28,8 @@ export default function MyAnimation() {
             height: '55px',
             fontSize: '0.8em',
             display: 'block',
-
             // overflow: 'hidden',
-            //   wordBreak: 'break-all',
+            // wordBreak: 'break-all',
           }}
           repeat={3}
         />

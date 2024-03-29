@@ -16,9 +16,10 @@ npm install # En la ubicacion del archivo package.json
 ## ▸ `Ejecución`
 
 ```sh
-npm run start  # Para ejecutar
-npm run dev    # Para ejecutar en modo desarrollo
-npm run build  # Para compilar
+npm run start  # Para ejecutar.
+npm run dev    # Para ejecutar en modo desarrollo.
+npm run build  # Para compilar.
+serve -s build # Para servir la aplicación compilada en producción.
 ```
 
 ## `Recursos`

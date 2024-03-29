@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../auth/AuthContext';
 import React, { useContext } from 'react'
 import { types } from '../auth/types';
-import '../css/style-navbar.css';
+// import '../css/style-navbar.css';
 import '../css/bootstrap.min.css';
 
 
@@ -30,7 +30,7 @@ function NavBar() {
                 <Navbar.Brand href="#" className="navbar-brand text-info">StudyHub</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
-                    <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '300px' }} navbarScroll>
+                    <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '250px' }} navbarScroll>
 
                         <Nav.Link className="nav-link" href="/">Inicio</Nav.Link>
                         <li className="nav-item">
@@ -47,38 +47,33 @@ function NavBar() {
                         </li>
                         {/* <NavDropdown title="Link" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action4">
-                                Another action
-                            </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action5">
-                                Something else here
-                            </NavDropdown.Item>
+                            <NavDropdown.Item href="#action5">user</NavDropdown.Item>
                         </NavDropdown> */}
                     </Nav>
                     {/* <Form className="d-flex">
                         <Form.Control type="search" placeholder="Buscar" className="me-2" aria-label="Search" />
-                        <Button variant="outline-success">Buscar</Button>
-                    </Form> */}
+                        <Button variant="outline-success">Buscar</Button></Form> */}
                     <div className="navInformation">
                         <ul className="navbar-nav ml-auto">
-                            <span className="nav-item nav-link text-info">
-                                {user.name}
-                            </span>
-                            {
-                                (user.logged) ?
+                            {(user.logged) ?
+                                <>
+                                    <span className="nav-item nav-link text-info">
+                                        {user.name}
+                                    </span>
                                     <li className="nav-item">
                                         <Link className="nav-link" to='./' onClick={handleLogout}>Logout</Link>
                                     </li>
-                                    :
-                                    <>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to='./login'>Login</Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to='./registrarte'>Registrarse</Link>
-                                        </li>
-                                    </>
+                                </>
+                                :
+                                <>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href='./login'>Login</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href='./registrarte'>Registrarse</a>
+                                    </li>
+                                </>
                             }
                         </ul>
                     </div>

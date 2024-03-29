@@ -15,7 +15,6 @@ import Footer from '../components/Footer';
 
 
 export const AppRouter = () => {
-
     const { user } = useContext(AuthContext);
 
     return (
@@ -23,7 +22,6 @@ export const AppRouter = () => {
             <NavBar />
 
             <Routes>
-
                 <Route path="/" element={<Home user={user.id} />} exact />
                 <Route path="/panel" element={<Panel user={user.id} />} exact />
                 <Route path="/cursos" element={<Cursos user={user.id} />} exact />
@@ -45,8 +43,8 @@ export const AppRouter = () => {
                         <Login />
                     </PublicRoute>
                 } />
-
             </Routes>
+
             <Footer />
         </BrowserRouter>
     )
