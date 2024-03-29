@@ -27,7 +27,7 @@ function NavBar() {
             <Container fluid>
                 <img className="logo-desktop" src={Logo} alt="nav ico" />
 
-                <Navbar.Brand href="#" className="navbar-brand text-info">StudyHub</Navbar.Brand>
+                <Navbar.Brand href="/" className="navbar-brand text-info">StudyHub</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '250px' }} navbarScroll>

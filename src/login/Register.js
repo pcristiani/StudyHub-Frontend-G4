@@ -54,17 +54,15 @@ function Register() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box sx={{ marginTop: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
-                    <div sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
+                {/* <CssBaseline /> */}
+                <Box sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+                    <div sx={{ m: 0, bgcolor: 'secondary.main' }}>
                         <img src={logo} className="animate-bounce" alt="logo" />
                     </div>
-                    <Typography component="h1" variant="h4">
-                        Inscribirse
-                    </Typography>
+                    <Typography component="h1" variant="h4">Inscribirse</Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 0 }}>
-                        <Grid container spacing={1.5}>
+                        <Grid container spacing={1}>
                             <Grid item xs={12} sm={6}>
                                 <TextField autoComplete="given-name" name="firstName" required fullWidth id="firstName" label="Nombre" autoFocus />
                             </Grid>
@@ -82,7 +80,7 @@ function Register() {
                                     label="Acepto recibir información via email." />
                             </Grid>
                         </Grid>
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Inscribirse</Button>
+                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 1 }}>Inscribirse</Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="/login" variant="body2">¿Ya tienes una cuenta? Iniciar sesión</Link>

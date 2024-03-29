@@ -1,3 +1,19 @@
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0; 
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: relative;
+    place-content: center;
+    user-select: none;
+    background: #e5e5e5;
+  }
+
 .App {
   text-align: center;
 }
@@ -223,13 +239,26 @@ div {
 
 .footer {
  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 12px;
+    /* font-size: 12px; */
+      /* position: fixed; */
+    /* bottom: 0;
+    width: 100%; */
+    background: #ffffff;
+
+    /* display: flex; */
+    /* padding-top: 5%; */
+    /* padding-bottom: 5%; */
+
+
       position: fixed;
     bottom: 0;
     width: 100%;
-    background: #ffffff;
-
-    display: flex;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    color: #a8a8a8;
+    font-weight: normal;
+    padding: 3px;
+    justify-content: center;
+    text-align: left;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+ 
 }
