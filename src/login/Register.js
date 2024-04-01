@@ -1,19 +1,18 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
+// import * as React from 'react';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import logo from '../img/logo.png';
-import swal from 'sweetalert';
-
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import swal from 'sweetalert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import '../css/style.css';
+import logo from '../img/logo.png';
 
 
 const defaultTheme = createTheme();
@@ -23,7 +22,7 @@ function Register() {
 
     async function registerUsr(firstName, lastname, email, birthdate, username, password) {
         const token = `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`;
-        const mensaje = { "name": firstName, "surname": lastname, "email": email, "birthdate": birthdate, "username": username, "password": password };
+        let body = { "name": firstName, "surname": lastname, "email": email, "birthdate": birthdate, "username": username, "password": password };
         let url = `http://localhost:8080/api/users/registerUser`;
 
 
@@ -33,8 +32,7 @@ function Register() {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
-            body: JSON.stringify(mensaje)
-
+            body: JSON.stringify(body)
         })
 
         if (response.ok) {
@@ -55,10 +53,13 @@ function Register() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // let username = data.get('username');
-        // let password = data.get('password');
-        console.log("handle Submit");
-        registerUsr();
+        let firstName = data.get('name');
+        let lastname = data.get('surname');
+        let email = data.get('email');
+        let birthdate = data.get('birthdate');
+        let username = data.get('username');
+        let password = data.get('password');
+        registerUsr(firstName, lastname, email, birthdate, username, password);
     };
 
     return (

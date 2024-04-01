@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,46 +11,67 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
+// import { useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../auth/AuthContext';
+import { types } from '../auth/types';
 
 import logo from '../img/logo.png';
 import '../css/style-navbar.css';
 import '../css/style.css';
 
+
 const defaultTheme = createTheme();
 
 function Login() {
+    const context = useContext(AuthContext);
 
+    const autentication = (username, name, surname) => {
+        const action = {
+            type: types.login,
+            payload: {
+                username: username,
+                name: name,
+                surname: surname
+                // email: email
+                //  rol: rol
+            }
+        }
+        context.dispatch(action);
+    }
+
+    const disconnection = () => {
+        const action = {
+            type: types.logout,
+
+        }
+        context.dispatch(action);
+    }
     async function jwkUser(username, password) {
+        const token = `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`;
         let url = `http://localhost:8080/login/test`;
-
-        let headers = {
-            'Content-Type': 'application/json',
-        };
-
         let body = {
-            username,
-            password,
+            "username": username,
+            "password": password
         };
 
         let response = await fetch(url, {
             method: 'POST',
-            headers: headers,
-            body: JSON.stringify(body),
-        });
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(body)
+        })
 
-        // if (response.ok) {
-        //     let data = await response.json();
-        //     decodeJwt(data);
-        //     console.log("decodeJwt(data): ", decodeJwt(data));
-        //     console.log("Token JWT: ", data);
-        // } else {
-        //     console.log("Error: ", response.status);
-        // }
 
         if (response.ok) {
+            let strJwt = await response.text();
+            let objUser = decodedJwt(strJwt);
+            autentication(objUser.username, objUser.name, objUser.surname);
             swal({
                 title: "Acceso correcto\n\n",
-                text: "Usuario: " + username,// "\nNombre: " + name,
+                text: "Nombre: " + objUser.name + " " + objUser.firstName + "\nRol: Administrador", //+ objUser.rol,
                 icon: "success",
                 position: "center",
                 timer: 3000
@@ -60,41 +81,10 @@ function Login() {
                 timer: 3000
             });
         }
-    };
+    }
 
 
-
-    // async function jwkUser(username, password) {
-    //     const token = `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`;
-    //     const mensaje = { "username": username, "password": password };
-    //     let url = `http://localhost:8080/login/test`;
-
-    //     let response = await fetch(url, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': `Bearer ${token}`,
-    //         },
-    //         body: JSON.stringify(mensaje)
-    //     })
-
-    //     if (response.ok) {
-    //         swal({
-    //             title: "Acceso correcto\n\n",
-    //             text: "Usuario: " + username,// "\nNombre: " + name,
-    //             icon: "success",
-    //             position: "center",
-    //             timer: 3000
-    //         });
-    //     } else {
-    //         swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
-    //             timer: 3000
-    //         });
-    //     }
-    // }
-
-
-    function decodeJwt(strJwt) {
+    function decodedJwt(strJwt) {
         let parts = strJwt.split('.');
         if (parts.length !== 3) {
             throw new Error('Token JWT inválido');
@@ -102,16 +92,15 @@ function Login() {
 
         let base64Url = parts[1];
         let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        let cargaUtil = decodeURIComponent(atob(base64).split('').map(function (c) {
+        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
         try {
-            let decodedJwt = JSON.parse(cargaUtil);
-            console.log(decodedJwt);
+            console.log(JSON.parse(jsonPayload));
         } catch (error) {
             console.error(error);
         }
-        // return JSON.parse(cargaUtil);
+        return JSON.parse(jsonPayload);
     }
 
 
@@ -122,35 +111,27 @@ function Login() {
         let password = data.get('password');
         jwkUser(username, password);
     }
-    const handleDecodeJwt = (event) => {
-        const strJwt = `eyJhbGciOiJIUzI1NiJ9.eyJiaXJ0aGRhdGUiOiIxOTg5MTAyMCIsInN1cm5hbWUiOiJHb256YWxleiIsIm5hbWUiOiJTZWJhc3RpYW4iLCJlbWFpbCI6InNlYmFzdGlhbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoic2dvbnphbGV6Iiwic3ViIjoic2dvbnphbGV6IiwiaWF0IjoxNzExOTI5NDI2LCJleHAiOjE3MTE5MzAzMjZ9.-3_zUGl-PxQKaRpRZYEkNrdYoWRfJfTBBfSy3AQqWQo`;
-        decodeJwt(strJwt);
-    }
-
 
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
-                <Box sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+                <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
 
                     <div sx={{ m: 0, bgcolor: 'secondary.main' }}>
                         <img src={logo} className="animate-bounce" alt="logo" />
                     </div>
                     <Typography component="h1" variant="h4">Iniciar sesión</Typography>
 
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 0 }}>
-                        <TextField margin="normal" required fullWidth id="username" label="Usuario" name="username" autoComplete="text" autoFocus />
-                        <TextField margin="normal" required fullWidth name="password" label="Contraseña" type="password" id="password" autoComplete="current-password" />
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField margin="dense" required fullWidth id="username" label="Usuario" name="username" autoComplete="text" autoFocus />
+                        <TextField margin="dense" required fullWidth name="password" label="Contraseña" type="password" id="password" autoComplete="current-password" />
                         <FormControlLabel control={<Checkbox value="remember" color="primary" />}
                             label="Recuerdame" />
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 3 }}>Iniciar sesión</Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">¿Has olvidado tu contraseña?</Link>
-                            </Grid>
+                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 3 }}>Iniciar sesión</Button>
+                        <Grid container spacing={1}>
                             <Grid item>
-                                <Link href="/registrarte" variant="body2">{"Registrarte"}</Link>
                             </Grid>
+                            <Link href="#" variant="body2">¿Has olvidado tu contraseña?</Link>
                         </Grid>
                     </Box>
 

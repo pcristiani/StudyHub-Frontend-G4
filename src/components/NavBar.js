@@ -1,19 +1,17 @@
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../auth/AuthContext';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Logo from '../img/logo-min.png';
-import { Link, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../auth/AuthContext';
-import React, { useContext } from 'react'
 import { types } from '../auth/types';
-// import '../css/style-navbar.css';
 import '../css/bootstrap.min.css';
+// import '../css/style-navbar.css';
 
 
 function NavBar() {
     const { user, dispatch } = useContext(AuthContext);
-    // user.name = 'Sebastián';
-
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -22,10 +20,13 @@ function NavBar() {
             replace: true
         });
     }
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
             <Container fluid>
-                <img className="logo-desktop" src={Logo} alt="nav ico" />
+                <Link className="nav-link" to='./'>
+                    <img className="logo-desktop" src={Logo} alt="nav ico" />
+                </Link>
 
                 <Navbar.Brand href="/" className="navbar-brand text-info">StudyHub</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
@@ -59,7 +60,7 @@ function NavBar() {
                             {(user.logged) ?
                                 <>
                                     <span className="nav-item nav-link text-info">
-                                        {user.name}
+                                        {user.name} {user.surname}
                                     </span>
                                     <li className="nav-item">
                                         <Link className="nav-link" to='./' onClick={handleLogout}>Logout</Link>
@@ -70,9 +71,9 @@ function NavBar() {
                                     <li className="nav-item">
                                         <a className="nav-link" href='./login'>Login</a>
                                     </li>
-                                    <li className="nav-item">
+                                    {/* <li className="nav-item">
                                         <a className="nav-link" href='./registrarte'>Registrarse</a>
-                                    </li>
+                                    </li> */}
                                 </>
                             }
                         </ul>
