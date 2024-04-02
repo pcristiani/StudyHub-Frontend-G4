@@ -12,7 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
 // import { useState, useEffect } from 'react';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../auth/AuthContext';
 import { types } from '../auth/types';
 
@@ -32,7 +32,8 @@ function Login() {
             payload: {
                 username: username,
                 name: name + " " + surname,
-                // email: email, rol: rol
+                //  email: email,
+                rol: 'Administrador'
             }
         }
         context.dispatch(action);
@@ -66,6 +67,7 @@ function Login() {
         if (response.ok) {
             let strJwt = await response.text();
             let objUser = decodedJwt(strJwt);
+            // console.log("objUser: ", strJwt);
             autentication(objUser.username, objUser.name, objUser.surname);
             swal({
                 title: "Acceso correcto\n\n",

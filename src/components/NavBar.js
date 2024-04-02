@@ -34,8 +34,8 @@ function NavBar() {
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '250px' }} navbarScroll>
-
                         <Nav.Link className="nav-link" href="/">Inicio</Nav.Link>
+
                         <li className="nav-item">
                             <a className="nav-link" href="/panel">Mi Panel</a>
                         </li>
@@ -43,9 +43,11 @@ function NavBar() {
                         <li className="nav-item">
                             <a className="nav-link" aria-disabled="true" href="/cursos">Cursos</a>
                         </li>
+
                         <li className="nav-item">
                             <a className="nav-link" aria-disabled="true" href="/inscripciones">Inscripciones</a>
                         </li>
+
                         <li className="nav-item">
                             <a className="nav-link" aria-disabled="true" href="/ayuda">Ayuda</a>
                         </li>
@@ -55,7 +57,6 @@ function NavBar() {
                         <ul className="navbar-nav ml-auto">
                             {(user.logged) ?
                                 <>
-
                                     <NavDropdown title={user.name} id="navbarScrollingDropdown">
                                         <NavDropdown.Item href="#edit-perfil">Editar perfil</NavDropdown.Item>
                                         <NavDropdown.Divider />
