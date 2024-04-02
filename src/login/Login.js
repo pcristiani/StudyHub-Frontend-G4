@@ -31,10 +31,8 @@ function Login() {
             type: types.login,
             payload: {
                 username: username,
-                name: name,
-                surname: surname
-                // email: email
-                //  rol: rol
+                name: name + " " + surname,
+                // email: email, rol: rol
             }
         }
         context.dispatch(action);
@@ -43,10 +41,10 @@ function Login() {
     const disconnection = () => {
         const action = {
             type: types.logout,
-
         }
         context.dispatch(action);
     }
+
     async function jwkUser(username, password) {
         const token = `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`;
         let url = `http://localhost:8080/login/test`;
@@ -71,7 +69,7 @@ function Login() {
             autentication(objUser.username, objUser.name, objUser.surname);
             swal({
                 title: "Acceso correcto\n\n",
-                text: "Nombre: " + objUser.name + " " + objUser.firstName + "\nRol: Administrador", //+ objUser.rol,
+                text: "Nombre: " + objUser.name + " " + objUser.surname + "\nRol: Administrador", //+ objUser.rol,
                 icon: "success",
                 position: "center",
                 timer: 3000

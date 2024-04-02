@@ -2,8 +2,10 @@ import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../auth/AuthContext';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+
 import Logo from '../img/logo-min.png';
 import { types } from '../auth/types';
 import '../css/bootstrap.min.css';
@@ -37,6 +39,7 @@ function NavBar() {
                         <li className="nav-item">
                             <a className="nav-link" href="/panel">Mi Panel</a>
                         </li>
+
                         <li className="nav-item">
                             <a className="nav-link" aria-disabled="true" href="/cursos">Cursos</a>
                         </li>
@@ -46,34 +49,27 @@ function NavBar() {
                         <li className="nav-item">
                             <a className="nav-link" aria-disabled="true" href="/ayuda">Ayuda</a>
                         </li>
-                        {/* <NavDropdown title="Link" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action5">user</NavDropdown.Item>
-                        </NavDropdown> */}
                     </Nav>
-                    {/* <Form className="d-flex">
-                        <Form.Control type="search" placeholder="Buscar" className="me-2" aria-label="Search" />
-                        <Button variant="outline-success">Buscar</Button></Form> */}
+
                     <div className="navInformation">
                         <ul className="navbar-nav ml-auto">
                             {(user.logged) ?
                                 <>
-                                    <span className="nav-item nav-link text-info">
-                                        {user.name} {user.surname}
-                                    </span>
-                                    <li className="nav-item">
+
+                                    <NavDropdown title={user.name} id="navbarScrollingDropdown">
+                                        <NavDropdown.Item href="#edit-perfil">Editar perfil</NavDropdown.Item>
+                                        <NavDropdown.Divider />
+                                        <NavDropdown.Item href="./" onClick={handleLogout}>Cerrar sesion</NavDropdown.Item>
+                                    </NavDropdown>
+                                    {/* <li className="nav-item">
                                         <Link className="nav-link" to='./' onClick={handleLogout}>Logout</Link>
-                                    </li>
+                                    </li> */}
                                 </>
                                 :
                                 <>
                                     <li className="nav-item">
                                         <a className="nav-link" href='./login'>Login</a>
                                     </li>
-                                    {/* <li className="nav-item">
-                                        <a className="nav-link" href='./registrarte'>Registrarse</a>
-                                    </li> */}
                                 </>
                             }
                         </ul>
