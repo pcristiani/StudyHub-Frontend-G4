@@ -17,6 +17,14 @@ body {
   display: none; 
 }
 
+.avatar-perfil {
+  display: block; 
+}
+/* .no-arrow::after {
+    display: none;
+} */
+
+
 
 #navbar a {
     float: left;
@@ -68,6 +76,9 @@ body {
 @media (max-width: 768px) {
   .navbar-brand {
     display: block;
+  }
+    .avatar-perfil {
+    display: none;
   }
 }
 

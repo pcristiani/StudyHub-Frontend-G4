@@ -1,5 +1,3 @@
-// import React from 'react'
-
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -11,14 +9,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
-// import { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../auth/AuthContext';
-import { types } from '../auth/types';
+import { types } from '../util/types';
 
 import logo from '../img/logo.png';
 import '../css/style-navbar.css';
 import '../css/style.css';
+import { PARAMETERS, URL_BACK } from '../util/constants'
 
 
 const defaultTheme = createTheme();
@@ -31,9 +29,10 @@ function Login() {
             type: types.login,
             payload: {
                 username: username,
-                name: name + " " + surname,
-                //  email: email,
+                name: name,
+                surname: surname,
                 rol: 'Administrador'
+                //  email: email,
             }
         }
         context.dispatch(action);
@@ -47,18 +46,16 @@ function Login() {
     }
 
     async function jwkUser(username, password) {
-        const token = `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`;
-        let url = `http://localhost:8080/login/test`;
         let body = {
             "username": username,
             "password": password
         };
 
-        let response = await fetch(url, {
+        let response = await fetch(URL_BACK.loginTest, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${PARAMETERS.tokenBearer}`,
             },
             body: JSON.stringify(body)
         })
@@ -67,7 +64,7 @@ function Login() {
         if (response.ok) {
             let strJwt = await response.text();
             let objUser = decodedJwt(strJwt);
-            // console.log("objUser: ", strJwt);
+            console.log("objUser: ", strJwt);
             autentication(objUser.username, objUser.name, objUser.surname);
             swal({
                 title: "Acceso correcto\n\n",

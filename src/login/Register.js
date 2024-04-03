@@ -1,4 +1,4 @@
-// import * as React from 'react';
+import * as React from 'react';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -24,7 +24,6 @@ function Register() {
         const token = `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`;
         let body = { "name": firstName, "surname": lastname, "email": email, "birthdate": birthdate, "username": username, "password": password };
         let url = `http://localhost:8080/api/users/registerUser`;
-
 
         let response = await fetch(url, {
             method: 'POST',

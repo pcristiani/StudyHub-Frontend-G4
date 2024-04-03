@@ -1,18 +1,14 @@
 /// trabajando en el servicio de usuario
+import { PARAMETERS, URL_BACK } from '../util/constants'
 
 async function getUser(username, password) {
-    let url2 = `http://localhost:8080/api/users/getUser/6`;
-    const token = `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`;
-
-    let responses = await fetch(
-        url2, {
+    let response = await fetch(URL_BACK.getUser, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${PARAMETERS.tokenBearer}`,
         },
-    },
-        5,
+    }
     );
-    console.log("responses OK: ", responses.ok);
+    console.log("responses OK: ", response.ok);
 }
