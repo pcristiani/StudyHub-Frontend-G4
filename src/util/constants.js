@@ -22,6 +22,8 @@ const URL_BACK = {
   loginTest: `${uriBaseBack}/login/test`,
   getUser: `${uriBaseBack}/api/users/getUser/6`,
   courseRelations: `${uriBaseBack}/course-relations`,
+  forgotPassword: `${uriBaseBack}/forgotPassword`,
+  recuperarPassword: `${uriBaseBack}/recuperarPassword`,
 }
 
 const REQUEST_TYPES = {

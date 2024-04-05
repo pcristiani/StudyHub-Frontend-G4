@@ -128,7 +128,7 @@ function Login() {
                         <Grid container spacing={1}>
                             <Grid item>
                             </Grid>
-                            <Link href="#" variant="body2">¿Has olvidado tu contraseña?</Link>
+                            <Link href="/olvido-contrasenia" variant="body2">¿Has olvidado tu contraseña?</Link>
                         </Grid>
                     </Box>
 
