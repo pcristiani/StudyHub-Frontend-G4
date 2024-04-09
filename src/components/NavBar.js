@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
 import Logo from '../img/logo-min.png';
-import { types } from '../util/types';
+import { types } from '../auth/types';
 // import '../css/bootstrap.min.css';
 import '../css/style-navbar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

@@ -70,19 +70,21 @@ const Cursos = () => {
     if (!strJwt) return null;
 
     return (
-        <CssVarsProvider>
-            <Container component="main" maxWidth="xs">
-                <button onClick={downloadPDF}> Descargar PDF </button>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '22px' }}>
-                    <Typography className="text-dark focus-ring-primary" component="h1" >
-                        Cursos
-                    </Typography>
-                    <Typography>Carrera Tecnólogo en Informática</Typography>
-                    <Graphviz dot={strJwt} options={{ width: 1000, height: 700 }} />
-                </Box>
-            </Container>
-        </CssVarsProvider >
-
+        <>
+            <CssVarsProvider>
+                <Container component="main" maxWidth="xs">
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '22px' }}>
+                        <Typography className="text-dark focus-ring-primary" component="h1" >
+                            Cursos
+                        </Typography>
+                        <Typography>Carrera Tecnólogo en Informática</Typography>
+                        <button className="btn3" onClick={downloadPDF}> Descargar PDF </button>
+                        <Graphviz dot={strJwt} options={{ width: 1000, height: 700 }} />
+                    </Box>
+                </Container>
+            </CssVarsProvider>
+        </>
     );
 }
+
 export default Cursos;

@@ -11,7 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
 import { useContext } from 'react';
 import { AuthContext } from '../auth/AuthContext';
-import { types } from '../util/types';
+import { types } from '../auth/types';
 
 import logo from '../img/logo.png';
 import '../css/style-navbar.css';
