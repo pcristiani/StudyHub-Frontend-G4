@@ -12,6 +12,8 @@ import { types } from '../auth/types';
 import '../css/style-navbar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { URI_PAGES } from '../util/constants'
+
 
 function NavBar() {
     const { user, dispatch } = useContext(AuthContext);
@@ -31,29 +33,29 @@ function NavBar() {
                     <img className="logo-desktop" src={Logo} alt="nav ico" />
                 </Link>
 
-                <Navbar.Brand href="/" className="navbar-brand text-info">StudyHub</Navbar.Brand>
+                <Navbar.Brand href={URI_PAGES.homeUri} className="navbar-brand text-info">StudyHub</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '250px' }} navbarScroll>
-                        <Nav.Link className="nav-link" href="/">Inicio</Nav.Link>
+                        <Nav.Link className="nav-link" href={URI_PAGES.homeUri}>Inicio</Nav.Link>
                         {
                             (user.logged) &&
                             <>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/panel">Mi Panel</a>
+                                    <a className="nav-link" href={URI_PAGES.panelUri}>Mi Panel</a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a className="nav-link" aria-disabled="true" href="/cursos">Cursos</a>
+                                    <a className="nav-link" aria-disabled="true" href={URI_PAGES.cursosUri}>Cursos</a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a className="nav-link" aria-disabled="true" href="/inscripciones">Inscripciones</a>
+                                    <a className="nav-link" aria-disabled="true" href={URI_PAGES.inscripcionUri}>Inscripciones</a>
                                 </li>
                             </>
                         }
                         <li className="nav-item">
-                            <a className="nav-link" aria-disabled="true" href="/ayuda">Ayuda</a>
+                            <a className="nav-link" aria-disabled="true" href={URI_PAGES.ayudaUri} >Ayuda</a>
                         </li>
                     </Nav>
 
@@ -61,7 +63,7 @@ function NavBar() {
                         <ul className="navbar-nav ml-auto">
                             {(user.logged) ?
                                 <>
-                                    <NavDropdown title={user.name} id="navbarScrollingDropdown">
+                                    <NavDropdown title={user.name + ' ' + user.surname} id="navbarScrollingDropdown">
                                         <NavDropdown.Item href="#edit-perfil">Editar perfil</NavDropdown.Item>
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item href="./" onClick={handleLogout}>Cerrar sesion</NavDropdown.Item>

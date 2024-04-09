@@ -38,12 +38,12 @@ function Login() {
         context.dispatch(action);
     }
 
-    const disconnection = () => {
-        const action = {
-            type: types.logout,
-        }
-        context.dispatch(action);
-    }
+    // const disconnection = () => {
+    //     const action = {
+    //         type: types.logout,
+    //     }
+    //     context.dispatch(action);
+    // }
 
     async function jwkUser(username, password) {
         let body = {

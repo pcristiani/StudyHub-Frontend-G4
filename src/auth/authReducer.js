@@ -1,3 +1,17 @@
+/*
+const state = {
+    name: 'Sebastian',
+    logged: true
+}
+
+const loginAction = {
+    type: types.login,
+    payload: {
+        name: 'Sebastian',
+        email: 'sebasgon@gmail.com'
+    }
+}
+*/
 import { types } from "./types";
 
 export const authReducer = (state = {}, action) => {
