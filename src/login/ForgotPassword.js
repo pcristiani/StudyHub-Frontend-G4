@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import swal from 'sweetalert';
 
 import logo from '../img/logo.png';
 import '../css/style-navbar.css';
@@ -17,6 +18,44 @@ const defaultTheme = createTheme();
 
 const ForgotPassword = () => {
 
+    async function emailValue(email) {
+
+        let response = await fetch(URL_BACK.forgotPassword, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${PARAMETERS.tokenBearer}`,
+            },
+            body: email
+        })
+
+        console.log("RESPONSE.OK: ", response.ok);
+        if (response.ok) {
+            let strJwt = await response.text();
+            console.log("emailss: ", response);
+            swal({
+                title: "Email correcto\n\n",
+                icon: "success",
+                position: "center",
+                timer: 3000
+            });
+        } else {
+            swal("¡Advertencia!", 'Email invalido', "error", {
+                timer: 3000
+            });
+        }
+    }
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        let email = data.get('email');
+        emailValue(email);
+
+        // console.log("email: ", email);
+        // jwkUser(username, password);
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -28,7 +67,7 @@ const ForgotPassword = () => {
                     </div>
                     <Typography component="h1" variant="h4">Ingresar email</Typography>
 
-                    <Box component="form" noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField margin="dense" required fullWidth id="email" label="Email" name="email" autoComplete="text" autoFocus />
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 3 }}>Confirmar</Button>
                         <Grid container spacing={1}>

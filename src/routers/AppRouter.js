@@ -13,6 +13,7 @@ import Register from '../login/Register';
 import NavBar from "../components/NavBar";
 import Footer from '../components/Footer';
 import ForgotPassword from "../login/ForgotPassword";
+import RecuperarPassword from "../login/RecuperarPassword";
 
 
 export const AppRouter = () => {
@@ -26,7 +27,8 @@ export const AppRouter = () => {
                 <Route path="/" element={<Home user={user.id} />} exact />
                 <Route path="/panel" element={<Panel user={user.id} />} exact />
                 <Route path="/cursos" element={<Cursos user={user.id} />} exact />
-                <Route path="/olvido-contrasenia" element={<ForgotPassword user={user.id}/>} exact/>
+                <Route path="/olvido-contrasenia" element={<ForgotPassword user={user.id} />} exact />
+                <Route path="/resetPassword" element={<RecuperarPassword user={user.id} />} exact />
 
                 <Route path='/login' element={
                     <PublicRoute>
