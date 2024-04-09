@@ -6,6 +6,7 @@ import { PublicRoute } from './PublicRoute';
 import Home from '../pages/Home';
 import Cursos from '../pages/Cursos';
 import Panel from "../pages/Panel";
+import Inscripcion from "../pages/Inscripcion";
 
 import Login from '../login/Login';
 import Register from '../login/Register';
@@ -27,6 +28,8 @@ export const AppRouter = () => {
                 <Route path="/" element={<Home user={user.id} />} exact />
                 <Route path="/panel" element={<Panel user={user.id} />} exact />
                 <Route path="/cursos" element={<Cursos user={user.id} />} exact />
+                <Route path="/inscripciones" element={<Inscripcion user={user.id} />} exact />
+
                 <Route path="/olvido-contrasenia" element={<ForgotPassword user={user.id} />} exact />
                 <Route path="/resetPassword" element={<RecuperarPassword user={user.id} />} exact />
 

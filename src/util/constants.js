@@ -20,7 +20,7 @@ const URI_PAGES = {
 
 const URL_BACK = {
   loginTest: `${uriBaseBack}/login/test`,
-  getUser: `${uriBaseBack}/api/users/getUser/6`,
+  getUser: `${uriBaseBack}/api/users/getUser/`,
   courseRelations: `${uriBaseBack}/course-relations`,
   forgotPassword: `${uriBaseBack}/forgotPassword`,
   recuperarPassword: `${uriBaseBack}/recuperarPassword`,

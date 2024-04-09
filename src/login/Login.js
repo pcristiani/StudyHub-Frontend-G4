@@ -1,3 +1,8 @@
+import React, { useContext } from 'react';
+import { AuthContext } from '../auth/AuthContext';
+import axios from 'axios';
+import { types } from '../auth/types';
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -9,15 +14,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
-import { useContext } from 'react';
-import { AuthContext } from '../auth/AuthContext';
-import { types } from '../auth/types';
 
-import logo from '../img/logo.png';
 import '../css/style-navbar.css';
 import '../css/style.css';
-import { PARAMETERS, URL_BACK } from '../util/constants'
 
+import { URL_BACK } from '../util/constants'
+import logo from '../img/logo.png';
 
 const defaultTheme = createTheme();
 
@@ -45,43 +47,34 @@ function Login() {
     //     context.dispatch(action);
     // }
 
-    async function jwkUser(username, password) {
-        let body = {
-            "username": username,
-            "password": password
-        };
-
-        let response = await fetch(URL_BACK.loginTest, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${PARAMETERS.tokenBearer}`,
-            },
-            body: JSON.stringify(body)
-        })
-
-
-        if (response.ok) {
-            let strJwt = await response.text();
-            let objUser = decodedJwt(strJwt);
-            console.log("objUser: ", strJwt);
-            autentication(objUser.username, objUser.name, objUser.surname);
-            swal({
-                title: "Acceso correcto\n\n",
-                text: "Nombre: " + objUser.name + " " + objUser.surname + "\nRol: Administrador", //+ objUser.rol,
-                icon: "success",
-                position: "center",
-                timer: 3000
+    async function validateCredentials(username, password) {
+        try {
+            let response = await axios.post(URL_BACK.loginTest, {
+                "username": username,
+                "password": password
             });
-        } else {
+
+            if (response.status === 200) {
+                let objUser = decodeJwt(response.data);
+                autentication(objUser.username, objUser.name, objUser.surname);
+                swal({
+                    title: "Acceso correcto\n\n",
+                    text: "Nombre: " + objUser.name + " " + objUser.surname + "\nRol: Administrador", //+ objUser.rol,
+                    icon: "success",
+                    position: "center",
+                    timer: 3000
+                });
+            }
+        } catch (error) {
             swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
                 timer: 3000
             });
+            console.log(error);
         }
     }
 
 
-    function decodedJwt(strJwt) {
+    function decodeJwt(strJwt) {
         let parts = strJwt.split('.');
         if (parts.length !== 3) {
             throw new Error('Token JWT inválido');
@@ -106,7 +99,7 @@ function Login() {
         const data = new FormData(event.currentTarget);
         let username = data.get('username');
         let password = data.get('password');
-        jwkUser(username, password);
+        validateCredentials(username, password);
     }
 
     return (

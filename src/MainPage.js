@@ -3,7 +3,7 @@ import { AuthContext } from './auth/AuthContext';
 import { authReducer } from './auth/authReducer';
 import { AppRouter } from './routers/AppRouter';
 
-// document.cookie
+
 const init = () => {
   const userCookie = document.cookie.split('; ').find(row => row.startsWith('user='));
   return userCookie ? JSON.parse(decodeURIComponent(userCookie.split('=')[1])) : { logged: false };
@@ -12,7 +12,6 @@ const init = () => {
 export const MainPage = () => {
   const [user, dispatch] = useReducer(authReducer, {}, init);
 
-  // Establecemos la cookie user en el estado del usuario
   useEffect(() => {
     document.cookie = `user=${encodeURIComponent(JSON.stringify(user))}; path=/`;
   }, [user]);
@@ -25,6 +24,7 @@ export const MainPage = () => {
     </AuthContext.Provider>
   )
 }
+
 
 
 // Otro ejemplo con LocalStorage

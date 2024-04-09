@@ -19,7 +19,6 @@ const defaultTheme = createTheme();
 const ForgotPassword = () => {
 
     async function emailValue(email) {
-
         let response = await fetch(URL_BACK.forgotPassword, {
             method: 'POST',
             headers: {
@@ -52,9 +51,6 @@ const ForgotPassword = () => {
         const data = new FormData(event.currentTarget);
         let email = data.get('email');
         emailValue(email);
-
-        // console.log("email: ", email);
-        // jwkUser(username, password);
     }
 
     return (

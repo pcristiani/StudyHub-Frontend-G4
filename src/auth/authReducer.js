@@ -1,17 +1,3 @@
-/*
-const state = {
-    name: 'Sebastian',
-    logged: true
-}
-
-const loginAction = {
-    type: types.login,
-    payload: {
-        name: 'Sebastian',
-        email: 'sebasgon@gmail.com'
-    }
-}
-*/
 import { types } from "./types";
 
 export const authReducer = (state = {}, action) => {
@@ -26,6 +12,24 @@ export const authReducer = (state = {}, action) => {
                 logged: false
             }
         default:
-            break;
+            return state;
     }
 }
+
+/*
+const state = {
+    name: 'Sebastian',
+    logged: true
+}
+ 
+const loginAction = {
+    type: types.login,
+    payload: {
+        username: 'sgonzalez',
+        name: 'Sebastian',
+        surname: 'Gonzalez',
+        email: 'sebasgon@gmail.com',
+        rol: 'Administrador'
+    }
+}
+*/
