@@ -12,7 +12,7 @@ import swal from 'sweetalert';
 import logo from '../img/logo.png';
 import '../css/style-navbar.css';
 import '../css/style.css';
-import { PARAMETERS, URL_BACK } from '../util/constants'
+import { PARAMETERS, URL_BACK, redirigir } from '../util/constants'
 
 // olvido-contrasenia
 const defaultTheme = createTheme();
@@ -20,12 +20,7 @@ const defaultTheme = createTheme();
 const ForgotPassword = () => {
     let params = new URLSearchParams(window.location.search);
     let token = params.get('token');
-    console.log("taaaoken: ", token);
-
-    // Obtener la URL actual
-    // const urlParams = new URLSearchParams(window.location.search);
-    // console.log("isEmptyEmail: ", urlParams);
-
+    
     async function emailValue(email) {
         let response = await fetch(URL_BACK.forgotPassword, {
             method: 'POST',
@@ -37,13 +32,14 @@ const ForgotPassword = () => {
         })
 
         if (response.ok) {
-            // let strJwt = await response.text();
             swal({
-                title: "Email correcto\n\n",
+                title: "Verifique su correo electronico.\n\n",
                 icon: "success",
                 position: "center",
                 timer: 3000
             });
+            redirigir(`http://localhost:3000/`);
+
         } else {
             swal("¡Advertencia!", 'Email invalido', "error", {
                 timer: 3000
@@ -67,19 +63,18 @@ const ForgotPassword = () => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${PARAMETERS.tokenBearer}`,
             },
-       //     body: body
-         body: JSON.stringify(body)
-
+            body: JSON.stringify(body)
         })
 
         if (response.ok) {
-            // let strJwt = await response.text();
             swal({
-                title: "Se cambio correctamente la contraseñla correcto\n\n",
+                title: "Se actualizo correctamente su contraseña.\n\n",
                 icon: "success",
                 position: "center",
                 timer: 3000
             });
+            redirigir(`http://localhost:3000/login`);
+
         } else {
             swal("¡Advertencia!", 'Email invalido', "error", {
                 timer: 3000
@@ -93,7 +88,13 @@ const ForgotPassword = () => {
         let newPass = data.get('newPass');
         let confirmNewPass = data.get('confirmNewPass');
 
-        recuperarPassword(token, confirmNewPass);
+        if (newPass === confirmNewPass) {
+            recuperarPassword(token, confirmNewPass);
+        } else {
+            swal("¡Advertencia!", 'La contraseña no coincide', "error", {
+                timer: 3000
+            });
+        }
     }
 
     return (
