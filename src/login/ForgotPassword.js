@@ -20,7 +20,7 @@ const defaultTheme = createTheme();
 const ForgotPassword = () => {
     let params = new URLSearchParams(window.location.search);
     let token = params.get('token');
-    
+
     async function emailValue(email) {
         let response = await fetch(URL_BACK.forgotPassword, {
             method: 'POST',
@@ -33,13 +33,13 @@ const ForgotPassword = () => {
 
         if (response.ok) {
             swal({
-                title: "Verifique su correo electronico.\n\n",
+                title: "Email de recuperacion su correo electronico.\n\n",
                 icon: "success",
                 position: "center",
-                timer: 3000
+                timer: 4000
             });
-            redirigir(`http://localhost:3000/`);
 
+            redirigir(`http://localhost:3000/`);
         } else {
             swal("¡Advertencia!", 'Email invalido', "error", {
                 timer: 3000

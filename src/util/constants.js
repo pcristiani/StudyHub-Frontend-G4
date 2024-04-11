@@ -47,4 +47,4 @@ const redirigir = (url) => {
   window.location.href = url;
 };
 
-export { URI_PAGES, URL_BACK, REQUEST_TYPES, PARAMETERS, redirigir };
+export { URI_PAGES, URL_BACK, REQUEST_TYPES, PARAMETERS, redirigir, uriBaseFront };

@@ -107,10 +107,13 @@ function Login() {
             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
                 <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
 
-                    <div sx={{ m: 0, bgcolor: 'secondary.main' }}>
+                    <div sx={{ bgcolor: 'secondary.main' }}>
                         <img src={logo} className="animate-bounce" alt="logo" />
                     </div>
-                    <Typography component="h1" variant="h4">Iniciar sesión</Typography>
+                    <Typography component="h1" variant="h4">Iniciar Sesión</Typography>
+                    <Typography variant="body2" color="text.secondary">¿Aun no tienes cuenta?
+                        <Link href="/registrarte" variant="body2" sx={{ p: 0.5 }}>Entra aquí</Link>
+                    </Typography>
 
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField margin="dense" required fullWidth id="username" label="Usuario" name="username" autoComplete="text" autoFocus />

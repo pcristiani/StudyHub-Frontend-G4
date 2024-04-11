@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { redirigir } from '../util/constants';
 
 import '../css/style-navbar.css';
@@ -21,16 +19,16 @@ function ResetPassword() {
         console.log('No se encontró ningún token en la URL.');
     }
 
-    return (
-        <>
-            {/* 
-            <ThemeProvider theme={'defaultTheme'}>
-                <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>             
-                </Container>
-            </ThemeProvider> */}
-        </>
+    // return (
+    //     <>
+    //         {/* 
+    //         <ThemeProvider theme={'defaultTheme'}>
+    //             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>             
+    //             </Container>
+    //         </ThemeProvider> */}
+    //     </>
 
-    );
+    // );
 }
 
 export default ResetPassword;

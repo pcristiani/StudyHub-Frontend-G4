@@ -9,7 +9,6 @@ import { Graphviz } from 'graphviz-react';
 import { PARAMETERS, URL_BACK } from '../util/constants'
 import { jsPDF } from "jspdf";
 
-
 async function getUsers() {
     console.log("URL: ", URL_BACK.courseRelations);
     let responses = await fetch(URL_BACK.courseRelations, {
