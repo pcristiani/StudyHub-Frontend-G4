@@ -11,20 +11,42 @@ body {
     width: 500%;
     display: block;
     transition: top 0.3s;
+    text-decoration: none;
 }
 
 .navbar-brand {
-  display: none; 
+    display: none;
+    text-decoration: none;
+}
+
+.text-studyhub {
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(51, 160, 223);
+    font-size: 19px;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.link-footer {
+    text-decoration: none;
+    display: block;
+    color: #797979;
+}
+
+.link-footer:hover {
+    /* font-weight: bold; */
+    display: block;
+    color: rgb(163, 163, 163);
 }
 
 .avatar-perfil {
-  display: block; 
+    display: block;
 }
+
 /* .no-arrow::after {
     display: none;
 } */
-
-
 
 #navbar a {
     float: left;
@@ -40,7 +62,6 @@ body {
     background-color: #ddd;
     color: black;
 }
-
 
 .scrollspy-example {
     position: fixed;
@@ -74,22 +95,26 @@ body {
 }
 
 @media (max-width: 768px) {
-  .navbar-brand {
-    display: block;
-  }
+    .navbar-brand {
+        display: block;
+    }
+
+    .navbar-brand2 {
+        display: block;
+        text-decoration: none;
+    }
+
     .avatar-perfil {
-    display: none;
-  }
+        display: none;
+    }
 }
 
-
-
-.navInformation{
+.navInformation {
     display: flex;
 }
 
 @media only screen and (max-width: 600px) {
-    .navInformation{
+    .navInformation {
         display: inline-block;
     }
 }

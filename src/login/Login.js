@@ -31,8 +31,8 @@ function Login() {
             type: types.login,
             payload: {
                 username: username,
-                name: name,
-                surname: surname,
+                name: 'Sebastian',
+                surname: 'Gonzalez',
                 rol: 'Administrador'
                 //  email: email,
             }
@@ -56,10 +56,13 @@ function Login() {
 
             if (response.status === 200) {
                 let objUser = decodeJwt(response.data);
+                console.log("objUser: ", response);
+
+                console.log("objUser.name: ", objUser);
                 autentication(objUser.username, objUser.name, objUser.surname);
                 swal({
                     title: "Acceso correcto\n\n",
-                    text: "Nombre: " + objUser.name + " " + objUser.surname + "\nRol: Administrador", //+ objUser.rol,
+                    text: "Nombre: " + objUser.username + " " + objUser.surname + "\nRol: Administrador", //+ objUser.rol,
                     icon: "success",
                     position: "center",
                     timer: 3000
@@ -111,6 +114,7 @@ function Login() {
                         <img src={logo} className="animate-bounce" alt="logo" />
                     </div>
                     <Typography component="h1" variant="h4">Iniciar Sesión</Typography>
+
                     <Typography variant="body2" color="text.secondary">¿Aun no tienes cuenta?
                         <Link href="/registrarte" variant="body2" sx={{ p: 0.5 }}>Entra aquí</Link>
                     </Typography>

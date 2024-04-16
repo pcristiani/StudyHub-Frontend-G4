@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Typography from '@mui/material/Typography';
 
 import Logo from '../img/logo.png';
 import { types } from '../auth/types';
@@ -12,8 +13,7 @@ import { types } from '../auth/types';
 import '../css/style-navbar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { URI_PAGES } from '../util/constants'
-
+import { URI_FRONT, TIPO_ROL } from '../util/constants'
 
 function NavBar() {
     const { user, dispatch } = useContext(AuthContext);
@@ -29,34 +29,67 @@ function NavBar() {
     return (
         <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
             <Container fluid>
-                <Link className="nav-link" to='./'>
+                <Link className="nav-link" to={URI_FRONT.homeUri}>
                     <img className="logo-desktop" src={Logo} alt="nav ico" />
                 </Link>
-
-                <Navbar.Brand href={URI_PAGES.homeUri} className="navbar-brand text-info">StudyHub</Navbar.Brand>
+                <Typography variant="body2" color="text.secondary" mt={0.2}>
+                    <Link href={URI_FRONT.homeUri} className="text-studyhub">StudyHub</Link>
+                </Typography>
+                {/* <Navbar.Brand href={URI_FRONT.homeUri} className="navbar-brand2 text-info">StudyHub</Navbar.Brand> */}
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '250px' }} navbarScroll>
-                        <Nav.Link className="nav-link" href={URI_PAGES.homeUri}>Inicio</Nav.Link>
-                        {
-                            (user.logged) &&
+                        {(user.logged) && (user.rol) ?
+                            <>
+                                <Nav.Link className="nav-link" href={URI_FRONT.homeUri}>Inicio</Nav.Link>
+                                {(user.rol === TIPO_ROL.ADMIN) &&
+                                    <>
+                                        <NavDropdown className="nav-item" title="Usuarios" id="Dropdown">
+                                            <NavDropdown.Item href="/alta-estudiante">Nuevo</NavDropdown.Item>
+                                            <NavDropdown.Item href="/modificar-estudiante">Modificar</NavDropdown.Item>
+                                            <NavDropdown.Item href="/baja-estudiante">Eliminar</NavDropdown.Item>
+                                        </NavDropdown>
+
+                                        <li className="nav-item">
+                                            <Link className="nav-link" href='./listados-busquedas'>Listados y busquedas</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href='./resumen-actividad' >Resumen de actividad</a>
+                                        </li>
+
+                                    </>
+                                }
+                                {
+                                    (user.rol === TIPO_ROL.ESTUDIANTE) &&
+                                    <>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href={URI_FRONT.panelUri}>Mi Panel</a>
+                                        </li>
+
+                                        <li className="nav-item">
+                                            <a className="nav-link" href={URI_FRONT.cursosUri}>Cursos</a>
+                                        </li>
+
+                                        <li className="nav-item">
+                                            <a className="nav-link" href={URI_FRONT.inscripcionUri}>Inscripciones</a>
+                                        </li>
+                                    </>
+                                }
+                            </>
+                            :
                             <>
                                 <li className="nav-item">
-                                    <a className="nav-link" href={URI_PAGES.panelUri}>Mi Panel</a>
+                                    <a className="nav-link" href={URI_FRONT.novedadesUri}>Novedades</a>
                                 </li>
-
                                 <li className="nav-item">
-                                    <a className="nav-link" aria-disabled="true" href={URI_PAGES.cursosUri}>Cursos</a>
+                                    <a className="nav-link" href={URI_FRONT.preguntasFrecuentesUri}>Preguntas frecuentas</a>
                                 </li>
-
                                 <li className="nav-item">
-                                    <a className="nav-link" aria-disabled="true" href={URI_PAGES.inscripcionUri}>Inscripciones</a>
+                                    <a className="nav-link" href={URI_FRONT.contactoUri}>Contacto</a>
                                 </li>
                             </>
                         }
-                        <li className="nav-item">
-                            <a className="nav-link" aria-disabled="true" href={URI_PAGES.ayudaUri} >Ayuda</a>
-                        </li>
+
                     </Nav>
 
                     <div className="navInformation">
@@ -64,9 +97,11 @@ function NavBar() {
                             {(user.logged) ?
                                 <>
                                     <NavDropdown title={user.name + ' ' + user.surname} id="navbarScrollingDropdown">
-                                        <NavDropdown.Item href="#edit-perfil">Editar perfil</NavDropdown.Item>
+                                        <NavDropdown.Item href={URI_FRONT.editPerfilUri}>Perfil</NavDropdown.Item>
+                                        <NavDropdown.Item href={URI_FRONT.editPerfilUri}>Preferencias</NavDropdown.Item>
+
                                         <NavDropdown.Divider />
-                                        <NavDropdown.Item href="./" onClick={handleLogout}>Cerrar sesion</NavDropdown.Item>
+                                        <NavDropdown.Item href={URI_FRONT.homeUri} onClick={handleLogout}>Cerrar sesión</NavDropdown.Item>
                                     </NavDropdown>
                                     {/* <li className="nav-item">
                                         <Link className="nav-link" to='./' onClick={handleLogout}>Logout</Link>
@@ -75,7 +110,7 @@ function NavBar() {
                                 :
                                 <>
                                     <li className="nav-item">
-                                        <a className="nav-link" href='./login'>Login</a>
+                                        <a className="nav-link" href={URI_FRONT.loginUri}>Iniciar sesión</a>
                                     </li>
                                 </>
                             }

@@ -1,0 +1,421 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "StudyHub - Documentacion API",
+        "version": "Beta 0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "security": [        {
+            "bearerAuth": []
+                }
+    ],
+    "paths": {
+        "/api/users/updateUser/{id}": {
+            "put": {
+                "tags": [
+                    "simple-user-controller"
+                ],
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DtUpdateUser"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/registerUser": {
+            "post": {
+                "tags": [
+                    "simple-user-controller"
+                ],
+                "operationId": "createUser",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DtNewUser"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/recuperarPassword": {
+            "post": {
+                "tags": [
+                    "simple-user-controller"
+                ],
+                "operationId": "recuperarPassword",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DtNewPassword"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login/test": {
+            "post": {
+                "tags": [
+                    "simple-login-controller"
+                ],
+                "operationId": "login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DtLoginRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/forgotPassword": {
+            "post": {
+                "tags": [
+                    "simple-user-controller"
+                ],
+                "operationId": "forgotPassword",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/populateDBWithUsers": {
+            "get": {
+                "tags": [
+                    "simple-user-controller"
+                ],
+                "operationId": "populateDBWithUsers",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/getAllUsers": {
+            "get": {
+                "tags": [
+                    "simple-user-controller"
+                ],
+                "operationId": "getAllUsers",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DtUser"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/course-relations": {
+            "get": {
+                "tags": [
+                    "simple-courses-controller"
+                ],
+                "operationId": "getCourseRelations",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/getUser/{id}": {
+            "get": {
+                "tags": [
+                    "simple-user-controller"
+                ],
+                "operationId": "getUserById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/deleteUser/{id}": {
+            "delete": {
+                "tags": [
+                    "simple-user-controller"
+                ],
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "DtUpdateUser": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "surname": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "birthdate": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DtNewUser": {
+                "required": [
+                    "birthdate",
+                    "ci",
+                    "email",
+                    "name",
+                    "password",
+                    "surname",
+                    "username"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "surname": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "birthdate": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "ci": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DtNewPassword": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    },
+                    "newPassword": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DtLoginRequest": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DtUser": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "ci": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "surname": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "birthdate": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "in": "header",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

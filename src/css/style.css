@@ -1,19 +1,19 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
 
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-    margin: 0; 
-  }
 
-
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    display: relative;
-    place-content: center;
-    user-select: none;
-    background: #e5e5e5;
-  }
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: relative;
+  place-content: center;
+  -webkit-user-select: none;
+  user-select: none;
+  background: #e5e5e5;
+}
 
 .App {
   text-align: center;
@@ -21,17 +21,17 @@
 
 .logo-desktop {
   max-width: 40px;
-  max-header: 40px;
+  max-height: 40px;
   margin: 0 10px 0 0;
-  }
+}
 
 .logo-navbar {
   max-width: 40px;
-  max-header: 40px;
-  }
+  max-height: 40px;
+}
 
 .ico-navbar {
-  header:90%;
+  height: 90%;
   width: 90%;
 }
 
@@ -63,20 +63,24 @@ code {
   transform: scale(0.8);
   animation: scale-animation 4s 1;
 }
+
 @keyframes scale-animation {
   0% {
     transform: scale(0.8);
   }
+
   50% {
-     transform: scale(0.5);
+    transform: scale(0.5);
   }
-     100% {
-      transform: scale(0.8);
+
+  100% {
+    transform: scale(0.8);
   }
 }
 
 .animate-ping {
   animation: ping 10s 20;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -93,8 +97,6 @@ code {
   }
 
 }
-
-
 
 
 @media (prefers-reduced-motion: no-preference) {
@@ -119,6 +121,7 @@ code {
   animation-name: bounce;
   animation-duration: 1s;
   animation-iteration-count: 1;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -144,6 +147,7 @@ code {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -155,6 +159,7 @@ code {
   animation-name: bounce;
   animation-duration: 2s;
   animation-iteration-count: 5;
+  -webkit-user-select: none;
   user-select: none;
   height: 16vmin;
   margin: 18px;
@@ -176,37 +181,37 @@ code {
 }
 
 
-
 /* Pantallas de tamaño 600px o menos (celulares) */
 @media screen and (max-width: 600px) {
 
-.animate-bounce {
-  animation-name: bounce;
-  animation-duration: 2s;
-  animation-iteration-count: 5;
-  user-select: none;
-  height: 18vmin;
-  margin: 19px;
-  pointer-events: none;
-}
-
-.logo-desktop {
-  display: none; 
+  .animate-bounce {
+    animation-name: bounce;
+    animation-duration: 2s;
+    animation-iteration-count: 5;
+    -webkit-user-select: none;
+    user-select: none;
+    height: 18vmin;
+    margin: 19px;
+    pointer-events: none;
   }
 
-@keyframes bounce {
-  0% {
-    transform: translateY(0);
+  .logo-desktop {
+    display: none;
   }
 
-  50% {
-    transform: translateY(-6px);
-  }
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
 
-  100% {
-    transform: translateY(0);
+    50% {
+      transform: translateY(-6px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
   }
-}
 }
 
 
@@ -215,6 +220,7 @@ code {
   text-align: left;
   font-size: 15px;
   font-family: 'Segoe UI Symbol';
+  -webkit-user-select: none;
   user-select: none;
   padding: auto;
   font-style: bold;
@@ -231,6 +237,7 @@ code {
   text-decoration: none;
   font-size: 16px;
   font-family: 'Segoe UI Symbol';
+  -webkit-user-select: none;
   user-select: none;
   animation-name: bounce;
   border-radius: 5px;
@@ -239,31 +246,20 @@ code {
 
 
 div {
+  -webkit-user-select: none;
   user-select: none;
 }
 
 .footer {
- font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-    /* font-size: 12px; */
-      /* position: fixed; */
-    /* bottom: 0;
-    width: 100%; */
-    background: #ffffff;
-
-    /* display: flex; */
-    /* padding-top: 5%; */
-    /* padding-bottom: 5%; */
-
-
-      position: fixed;
-    bottom: 0;
-    width: 100%;
-    color: #a8a8a8;
-    font-weight: normal;
-    padding: 3px;
-    justify-content: center;
-    text-align: left;
-    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 12px;
- 
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: #ffffff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: #a8a8a8;
+  font-weight: normal;
+  padding: 3px;
+  justify-content: center;
+  text-align: left;
+  font-size: 12px;
 }

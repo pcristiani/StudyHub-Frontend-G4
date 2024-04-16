@@ -1,50 +1,69 @@
 const PORT = {
-  back: 8080,
-  front: 3000,
+  back: 8080,   // Puerto backend
+  front: 3000,  // Puerto frontend
 }
 
-const uriBaseBack = `http://localhost:${PORT.back}`
-const uriBaseFront = `http://localhost:${PORT.front}`
+const uriBaseBack = `http://localhost:${PORT.back}`   // http://localhost:8080
+const uriBaseFront = `http://localhost:${PORT.front}` // http://localhost:3000
 
-const URI_PAGES = {
-  homeUri: `/`,
-  panelUri: `/panel`,
-  cursosUri: `/cursos`,
-  inscripcionUri: `/inscripciones`,
-  ayudaUri: `/ayuda`,
+const URI_FRONT = {
+  homeUri: `/`,                              // http://localhost:3000/
+  panelUri: `/panel`,                        // http://localhost:3000/panel
+  cursosUri: `/cursos`,                      // http://localhost:3000/cursos
+  inscripcionUri: `/inscripciones`,          // http://localhost:3000/inscripciones
 
-  loginUri: `/login`,
-  logoutUri: `/logout`,
-  signupUri: `/registrarte`,
+  loginUri: `/login`,                        // http://localhost:3000/login
+  logoutUri: `/logout`,                      // http://localhost:3000/logout
+  signupUri: `/registrarte`,                 // http://localhost:3000/registrarte
+  editPerfilUri: `/edit-perfil`,             // http://localhost:3000/edit-perfil
+
+  forgotPasswordUri: `/olvido-contrasenia`,  // http://localhost:3000/olvido-contrasenia
+  resetPasswordUri: `/resetPassword`,        // http://localhost:3000/resetPassword
+
+  // Uri Invitado
+  novedadesUri: `/novedades`,                // http://localhost:3000/novedades
+  pregFrecuentesUri: `/preg-frecuentes`,     // http://localhost:3000/preguntas-frecuentes
+  contactoUri: `/contacto`,                  // http://localhost:3000/contacto
 }
 
 const URL_BACK = {
-  loginTest: `${uriBaseBack}/login/test`,
-  getUser: `${uriBaseBack}/api/users/getUser/`,
-  courseRelations: `${uriBaseBack}/course-relations`,
-  forgotPassword: `${uriBaseBack}/forgotPassword`,
-  recuperarPassword: `${uriBaseBack}/recuperarPassword`,
+  loginTest: `${uriBaseBack}/login/test`,                 // http://localhost:8080/login/test
+  getUser: `${uriBaseBack}/api/users/getUser/`,           // http://localhost:8080/api/users/getUser/{id}
+  courseRelations: `${uriBaseBack}/course-relations`,     // http://localhost:8080/course-relations
+  forgotPassword: `${uriBaseBack}/forgotPassword`,        // http://localhost:8080/forgotPassword
+  recuperarPassword: `${uriBaseBack}/recuperarPassword`,  // http://localhost:8080/recuperarPassword
+  registerUsr: `${uriBaseBack}/registerUser`,             // http://localhost:8080/registerUser
+  updateUsr: `${uriBaseBack}/updateUser/`,                // http://localhost:8080/updateUser/{id}
+  deleteUser: `${uriBaseBack}/deleteUser/`,               // http://localhost:8080/deleteUser/{id}
 }
 
 const REQUEST_TYPES = {
-  login: `login`,
-  get_token: `gettoken`,
-  get_refresh_token: `getrefreshtoken`,
-  getUserInfo: `/api/users/getUser/`,
-  logout: `logout`,
-  validate_token: `validatetoken`,
+  login: `login`,                        // http://localhost:8080/login
+  get_token: `gettoken`,                 // http://localhost:8080/gettoken
+  get_refresh_token: `getrefreshtoken`,  // http://localhost:8080/getrefreshtoken
+  getUserInfo: `/api/users/getUser/`,    // http://localhost:8080/api/users/getUser/{id}
+  logout: `logout`,                      // http://localhost:8080/logout
+  validate_token: `validatetoken`,       // http://localhost:8080/validatetoken
 };
 
 const PARAMETERS = {
   redirecturi: `redirectUri`,
   clientid: `clientId`,
   code: `code`,
-  clientsecret: "emrYoruZKktTVfw5",
+  clientsecret: `emrYoruZKktTVfw5`,
   tokenBearer: `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`,
+};
+
+const TIPO_ROL = {
+  ADMIN: `Administrador`,
+  ESTUDIANTE: `Estudiante`,
+  DOCENTE: `Docente`,
+  COORDINADOR: `Coordinador`,
+  INVITADO: `Invitado`,
 };
 
 const redirigir = (url) => {
   window.location.href = url;
 };
 
-export { URI_PAGES, URL_BACK, REQUEST_TYPES, PARAMETERS, redirigir, uriBaseFront };
+export { TIPO_ROL, URI_FRONT, URL_BACK, REQUEST_TYPES, PARAMETERS, redirigir, uriBaseFront };

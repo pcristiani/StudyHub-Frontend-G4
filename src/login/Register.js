@@ -12,7 +12,6 @@ import swal from 'sweetalert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { PARAMETERS, URL_BACK } from '../util/constants'
 
-
 import '../css/style.css';
 import logo from '../img/logo.png';
 
@@ -22,22 +21,23 @@ const defaultTheme = createTheme();
 function Register() {
 
     async function registerUsr(firstName, lastname, email, birthdate, username, password) {
-        let body = { "name": firstName, "surname": lastname, "email": email, "birthdate": birthdate, "username": username, "password": password };
+
+        let body = { "name": firstName, "surname": `sebas`, "email": email, "birthdate": `19891020`, "ci": "4002001", "username": username, "password": password };
 
         let response = await fetch(URL_BACK.registerUsr, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${PARAMETERS.tokenBearer}`,
-
             },
             body: JSON.stringify(body)
         })
 
         if (response.ok) {
+            console.log("response: ", response);
             swal({
                 title: "Se crea usuario correcto\n\n",
-                text: "Usuario: " + username,// "\nNombre: " + name,
+                text: "Usuario: " + username, // "\nNombre: " + name,
                 icon: "success",
                 position: "center",
                 timer: 3000
@@ -52,8 +52,8 @@ function Register() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        let firstName = data.get('name');
-        let lastname = data.get('surname');
+        let firstName = data.get('firstName');
+        let lastname = data.get('lastname');
         let email = data.get('email');
         let birthdate = data.get('birthdate');
         let username = data.get('username');
@@ -89,10 +89,10 @@ function Register() {
                             <Grid item xs={12} sm={6}>
                                 <TextField size="small" required fullWidth id="email" label="Email" name="email" autoComplete="email" />
                             </Grid>
-                            {/*         <TextField size="small" type='date' required fullWidth id="birthdate" day={'10/10/2024'} name="birthdate" autoComplete="family-name" /> */}
+                            {/*<TextField size="small" type='date' required fullWidth id="birthdate" day={'10/10/2024'} name="birthdate" autoComplete="family-name" /> */}
 
                             <Grid item xs={12} sm={6}>
-                                <TextField size="small" required fullWidth id="birthdate" type='date' defaultValue={'birthdate'} format="MM-DD-YYYY" />
+                                <TextField size="small" required fullWidth id="birthdate" type='text' />
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
@@ -100,7 +100,6 @@ function Register() {
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
-                                {/* <Grid item xs={12}> */}
                                 <TextField size="small" required fullWidth name="password" label="Contraseña" type="password" id="password" autoComplete="new-password" />
                             </Grid>
 
@@ -122,4 +121,5 @@ function Register() {
         </ThemeProvider>
     );
 }
+
 export default Register;
