@@ -74,7 +74,6 @@ const ForgotPassword = () => {
                 timer: 3000
             });
             redirigir(`http://localhost:3000/login`);
-
         } else {
             swal("¡Advertencia!", 'Email invalido', "error", {
                 timer: 3000
@@ -106,33 +105,32 @@ const ForgotPassword = () => {
                         <img src={logo} className="animate-bounce" alt="logo" />
                     </div>
 
-                    {
-                        (!token) ?
-                            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 0 }}>
-                                <>
-                                    <Typography component="h1" variant="h4">Verificar su identidad</Typography>
-                                    <Typography variant="body2" color="text.secondary">Ingresa tu correo de recuperación.</Typography>
-                                    <TextField margin="normal" required fullWidth id="email" label="Correo electrónico" name="email" autoComplete="text" autoFocus />
-                                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 3 }}>Siguiente</Button>
-                                    <Grid container spacing={1}>
-                                        <Grid item>
-                                        </Grid>
+                    {(!token) ?
+                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 0 }}>
+                            <>
+                                <Typography component="h1" variant="h4">Verificar su identidad</Typography>
+                                <Typography variant="body2" color="text.secondary">Ingresa tu correo de recuperación.</Typography>
+                                <TextField margin="normal" required fullWidth id="email" label="Correo electrónico" name="email" autoComplete="text" autoFocus />
+                                <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 3 }}>Siguiente</Button>
+                                <Grid container spacing={1}>
+                                    <Grid item>
                                     </Grid>
-                                </>
-                            </Box>
-                            :
-                            <Box component="form" onSubmit={resetPassword} noValidate sx={{ mt: 0 }}>
-                                <>
-                                    <Typography component="h2" variant="h5">Restablezca la contraseña</Typography>
-                                    <TextField margin="normal" required fullWidth id="newPass" type='password' label="Crear una nueva contraseña" name="newPass" />
-                                    <TextField margin="md" required fullWidth id="confirmNewPass" type='password' label="Confirma la contraseña nueva" name="confirmNewPass" />
-                                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 3 }}>Cambiar contraseña</Button>
-                                    <Grid container spacing={1}>
-                                        <Grid item>
-                                        </Grid>
+                                </Grid>
+                            </>
+                        </Box>
+                        :
+                        <Box component="form" onSubmit={resetPassword} noValidate sx={{ mt: 0 }}>
+                            <>
+                                <Typography component="h2" variant="h5">Restablezca la contraseña</Typography>
+                                <TextField margin="normal" required fullWidth id="newPass" type='password' label="Crear una nueva contraseña" name="newPass" />
+                                <TextField margin="md" required fullWidth id="confirmNewPass" type='password' label="Confirma la contraseña nueva" name="confirmNewPass" />
+                                <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 3 }}>Cambiar contraseña</Button>
+                                <Grid container spacing={1}>
+                                    <Grid item>
                                     </Grid>
-                                </>
-                            </Box>
+                                </Grid>
+                            </>
+                        </Box>
                     }
                 </Box>
             </Container>

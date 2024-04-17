@@ -33,7 +33,7 @@ function Login() {
                 username: username,
                 name: 'Sebastian',
                 surname: 'Gonzalez',
-                rol: 'Administrador'
+                rol: 'Estudiante'
                 //  email: email,
             }
         }

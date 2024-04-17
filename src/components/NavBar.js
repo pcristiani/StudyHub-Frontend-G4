@@ -41,7 +41,7 @@ function NavBar() {
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '250px' }} navbarScroll>
                         {(user.logged) && (user.rol) ?
                             <>
-                                <Nav.Link className="nav-link" href={URI_FRONT.homeUri}>Inicio</Nav.Link>
+                                {/* <Nav.Link className="nav-link" href={URI_FRONT.homeUri}>Inicio</Nav.Link> */}
                                 {(user.rol === TIPO_ROL.ADMIN) &&
                                     <>
                                         <NavDropdown className="nav-item" title="Usuarios" id="Dropdown">
@@ -56,7 +56,6 @@ function NavBar() {
                                         <li className="nav-item">
                                             <a className="nav-link" href='./resumen-actividad' >Resumen de actividad</a>
                                         </li>
-
                                     </>
                                 }
                                 {
@@ -89,7 +88,6 @@ function NavBar() {
                                 </li>
                             </>
                         }
-
                     </Nav>
 
                     <div className="navInformation">
@@ -99,7 +97,6 @@ function NavBar() {
                                     <NavDropdown title={user.name + ' ' + user.surname} id="navbarScrollingDropdown">
                                         <NavDropdown.Item href={URI_FRONT.editPerfilUri}>Perfil</NavDropdown.Item>
                                         <NavDropdown.Item href={URI_FRONT.editPerfilUri}>Preferencias</NavDropdown.Item>
-
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item href={URI_FRONT.homeUri} onClick={handleLogout}>Cerrar sesión</NavDropdown.Item>
                                     </NavDropdown>
@@ -108,11 +105,9 @@ function NavBar() {
                                     </li> */}
                                 </>
                                 :
-                                <>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href={URI_FRONT.loginUri}>Iniciar sesión</a>
-                                    </li>
-                                </>
+                                <li className="nav-item">
+                                    <a className="nav-link" href={URI_FRONT.loginUri}>Iniciar sesión</a>
+                                </li>
                             }
                         </ul>
                     </div>
