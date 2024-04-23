@@ -3,7 +3,6 @@ import { AuthContext } from './auth/AuthContext';
 import { authReducer } from './auth/authReducer';
 import { AppRouter } from './routers/AppRouter';
 
-
 const init = () => {
   const userCookie = document.cookie.split('; ').find(row => row.startsWith('user='));
   return userCookie ? JSON.parse(decodeURIComponent(userCookie.split('=')[1])) : { logged: false };
@@ -17,12 +16,15 @@ export const MainPage = () => {
   }, [user]);
 
   return (
-    <AuthContext.Provider value={{
-      user, dispatch
-    }}>
-      <AppRouter />
-    </AuthContext.Provider>
+    <>
+      <AuthContext.Provider value={{
+        user, dispatch
+      }}>
+        <AppRouter />
+      </AuthContext.Provider>
+    </>
   )
+
 }
 
 

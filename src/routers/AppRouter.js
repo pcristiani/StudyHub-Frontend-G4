@@ -11,18 +11,26 @@ import Inscripcion from "../pages/Inscripcion";
 import Login from '../login/Login';
 import Register from '../login/Register';
 
-import NavBar from "../components/NavBar";
 import Footer from '../components/Footer';
+import NuestroEquipo from "../components/NuestroEquipo";
+import EditarPerfil from "../components/usuario/EditarPerfil";
+
 import ForgotPassword from "../login/ForgotPassword";
 import RecuperarPassword from "../login/RecuperarPassword";
+import Header from '../components/Header';
+import Layout from '../components/Layout';
 
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
 
     return (
+        // <CssVarsProvider disableTransitionOnChange>
         <BrowserRouter>
-            <NavBar />
+            <Layout.Header>
+                <Header />
+            </Layout.Header>
+            {/* <NavBar /> */}
 
             <Routes>
                 <Route path="/" element={<Home user={user.id} />} exact />
@@ -32,6 +40,10 @@ export const AppRouter = () => {
 
                 <Route path="/olvido-contrasenia" element={<ForgotPassword user={user.id} />} exact />
                 <Route path="/resetPassword" element={<RecuperarPassword user={user.id} />} exact />
+
+                <Route path="/nuestro-equipo" element={<NuestroEquipo user={user.id} />} exact />
+                <Route path="/edit-perfil" element={<EditarPerfil user={user.id} />} exact />
+
 
                 <Route path='/login' element={
                     <PublicRoute>
@@ -54,5 +66,6 @@ export const AppRouter = () => {
 
             <Footer />
         </BrowserRouter>
+
     )
 }

@@ -17,6 +17,27 @@ function base64ToImage(base64) {
   //  return  document.getElementById('root').appendChild(img);
 }
 
-// let base64 = "aHR0cHM6Ly9qd3QuaW8vaW1nL2xvZ28tYXNzZXQuc3Zn"; // Reemplaza esto con tu cadena base64, ejemplo url img
 
-export { textToBase64, base64ToText, base64ToImage };
+function decodeJwt(strJwt) {
+  let parts = strJwt.split('.');
+  if (parts.length !== 3) {
+    throw new Error('Token JWT inválido');
+  }
+
+  let base64Url = parts[1];
+  let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  try {
+    console.log('decodeJwt: ', JSON.parse(jsonPayload));
+  } catch (error) {
+    console.error(error);
+  }
+  return JSON.parse(jsonPayload);
+}
+
+
+
+// let base64 = "aHR0cHM6Ly9qd3QuaW8vaW1nL2xvZ28tYXNzZXQuc3Zn"; // Reemplaza esto con tu cadena base64, ejemplo url img
+export { textToBase64, base64ToText, base64ToImage, decodeJwt };

@@ -5,7 +5,6 @@
   margin: 0;
 }
 
-
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   display: relative;
@@ -26,8 +25,9 @@ body {
 }
 
 .logo-navbar {
-  max-width: 40px;
-  max-height: 40px;
+  max-width: 160px;
+  max-height: 41px;
+ margin-top: 1px; 
 }
 
 .ico-navbar {
@@ -95,7 +95,6 @@ code {
     transform: scale(1);
     opacity: 1;
   }
-
 }
 
 
@@ -153,8 +152,6 @@ code {
   }
 }
 
-
-
 .animate-bounce {
   animation-name: bounce;
   animation-duration: 2s;
@@ -165,6 +162,7 @@ code {
   margin: 18px;
   pointer-events: none;
 }
+
 
 @keyframes bounce {
   0% {
@@ -224,9 +222,6 @@ code {
   user-select: none;
   padding: auto;
   font-style: bold;
-  /* hover:text-primary-600;
-    dark: hover:text-primary-300;
-    dark: text-primary-400; */
 }
 
 .btn2:hover {
@@ -254,7 +249,7 @@ div {
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   background: #ffffff;
   position: fixed;
-  bottom: 0;
+    bottom: 0;
   width: 100%;
   color: #a8a8a8;
   font-weight: normal;
@@ -262,4 +257,5 @@ div {
   justify-content: center;
   text-align: left;
   font-size: 12px;
+     z-index: 1000; /* muestre por encima de los otros elementos. */
 }

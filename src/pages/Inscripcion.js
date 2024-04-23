@@ -1,12 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react';
+import { AuthContext } from '../auth/AuthContext';
+import { getUsers } from '../requests/getUsers';
+import { loginTest } from '../requests/loginTest';
 
-import React from 'react';
 import Typography from '@mui/material/Typography';
 import { CssVarsProvider } from '@mui/joy/styles';
-
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
 const Inscripcion = () => {
+  const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
+  console.log("IdUser : ", user.id);
+
+  useEffect(() => {
+    getUsers(user.id).then(result => {
+      console.log("Datos Usuario: ", result);
+    });
+  }, []);
+
+  useEffect(() => {
+    loginTest('sgonzalez', '123').then(result => {
+      console.log("JWT: ", result);
+    });
+  }, []);
 
   return (
     <CssVarsProvider>
@@ -23,7 +40,6 @@ const Inscripcion = () => {
       </Container>
     </CssVarsProvider>
   );
-
 }
 
 export default Inscripcion;

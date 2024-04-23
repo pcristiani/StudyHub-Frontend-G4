@@ -1,6 +1,5 @@
 // import React from 'react';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import '../css/style-navbar.css';
@@ -18,7 +17,7 @@ function Copyright() {
                     </Typography>
                 </div>
                 <Typography variant="body2" color="text.secondary" mt={0.2}>
-                    <a className="link-footer" href="./">Sobre nosotros</a>
+                    <a className="link-footer" href="./nuestro-equipo">Sobre nosotros</a>
                 </Typography>
             </Box>
         </>
@@ -30,7 +29,6 @@ function Footer() {
         <div className='footer py-3'>
             <Container>
                 <Copyright />
-
             </Container>
         </div>
     );

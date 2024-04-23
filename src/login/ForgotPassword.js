@@ -26,7 +26,7 @@ const ForgotPassword = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${PARAMETERS.tokenBearer}`,
+                'Authorization': `Bearer ${PARAMETERS.accessToken}`,
             },
             body: email
         })
@@ -61,7 +61,7 @@ const ForgotPassword = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${PARAMETERS.tokenBearer}`,
+                'Authorization': `Bearer ${PARAMETERS.accessToken}`,
             },
             body: JSON.stringify(body)
         })

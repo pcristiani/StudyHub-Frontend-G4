@@ -15,7 +15,6 @@ const URI_FRONT = {
   preferenciasUri: `/preferencias`,           // http://localhost:3000/preferencias
   editPerfilUri: `/edit-perfil`,             // http://localhost:3000/edit-perfil
 
-
   // Uri Invitado
   novedadesUri: `/novedades`,                // http://localhost:3000/novedades
   pregFrecuentesUri: `/preg-frecuentes`,     // http://localhost:3000/preguntas-frecuentes
@@ -25,8 +24,8 @@ const URI_FRONT = {
   loginUri: `/login`,                        // http://localhost:3000/login
   logoutUri: `/logout`,                      // http://localhost:3000/logout
   signupUri: `/registrarte`,                 // http://localhost:3000/registrarte
-  forgotPassUri: `/olvido-contrasenia`,      // http://localhost:3000/olvido-contrasenia
-  resetPassUri: `/resetPassword`,            // http://localhost:3000/resetPassword
+  forgotPassUri: `/olvido-contrasenia?token=`,      // http://localhost:3000/olvido-contrasenia
+  resetPassUri: `/resetPassword/?token=`,            // http://localhost:3000/resetPassword
 }
 
 const URL_BACK = {
@@ -46,7 +45,7 @@ const PARAMETERS = {
   clientid: `clientId`,
   code: `code`,
   clientsecret: `emrYoruZKktTVfw5`,
-  tokenBearer: `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`,
+  accessToken: `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`,
 };
 
 const TIPO_ROL = {

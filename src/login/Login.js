@@ -1,8 +1,4 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../auth/AuthContext';
-import axios from 'axios';
-import { types } from '../auth/types';
-
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -14,86 +10,48 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
-
 import '../css/style-navbar.css';
 import '../css/style.css';
-
-import { URL_BACK } from '../util/constants'
 import logo from '../img/logo.png';
+
+import { AuthContext } from '../auth/AuthContext';
+import { types } from '../auth/types';
+
+import { getUsers } from '../requests/getUsers';
+import { validateCredentials } from '../requests/loginTest';
 
 const defaultTheme = createTheme();
 
 function Login() {
     const context = useContext(AuthContext);
-
-    const autentication = (username, name, surname) => {
+    const autentication = (id, username, name, surname, rol, email) => {
         const action = {
             type: types.login,
             payload: {
+                id: id,
                 username: username,
-                name: 'Sebastian',
-                surname: 'Gonzalez',
-                rol: 'Estudiante'
-                //  email: email,
+                name: name,
+                surname: surname,
+                rol: rol,
+                email: email,
             }
         }
         context.dispatch(action);
     }
 
-    // const disconnection = () => {
-    //     const action = {
-    //         type: types.logout,
-    //     }
-    //     context.dispatch(action);
-    // }
 
-    async function validateCredentials(username, password) {
-        try {
-            let response = await axios.post(URL_BACK.loginTest, {
-                "username": username,
-                "password": password
-            });
+    async function getInfoUsuario(idUsuario) {
+        const usuario = await getUsers(idUsuario);
+        autentication(usuario.id, usuario.username, usuario.name, usuario.surname, usuario.rol, usuario.email);
 
-            if (response.status === 200) {
-                let objUser = decodeJwt(response.data);
-                console.log("objUser: ", response);
-
-                console.log("objUser.name: ", objUser);
-                autentication(objUser.username, objUser.name, objUser.surname);
-                swal({
-                    title: "Acceso correcto\n\n",
-                    text: "Nombre: " + objUser.username + " " + objUser.surname + "\nRol: Administrador", //+ objUser.rol,
-                    icon: "success",
-                    position: "center",
-                    timer: 3000
-                });
-            }
-        } catch (error) {
-            swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
-                timer: 3000
-            });
-            console.log(error);
-        }
-    }
-
-
-    function decodeJwt(strJwt) {
-        let parts = strJwt.split('.');
-        if (parts.length !== 3) {
-            throw new Error('Token JWT inválido');
-        }
-
-        let base64Url = parts[1];
-        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        try {
-            console.log(JSON.parse(jsonPayload));
-        } catch (error) {
-            console.error(error);
-        }
-        return JSON.parse(jsonPayload);
+        swal({
+            title: "Acceso correcto\n\n",
+            text: "Nombre: " + usuario.name + " " + usuario.surname + "\nRol: " + usuario.rol,
+            icon: "success",
+            position: "center",
+            timer: 3000
+        });
+        return usuario;
     }
 
 
@@ -102,8 +60,21 @@ function Login() {
         const data = new FormData(event.currentTarget);
         let username = data.get('username');
         let password = data.get('password');
-        validateCredentials(username, password);
+        // validateCredentials(username, password);
+
+        async function validarLogin() {
+            const result = await validateCredentials(username, password);
+            if (result !== null && result !== undefined) {
+                getInfoUsuario(result.id);
+            } else {
+                swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
+                    timer: 3000
+                });
+            }
+        }
+        validarLogin();
     }
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -139,3 +110,33 @@ function Login() {
 }
 
 export default Login;
+
+
+
+
+// async function validateCredentials(username, password) {
+//     try {
+//         let response = await axios.post(URL_BACK.loginTest, {
+//             "username": username,
+//             "password": password
+//         });
+
+//         if (response.status === 200) {
+//             let objUser = decodeJwt(response.data);
+//             // console.log("objUser.name: ", objUser);
+//             getInfoUsuario(objUser.id);
+//         }
+//     } catch (error) {
+//         swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
+//             timer: 3000
+//         });
+//         console.log(error);
+//     }
+// }
+
+// const disconnection = () => {
+//     const action = {
+//         type: types.logout,
+//     }
+//     context.dispatch(action);
+// }

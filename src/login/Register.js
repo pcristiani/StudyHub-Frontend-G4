@@ -28,7 +28,7 @@ function Register() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${PARAMETERS.tokenBearer}`,
+                'Authorization': `Bearer ${PARAMETERS.accessToken}`,
             },
             body: JSON.stringify(body)
         })
@@ -63,7 +63,6 @@ function Register() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            {/* <Container component="main" maxWidth="sm"> */}
             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
                 {/* <CssBaseline /> */}
                 {/* <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', }}> */}

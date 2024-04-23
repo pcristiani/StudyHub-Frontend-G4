@@ -1,29 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CssVarsProvider } from '@mui/joy/styles';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { Graphviz } from 'graphviz-react';
-import { PARAMETERS, URL_BACK } from '../util/constants'
 import { jsPDF } from "jspdf";
-
-async function getUsers() {
-    console.log("URL: ", URL_BACK.courseRelations);
-    let responses = await fetch(URL_BACK.courseRelations, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${PARAMETERS.tokenBearer}`,
-        },
-    }
-    );
-
-    if (responses.ok) {
-        return await responses.text();
-    }
-}
+import { getCourseRelations } from '../requests/getCourseRelations';
 
 const downloadPDF = (event) => {
     var doc = new jsPDF();
@@ -58,14 +41,13 @@ const downloadPDF = (event) => {
 }
 
 const Cursos = () => {
-
     const [strJwt, setStrJwt] = useState(null);
 
-    useEffect(() => {
-        getUsers().then(result => {
-            setStrJwt(result);
-        });
-    }, []);
+    async function mostrarUsuario() {
+        const result = await getCourseRelations();
+        setStrJwt(result);
+    }
+    mostrarUsuario();
     if (!strJwt) return null;
 
     return (
