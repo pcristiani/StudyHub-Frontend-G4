@@ -30,16 +30,16 @@ export default function SelectComponent() {
     const [isButtonVisible, setIsButtonVisible] = React.useState(false);
     return (
         <>
-            {isButtonVisible && (
+            {!isButtonVisible && (
                 <CssVarsProvider disableTransitionOnChange>
 
-                    <Select defaultValue="Seleccionar Carrera" onChange={() => { setIsButtonVisible(false); mostrar('grupo1') }}>
+                    {/* <Select defaultValue="Seleccionar Carrera" onChange={() => { setIsButtonVisible(false); mostrar('grupo1') }}>
                         {DatosCarreras.map((carrera, index) => (
                             <Option key={index} value={carrera.name}>{carrera.name}</Option>
                         ))}
 
-                    </Select>
-                    <br></br>
+                    </Select> */}
+                    {/* <br></br> */}
                     {/* <Select defaultValue="Seleccionar Carrera" onChange={handleChanges}>
                         {DatosAsignaturas.map((asignaturas, index) => (
                             <Option key={index} value={asignaturas.idCarrera}>{asignaturas.name}</Option>
@@ -54,11 +54,11 @@ export default function SelectComponent() {
                 <CssVarsProvider disableTransitionOnChange>
                     <Select defaultValue="Seleccionar Carrera">
                         {DatosCarreras.map((carrera, index) => (
-                            <Option key={index} value={carrera.name}>{carrera.idCarrera}</Option>
+                            <Option key={index} value={carrera.name}>{carrera.name}</Option>
                         ))}
-
                     </Select>
-                    <Select defaultValue="Seleccionar Carrera" onChange={() => { setIsButtonVisible(true); ocultar('grupo1') }}>
+                    <br></br>
+                    <Select defaultValue="Seleccionar Carrera">
                         {DatosAsignaturas.map((asignaturas, index) => (
                             <Option key={index} value={asignaturas.idCarrera}>{asignaturas.name}</Option>
                         ))}

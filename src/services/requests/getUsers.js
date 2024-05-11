@@ -8,7 +8,7 @@ export const getUsers = async (idUsuario) => {
     const usuario = [];
 
     data.map(info => {
-        if (info.id !== idUsuario) {
+        if (info.id === idUsuario) {
             usuario.push({
                 id: info.id,
                 name: info.name,

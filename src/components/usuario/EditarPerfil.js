@@ -28,45 +28,44 @@ export default function EditarPerfil() {
 
 
     return (
-        <Box sx={{ padding: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
-            <Box sx={{ display: 'flex', maxWidth: '800px', alignSelf: 'center' }}>
-                <Card sx={{ display: 'flex', maxWidth: '800px', alignSelf: 'center' }}>
+            <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+                <Card sx={{ display: 'flex', alignSelf: 'center' }}>
                     <Box sx={{ alignSelf: 'center' }}>
                         <Typography level="title-md">Datos de usuario</Typography>
                     </Box>
                     <Divider />
-                    <Stack direction="row" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                        <Stack direction="column" spacing={1}>
+                    <Stack direction="flex" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+                        {/* <Stack direction="flex" spacing={1.5}>
 
-                            <AspectRatio ratio="1" maxHeight={170} sx={{ minWidth: 100, borderRadius: '100%', display: { xs: 'none', md: 'none' } }}>
+                            <AspectRatio ratio="1" height={570} sx={{ borderRadius: '100%', display: { xs: 'flex', md: 'flex' } }}>
                                 <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
                                     srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
                                     loading="lazy"
                                     alt="" />
                             </AspectRatio>
 
-                        </Stack>
+                        </Stack> */}
                         <Stack>
                             <Stack spacing={1}>
                                 <FormLabel>Nombre</FormLabel>
-                                <FormControl sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 1 }}>
+                                <FormControl sx={{ display: { sm: 'flex', md: 'flex' }, gap: 0.5 }}>
                                     <Input size="sm" placeholder="Nombre" defaultValue={user.name} readOnly />
-                                    <Input size="sm" placeholder="Apellido" sx={{ flexGrow: 1 }} defaultValue={user.surname} readOnly />
+                                    <Input size="sm" placeholder="Apellido" sx={{}} defaultValue={user.surname} readOnly />
                                 </FormControl>
                             </Stack>
-                            <Stack direction="row" spacing={1}>
+                            <Stack>
                                 <FormControl>
                                     <FormLabel>Usuario</FormLabel>
                                     <Input size="sm" placeholder="Usuario" defaultValue={user.username} readOnly />
-                                </FormControl>
-                                <FormControl sx={{ flexGrow: 1 }}>
+                                    {/* </FormControl>
+                                <FormControl> */}
                                     <FormLabel>Email</FormLabel>
-                                    <Input size="sm" type="email" defaultValue={user.email} readOnly placeholder="Email" sx={{ flexGrow: 2 }} />
+                                    <Input size="sm" type="email" defaultValue={user.email} readOnly placeholder="Email" sx={{ flexGrow: 1 }} />
                                 </FormControl>
                             </Stack>
 
-                            <div>
-                                <FormControl sx={{ display: { sm: 'contents' } }}>
+                            <div marginTop={2}>
+                                <FormControl sx={{ marginTop: "4px" }} >
                                     <FormLabel>Perfil</FormLabel>
                                     <Select size="sm" defaultValue="1">
                                         <Option value="1">
@@ -82,17 +81,16 @@ export default function EditarPerfil() {
                     </Stack>
 
                     <CardActions sx={{ alignSelf: 'flex-end', pt: 1 }}>
-                        <Button size="sm" variant="outlined" color="neutral">
-                            Cancelar
-                        </Button>
                         <Button size="sm" variant="solid">
                             Guardar
+                        </Button>
+                        <Button size="sm" variant="outlined" color="neutral">
+                            Cancelar
                         </Button>
                     </CardActions>
 
                 </Card>
 
-            </Box>
         </Box>
     );
 }

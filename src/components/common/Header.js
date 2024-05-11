@@ -219,9 +219,9 @@ export default function Header() {
 
                         <Stack direction="row" justifyContent="center" alignItems="center" textAlign="center" sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
                             <IconButton size="sm" justifyContent="center" alignItems="center" textAlign="center" sx={{ m: 0.2, display: { xs: 'inline-flex', sm: 'none' }, }}>
-                                <Nav.Link href={URI_FRONT.homeUri}>
+                               
                                     <DialogTitle>StudyHub</DialogTitle>
-                                </Nav.Link>
+                              
                             </IconButton>
                         </Stack>
                     </IconButton>

@@ -18,21 +18,3 @@ export const getUser = async (idUsuario) => {
 
     return response.data;
 }
-
-// let idU = 1;
-// async function getUser() {
-//     console.log("URL: ", URL_BACK.getUser + idU);
-//     let response = await fetch(URL_BACK.getUser, {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${ PARAMETERS.accessToken } `,
-//         },
-//     }
-//     );
-
-//     if (response.ok) {
-//         return await response.text();
-//     }
-// }
-
