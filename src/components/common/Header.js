@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { useColorScheme } from '@mui/joy/styles';
+import Nav from 'react-bootstrap/Nav';
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
 import IconButton from '@mui/joy/IconButton';
@@ -17,6 +18,7 @@ import Drawer from '@mui/joy/Drawer';
 import ModalClose from '@mui/joy/ModalClose';
 import DialogTitle from '@mui/joy/DialogTitle';
 import { CssVarsProvider } from '@mui/joy/styles';
+import ListItem from '@mui/joy/ListItem';
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
@@ -25,20 +27,21 @@ import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import AccountCircleOutlined from '@mui/icons-material/AccountCircleOutlined';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import Person from '@mui/icons-material/Person';
+import PropTypes from 'prop-types';
 
 import Navigation from './Navigation';
-import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../auth/AuthContext';
-import Nav from 'react-bootstrap/Nav';
 
-import Logo from '../img/logo.png';
-import { types } from '../auth/types';
+import '../../css/style-navbar.css';
+import Logo from '../../img/logo.png';
+import { AuthContext } from '../../context/AuthContext';
+import { types } from '../../context/types';
 // import '../css/bootstrap.min.css';
-import '../css/style-navbar.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { URI_FRONT, TIPO_ROL } from '../util/constants'
+import { URI_FRONT, TIPO_ROL } from '../../services/util/constants'
+
 
 function ColorSchemeToggle() {
     const { mode, setMode } = useColorScheme();
@@ -56,10 +59,10 @@ function ColorSchemeToggle() {
         <Tooltip title="Cambiar tema" variant="outlined">
             <IconButton id="toggle-mode" size="sm" variant="plain" color="neutral" sx={{ alignSelf: 'center' }}
                 onClick={() => {
-                    if (mode === 'light') {
-                        setMode('dark');
-                    } else {
+                    if (mode === 'dark') {
                         setMode('light');
+                    } else {
+                        setMode('dark');
                     }
                 }}>
                 {mode === 'light' ? <DarkModeRoundedIcon /> : <LightModeRoundedIcon />}
@@ -67,11 +70,69 @@ function ColorSchemeToggle() {
         </Tooltip>
     );
 }
+const modifiers = [
+    {
+        name: 'offset',
+        options: {
+            offset: ({ placement }) => {
+                if (placement.includes('end')) {
+                    return [8, 20];
+                }
+                return [-34, 10];
+            },
+        },
+    },
+];
+
+function NavMenuButton({ children, menu, open, onOpen, onLeaveMenu, label, ...props }) {
+    const isOnButton = React.useRef(false);
+    const internalOpen = React.useRef(open);
+
+    return (
+        <Dropdown
+            open={open}
+            onOpenChange={(_, isOpen) => {
+                if (isOpen) {
+                    onOpen?.();
+                }
+            }}        >
+            <MenuButton
+                {...props}
+                slots={{ root: IconButton }}
+                slotProps={{ root: { variant: 'plain', color: 'neutral' } }}
+                onMouseDown={() => { internalOpen.current = open; }}
+                onClick={() => {
+                    if (!internalOpen.current) { onOpen(); }
+                }}
+                onMouseEnter={() => { onOpen(); isOnButton.current = true; }}
+                onMouseLeave={() => { isOnButton.current = false; }}>
+                {children}
+            </MenuButton>
+            {React.cloneElement(menu, {
+                onMouseLeave: () => { onLeaveMenu(() => isOnButton.current); },
+                modifiers,
+            })}
+        </Dropdown>
+    );
+}
+
+NavMenuButton.propTypes = {
+    children: PropTypes.node,
+    label: PropTypes.string.isRequired,
+    menu: PropTypes.element.isRequired,
+    onLeaveMenu: PropTypes.func.isRequired,
+    onOpen: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+};
+
+
+///
 
 export default function Header() {
     const [open, setOpen] = React.useState(false);
     const { user, dispatch } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [menuIndex, setMenuIndex] = React.useState(null);
 
     const handleLogout = () => {
         dispatch({ type: types.logout });
@@ -122,14 +183,17 @@ export default function Header() {
                             {
                                 (user.rol === TIPO_ROL.ESTUDIANTE) &&
                                 <>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.panelUri} size="sm" sx={{ alignSelf: 'center' }}>
-                                        Mi Panel
+                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sm" sx={{ alignSelf: 'center' }}>
+                                        Plan de Estudios
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.cursosUri} size="sm" sx={{ alignSelf: 'center' }}>
-                                        Cursos
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.inscripcionUri} size="sm" sx={{ alignSelf: 'center' }}>
+                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.inscripcionesUri} size="sm" sx={{ alignSelf: 'center' }}>
                                         Inscripciones
+                                    </Button>
+                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.solicitudesUri} size="sm" sx={{ alignSelf: 'center' }}>
+                                        Solicitudes
+                                    </Button>
+                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.gestionUri} size="sm" sx={{ alignSelf: 'center' }}>
+                                        Gestion
                                     </Button>
                                 </>
                             }
@@ -152,40 +216,39 @@ export default function Header() {
                 <Box sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
                     <IconButton variant="plain" color="neutral" onClick={() => setOpen(true)}>
                         <MenuRoundedIcon />
+
+                        <Stack direction="row" justifyContent="center" alignItems="center" textAlign="center" sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
+                            <IconButton size="sm" justifyContent="center" alignItems="center" textAlign="center" sx={{ m: 0.2, display: { xs: 'inline-flex', sm: 'none' }, }}>
+                                <Nav.Link href={URI_FRONT.homeUri}>
+                                    <DialogTitle>StudyHub</DialogTitle>
+                                </Nav.Link>
+                            </IconButton>
+                        </Stack>
                     </IconButton>
                     <Drawer sx={{ display: { xs: 'inline-flex', sm: 'none' } }} open={open} onClose={() => setOpen(false)}>
                         <ModalClose />
-                        <DialogTitle>StudyHub</DialogTitle>
-                        <Box sx={{ px: 1 }}>
+
+
+                        <Box sx={{ px: 0.5 }}>
                             <Navigation />
                         </Box>
                     </Drawer>
                 </Box>
 
-                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1.5, alignItems: 'center', }} >
+                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center', }} >
                     <Input size="sm" variant="outlined" placeholder="Buscar…" startDecorator={<SearchRoundedIcon color="primary" />}
                         sx={{ alignSelf: 'center', display: { xs: 'none', sm: 'flex', }, }} />
-
                     <ColorSchemeToggle />
                     {(user.logged) ?
                         <>
                             <Dropdown>
-                                <MenuButton variant="plain" size="sm"
-                                    sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '9999999px' }}>
-                                    <Avatar
-                                        src="https://i.pravatar.cc/40?img=59"
-                                        srcSet="https://i.pravatar.cc/80?img=59"
-                                        sx={{ maxWidth: '32px', maxHeight: '32px' }}
-                                    />
+                                <MenuButton variant="plain" size="sm" sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '9999999px' }}>
+                                    <Avatar src="https://i.pravatar.cc/40?img=59" srcSet="https://i.pravatar.cc/80?img=59" sx={{ maxWidth: '32px', maxHeight: '32px' }} />
                                 </MenuButton>
                                 <Menu placement="bottom-end" size="sm" sx={{ zIndex: '99999', p: 1, gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <MenuItem>
                                         <Box sx={{ display: 'flex', alignItems: 'center', }}>
-                                            <Avatar
-                                                src="https://i.pravatar.cc/40?img=59"
-                                                srcSet="https://i.pravatar.cc/80?img=59"
-                                                sx={{ borderRadius: '50%' }}
-                                            />
+                                            <Avatar src="https://i.pravatar.cc/40?img=59" srcSet="https://i.pravatar.cc/80?img=59" sx={{ borderRadius: '50%' }} />
                                             <Box sx={{ ml: 1.5 }}>
                                                 <Typography level="title-sm" textColor="text.primary">
                                                     {user.name} {user.surname}
@@ -217,7 +280,6 @@ export default function Header() {
                         :
                         <>
                             <Stack direction="row" justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'none', sm: 'flex' } }}>
-
                                 <Button variant="plain" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
                                     Iniciar sesión
                                 </Button>
@@ -225,11 +287,34 @@ export default function Header() {
                                     Registrarse
                                 </Button>
                             </Stack>
+
+                            <Stack direction="row" justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'flex', sm: 'none' } }}>
+                                <ListItem>
+                                    <NavMenuButton
+                                        label="Personal"
+                                        open={menuIndex === 2}
+                                        onOpen={() => setMenuIndex(2)}
+                                        menu={
+                                            <Menu onClose={() => setMenuIndex(null)}>
+                                                <Button variant="plain" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
+                                                    Iniciar sesión
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href={URI_FRONT.signupUri} size="sm">
+                                                    Registrarse
+                                                </Button>
+                                            </Menu>
+                                        }>
+                                        <Person />
+                                    </NavMenuButton>
+                                </ListItem>
+                            </Stack>
+
                         </>
                     }
                 </Box>
             </Box>
-        </CssVarsProvider>
+        </CssVarsProvider >
     );
 }
+
 {/* <Nav.Link className="nav-link" href={URI_FRONT.homeUri}>Inicio</Nav.Link> */ }

@@ -29,3 +29,5 @@ yarn-error.log*
 /tmp
 appmap.yml
 yarn.lock
+/notas.md
+/.vscode/settings.json

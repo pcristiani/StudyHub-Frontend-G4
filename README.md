@@ -46,3 +46,13 @@ npm i -g vercel@latest
 vercel --version
 vercel login
 ```
+
+```shell
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "vercel --prod",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+```

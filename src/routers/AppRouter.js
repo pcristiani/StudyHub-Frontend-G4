@@ -1,24 +1,26 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { AuthContext } from '../auth/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import { PublicRoute } from './PublicRoute';
 
-import Home from '../pages/Home';
-import Cursos from '../pages/Cursos';
-import Panel from "../pages/Panel";
-import Inscripcion from "../pages/Inscripcion";
+import HomePage from '../pages/HomePage';
+import PlanEstudiosPage from "../pages/PlanEstudiosPage";
+import InscripcionesPage from "../pages/InscripcionesPage";
+import SolicitudesPage from '../pages/SolicitudesPage';
+import GestionPage from '../pages/GestionPage';
 
-import Login from '../login/Login';
-import Register from '../login/Register';
+import Login from '../components/login/Login';
+import Register from '../components/login/Register';
+import ForgotPassword from "../components/login/ForgotPassword";
+import RecuperarPassword from "../components/login/RecuperarPassword";
 
-import Footer from '../components/Footer';
-import NuestroEquipo from "../components/NuestroEquipo";
+import Footer from '../components/common/Footer';
+import NuestroEquipo from "../components/common/NuestroEquipo";
+import Header from '../components/common/Header';
+import Layout from '../components/common/Layout';
+// import Demo from '../pages/Demo';
+
 import EditarPerfil from "../components/usuario/EditarPerfil";
-
-import ForgotPassword from "../login/ForgotPassword";
-import RecuperarPassword from "../login/RecuperarPassword";
-import Header from '../components/Header';
-import Layout from '../components/Layout';
 
 
 export const AppRouter = () => {
@@ -30,20 +32,20 @@ export const AppRouter = () => {
             <Layout.Header>
                 <Header />
             </Layout.Header>
-            {/* <NavBar /> */}
 
             <Routes>
-                <Route path="/" element={<Home user={user.id} />} exact />
-                <Route path="/panel" element={<Panel user={user.id} />} exact />
-                <Route path="/cursos" element={<Cursos user={user.id} />} exact />
-                <Route path="/inscripciones" element={<Inscripcion user={user.id} />} exact />
+                <Route path="/" element={<HomePage user={user.id} />} exact />
+                <Route path="/plan-estudios" element={<PlanEstudiosPage user={user.id} />} exact />
+                <Route path="/inscripciones" element={<InscripcionesPage user={user.id} />} exact />
+                <Route path="/solicitudes" element={<SolicitudesPage user={user.id} />} exact />
+                <Route path="/gestion" element={<GestionPage user={user.id} />} exact />
 
                 <Route path="/olvido-contrasenia" element={<ForgotPassword user={user.id} />} exact />
                 <Route path="/resetPassword" element={<RecuperarPassword user={user.id} />} exact />
 
                 <Route path="/nuestro-equipo" element={<NuestroEquipo user={user.id} />} exact />
                 <Route path="/edit-perfil" element={<EditarPerfil user={user.id} />} exact />
-
+                {/* <Route path="/demo" element={<Demo user={user.id} />} exact /> */}
 
                 <Route path='/login' element={
                     <PublicRoute>
@@ -62,10 +64,10 @@ export const AppRouter = () => {
                         <Login />
                     </PublicRoute>
                 } />
+
             </Routes>
 
             <Footer />
         </BrowserRouter>
-
     )
 }

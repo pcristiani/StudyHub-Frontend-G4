@@ -40,6 +40,23 @@ body {
     color: rgb(163, 163, 163);
 }
 
+.link-style {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+margin-top: 10px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    color: #094872;
+}
+.link-style:hover {
+    margin-top: 10px;
+    cursor: pointer;
+    display: block;
+    color: #096e72;
+    transform: scale(1.1);
+}
+
+
 .avatar-perfil {
     display: block;
 }

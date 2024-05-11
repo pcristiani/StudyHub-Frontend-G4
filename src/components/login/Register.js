@@ -10,10 +10,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import swal from 'sweetalert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { PARAMETERS, URL_BACK } from '../util/constants'
+import { PARAMETERS, URL_BACK } from '../../services/util/constants'
 
-import '../css/style.css';
-import logo from '../img/logo.png';
+import '../../css/style.css';
+import logo from '../../img/logo.png';
 
 const defaultTheme = createTheme();
 
@@ -64,8 +64,6 @@ function Register() {
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
-                {/* <CssBaseline /> */}
-                {/* <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', }}> */}
                 <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
                     <div sx={{ bgcolor: 'secondary.main' }}>
                         <img src={logo} className="animate-bounce" alt="logo" />
@@ -88,10 +86,9 @@ function Register() {
                             <Grid item xs={12} sm={6}>
                                 <TextField size="small" required fullWidth id="email" label="Email" name="email" autoComplete="email" />
                             </Grid>
-                            {/*<TextField size="small" type='date' required fullWidth id="birthdate" day={'10/10/2024'} name="birthdate" autoComplete="family-name" /> */}
 
                             <Grid item xs={12} sm={6}>
-                                <TextField size="small" required fullWidth id="birthdate" type='text' />
+                                <TextField size="small" fullWidth id="birthdate" label="Fecha" type='text' />
                             </Grid>
 
                             <Grid item xs={12} sm={6}>

@@ -12,8 +12,8 @@ import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import CardActions from '@mui/joy/CardActions';
-import { getUsers } from '../../requests/getUsers';
-import { AuthContext } from '../../auth/AuthContext';
+import { getUsers } from '../../services/requests/getUsers';
+import { AuthContext } from '../../context/AuthContext';
 
 
 export default function EditarPerfil() {
@@ -28,7 +28,7 @@ export default function EditarPerfil() {
 
 
     return (
-        <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+        <Box sx={{ padding: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
             <Box sx={{ display: 'flex', maxWidth: '800px', alignSelf: 'center' }}>
                 <Card sx={{ display: 'flex', maxWidth: '800px', alignSelf: 'center' }}>
                     <Box sx={{ alignSelf: 'center' }}>
@@ -38,7 +38,7 @@ export default function EditarPerfil() {
                     <Stack direction="row" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                         <Stack direction="column" spacing={1}>
 
-                            <AspectRatio ratio="1" maxHeight={180} sx={{ minWidth: 200, borderRadius: '100%', display: { xs: 'none', md: 'none' } }}>
+                            <AspectRatio ratio="1" maxHeight={170} sx={{ minWidth: 100, borderRadius: '100%', display: { xs: 'none', md: 'none' } }}>
                                 <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
                                     srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
                                     loading="lazy"
@@ -46,7 +46,7 @@ export default function EditarPerfil() {
                             </AspectRatio>
 
                         </Stack>
-                        <Stack >
+                        <Stack>
                             <Stack spacing={1}>
                                 <FormLabel>Nombre</FormLabel>
                                 <FormControl sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 1 }}>
@@ -97,18 +97,3 @@ export default function EditarPerfil() {
     );
 }
 
-
-// useEffect(() => {
-//     getUser().then(result => {
-//         setStrJwt(result);
-//     });
-// }, []);
-// if (!strJwt) return null;
-//  <IconButton
-// aria-label="upload new picture"
-// size="sm"
-// variant="outlined"
-// color="neutral"
-// sx={{ bgcolor: 'background.body', position: 'absolute', zIndex: 2, borderRadius: '50%', left: 100, top: 170, boxShadow: 'sm', }}>
-// <EditRoundedIcon />
-//     </IconButton> 

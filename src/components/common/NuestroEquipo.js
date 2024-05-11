@@ -4,9 +4,9 @@ import { CssVarsProvider } from '@mui/joy/styles';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { MyAnimation2 } from './AnimationType';
-import '../css/style.css';
-import '../css/style-navbar.css';
+import { MyAnimationFooter } from './AnimationType';
+import '../../css/style.css';
+import '../../css/style-navbar.css';
 
 const NuestroEquipo = () => {
 
@@ -16,7 +16,7 @@ const NuestroEquipo = () => {
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '22px' }}>
           <Typography className="text-dark focus-ring-primary" component="h1" >
             <div style={{}}>
-              <MyAnimation2 />
+              <MyAnimationFooter />
               <Typography className="text-dark focus-ring-primary" component="h4"
                 sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '22px' }}>
               </Typography>

@@ -39,7 +39,7 @@ export function MyAnimation() {
 }
 
 
-export function MyAnimation2() {
+export function MyAnimationFooter() {
   const listItemss = [
     { strAnimated: "StudyHub" },
     { strAnimated: "Este proyecto fue realizado por el Grupo 4 del Tecnólogo en Informática." },

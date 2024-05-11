@@ -9,10 +9,10 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
 
-import logo from '../img/logo.png';
-import '../css/style-navbar.css';
-import '../css/style.css';
-import { PARAMETERS, URL_BACK, redirigir } from '../util/constants'
+import logo from '../../img/logo.png';
+import '../../css/style-navbar.css';
+import '../../css/style.css';
+import { PARAMETERS, URL_BACK, redirigir } from '../../services/util/constants'
 
 // olvido-contrasenia
 const defaultTheme = createTheme();

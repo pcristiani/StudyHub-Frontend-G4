@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
-import { AuthContext } from './auth/AuthContext';
-import { authReducer } from './auth/authReducer';
+import { AuthContext } from './context/AuthContext';
+import { authReducer } from './context/authReducer';
 import { AppRouter } from './routers/AppRouter';
 
 const init = () => {
@@ -20,7 +20,7 @@ export const MainPage = () => {
       <AuthContext.Provider value={{
         user, dispatch
       }}>
-        <AppRouter />
+        <AppRouter />  
       </AuthContext.Provider>
     </>
   )

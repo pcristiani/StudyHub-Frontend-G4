@@ -14,6 +14,7 @@ function base64ToImage(base64) {
   img.src = base64;
 
   return img.src;
+  // let base64 = "aHR0cHM6Ly9qd3QuaW8vaW1nL2xvZ28tYXNzZXQuc3Zn"; //
   //  return  document.getElementById('root').appendChild(img);
 }
 
@@ -37,7 +38,4 @@ function decodeJwt(strJwt) {
   return JSON.parse(jsonPayload);
 }
 
-
-
-// let base64 = "aHR0cHM6Ly9qd3QuaW8vaW1nL2xvZ28tYXNzZXQuc3Zn"; // Reemplaza esto con tu cadena base64, ejemplo url img
 export { textToBase64, base64ToText, base64ToImage, decodeJwt };

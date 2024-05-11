@@ -10,19 +10,22 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
-import '../css/style-navbar.css';
-import '../css/style.css';
-import logo from '../img/logo.png';
+import '../../css/style-navbar.css';
+import '../../css/style.css';
+import logo from '../../img/logo.png';
 
-import { AuthContext } from '../auth/AuthContext';
-import { types } from '../auth/types';
+import { AuthContext } from '../../context/AuthContext';
+import { types } from '../../context/types';
 
-import { getUsers } from '../requests/getUsers';
-import { validateCredentials } from '../requests/loginTest';
+import { getUsers } from '../../services/requests/getUsers';
+import { validateCredentials } from '../../services/requests/loginTest';
+
 
 const defaultTheme = createTheme();
 
+///
 function Login() {
+
     const context = useContext(AuthContext);
     const autentication = (id, username, name, surname, rol, email) => {
         const action = {
@@ -38,7 +41,6 @@ function Login() {
         }
         context.dispatch(action);
     }
-
 
     async function getInfoUsuario(idUsuario) {
         const usuario = await getUsers(idUsuario);
@@ -110,33 +112,3 @@ function Login() {
 }
 
 export default Login;
-
-
-
-
-// async function validateCredentials(username, password) {
-//     try {
-//         let response = await axios.post(URL_BACK.loginTest, {
-//             "username": username,
-//             "password": password
-//         });
-
-//         if (response.status === 200) {
-//             let objUser = decodeJwt(response.data);
-//             // console.log("objUser.name: ", objUser);
-//             getInfoUsuario(objUser.id);
-//         }
-//     } catch (error) {
-//         swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
-//             timer: 3000
-//         });
-//         console.log(error);
-//     }
-// }
-
-// const disconnection = () => {
-//     const action = {
-//         type: types.logout,
-//     }
-//     context.dispatch(action);
-// }

@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import '../css/style-navbar.css';
+import '../../css/style-navbar.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,8 +16,8 @@ function Copyright() {
                         <a className="link-footer" href="./">{'Copyright © '}StudyHub{' '}{new Date().getFullYear()}</a>
                     </Typography>
                 </div>
-                <Typography variant="body2" color="text.secondary" mt={0.2}>
-                    <a className="link-footer" href="./nuestro-equipo">Sobre nosotros</a>
+                <Typography variant="body2" color="text.secondary" mt={0.1}>
+                    <a className="link-footer" href="./nuestro-equipo">Sobre Nosotros</a>
                 </Typography>
             </Box>
         </>

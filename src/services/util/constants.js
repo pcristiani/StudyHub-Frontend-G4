@@ -3,28 +3,31 @@ const PORT = {
   front: 3000,  // Puerto frontend
 }
 
-const uriBaseBack = `http://localhost:${PORT.back}`   // http://localhost:8080
-const uriBaseFront = `http://localhost:${PORT.front}` // http://localhost:3000
+const uriBaseBack = `http://localhost:${PORT.back}`        // http://localhost:8080
+// const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+const uriBaseFront = `https://front-studyhub.vercel.app/`
 
 const URI_FRONT = {
   // Uri Estudiante
   homeUri: `/`,                              // http://localhost:3000/
-  panelUri: `/panel`,                        // http://localhost:3000/panel
-  cursosUri: `/cursos`,                      // http://localhost:3000/cursos
-  inscripcionUri: `/inscripciones`,          // http://localhost:3000/inscripciones
-  preferenciasUri: `/preferencias`,           // http://localhost:3000/preferencias
+  planEstudiosUri: `/plan-estudios`,          // http://localhost:3000/plan-estudios
+  inscripcionesUri: `/inscripciones`,          // http://localhost:3000/inscripciones
+  solicitudesUri: `/solicitudes`,            // http://localhost:3000/solicitudes
+  gestionUri: `/gestion`,                    // http://localhost:3000/gestion
+
+  preferenciasUri: `/preferencias`,          // http://localhost:3000/preferencias
   editPerfilUri: `/edit-perfil`,             // http://localhost:3000/edit-perfil
 
   // Uri Invitado
   novedadesUri: `/novedades`,                // http://localhost:3000/novedades
   pregFrecuentesUri: `/preg-frecuentes`,     // http://localhost:3000/preguntas-frecuentes
-  contactoUri: `/contacto`,                  // http://localhost:3000/contacto
+  contactoUri: `/demo`,                  // http://localhost:3000/contacto
 
   // Uri Auth
-  loginUri: `/login`,                        // http://localhost:3000/login
-  logoutUri: `/logout`,                      // http://localhost:3000/logout
-  signupUri: `/registrarte`,                 // http://localhost:3000/registrarte
-  forgotPassUri: `/olvido-contrasenia?token=`,      // http://localhost:3000/olvido-contrasenia
+  loginUri: `/login`,                                // http://localhost:3000/login
+  logoutUri: `/logout`,                              // http://localhost:3000/logout
+  signupUri: `/registrarte`,                         // http://localhost:3000/registrarte
+  forgotPassUri: `/olvido-contrasenia?token=`,       // http://localhost:3000/olvido-contrasenia
   resetPassUri: `/resetPassword/?token=`,            // http://localhost:3000/resetPassword
 }
 

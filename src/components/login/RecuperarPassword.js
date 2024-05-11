@@ -1,8 +1,8 @@
-import { redirigir } from '../util/constants';
+import { redirigir } from '../../services/util/constants';
 
-import '../css/style-navbar.css';
-import '../css/style.css';
-import { URI_FRONT } from '../util/constants'
+import '../../css/style-navbar.css';
+import '../../css/style.css';
+import { URI_FRONT } from '../../services/util/constants'
 
 
 function ResetPassword() {
@@ -24,15 +24,6 @@ function ResetPassword() {
         console.log('No se encontró ningún token en la URL.');
     }
 
-    // return (
-    //     <>
-    //         {/* 
-    //         <ThemeProvider theme={'defaultTheme'}>
-    //             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>             
-    //             </Container>
-    //         </ThemeProvider> */}
-    //     </>
-    // );
 }
 
 export default ResetPassword;

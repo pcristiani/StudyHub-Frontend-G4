@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
-import { AuthContext } from '../auth/AuthContext';
-import { getUsers } from '../requests/getUsers';
-import { loginTest } from '../requests/loginTest';
+import { AuthContext } from '../context/AuthContext';
+import { getUsers } from '../services/requests/getUsers';
+import { loginTest } from '../services/requests/loginTest';
 
 import Typography from '@mui/material/Typography';
 import { CssVarsProvider } from '@mui/joy/styles';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
-const Inscripcion = () => {
+const SolicitudesPage = () => {
   const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
   console.log("IdUser : ", user.id);
 
@@ -32,7 +32,7 @@ const Inscripcion = () => {
           <Typography className="text-dark focus-ring-primary" component="h1" >
             <div style={{ height: 300, width: '100%' }}>
               <Typography className="text-dark focus-ring-primary" component="h1" >
-                Inscripcion
+                Solicitudes
               </Typography>
             </div>
           </Typography>
@@ -42,4 +42,4 @@ const Inscripcion = () => {
   );
 }
 
-export default Inscripcion;
+export default SolicitudesPage;
