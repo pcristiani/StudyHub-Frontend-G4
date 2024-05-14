@@ -69,10 +69,10 @@ function Register() {
                         <img src={logo} className="animate-bounce" alt="logo" />
                     </div>
                     <Typography component="h1" variant="h4">Registrarse</Typography>
-                    <Typography variant="body2" color="text.secondary">Ingresa la informacion de tu cuenta</Typography>
+                    <Typography variant="body2" color="text.secondary">Ingresa la información de tu cuenta</Typography>
 
                     <Box component="form" onSubmit={handleSubmit} noValidate
-                        sx={{ py: 1, display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap', }}>
+                        sx={{ py: 1, display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap', width: '400px' }}>
 
                         <Grid container spacing={0.8}>
                             <Grid item xs={12} sm={6}>
