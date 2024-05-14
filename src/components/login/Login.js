@@ -81,7 +81,7 @@ function Login() {
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
-                <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+                <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
                     <div sx={{ bgcolor: 'secondary.main' }}>
                         <img src={logo} className="animate-bounce" alt="logo" />
@@ -92,7 +92,7 @@ function Login() {
                         <Link href="/registrarte" variant="body2" sx={{ p: 0.5 }}>Entra aquí</Link>
                     </Typography>
 
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px' }}>
                         <TextField margin="dense" required fullWidth id="username" label="Usuario" name="username" autoComplete="text" autoFocus />
                         <TextField margin="dense" required fullWidth name="password" label="Contraseña" type="password" id="password" autoComplete="current-password" />
                         <FormControlLabel control={<Checkbox value="remember" color="primary" />}

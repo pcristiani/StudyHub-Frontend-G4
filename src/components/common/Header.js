@@ -283,9 +283,9 @@ export default function Header() {
                                 <Button variant="plain" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
                                     Iniciar sesión
                                 </Button>
-                                <Button variant="plain" color="neutral" component="a" href={URI_FRONT.signupUri} size="sm">
+                                {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.signupUri} size="sm">
                                     Registrarse
-                                </Button>
+                                </Button> */}
                             </Stack>
 
                             <Stack direction="row" justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'flex', sm: 'none' } }}>
@@ -299,9 +299,9 @@ export default function Header() {
                                                 <Button variant="plain" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
                                                     Iniciar sesión
                                                 </Button>
-                                                <Button variant="plain" color="neutral" component="a" href={URI_FRONT.signupUri} size="sm">
+                                                {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.signupUri} size="sm">
                                                     Registrarse
-                                                </Button>
+                                                </Button> */}
                                             </Menu>
                                         }>
                                         <Person />
