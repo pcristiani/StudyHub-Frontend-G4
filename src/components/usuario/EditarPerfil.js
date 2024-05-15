@@ -28,8 +28,8 @@ export default function EditarPerfil() {
 
 
     return (
-            <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
-                <Card sx={{ display: 'flex', alignSelf: 'center' }}>
+            <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%',}}>
+                <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                     <Box sx={{ alignSelf: 'center' }}>
                         <Typography level="title-md">Datos de usuario</Typography>
                     </Box>
@@ -48,7 +48,7 @@ export default function EditarPerfil() {
                         <Stack>
                             <Stack spacing={1}>
                                 <FormLabel>Nombre</FormLabel>
-                                <FormControl sx={{ display: { sm: 'flex', md: 'flex' }, gap: 0.5 }}>
+                                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width:'350px' }, gap: 1 }}>
                                     <Input size="sm" placeholder="Nombre" defaultValue={user.name} readOnly />
                                     <Input size="sm" placeholder="Apellido" sx={{}} defaultValue={user.surname} readOnly />
                                 </FormControl>
@@ -79,15 +79,21 @@ export default function EditarPerfil() {
                             </div>
                         </Stack>
                     </Stack>
-
-                    <CardActions sx={{ alignSelf: 'flex-end', pt: 1 }}>
-                        <Button size="sm" variant="solid">
-                            Guardar
-                        </Button>
-                        <Button size="sm" variant="outlined" color="neutral">
-                            Cancelar
-                        </Button>
-                    </CardActions>
+{/* 
+                    <CardActions sx={{ alignSelf: 'flex-end', pt: 1 }}> */}
+                    <div style={{display: 'flex', marginTop:'10px'}}>
+                        <div style={{padding: '5px'}}>
+                            <Button size="sm" variant="solid">
+                                Guardar
+                            </Button>
+                        </div>
+                        <div style={{padding: '5px'}}>
+                            <Button size="sm" variant="outlined" color="neutral">
+                                Cancelar
+                            </Button>
+                        </div>
+                    </div>
+                    {/* </CardActions> */}
 
                 </Card>
 

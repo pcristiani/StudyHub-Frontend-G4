@@ -8,6 +8,8 @@ import PlanEstudiosPage from "../pages/PlanEstudiosPage";
 import InscripcionesPage from "../pages/InscripcionesPage";
 import SolicitudesPage from '../pages/SolicitudesPage';
 import GestionPage from '../pages/GestionPage';
+import Novedades from '../pages/Novedades';
+import Page404 from '../pages/Page404';
 
 import Login from '../components/login/Login';
 import Register from '../components/login/Register';
@@ -34,17 +36,19 @@ export const AppRouter = () => {
             </Layout.Header>
 
             <Routes>
-                <Route path="/" element={<HomePage user={user.id} />} exact />
+                <Route path="/" element={<Novedades />} exact />
                 <Route path="/plan-estudios" element={<PlanEstudiosPage user={user.id} />} exact />
                 <Route path="/inscripciones" element={<InscripcionesPage user={user.id} />} exact />
                 <Route path="/solicitudes" element={<SolicitudesPage user={user.id} />} exact />
                 <Route path="/gestion" element={<GestionPage user={user.id} />} exact />
+                <Route path="/novedades" element={<Novedades user={user.id} />} exact />
 
                 <Route path="/olvido-contrasenia" element={<ForgotPassword user={user.id} />} exact />
                 <Route path="/resetPassword" element={<RecuperarPassword user={user.id} />} exact />
 
                 <Route path="/nuestro-equipo" element={<NuestroEquipo user={user.id} />} exact />
                 <Route path="/edit-perfil" element={<EditarPerfil user={user.id} />} exact />
+                <Route path="/not-found" element={<Page404 user={user.id} />} exact />
                 {/* <Route path="/demo" element={<Demo user={user.id} />} exact /> */}
 
                 <Route path='/login' element={
