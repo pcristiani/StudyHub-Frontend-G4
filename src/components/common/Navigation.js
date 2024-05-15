@@ -106,9 +106,9 @@ export default function Navigation() {
                                     </Button>
                                 </ListItemButton>
                                 <ListItemButton>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sw" sx={{ alignSelf: 'left' }}>
+                                    {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sw" sx={{ alignSelf: 'left' }}>
                                         Preguntas frecuentas
-                                    </Button>
+                                    </Button> */}
                                 </ListItemButton>
                                 <ListItemButton>
                                     <Button variant="plain" color="neutral" component="a" href={URI_FRONT.contactoUri} size="sw" sx={{ alignSelf: 'left' }}>

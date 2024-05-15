@@ -13,6 +13,7 @@ import swal from 'sweetalert';
 import '../../css/style-navbar.css';
 import '../../css/style.css';
 import logo from '../../img/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
@@ -27,6 +28,7 @@ const defaultTheme = createTheme();
 function Login() {
 
     const context = useContext(AuthContext);
+    const history = useNavigate();
     const autentication = (id, username, name, surname, rol, email) => {
         const action = {
             type: types.login,
@@ -67,7 +69,9 @@ function Login() {
         async function validarLogin() {
             const result = await validateCredentials(username, password);
             if (result !== null && result !== undefined) {
-                getInfoUsuario(result.id);
+                getInfoUsuario(result.id).then(() => {
+                    history('/Novedades'); // Redirige al usuario a la página de inicio
+                });
             } else {
                 swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
                     timer: 3000

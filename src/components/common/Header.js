@@ -53,7 +53,7 @@ function ColorSchemeToggle() {
 
     if (!mounted) {
         setMode('dark')
-        return <IconButton size="sm" variant="outlined" color="primary" />;
+        return <IconButton size="sm" variant="solid" color="primary" />;
     }
     return (
         <Tooltip title="Cambiar tema" variant="outlined">
@@ -157,44 +157,162 @@ export default function Header() {
                             {(user.rol === TIPO_ROL.ADMIN) &&
                                 <>
                                     <Dropdown>
-                                        <MenuButton variant="plain" color="neutral" aria-pressed="true" component="a" size="sm">Usuario
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
                                             <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                                <Button variant="plain" color="neutral" component="a" href='./alta-estudiante' size="sm">
-                                                    Nuevo
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Alta coordinador y funcionario
                                                 </Button>
-                                                <Button variant="plain" color="neutral" component="a" href='./modificar-estudiante' size="sm">
-                                                    Modificar
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Modificar datos coordinador y funcionario
                                                 </Button>
-                                                <Button variant="plain" color="neutral" component="a" href='./baja-estudiante' size="sm">
-                                                    Eliminar
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Eliminar coordinador o funcionario
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='./resumen-actividad' size="sm" sx={{ alignSelf: 'center' }}>
+                                                    Resumen de actividad 
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'center' }}>
+                                                    Asignar coordinador
                                                 </Button>
                                             </Menu>
                                         </MenuButton>
                                     </Dropdown>
-
                                     <Button variant="plain" color="neutral" component="a" href='./listados-busquedas' size="sm" sx={{ alignSelf: 'center' }}>
-                                        Listados y busquedas
+                                        Listados y búsquedas
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='./resumen-actividad' size="sm" sx={{ alignSelf: 'center' }}>
-                                        Resumen de actividad
-                                    </Button>
+
                                 </>
                             }
                             {
                                 (user.rol === TIPO_ROL.ESTUDIANTE) &&
                                 <>
                                     <Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sm" sx={{ alignSelf: 'center' }}>
-                                        Plan de Estudios
+                                        Plan de estudios
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.inscripcionesUri} size="sm" sx={{ alignSelf: 'center' }}>
-                                        Inscripciones
+                                    <Dropdown>
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Inscripciones
+                                            <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                                <Button variant="plain" color="neutral" component="a" href='./not-found' size="sm">
+                                                    Carrera
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Asignatura
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Examen
+                                                </Button>
+                                            </Menu>
+                                        </MenuButton>
+                                    </Dropdown>
+                                    <Dropdown>
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Listados y búsquedas
+                                            <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Asignaturas aprobadas
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Asignaturas pendientes de aprobación
+                                                </Button>
+                                            </Menu>
+                                        </MenuButton>
+                                    </Dropdown>
+                                    <Button variant="plain" color="neutral" component="a" href='' size="sm" sx={{ alignSelf: 'center' }}>
+                                        Solicitar escolaridad
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.solicitudesUri} size="sm" sx={{ alignSelf: 'center' }}>
-                                        Solicitudes
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.gestionUri} size="sm" sx={{ alignSelf: 'center' }}>
-                                        Gestion
-                                    </Button>
+                                </>
+                            }
+                            {
+                                (user.rol === TIPO_ROL.FUNCIONARIO) &&
+                                <>
+                                    <Dropdown>
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
+                                            <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Alta docente
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Validar usuario a estudiantes
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Validar inscripción a carrera
+                                                </Button>
+                                            </Menu>
+                                        </MenuButton>
+                                    </Dropdown>
+                                    <Dropdown>
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Registros
+                                            <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Horario de asignatura
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Período de examen
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Asignatura a período de examen
+                                                </Button>
+                                            </Menu>
+                                        </MenuButton>
+                                    </Dropdown>
+                                    <Dropdown>
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Calificaciones
+                                            <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Registro calificaciones fin de curso
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Registro calificaciones examen
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Generación de actas
+                                                </Button>
+                                            </Menu>
+                                        </MenuButton>
+                                    </Dropdown>
+                                    <Dropdown>
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Listados y búsquedas
+                                            <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Carreras
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                    Asignaturas
+                                                </Button>
+                                            </Menu>
+                                        </MenuButton>
+                                    </Dropdown>
+                                </>
+                            }
+                            {
+                                (user.rol === TIPO_ROL.COORDINADOR) &&
+                                <>
+                                    <Dropdown>
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Gestión
+                                            <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                                <Button variant="plain" color="neutral" component="a" href='' size="sm">
+                                                    Alta carrera
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='' size="sm">
+                                                    Alta asignatura
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='' size="sm">
+                                                    Registrar previas
+                                                </Button>
+                                            </Menu>
+                                        </MenuButton>
+                                    </Dropdown>
+                                    <Dropdown>
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Listados y búsquedas
+                                            <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                                <Button variant="plain" color="neutral" component="a" href='' size="sm">
+                                                    Carreras
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='' size="sm">
+                                                    Asignaturas
+                                                </Button>
+                                            </Menu>
+                                        </MenuButton>
+                                    </Dropdown>
                                 </>
                             }
                         </>
@@ -203,9 +321,9 @@ export default function Header() {
                             <Button variant="plain" color="neutral" component="a" href={URI_FRONT.novedadesUri} size="sm" sx={{ alignSelf: 'center' }}>
                                 Novedades
                             </Button>
-                            <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sm" sx={{ alignSelf: 'center' }}>
+                            {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sm" sx={{ alignSelf: 'center' }}>
                                 Preguntas frecuentas
-                            </Button>
+                            </Button> */}
                             <Button variant="plain" color="neutral" component="a" href={URI_FRONT.contactoUri} size="sm" sx={{ alignSelf: 'center' }}>
                                 Contacto
                             </Button>
@@ -219,9 +337,9 @@ export default function Header() {
 
                         <Stack direction="row" justifyContent="center" alignItems="center" textAlign="center" sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
                             <IconButton size="sm" justifyContent="center" alignItems="center" textAlign="center" sx={{ m: 0.2, display: { xs: 'inline-flex', sm: 'none' }, }}>
-                               
-                                    <DialogTitle>StudyHub</DialogTitle>
-                              
+
+                                <DialogTitle>StudyHub</DialogTitle>
+
                             </IconButton>
                         </Stack>
                     </IconButton>
@@ -265,10 +383,10 @@ export default function Header() {
                                         <AccountCircleOutlined />
                                         Perfil
                                     </MenuItem>
-                                    <MenuItem href={URI_FRONT.editPerfilUri} component="a">
+                                    {/* <MenuItem href={URI_FRONT.editPerfilUri} component="a">
                                         <SettingsRoundedIcon />
                                         Ajustes
-                                    </MenuItem>
+                                    </MenuItem> */}
                                     <ListDivider />
                                     <MenuItem href={URI_FRONT.homeUri} onClick={handleLogout}>
                                         <LogoutRoundedIcon />
