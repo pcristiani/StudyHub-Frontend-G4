@@ -281,16 +281,13 @@ export default function Header() {
                                             </Menu>
                                         </MenuButton>
                                     </Dropdown>
-                                    <Button variant="plain" color="neutral" component="a" href='' size="sm" sx={{ alignSelf: 'center' }}>
-                                        Solicitar escolaridad
-                                    </Button>
                                 </>
                             }
                             {
                                 (user.rol === TIPO_ROL.COORDINADOR) &&
                                 <>
                                     <Dropdown>
-                                        <MenuButton variant="plain" color="neutral" aria-pressed="true" component="a" size="sm">Gestión
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Gestión
                                             <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                                 <Button variant="plain" color="neutral" component="a" href='' size="sm">
                                                     Alta carrera
@@ -305,7 +302,7 @@ export default function Header() {
                                         </MenuButton>
                                     </Dropdown>
                                     <Dropdown>
-                                        <MenuButton variant="plain" color="neutral" aria-pressed="true" component="a" size="sm">Listados y búsquedas
+                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Listados y búsquedas
                                             <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                                 <Button variant="plain" color="neutral" component="a" href='' size="sm">
                                                     Carreras
