@@ -10,6 +10,7 @@ import SolicitudesPage from '../pages/SolicitudesPage';
 import GestionPage from '../pages/GestionPage';
 import Novedades from '../pages/Novedades';
 import Page404 from '../pages/Page404';
+import AltaCarrera from '../components/usuario/coordinador/AltaCarrera'
 
 import Login from '../components/login/Login';
 import Register from '../components/login/Register';
@@ -49,6 +50,7 @@ export const AppRouter = () => {
                 <Route path="/nuestro-equipo" element={<NuestroEquipo user={user.id} />} exact />
                 <Route path="/edit-perfil" element={<EditarPerfil user={user.id} />} exact />
                 <Route path="/not-found" element={<Page404 user={user.id} />} exact />
+                <Route path="/nueva-carrera" element={<AltaCarrera user={user.id} />} exact />
                 {/* <Route path="/demo" element={<Demo user={user.id} />} exact /> */}
 
                 <Route path='/login' element={
