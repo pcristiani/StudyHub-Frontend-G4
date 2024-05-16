@@ -289,7 +289,7 @@ export default function Header() {
                                     <Dropdown>
                                         <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Gestión
                                             <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                                <Button variant="plain" color="neutral" component="a" href='' size="sm">
+                                                <Button variant="plain" color="neutral" component="a" href='/nueva-carrera' size="sm">
                                                     Alta carrera
                                                 </Button>
                                                 <Button variant="plain" color="neutral" component="a" href='' size="sm">
