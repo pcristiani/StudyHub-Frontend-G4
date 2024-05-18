@@ -16,7 +16,7 @@ import CardActions from '@mui/joy/CardActions';
 //import { AuthContext } from '../../context/AuthContext';
 
 
-export default function EditarPerfil() {
+export default function AltaCarrera() {
     // const [strJwt, setStrJwt] = useState(null);
     //const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
 
