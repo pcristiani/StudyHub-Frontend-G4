@@ -57,7 +57,7 @@ function ColorSchemeToggle() {
     }
     return (
         <Tooltip title="Cambiar tema" variant="outlined">
-            <IconButton id="toggle-mode" size="sm" variant="plain" color="neutral" sx={{ alignSelf: 'center' }}
+            <IconButton id="toggle-mode" size="sm" variant="solid" color="neutral" sx={{ alignSelf: 'center' }}
                 onClick={() => {
                     if (mode === 'dark') {
                         setMode('light');
@@ -219,9 +219,9 @@ export default function Header() {
 
                         <Stack direction="row" justifyContent="center" alignItems="center" textAlign="center" sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
                             <IconButton size="sm" justifyContent="center" alignItems="center" textAlign="center" sx={{ m: 0.2, display: { xs: 'inline-flex', sm: 'none' }, }}>
-                               
-                                    <DialogTitle>StudyHub</DialogTitle>
-                              
+
+                                <DialogTitle>StudyHub</DialogTitle>
+
                             </IconButton>
                         </Stack>
                     </IconButton>
@@ -283,7 +283,7 @@ export default function Header() {
                                 <Button variant="plain" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
                                     Iniciar sesión
                                 </Button>
-                                <Button variant="plain" color="neutral" component="a" href={URI_FRONT.signupUri} size="sm">
+                                <Button variant="plain" color="neutral" component="a" href={URI_FRONT.registrarseUri} size="sm">
                                     Registrarse
                                 </Button>
                             </Stack>
@@ -297,9 +297,11 @@ export default function Header() {
                                         menu={
                                             <Menu onClose={() => setMenuIndex(null)}>
                                                 <Button variant="plain" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
+                                                    
+                                                    
                                                     Iniciar sesión
                                                 </Button>
-                                                <Button variant="plain" color="neutral" component="a" href={URI_FRONT.signupUri} size="sm">
+                                                <Button variant="plain" color="neutral" component="a" href={URI_FRONT.registrarseUri} size="sm">
                                                     Registrarse
                                                 </Button>
                                             </Menu>

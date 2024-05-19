@@ -3,12 +3,11 @@ const PORT = {
   front: 3000,  // Puerto frontend
 }
 
+// const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
+// const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
-const uriBaseFront = `https://frontstudyhub.vercel.app`
-
-//const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-//const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 const URI_FRONT = {
   // Uri Estudiante
@@ -29,7 +28,7 @@ const URI_FRONT = {
   // Uri Auth
   loginUri: `/login`,                           // http://localhost:3000/login
   logoutUri: `/logout`,                         // http://localhost:3000/logout
-  signupUri: `/registrarte`,                    // http://localhost:3000/registrarte
+  registrarseUri: `/registrarse`,               // http://localhost:3000/registrarse
   forgotPassUri: `/olvido-contrasenia?token=`,  // http://localhost:3000/olvido-contrasenia
   resetPassUri: `/resetPassword/?token=`,       // http://localhost:3000/resetPassword
 }

@@ -89,7 +89,7 @@ function Login() {
                     <Typography component="h1" variant="h4">Iniciar Sesión</Typography>
 
                     <Typography variant="body2" color="text.secondary">¿Aun no tienes cuenta?
-                        <Link href="/registrarte" variant="body2" sx={{ p: 0.5 }}>Entra aquí</Link>
+                        <Link href="/registrarse" variant="body2" sx={{ p: 0.5 }}>Entra aquí</Link>
                     </Typography>
 
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

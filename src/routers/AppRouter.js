@@ -53,7 +53,7 @@ export const AppRouter = () => {
                     </PublicRoute>
                 } />
 
-                <Route path='/registrarte' element={
+                <Route path='/registrarse' element={
                     <PublicRoute>
                         <Register />
                     </PublicRoute>

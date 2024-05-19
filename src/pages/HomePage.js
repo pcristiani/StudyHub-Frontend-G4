@@ -4,8 +4,7 @@ import logo from '../img/logo.png';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { MyAnimation } from '../components/common/AnimationType';
-import '../css/style.css';
-import '../css/style-navbar.css';
+
 import { CssVarsProvider } from '@mui/joy/styles';
 import { extendTheme } from '@mui/joy/styles';
 

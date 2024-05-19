@@ -1,11 +1,11 @@
 body {
     margin: 0;
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .navbar {
-    background-color: #0d1117;
+    /* background-color: #0d1117; */
     position: fixed;
     /* top: -50px;
     width: 500%;     */
@@ -78,7 +78,7 @@ margin-top: 10px;
 }
 
 .navbar a:hover {
-    background-color: #ddd;
+    /* background-color: #ddd; */
     color: black;
 }
 
@@ -88,7 +88,7 @@ margin-top: 10px;
     display: block;
     height: 100%;
     width: 100%;
-    color: rgb(6, 27, 143);
+    /* color: rgb(6, 27, 143); */
     margin-top: .5rem;
     overflow: auto
 }
@@ -107,7 +107,7 @@ margin-top: 10px;
     width: 5rem;
     height: 5rem;
     margin: .25rem;
-    background-color: var(--bs-tertiary-bg)
+    /* background-color: var(--bs-tertiary-bg) */
 }
 
 .bd-example-rounded-utils [class*="rounded"] {
@@ -137,6 +137,6 @@ margin-top: 10px;
     .navInformation {
         display: inline-block;
         color: #d4d4d4;
-        background-color: #0d1117;
+        /* background-color: #0d1117; */
     }
 }
