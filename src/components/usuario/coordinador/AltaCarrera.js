@@ -12,26 +12,26 @@ import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import CardActions from '@mui/joy/CardActions';
-import { getUsers } from '../../services/requests/getUsers';
-import { AuthContext } from '../../context/AuthContext';
+//import { getUsers } from '../../services/requests/getUsers';
+//import { AuthContext } from '../../context/AuthContext';
 
 
 export default function EditarPerfil() {
     // const [strJwt, setStrJwt] = useState(null);
-    const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
+    //const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
 
-    useEffect(() => {
-        getUsers(user.id).then(result => {
-            console.log("Datos Usuario: ", result);
-        });
-    }, []);
+    // useEffect(() => {
+    //     getUsers(user.id).then(result => {
+    //         console.log("Datos Usuario: ", result);
+    //     });
+    // }, []);
 
 
     return (
             <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%',}}>
                 <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                     <Box sx={{ alignSelf: 'center' }}>
-                        <Typography level="title-md">Datos de usuario</Typography>
+                        <Typography level="title-md">Alta carrera</Typography>
                     </Box>
                     <Divider />
                     <Stack direction="flex" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
@@ -47,36 +47,17 @@ export default function EditarPerfil() {
                         </Stack> */}
                         <Stack>
                             <Stack spacing={1}>
-                                <FormLabel>Nombre</FormLabel>
                                 <FormControl sx={{ display: { sm: 'flex', md: 'flex', width:'350px' }, gap: 1 }}>
-                                    <Input size="sm" placeholder="Nombre" defaultValue={user.name} readOnly />
-                                    <Input size="sm" placeholder="Apellido" sx={{}} defaultValue={user.surname} readOnly />
+                                    <FormLabel>Nombre</FormLabel>
+                                    <Input size="sm" placeholder="Nombre" />
+                                    <FormLabel>Descripción</FormLabel>
+                                    <Input size="sm" placeholder="Descripción" sx={{}} />
+                                    <FormLabel>Duración</FormLabel>
+                                    <Input size="sm" placeholder="Duración" readOnly />
+                                    <FormLabel>Requisitos de ingreso</FormLabel>
+                                    <Input size="sm" placeholder="Requisitos de ingreso" readOnly />
                                 </FormControl>
                             </Stack>
-                            <Stack>
-                                <FormControl>
-                                    <FormLabel>Usuario</FormLabel>
-                                    <Input size="sm" placeholder="Usuario" defaultValue={user.username} readOnly />
-                                    {/* </FormControl>
-                                <FormControl> */}
-                                    <FormLabel>Email</FormLabel>
-                                    <Input size="sm" type="email" defaultValue={user.email} readOnly placeholder="Email" sx={{ flexGrow: 1 }} />
-                                </FormControl>
-                            </Stack>
-
-                            <div marginTop={2}>
-                                <FormControl sx={{ marginTop: "4px" }} >
-                                    <FormLabel>Perfil</FormLabel>
-                                    <Select size="sm" defaultValue="1">
-                                        <Option value="1">
-                                            Administrador
-                                        </Option>
-                                        <Option value="2">
-                                            Estudiante
-                                        </Option>
-                                    </Select>
-                                </FormControl>
-                            </div>
                         </Stack>
                     </Stack>
 {/* 

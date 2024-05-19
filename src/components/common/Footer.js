@@ -1,6 +1,5 @@
 // import React from 'react';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import '../../css/style-navbar.css';
 
@@ -94,29 +93,27 @@ const modifiers = [
 function Copyright() {
     return (
         <>
-            <Box className="toggle-mode" sx={{ display: 'flex', justifyContent: 'space-between', pt: { xs: 3, sm: 3 }, width: '100%', borderTop: '1px solid', borderColor: 'divider' }}>
-                <div className='toggle-mode'>
-                    <Typography variant="body2" color="text.secondary" mt={0.2}>
-                        <a className="link-footer" href="./">{'Copyright © '}StudyHub{' '}{new Date().getFullYear()}</a>
-                    </Typography>
-                </div>
-                <Typography variant="body2" color="text.secondary" mt={0.1}>
-                    <a className="link-footer" href="./nuestro-equipo">Sobre Nosotros</a>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: { xs: 3, sm: 3 }, width: '100%', borderTop: '1px solid', borderColor: 'divider' }}>
+            <div>
+                <Typography variant="body2" color="text.secondary" mt={0.2}>
+                    <a className="link-footer" href="./">{'Copyright © '}StudyHub{' '}{new Date().getFullYear()}</a>
                 </Typography>
-            </Box>
+            </div>
+            <Typography variant="body2" color="text.secondary" mt={0.1}>
+                <a className="link-footer" href="./nuestro-equipo">Sobre Nosotros</a>
+            </Typography>
+        </Box>
         </>
     );
 }
 
 function Footer() {
     return (
-        <CssVarsProvider className="toggle-mode" defaultMode="dark" theme={theme} colorSchemeSelector="#demo_dark-mode-by-default" modeStorageKey="demo_dark-mode-by-default" disableNestedContext>
-            <div className='footer py-3'>
-                <Container>
-                    <Copyright />
-                </Container>
-            </div>
-        </CssVarsProvider>
+        <div className='footer py-3' style={{ width: '100%', padding: '20px' }}>
+        <Box>
+            <Copyright />
+        </Box>
+    </div>
     );
 }
 export default Footer;

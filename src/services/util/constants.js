@@ -3,8 +3,9 @@ const PORT = {
   front: 3000,  // Puerto frontend
 }
 
-// const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
-// const uriBaseFront = `https://frontstudyhub.vercel.app`
+
+//const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
+//const uriBaseFront = `https://frontstudyhub.vercel.app`
 
 const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
 const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
@@ -22,7 +23,7 @@ const URI_FRONT = {
 
   // Uri Invitado
   novedadesUri: `/novedades`,                   // http://localhost:3000/novedades
-  pregFrecuentesUri: `/preg-frecuentes`,        // http://localhost:3000/preguntas-frecuentes
+  //pregFrecuentesUri: `/preg-frecuentes`,        // http://localhost:3000/preguntas-frecuentes
   contactoUri: `/demo`,                         // http://localhost:3000/contacto
 
   // Uri Auth
@@ -59,6 +60,7 @@ const TIPO_ROL = {
   DOCENTE: `Docente`,
   COORDINADOR: `Coordinador`,
   INVITADO: `Invitado`,
+  FUNCIONARIO: `Funcionario`,
 };
 
 const redirigir = (url) => {

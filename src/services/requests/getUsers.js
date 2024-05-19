@@ -17,7 +17,7 @@ export const getUsers = async (idUsuario) => {
                 email: info.email,
                 birthdate: info.birthdate,
                 ci: info.ci,
-                rol: 'Administrador',
+                rol: 'Coordinador',
             })
         }
     });
