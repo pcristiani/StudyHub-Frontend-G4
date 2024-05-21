@@ -22,7 +22,7 @@ function Register() {
 
     async function registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password) {
 
-        let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": `Estudiante` };
+        let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": `E` };
 
         let response = await fetch(URL_BACK.registerUsr, {
             method: 'POST',

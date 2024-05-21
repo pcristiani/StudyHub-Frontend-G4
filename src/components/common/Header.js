@@ -41,6 +41,7 @@ import { types } from '../../context/types';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { URI_FRONT, TIPO_ROL } from '../../services/util/constants'
+import { Key, Password, PasswordOutlined, PasswordRounded, PasswordTwoTone } from '@mui/icons-material';
 
 
 function ColorSchemeToggle() {
@@ -372,7 +373,7 @@ export default function Header() {
                                             <Avatar src="https://i.pravatar.cc/40?img=59" srcSet="https://i.pravatar.cc/80?img=59" sx={{ borderRadius: '50%' }} />
                                             <Box sx={{ ml: 1.5 }}>
                                                 <Typography level="title-sm" textColor="text.primary">
-                                                    {user.name} {user.surname}
+                                                    {user.nombre} {user.apellido}
                                                 </Typography>
                                                 <Typography level="body-xs" textColor="text.tertiary">
                                                     {user.email}
@@ -391,6 +392,10 @@ export default function Header() {
                                         Ajustes
                                     </MenuItem> */}
                                     <ListDivider />
+                                    <MenuItem href={URI_FRONT.homeUri} onClick={handleLogout}>
+                                        <Key />
+                                        Cambiar contraseña
+                                    </MenuItem>
                                     <MenuItem href={URI_FRONT.homeUri} onClick={handleLogout}>
                                         <LogoutRoundedIcon />
                                         Cerrar sesión

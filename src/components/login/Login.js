@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -18,60 +18,59 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
 
-import { getUsers } from '../../services/requests/getUsers';
+import { getUsuario } from '../../services/requests/getUsuario';
 import { validateCredentials, getToken } from '../../services/requests/loginTest';
-
+import { decodificaJwt } from '../../services/util/conversionBase64'
 
 const defaultTheme = createTheme();
 
 ///
 function Login() {
-
     const context = useContext(AuthContext);
     const history = useNavigate();
-    const autentication = (id, cedula, name, surname, rol, email) => {
+    const autentication = (idUsuario, cedula, nombre, apellido, rol, email, jwtLogin) => {
         const action = {
             type: types.login,
             payload: {
-                id: id,
+                id: idUsuario,
                 cedula: cedula,
-                name: name,
-                surname: surname,
-                rol: rol,
+                nombre: nombre,
+                apellido: apellido,
                 email: email,
+                rol: rol,
+                jwtLogin: jwtLogin
             }
         }
         context.dispatch(action);
     }
 
-    async function getInfoUsuario(idUsuario) {
-        //   const usuario = await getUsers(idUsuario);
-        // autentication(usuario.id, usuario.cedula, usuario.name, usuario.surname, usuario.rol, usuario.email);
-        autentication("5", "111", "Sebastian", "Gonzalez", "A", "sgonzalez@gmail.com");
+    async function getInfoUsuario(payload, resultJwt) {
+        let user = await getUsuario(payload.id, resultJwt);
+
+        // autentication("5", "111","sebas", "Gonza", "A", "s@s.com", "resultJwt");
+        autentication(user.idUsuario, user.cedula, user.nombre, user.apellido, user.rol, user.email, resultJwt);
 
         swal({
             title: "Acceso correcto\n\n",
-            text: "Nombre: ",//+ usuario.name + " " + usuario.surname + "\nRol: " + usuario.rol,
+            text: "Nombre: ",//+ user.nombre + " " + user.apellido + " Cedula: " + user.cedula,
             icon: "success",
             position: "center",
-            timer: 3000
+            timer: 4000
         });
         //   return usuario;
     }
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         let cedula = data.get('cedula');
         let password = data.get('password');
-        // validateCredentials(cedula, password);
+
         async function validarLogin() {
             const result = await validateCredentials(cedula, password);
-            //  const jwtresult = await getToken(cedula, password);
+            let payload = decodificaJwt(result);
             if (result !== null && result !== undefined) {
-                //  console.log("jwtresult id ", jwtresult);
-                getInfoUsuario(result.id).then(() => {
+                getInfoUsuario(payload, result).then(() => {
                     history('/Novedades'); // Redirige al usuario a la página de inicio
                 });
             } else {
@@ -99,7 +98,7 @@ function Login() {
                     </Typography>
 
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px' }}>
-                        <TextField margin="dense" required fullWidth id="cedula" label="Usuario" name="cedula" autoComplete="text" autoFocus />
+                        <TextField margin="dense" required fullWidth id="cedula" label="Cédula" name="cedula" autoComplete="text" autoFocus />
                         <TextField margin="dense" required fullWidth name="password" label="Contraseña" type="password" id="password" autoComplete="current-password" />
                         <FormControlLabel control={<Checkbox value="remember" color="primary" />}
                             label="Recuerdame" />

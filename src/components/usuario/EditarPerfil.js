@@ -12,10 +12,10 @@ import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import CardActions from '@mui/joy/CardActions';
-import { getUsers } from '../../services/requests/getUsers';
 import { AuthContext } from '../../context/AuthContext';
-import { decodeJwt } from '../../services/util/conversionBase64';
+import { decodificaJwt } from '../../services/util/conversionBase64';
 import { getToken } from '../../services/requests/loginTest';
+import { getUsuario } from '../../services/requests/getUsuario';
 
 
 export default function EditarPerfil() {
@@ -24,8 +24,9 @@ export default function EditarPerfil() {
     console.log("User: ", user.id);
     const jwtresult = []//getToken("111", "XdMiq4cRVtSl");
 
+
     useEffect(() => {
-        getUsers(user.id).then(result => {
+        getUsuario(user.id).then(result => {
             console.log("Datos Usuario: ", result);
         });
     }, []);
@@ -40,21 +41,19 @@ export default function EditarPerfil() {
                 <Divider />
                 <Stack direction="flex" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                     {/* <Stack direction="flex" spacing={1.5}>
-
                             <AspectRatio ratio="1" height={570} sx={{ borderRadius: '100%', display: { xs: 'flex', md: 'flex' } }}>
                                 <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
                                     srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
                                     loading="lazy"
                                     alt="" />
                             </AspectRatio>
-
                         </Stack> */}
                     <Stack>
                         <Stack spacing={1}>
                             <FormLabel>Nombre</FormLabel>
                             <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
-                                <Input size="sm" placeholder="Nombre" defaultValue={user.name} readOnly />
-                                <Input size="sm" placeholder="Apellido" sx={{}} defaultValue={user.surname} readOnly />
+                                <Input size="sm" placeholder="Nombre" defaultValue={user.nombre} readOnly />
+                                <Input size="sm" placeholder="Apellido" sx={{}} defaultValue={user.apellido} readOnly />
                             </FormControl>
                         </Stack>
                         <Stack>
@@ -83,8 +82,7 @@ export default function EditarPerfil() {
                         </div>
                     </Stack>
                 </Stack>
-                {/* 
-                    <CardActions sx={{ alignSelf: 'flex-end', pt: 1 }}> */}
+                {/*<CardActions sx={{ alignSelf: 'flex-end', pt: 1 }}> */}
                 <div style={{ display: 'flex', marginTop: '10px' }}>
                     <div style={{ padding: '5px' }}>
                         <Button size="sm" variant="solid">

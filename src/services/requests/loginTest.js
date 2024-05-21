@@ -1,5 +1,5 @@
 import { URL_BACK } from '../util/constants'
-import { decodeJwt } from '../util/conversionBase64'
+import { decodificaJwt } from '../util/conversionBase64'
 import axios from 'axios';
 
 // debugger;/
@@ -12,9 +12,8 @@ export const getToken = async (cedula, password) => {
         });
 
         if (response.status === 200) {
-            let objUser = decodeJwt(response.data);
-            console.log("***Existe Usuario***");
-            console.log("ID: ", objUser.id);
+            let objUser = decodificaJwt(response.data);
+            console.log("***Existe Usuario***", response.data);
             return response.data;
         }
     } catch (error) {
@@ -25,17 +24,17 @@ export const getToken = async (cedula, password) => {
 // Valida las credenciales del usuario
 export const validateCredentials = async (cedula, password) => {
     try {
-        console.log("28cedula: ", cedula, "Contraseña: ", password);
+        // console.log("28cedula: ", cedula, "Contraseña: ", password);
         let response = await axios.post(URL_BACK.loginTest, {
             "cedula": cedula,
             "password": password
         });
 
-        console.log("31response: ", response);
         if (response.status === 200) {
-            console.log("Usuario autenticado correctamente");
-            let objUser = decodeJwt(response.data);
-            return objUser;
+            // let objUser = decodificaJwt(response.data);
+            console.log("Usuario autenticado correctamente", response.data);
+
+            return response.data;
         }
     } catch (error) {
         console.log(error);

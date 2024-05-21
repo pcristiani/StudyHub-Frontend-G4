@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import { getValidarEstudiantes, updateValidarEstudiante } from '../../../services/requests/getUsers';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
+import axios from 'axios';
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -29,10 +30,10 @@ export default function ValidarEstudiantes() {
             try {
                 const result = await getValidarEstudiantes();
                 setData(result.map(user => ({
-                    id: user.id,
-                    nombre: user.name,
-                    apellido: user.surname,
-                    cedula: user.ci,
+                    id: user.idUsuario,
+                    nombre: user.nombre,
+                    apellido: user.apellido,
+                    cedula: user.cedula,
                     validado: user.validado
                 })));
             } catch (error) {
@@ -58,7 +59,7 @@ export default function ValidarEstudiantes() {
 
     return (
         <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          
+
             <Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
                 Lista de estudiantes a validar
             </Typography>
@@ -80,8 +81,8 @@ export default function ValidarEstudiantes() {
                     label="Más información"
                 />
             </FormGroup>
-          
-            <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ minHeight: '20vh',maxWidth:'90vh' }}>
+
+            <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ minHeight: '20vh', maxWidth: '90vh' }}>
                 <Grid item xs={12} md={6}>
                     <Demo>
                         <List dense={dense}>

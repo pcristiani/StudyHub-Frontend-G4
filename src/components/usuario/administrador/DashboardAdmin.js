@@ -21,8 +21,12 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import SelectAvatar  from './SelectAvatar';
 
 const drawerWidth = 240;
+
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -47,7 +51,7 @@ const AppBar = styled(MuiAppBar, {
 //         '& .MuiDrawer-paper': {
 //             position: 'relative',
 //             whiteSpace: '',
-            
+
 //             width: drawerWidth,
 //             transition: theme.transitions.create('width', {
 //                 easing: theme.transitions.easing.sharp,
@@ -72,19 +76,29 @@ const AppBar = styled(MuiAppBar, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+
+
+
 export default function DashboardAdmin() {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
     };
-
+    
     return (
         <ThemeProvider theme={defaultTheme}>
             <Box sx={{ display: 'relative' }}>
                 <CssBaseline />
-               {/* <AppBar position="absolute" open={open}>
+                <div>
+                </div>
+                <Stack direction="row" spacing={2}>
+                    {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                    <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" /> */}
+                </Stack>
+                {/* <AppBar position="absolute" open={open}>
                     <Toolbar
-                        sx={{
+                    sx={{
                             pr: '24px', // keep right padding when drawer closed
                         }}
                     >
@@ -98,20 +112,20 @@ export default function DashboardAdmin() {
                                 ...(open && { display: 'none' }),
                             }}
                         >
-                            <MenuIcon />
+                        <MenuIcon />
                         </IconButton>
                         <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            sx={{ flexGrow: 1 }}
+                        component="h1"
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                        sx={{ flexGrow: 1 }}
                         >
                             Dashboard
-                        </Typography>
-                        <IconButton color="inherit">
+                            </Typography>
+                            <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
+                            <NotificationsIcon />
                             </Badge>
                         </IconButton>
                     </Toolbar>
@@ -119,20 +133,21 @@ export default function DashboardAdmin() {
                 <Drawer variant="permanent" open={open}>
                     <Toolbar>
 
-
+                    
                         <IconButton onClick={toggleDrawer}>
                             <ChevronLeftIcon />
-                        </IconButton>
-                    </Toolbar>
-                    <Divider />
-                    <List component="nav">
-                        {mainListItems}
-                        <Divider sx={{ my: 1 }} />
-                        {secondaryListItems}
-                    </List>
-                </Drawer> */}
+                            </IconButton>
+                            </Toolbar>
+                            <Divider />
+                            <List component="nav">
+                            {mainListItems}
+                            <Divider sx={{ my: 1 }} />
+                            {secondaryListItems}
+                            </List>
+                        </Drawer> */}
                 <Box
-                                  >
+                >
+
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
@@ -151,6 +166,7 @@ export default function DashboardAdmin() {
                             </Grid>
                             {/* Recent Deposits */}
                             <Grid item xs={12} md={4} lg={3}>
+                                    <SelectAvatar />
                                 <Paper
                                     sx={{
                                         p: 2,

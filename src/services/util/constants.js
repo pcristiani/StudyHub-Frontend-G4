@@ -23,7 +23,7 @@ const URI_FRONT = {
 
   // Uri Invitado
   novedadesUri: `/novedades`,                   // http://localhost:3000/novedades
-  //pregFrecuentesUri: `/preg-frecuentes`,        // http://localhost:3000/preguntas-frecuentes
+  //pregFrecuentesUri: `/preg-frecuentes`,      // http://localhost:3000/preguntas-frecuentes
   contactoUri: `/demo`,                         // http://localhost:3000/contacto
 
   // Uri Auth
@@ -39,16 +39,16 @@ const URI_FRONT = {
 
 const URL_BACK = {
   loginTest: `${uriBaseBack}/iniciarSesion`,                                     // http://localhost:8080/iniciarSesion
-  getUser: `${uriBaseBack}/api/usuario/getUsuario/`,                                  // http://localhost:8080/api/users/getUser/{id}
-  getUsers: `${uriBaseBack}/api/usuario/getUsuarios`,                                        // http://localhost:8080/getAllUsers
+  getUser: `${uriBaseBack}/api/usuario/getUsuario/`,                             // http://localhost:8080/api/users/getUser/{id}
+  getUsers: `${uriBaseBack}/api/usuario/getUsuarios`,                            // http://localhost:8080/getAllUsers
   courseRelations: `${uriBaseBack}/course-relations`,                            // http://localhost:8080/course-relations
   forgotPassword: `${uriBaseBack}/forgotPassword`,                               // http://localhost:8080/forgotPassword
   recuperarPassword: `${uriBaseBack}/recuperarPassword`,                         // http://localhost:8080/recuperarPassword
-  registerUsr: `${uriBaseBack}/registerUser`,                                    // http://localhost:8080/registerUser
-  updateUsr: `${uriBaseBack}/api/usuario/updateUser/`,                             // http://localhost:8080/api/users/updateUser/{id}
-  deleteUser: `${uriBaseBack}/api/usuario/deleteUser/`,                            // http://localhost:8080/api/users/deleteUser/{id}
-  estudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`,    // http://localhost:3000/estudiantes-pendientes
-  acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,                // http://localhost:3000/acceptEstudiante/{id}
+  registerUsr: `${uriBaseBack}/registerUsuario`,                                 // http://localhost:8080/registerUser
+  updateUsr: `${uriBaseBack}/api/usuario/updateUser/`,                           // http://localhost:8080/api/users/updateUser/{id}
+  deleteUser: `${uriBaseBack}/api/usuario/deleteUser/`,                          // http://localhost:8080/api/users/deleteUser/{id}
+  estudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`,  // http://localhost:3000/estudiantes-pendientes
+  acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,              // http://localhost:3000/acceptEstudiante/{id}
 }
 
 const PARAMETERS = {
@@ -56,7 +56,7 @@ const PARAMETERS = {
   clientid: `clientId`,
   code: `code`,
   clientsecret: `emrYoruZKktTVfw5`,
-  accessToken: `eyJhbGciOiJIUzI1NiJ9.eyJjaSI6IjExMSIsImlkIjo1LCJyb2wiOiJBIiwic3ViIjoiMTExIiwiaWF0IjoxNzE2MjQ4ODk4LCJleHAiOjE3MTYyNDk3OTh9.o4K14b8lE9CWmNm-O9thANP2mYedYDH3rpLxonAQcjo`,
+  accessToken: `eyJhbGciOiJIUzI1NiJ9.eyJjaSI6IjExMSIsImlkIjo1LCJyb2wiOiJBIiwic3ViIjoiMTExIiwiaWF0IjoxNzE2MzI5NzE3LCJleHAiOjE3MTYzMzA2MTd9.57eCSHxeQhjD043A6v8G_ONgqbnq8CRifq_0buISW2U`,
 };
 
 const TIPO_ROL = {
@@ -71,5 +71,6 @@ const TIPO_ROL = {
 const redirigir = (url) => {
   window.location.href = url;
 };
+
 
 export { TIPO_ROL, URI_FRONT, URL_BACK, PARAMETERS, redirigir, uriBaseFront };

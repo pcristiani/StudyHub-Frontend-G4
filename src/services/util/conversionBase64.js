@@ -18,8 +18,16 @@ function base64ToImage(base64) {
   //  return  document.getElementById('root').appendChild(img);
 }
 
+// Codificar JWT
+function codificarJwt(header, payload, secret) {
+  const encodedHeader = btoa(JSON.stringify(header));
+  const encodedPayload = btoa(JSON.stringify(payload));
+  const signature = btoa(encodedHeader + "." + encodedPayload + secret);
+  return encodedHeader + "." + encodedPayload + "." + signature;
+}
 
-function decodeJwt(strJwt) {
+// Decodificar JWT
+function decodificaJwt(strJwt) {
   let parts = strJwt.split('.');
   if (parts.length !== 3) {
     throw new Error('Token JWT inválido');
@@ -31,13 +39,12 @@ function decodeJwt(strJwt) {
     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
   try {
-    console.log('decodeJwt: ', JSON.parse(jsonPayload));
+    console.log('decodificaJwt: ', JSON.parse(jsonPayload));
   } catch (error) {
     console.error(error);
   }
   return JSON.parse(jsonPayload);
 }
 
-export { textToBase64, base64ToText, base64ToImage, decodeJwt };
 
-
+export { textToBase64, base64ToText, base64ToImage, decodificaJwt, codificarJwt };
