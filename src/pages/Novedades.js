@@ -27,7 +27,7 @@ const Novedades = () => {
               </Typography>
               <br></br>
               <Typography className="text-dark focus-ring-primary" component="p" >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porttitor condimentum porttitor. Curabitur faucibus ante nec sapien euismod mattis. Sed odio lectus, vestibulum eget risus id, laoreet dignissim orci. Nunc ultricies semper quam, id tristique nibh mattis vitae. Cras mauris nisi, mollis eget turpis a, pharetra finibus orci. Donec vitae consequat ante. Morbi dapibus sem metus.
+           Grupo 4 - Tecnólogo en Informática
               </Typography>
             </Box>
           </Container>

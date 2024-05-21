@@ -19,7 +19,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
 
 import { getUsers } from '../../services/requests/getUsers';
-import { validateCredentials } from '../../services/requests/loginTest';
+import { validateCredentials, getToken } from '../../services/requests/loginTest';
 
 
 const defaultTheme = createTheme();
@@ -29,12 +29,12 @@ function Login() {
 
     const context = useContext(AuthContext);
     const history = useNavigate();
-    const autentication = (id, username, name, surname, rol, email) => {
+    const autentication = (id, cedula, name, surname, rol, email) => {
         const action = {
             type: types.login,
             payload: {
                 id: id,
-                username: username,
+                cedula: cedula,
                 name: name,
                 surname: surname,
                 rol: rol,
@@ -45,30 +45,32 @@ function Login() {
     }
 
     async function getInfoUsuario(idUsuario) {
-        const usuario = await getUsers(idUsuario);
-        autentication(usuario.id, usuario.username, usuario.name, usuario.surname, usuario.rol, usuario.email);
+        //   const usuario = await getUsers(idUsuario);
+        // autentication(usuario.id, usuario.cedula, usuario.name, usuario.surname, usuario.rol, usuario.email);
+        autentication("5", "111", "Sebastian", "Gonzalez", "A", "sgonzalez@gmail.com");
 
         swal({
             title: "Acceso correcto\n\n",
-            text: "Nombre: " + usuario.name + " " + usuario.surname + "\nRol: " + usuario.rol,
+            text: "Nombre: ",//+ usuario.name + " " + usuario.surname + "\nRol: " + usuario.rol,
             icon: "success",
             position: "center",
             timer: 3000
         });
-        return usuario;
+        //   return usuario;
     }
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        let username = data.get('username');
+        let cedula = data.get('cedula');
         let password = data.get('password');
-        // validateCredentials(username, password);
-
+        // validateCredentials(cedula, password);
         async function validarLogin() {
-            const result = await validateCredentials(username, password);
+            const result = await validateCredentials(cedula, password);
+            //  const jwtresult = await getToken(cedula, password);
             if (result !== null && result !== undefined) {
+                //  console.log("jwtresult id ", jwtresult);
                 getInfoUsuario(result.id).then(() => {
                     history('/Novedades'); // Redirige al usuario a la página de inicio
                 });
@@ -97,7 +99,7 @@ function Login() {
                     </Typography>
 
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px' }}>
-                        <TextField margin="dense" required fullWidth id="username" label="Usuario" name="username" autoComplete="text" autoFocus />
+                        <TextField margin="dense" required fullWidth id="cedula" label="Usuario" name="cedula" autoComplete="text" autoFocus />
                         <TextField margin="dense" required fullWidth name="password" label="Contraseña" type="password" id="password" autoComplete="current-password" />
                         <FormControlLabel control={<Checkbox value="remember" color="primary" />}
                             label="Recuerdame" />

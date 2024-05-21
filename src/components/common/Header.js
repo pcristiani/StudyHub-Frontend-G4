@@ -57,7 +57,7 @@ function ColorSchemeToggle() {
     }
     return (
         <Tooltip title="Cambiar tema" variant="outlined">
-            <IconButton id="toggle-mode" size="sm" variant="solid" color="neutral" sx={{ alignSelf: 'center' }}
+            <IconButton id="toggle-mode" size="sm" variant="outlined" color="neutral" sx={{ alignSelf: 'center' }}
                 onClick={() => {
                     if (mode === 'dark') {
                         setMode('light');
@@ -159,7 +159,7 @@ export default function Header() {
                                     <Dropdown>
                                         <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
                                             <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                <Button variant="plain" color="neutral" component="a" href='/dashboard-admin' size="sm">
                                                     Alta coordinador y funcionario
                                                 </Button>
                                                 <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
@@ -169,10 +169,13 @@ export default function Header() {
                                                     Eliminar coordinador o funcionario
                                                 </Button>
                                                 <Button variant="plain" color="neutral" component="a" href='./resumen-actividad' size="sm" sx={{ alignSelf: 'center' }}>
-                                                    Resumen de actividad 
+                                                    Resumen de actividad
                                                 </Button>
                                                 <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'center' }}>
                                                     Asignar coordinador
+                                                </Button>
+                                                <Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm" sx={{ alignSelf: 'center' }}>
+                                                    Validar usuario de estudiante
                                                 </Button>
                                             </Menu>
                                         </MenuButton>
@@ -398,7 +401,7 @@ export default function Header() {
                         :
                         <>
                             <Stack direction="row" justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                                <Button variant="plain" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
+                                <Button variant="outlined" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
                                     Iniciar sesión
                                 </Button>
                                 {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.signupUri} size="sm">
@@ -415,8 +418,8 @@ export default function Header() {
                                         menu={
                                             <Menu onClose={() => setMenuIndex(null)}>
                                                 <Button variant="plain" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
-                                                    
-                                                    
+
+
                                                     Iniciar sesión
                                                 </Button>
                                                 {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.signupUri} size="sm">

@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getUsers } from '../services/requests/getUsers';
-import { loginTest } from '../services/requests/loginTest';
+import { getToken } from '../services/requests/loginTest';
 
 import Typography from '@mui/material/Typography';
 import { CssVarsProvider } from '@mui/joy/styles';
@@ -21,7 +21,7 @@ const InscripcionesPage = () => {
   }, []);
 
   useEffect(() => {
-    loginTest('sgonzalez2', '123').then(result => {
+    getToken('11', '123').then(result => {
       // console.log("JWT: ", result);
     });
   }, []);

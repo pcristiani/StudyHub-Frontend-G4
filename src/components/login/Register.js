@@ -20,9 +20,9 @@ const defaultTheme = createTheme();
 // debugger;
 function Register() {
 
-    async function registerUsr(firstName, lastname, email, birthdate, username, password) {
+    async function registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password) {
 
-        let body = { "name": firstName, "surname": `sebas`, "email": email, "birthdate": `19891020`, "ci": "4002001", "username": username, "password": password };
+        let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": `Estudiante` };
 
         let response = await fetch(URL_BACK.registerUsr, {
             method: 'POST',
@@ -36,8 +36,8 @@ function Register() {
         if (response.ok) {
             console.log("response: ", response);
             swal({
-                title: "Se crea usuario correcto\n\n",
-                text: "Usuario: " + username, // "\nNombre: " + name,
+                title: "Se crea usuario correctamente\n\n",
+                text: "Cedula: " + cedula + "\nNombre: " + nombre,
                 icon: "success",
                 position: "center",
                 timer: 3000
@@ -52,13 +52,13 @@ function Register() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        let firstName = data.get('firstName');
-        let lastname = data.get('lastname');
+        let nombre = data.get('nombre');
+        let apellido = data.get('apellido');
         let email = data.get('email');
-        let birthdate = data.get('birthdate');
-        let username = data.get('username');
+        let fechaNacimiento = data.get('fechaNacimiento');
+        let cedula = data.get('cedula');
         let password = data.get('password');
-        registerUsr(firstName, lastname, email, birthdate, username, password);
+        registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password);
     };
 
     return (
@@ -76,11 +76,11 @@ function Register() {
 
                         <Grid container spacing={0.8}>
                             <Grid item xs={12} sm={6}>
-                                <TextField size="small" autoComplete="given-name" name="firstName" required fullWidth id="firstName" label="Nombre" autoFocus />
+                                <TextField size="small" autoComplete="given-name" name="nombre" required fullWidth id="nombre" label="Nombre" autoFocus />
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
-                                <TextField size="small" required fullWidth id="lastName" label="Apellido" name="lastName" autoComplete="family-name" />
+                                <TextField size="small" required fullWidth id="apellido" label="Apellido" name="apellido" autoComplete="family-name" />
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
@@ -88,11 +88,11 @@ function Register() {
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
-                                <TextField size="small" fullWidth id="birthdate" label="Fecha" type='text' />
+                                <TextField size="small" fullWidth id="fechaNacimiento" label="Fecha de nacimiento" name="fechaNacimiento" type='text' />
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
-                                <TextField size="small" required fullWidth id="username" label="Usuario" name="username" autoComplete="family-name" />
+                                <TextField size="small" required fullWidth id="cedula" label="Cedula" name="cedula" autoComplete="family-name" />
                             </Grid>
 
                             <Grid item xs={12} sm={6}>

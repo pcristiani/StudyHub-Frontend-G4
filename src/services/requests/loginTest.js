@@ -4,10 +4,10 @@ import axios from 'axios';
 
 // debugger;/
 // Devuelve el token de autenticacion
-export const loginTest = async (username, password) => {
+export const getToken = async (cedula, password) => {
     try {
         let response = await axios.post(URL_BACK.loginTest, {
-            "username": username,
+            "cedula": cedula,
             "password": password
         });
 
@@ -23,14 +23,17 @@ export const loginTest = async (username, password) => {
 }
 
 // Valida las credenciales del usuario
-export const validateCredentials = async (username, password) => {
+export const validateCredentials = async (cedula, password) => {
     try {
+        console.log("28cedula: ", cedula, "Contraseña: ", password);
         let response = await axios.post(URL_BACK.loginTest, {
-            "username": username,
+            "cedula": cedula,
             "password": password
         });
 
+        console.log("31response: ", response);
         if (response.status === 200) {
+            console.log("Usuario autenticado correctamente");
             let objUser = decodeJwt(response.data);
             return objUser;
         }

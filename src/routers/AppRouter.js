@@ -25,6 +25,9 @@ import Layout from '../components/common/Layout';
 
 import EditarPerfil from "../components/usuario/EditarPerfil";
 
+import ValidarEstudiantes from "../components/usuario/administrador/ValidarEstudiantes";
+import DashboardAdmin from '../components/usuario/administrador/DashboardAdmin';
+
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -51,6 +54,10 @@ export const AppRouter = () => {
                 <Route path="/edit-perfil" element={<EditarPerfil user={user.id} />} exact />
                 <Route path="/not-found" element={<Page404 user={user.id} />} exact />
                 <Route path="/nueva-carrera" element={<AltaCarrera user={user.id} />} exact />
+
+                <Route path="/validar-estudiantes" element={<ValidarEstudiantes user={user.id} />} exact />
+                <Route path="/dashboard-admin" element={<DashboardAdmin user={user.id} />} exact />
+
                 {/* <Route path="/demo" element={<Demo user={user.id} />} exact /> */}
 
                 <Route path='/login' element={

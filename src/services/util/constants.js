@@ -32,18 +32,23 @@ const URI_FRONT = {
   registrarseUri: `/registrarse`,               // http://localhost:3000/registrarse
   forgotPassUri: `/olvido-contrasenia?token=`,  // http://localhost:3000/olvido-contrasenia
   resetPassUri: `/resetPassword/?token=`,       // http://localhost:3000/resetPassword
+
+  //Uri Administrador
+  validarEstudiantesUri: `/validar-estudiantes`, // http://localhost:3000/validar-estudiantes
 }
 
 const URL_BACK = {
-  loginTest: `${uriBaseBack}/login/test`,                 // http://localhost:8080/login/test
-  getUser: `${uriBaseBack}/api/users/getUser/`,           // http://localhost:8080/api/users/getUser/{id}
-  getUsers: `${uriBaseBack}/getAllUsers`,                 // http://localhost:8080/getAllUsers
-  courseRelations: `${uriBaseBack}/course-relations`,     // http://localhost:8080/course-relations
-  forgotPassword: `${uriBaseBack}/forgotPassword`,        // http://localhost:8080/forgotPassword
-  recuperarPassword: `${uriBaseBack}/recuperarPassword`,  // http://localhost:8080/recuperarPassword
-  registerUsr: `${uriBaseBack}/registerUser`,             // http://localhost:8080/registerUser
-  updateUsr: `${uriBaseBack}/api/users/updateUser/`,      // http://localhost:8080/api/users/updateUser/{id}
-  deleteUser: `${uriBaseBack}/api/users/deleteUser/`,     // http://localhost:8080/api/users/deleteUser/{id}
+  loginTest: `${uriBaseBack}/iniciarSesion`,                                     // http://localhost:8080/iniciarSesion
+  getUser: `${uriBaseBack}/api/usuario/getUsuario/`,                                  // http://localhost:8080/api/users/getUser/{id}
+  getUsers: `${uriBaseBack}/api/usuario/getUsuarios`,                                        // http://localhost:8080/getAllUsers
+  courseRelations: `${uriBaseBack}/course-relations`,                            // http://localhost:8080/course-relations
+  forgotPassword: `${uriBaseBack}/forgotPassword`,                               // http://localhost:8080/forgotPassword
+  recuperarPassword: `${uriBaseBack}/recuperarPassword`,                         // http://localhost:8080/recuperarPassword
+  registerUsr: `${uriBaseBack}/registerUser`,                                    // http://localhost:8080/registerUser
+  updateUsr: `${uriBaseBack}/api/usuario/updateUser/`,                             // http://localhost:8080/api/users/updateUser/{id}
+  deleteUser: `${uriBaseBack}/api/usuario/deleteUser/`,                            // http://localhost:8080/api/users/deleteUser/{id}
+  estudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`,    // http://localhost:3000/estudiantes-pendientes
+  acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,                // http://localhost:3000/acceptEstudiante/{id}
 }
 
 const PARAMETERS = {
@@ -51,16 +56,16 @@ const PARAMETERS = {
   clientid: `clientId`,
   code: `code`,
   clientsecret: `emrYoruZKktTVfw5`,
-  accessToken: `44b4ff323b3509c5b897e8199c0655197797128fa71d81335f68b9a2a3286f30`,
+  accessToken: `eyJhbGciOiJIUzI1NiJ9.eyJjaSI6IjExMSIsImlkIjo1LCJyb2wiOiJBIiwic3ViIjoiMTExIiwiaWF0IjoxNzE2MjQ4ODk4LCJleHAiOjE3MTYyNDk3OTh9.o4K14b8lE9CWmNm-O9thANP2mYedYDH3rpLxonAQcjo`,
 };
 
 const TIPO_ROL = {
-  ADMIN: `Administrador`,
-  ESTUDIANTE: `Estudiante`,
-  DOCENTE: `Docente`,
-  COORDINADOR: `Coordinador`,
-  INVITADO: `Invitado`,
-  FUNCIONARIO: `Funcionario`,
+  ADMIN: `A`,
+  ESTUDIANTE: `E`,
+  DOCENTE: `D`,
+  COORDINADOR: `C`,
+  INVITADO: `I`,
+  FUNCIONARIO: `F`,
 };
 
 const redirigir = (url) => {
