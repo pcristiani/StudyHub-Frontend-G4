@@ -6,33 +6,11 @@ import '../../css/style-navbar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useContext } from 'react';
 import { useColorScheme } from '@mui/joy/styles';
-import Nav from 'react-bootstrap/Nav';
 import IconButton from '@mui/joy/IconButton';
-import Stack from '@mui/joy/Stack';
-import Avatar from '@mui/joy/Avatar';
-import Input from '@mui/joy/Input';
-import Button from '@mui/joy/Button';
 import Tooltip from '@mui/joy/Tooltip';
-import Dropdown from '@mui/joy/Dropdown';
-import Menu from '@mui/joy/Menu';
-import MenuButton from '@mui/joy/MenuButton';
-import MenuItem from '@mui/joy/MenuItem';
-import ListDivider from '@mui/joy/ListDivider';
-import Drawer from '@mui/joy/Drawer';
-import ModalClose from '@mui/joy/ModalClose';
-import DialogTitle from '@mui/joy/DialogTitle';
-import { CssVarsProvider } from '@mui/joy/styles';
-import ListItem from '@mui/joy/ListItem';
 
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import AccountCircleOutlined from '@mui/icons-material/AccountCircleOutlined';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import Person from '@mui/icons-material/Person';
-import PropTypes from 'prop-types';
 
 import Navigation from './Navigation';
 import { useNavigate } from 'react-router-dom'
