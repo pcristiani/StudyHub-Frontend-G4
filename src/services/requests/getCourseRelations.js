@@ -15,6 +15,5 @@ export const getCourseRelations = async () => {
 
     let result = await response.text();
     // console.log(data);
-
     return result;
 }

@@ -47,12 +47,11 @@ function Login() {
     async function getInfoUsuario(payload, resultJwt) {
         let user = await getUsuario(payload.id, resultJwt);
 
-        // autentication("5", "111","sebas", "Gonza", "A", "s@s.com", "resultJwt");
         autentication(user.idUsuario, user.cedula, user.nombre, user.apellido, user.rol, user.email, resultJwt);
 
         swal({
             title: "Acceso correcto\n\n",
-            text: "Nombre: ",//+ user.nombre + " " + user.apellido + " Cedula: " + user.cedula,
+            text: "Nombre: " + user.nombre + " " + user.apellido + " Cedula: " + user.cedula,
             icon: "success",
             position: "center",
             timer: 4000

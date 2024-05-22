@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
+
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -11,6 +12,8 @@ import Container from '@mui/material/Container';
 import swal from 'sweetalert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { PARAMETERS, URL_BACK } from '../../services/util/constants'
+import { AuthContext } from '../../context/AuthContext';
+import { PublicRoute } from '../../../src/routers/PublicRoute';
 
 import '../../css/style.css';
 import logo from '../../img/logo.png';
@@ -19,16 +22,17 @@ const defaultTheme = createTheme();
 
 // debugger;
 function Register() {
+    const { user } = useContext(AuthContext);
 
-    async function registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password) {
+    async function registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password, rol) {
 
-        let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": `E` };
+        let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": rol };
 
         let response = await fetch(URL_BACK.registerUsr, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${PARAMETERS.accessToken}`,
+                'Authorization': `Bearer ${user.jwtLogin}`,
             },
             body: JSON.stringify(body)
         })
@@ -36,14 +40,14 @@ function Register() {
         if (response.ok) {
             console.log("response: ", response);
             swal({
-                title: "Se crea usuario correctamente\n\n",
-                text: "Cedula: " + cedula + "\nNombre: " + nombre,
+                title: "Su usuario queda pendiente de validación\n\n",
+                text: "\nNombre: " + nombre + " " + apellido + "Cedula: " + cedula,
                 icon: "success",
                 position: "center",
-                timer: 3000
+                timer: 4000
             });
         } else {
-            swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
+            swal("¡Advertencia!", 'Los datos ingresados son incorrectos', "error", {
                 timer: 3000
             });
         }
@@ -58,7 +62,7 @@ function Register() {
         let fechaNacimiento = data.get('fechaNacimiento');
         let cedula = data.get('cedula');
         let password = data.get('password');
-        registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password);
+        registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password, `E`);
     };
 
     return (
@@ -88,7 +92,10 @@ function Register() {
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
-                                <TextField size="small" fullWidth id="fechaNacimiento" label="Fecha de nacimiento" name="fechaNacimiento" type='text' />
+                                <TextField size="small" fullWidth id="fechaNacimiento" name="fechaNacimiento" type='date' />
+                                {/* <Input
+                                    type="date" slotProps={{                                        input: { min: '2018-06-07', max: '2018-06-14', },                                    }}
+                                /> */}
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
@@ -100,10 +107,10 @@ function Register() {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <FormControlLabel control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="Acepto recibir información via email." />
+                                {/* <FormControlLabel control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                    label="Acepto recibir información via email." /> */}
+                            <Button  type="submit" fullWidth variant="contained">Registrarse</Button>
                             </Grid>
-                            <Button type="submit" fullWidth variant="contained">Registrarse</Button>
                         </Grid>
                         <Grid container justifyContent="flex-middle">
                             <Link href="/login" variant="body2">¿Ya tienes una cuenta? Iniciar sesión</Link>

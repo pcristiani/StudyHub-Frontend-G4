@@ -387,10 +387,10 @@ export default function Header() {
                                         <AccountCircleOutlined />
                                         Perfil
                                     </MenuItem>
-                                    {/* <MenuItem href={URI_FRONT.editPerfilUri} component="a">
+                                    <MenuItem href={URI_FRONT.editPerfilUri} component="a">
                                         <SettingsRoundedIcon />
                                         Ajustes
-                                    </MenuItem> */}
+                                    </MenuItem>
                                     <ListDivider />
                                     <MenuItem href={URI_FRONT.homeUri} onClick={handleLogout}>
                                         <Key />

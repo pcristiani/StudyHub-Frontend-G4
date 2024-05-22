@@ -1,10 +1,10 @@
 import { URL_BACK, PARAMETERS } from '../util/constants'
 import axios from "axios";
 
-export const getUsuario = async (idUsuario) => {
+export const getUsuario = async (idUsuario, jwtUser) => {
     let headersList = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${PARAMETERS.accessToken} `,
+        'Authorization': `Bearer ${jwtUser}`,
     }
 
     let reqOptions = {

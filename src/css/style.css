@@ -260,15 +260,15 @@ div {
 
 .footer {
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-  /* background: #ffffff; */
+  background: #ffffff;
   position: fixed;
     bottom: 0;
   width: 100%;
   color: #a8a8a8;
   font-weight: normal;
-  padding: 3px;
+  /* padding: 3px; */
   justify-content: center;
   text-align: left;
   font-size: 12px;
-     z-index: 1000; /* muestre por encima de los otros elementos. */
+  /* z-index: 1000; muestre por encima de los otros elementos. */
 }

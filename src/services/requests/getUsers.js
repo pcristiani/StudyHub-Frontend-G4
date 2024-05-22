@@ -10,7 +10,6 @@ import axios from 'axios';
 export const getUsers = async (idUsuario, jwtUser) => {
 
     const url = URL_BACK.getUsers;
-    // const url = `https://studyhub-backend-g4-production.up.railway.app/getAllUsers`;
 
     const headers = {
         'Content-Type': 'application/json',
@@ -58,6 +57,23 @@ export const getValidarEstudiantes = async () => {
     return result;
 }
 
+// export const getValidarEstudiantes = async () => {
+//     //const url = URL_BACK.getUsers;
+//     //  const url = `http://localhost:8080/api/usuario/getUsuario`;
+//     const url = URL_BACK.estudiantesPendientes;
+
+//     let headersList = {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${PARAMETERS.accessToken} `,
+//     }
+//     let response = await fetch(url, {
+//         method: "GET",
+//         headers: headersList
+//     });
+//     let result = await response.json();
+//     console.log('result: ', result);
+//     return result;
+// }
 
 export const updateValidarEstudiante = async (idUsuario) => {
 

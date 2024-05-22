@@ -11,7 +11,6 @@ import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
-import CardActions from '@mui/joy/CardActions';
 import { AuthContext } from '../../context/AuthContext';
 import { decodificaJwt } from '../../services/util/conversionBase64';
 import { getToken } from '../../services/requests/loginTest';
@@ -19,14 +18,16 @@ import { getUsuario } from '../../services/requests/getUsuario';
 
 
 export default function EditarPerfil() {
+
     // const [strJwt, setStrJwt] = useState(null);
+
     const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
     console.log("User: ", user.id);
-    const jwtresult = []//getToken("111", "XdMiq4cRVtSl");
+    // const jwtresult = getToken("111", "XdMiq4cRVtSl");
 
 
     useEffect(() => {
-        getUsuario(user.id).then(result => {
+        getUsuario(user.id, user.jwtLogin).then(result => {
             console.log("Datos Usuario: ", result);
         });
     }, []);
@@ -60,8 +61,6 @@ export default function EditarPerfil() {
                             <FormControl>
                                 <FormLabel>Cedula</FormLabel>
                                 <Input size="sm" placeholder="Cedula" defaultValue={user.cedula} readOnly />
-                                {/* </FormControl>
-                                <FormControl> */}
                                 <FormLabel>Email</FormLabel>
                                 <Input size="sm" type="email" defaultValue={user.email} readOnly placeholder="Email" sx={{ flexGrow: 1 }} />
                             </FormControl>
@@ -96,9 +95,7 @@ export default function EditarPerfil() {
                     </div>
                 </div>
                 {/* </CardActions> */}
-
             </Card>
-
         </Box>
     );
 }

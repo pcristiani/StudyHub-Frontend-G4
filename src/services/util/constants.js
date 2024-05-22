@@ -56,7 +56,7 @@ const PARAMETERS = {
   clientid: `clientId`,
   code: `code`,
   clientsecret: `emrYoruZKktTVfw5`,
-  accessToken: `eyJhbGciOiJIUzI1NiJ9.eyJjaSI6IjExMSIsImlkIjo1LCJyb2wiOiJBIiwic3ViIjoiMTExIiwiaWF0IjoxNzE2MzI5NzE3LCJleHAiOjE3MTYzMzA2MTd9.57eCSHxeQhjD043A6v8G_ONgqbnq8CRifq_0buISW2U`,
+  accessToken: `eyJhbGciOiJIUzI1NiJ9.eyJjaSI6IjExMSIsImlkIjo1LCJyb2wiOiJBIiwic3ViIjoiMTExIiwiaWF0IjoxNzE2MzM2Mzc4LCJleHAiOjE3MTYzMzcyNzh9.ZrFW4lYQMXEaDlVL3xo0B5pMtJdA5pb5sywRr_Cg4I0`,
 };
 
 const TIPO_ROL = {
