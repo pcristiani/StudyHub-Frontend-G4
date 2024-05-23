@@ -11,11 +11,16 @@ import Card from '@mui/joy/Card';
 import { AuthContext } from '../../../context/AuthContext';
 import { URL_BACK } from '../../../services/util/constants';
 import swal from 'sweetalert';
+import { useNavigate } from 'react-router-dom';
 
+// const MyFormComponent = () => {
 export default function AltaCarrera() {
-    const { carrera } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+    console.log(user.jwtLogin);
+    const history = useNavigate();
 
     async function altaCarrera(nombre, descripcion) {
+        console.log("Alta carrera:", nombre, descripcion);
 
         let body = { "nombre": nombre, "descripcion": descripcion };
 
@@ -23,7 +28,7 @@ export default function AltaCarrera() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${carrera.jwtLogin}`,
+                'Authorization': `Bearer ${user.jwtLogin}`,
             },
             body: JSON.stringify(body)
         })
@@ -48,46 +53,33 @@ export default function AltaCarrera() {
         const data = new FormData(event.currentTarget);
         let nombre = data.get('nombre');
         let descripcion = data.get('descripcion');
+        console.log(nombre, descripcion);
         altaCarrera(nombre, descripcion);
+        history('/Novedades');
     };
 
+
     return (
-        <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
+        <Box component="form" sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-                <Box sx={{ alignSelf: 'center' }} onSubmit={handleSubmit}>
+                <Box sx={{ alignSelf: 'center' }}>
                     <Typography level="title-md">Alta carrera</Typography>
                 </Box>
                 <Divider />
-                <Stack direction="flex" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    <Stack>
-                        <Stack spacing={1}>
-                            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
-                                <FormLabel>Nombre</FormLabel>
-                                <Input size="sm" placeholder="Nombre" />
-                                <FormLabel>Descripción</FormLabel>
-                                <Input size="sm" placeholder="Descripción" sx={{}} />
-                            </FormControl>
-                        </Stack>
+                <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+                    {/* <FormControl sx={{ width: '100%', maxWidth: 350, gap: 1 }}> */}
+                        <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
+                        <FormLabel htmlFor="nombre">Nombre</FormLabel>
+                        <Input size="small" id="nombre" name="nombre" placeholder="Nombre" required />
+                        <FormLabel htmlFor="descripcion">Descripción</FormLabel>
+                        <Input size="small" id="descripcion" name="descripcion" placeholder="Descripción" required />
+                    </FormControl>
+                    <Stack direction="row" spacing={2} sx={{ marginTop: 2, justifyContent: 'center' }}>
+                        <Button type="submit" size="small" variant="solid">Guardar</Button>
+                        <Button size="small" variant="outlined" color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Stack>
-
-                <div style={{ display: 'flex', marginTop: '10px' }}>
-                    <div style={{ padding: '5px' }}>
-                        <Button size="sm" variant="solid">
-                            Guardar
-                        </Button>
-                    </div>
-                    <div style={{ padding: '5px' }}>
-                        <Button size="sm" variant="outlined" color="neutral">
-                            Cancelar
-                        </Button>
-                    </div>
-                </div>
-                {/* </CardActions> */}
-
             </Card>
-
         </Box>
     );
-}
-
+};
