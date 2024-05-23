@@ -53,6 +53,7 @@ const URL_BACK = {
   acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,              // http://localhost:3000/acceptEstudiante/{id}
   modificarDocente: `${uriBaseBack}/api/docente/modificarDocente/`,              // http://localhost:3000/modificarDocente/{id}
   modificarPassword: `${uriBaseBack}/api/usuario/modificarPassword/`,            // http://localhost:3000/modificarPassword/{id}
+  altaCarrera: `${uriBaseBack}/api/carrera/altaCarrera`,                          // 'http://localhost:8080/api/carrera/altaCarrera' \
 }
 
 const PARAMETERS = {
