@@ -12,7 +12,7 @@ import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import CardActions from '@mui/joy/CardActions';
-import { getUsers } from '../../../services/requests/getUsers';
+import { getUsuarios } from '../../../services/requests/getUsuarios';
 import { AuthContext } from '../../../context/AuthContext';
 
 
@@ -21,7 +21,7 @@ export default function EditarPerfil() {
     const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
 
     useEffect(() => {
-        getUsers(user.id).then(result => {
+        getUsuarios(user.id).then(result => {
             console.log("Datos Usuario: ", result);
         });
     }, []);

@@ -19,11 +19,11 @@ import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
 
 import { getUsuario } from '../../services/requests/getUsuario';
-import { validateCredentials, getToken } from '../../services/requests/loginTest';
+import { getToken } from '../../services/requests/loginTest';
 import { decodificaJwt } from '../../services/util/conversionBase64'
 
 const defaultTheme = createTheme();
-
+//jwQ0qMQt77Hw
 ///
 function Login() {
     const context = useContext(AuthContext);
@@ -44,11 +44,11 @@ function Login() {
         context.dispatch(action);
     }
 
-    async function getInfoUsuario(payload, resultJwt) {
-        let user = await getUsuario(payload.id, resultJwt);
+    async function getInfoUsuario(payload, jwtLogin) {
+        let user = await getUsuario(payload.id, jwtLogin);
 
-        autentication(user.idUsuario, user.cedula, user.nombre, user.apellido, user.rol, user.email, resultJwt);
-
+        autentication(user.idUsuario, user.cedula, user.nombre, user.apellido, user.rol, user.email, jwtLogin);
+        // autentication("5", "111", "Seba", "Gonzalez", "A", "asd@asd", resultJwt);
         swal({
             title: "Acceso correcto\n\n",
             text: "Nombre: " + user.nombre + " " + user.apellido + " Cedula: " + user.cedula,
@@ -64,13 +64,13 @@ function Login() {
         const data = new FormData(event.currentTarget);
         let cedula = data.get('cedula');
         let password = data.get('password');
-
         async function validarLogin() {
-            const result = await validateCredentials(cedula, password);
-            let payload = decodificaJwt(result);
-            if (result !== null && result !== undefined) {
-                getInfoUsuario(payload, result).then(() => {
-                    history('/Novedades'); // Redirige al usuario a la página de inicio
+            const token = await getToken(cedula, password);
+            let payload = decodificaJwt(token);
+
+            if (token !== null && token !== undefined) {
+                getInfoUsuario(payload, token).then(() => {
+                    history('/Novedades');
                 });
             } else {
                 swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {

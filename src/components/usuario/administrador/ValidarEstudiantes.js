@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -11,10 +11,11 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { getValidarEstudiantes, updateValidarEstudiante } from '../../../services/requests/getUsers';
+import { getEstudiantesPendientes, acceptEstudiante } from '../../../services/requests/getUsuarios';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
-import axios from 'axios';
+import { AuthContext } from '../../../context/AuthContext';
+import ModificarPassword from '../../login/ModificarPassword';
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -24,11 +25,12 @@ export default function ValidarEstudiantes() {
     const [dense, setDense] = useState(false);
     const [secondary, setSecondary] = useState(false);
     const [data, setData] = useState([]);
+    const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
 
     useEffect(() => {
         async function fetchValidarEstudiantes() {
             try {
-                const result = await getValidarEstudiantes();
+                const result = await getEstudiantesPendientes(user.jwtLogin);
                 setData(result.map(user => ({
                     id: user.idUsuario,
                     nombre: user.nombre,
@@ -45,7 +47,7 @@ export default function ValidarEstudiantes() {
     }, []);
 
     const handleValidateClick = (usuarioId) => {
-        updateValidarEstudiante(usuarioId);
+        acceptEstudiante(usuarioId, user.jwtLogin);
         console.log(`Validar usuario con ID: ${usuarioId}`);
         setData(prevData => prevData.map(user =>
             user.id === usuarioId ? { ...user, validado: true } : user
@@ -59,6 +61,7 @@ export default function ValidarEstudiantes() {
 
     return (
         <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <ModificarPassword />
 
             <Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
                 Lista de estudiantes a validar

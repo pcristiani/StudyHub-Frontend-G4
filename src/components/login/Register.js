@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
@@ -41,7 +40,7 @@ function Register() {
             console.log("response: ", response);
             swal({
                 title: "Su usuario queda pendiente de validación\n\n",
-                text: "\nNombre: " + nombre + " " + apellido + "Cedula: " + cedula,
+                text: "\nNombre: " + nombre + " " + apellido + "\nCedula: " + cedula,
                 icon: "success",
                 position: "center",
                 timer: 4000
@@ -93,9 +92,6 @@ function Register() {
 
                             <Grid item xs={12} sm={6}>
                                 <TextField size="small" fullWidth id="fechaNacimiento" name="fechaNacimiento" type='date' />
-                                {/* <Input
-                                    type="date" slotProps={{                                        input: { min: '2018-06-07', max: '2018-06-14', },                                    }}
-                                /> */}
                             </Grid>
 
                             <Grid item xs={12} sm={6}>

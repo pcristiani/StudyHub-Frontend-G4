@@ -1,14 +1,14 @@
 import { URL_BACK, PARAMETERS } from '../util/constants'
 import axios from "axios";
 
-export const getUsuario = async (idUsuario, jwtUser) => {
+export const getUsuario = async (idUsuario, jwtLogin) => {
     let headersList = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${jwtUser}`,
+        'Authorization': `Bearer ${jwtLogin}`,
     }
 
     let reqOptions = {
-        url: URL_BACK.getUser + idUsuario,
+        url: URL_BACK.getUsuario + idUsuario,
         method: "GET",
         headers: headersList,
     }
@@ -18,21 +18,3 @@ export const getUsuario = async (idUsuario, jwtUser) => {
 
     return response.data;
 }
-
-
-// export const getValidarEstudiantes = async () => {
-//     //const url = URL_BACK.getUsers;
-//     const url = `http://localhost:8080/api/usuario/getUsuario`;
-
-//     let headersList = {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${PARAMETERS.accessToken} `,
-//     }
-//     let response = await fetch(url, {
-//         method: "GET",
-//         headers: headersList
-//     });
-//     let result = await response.json();
-//     console.log('result: ', result);
-//     return result;
-// }

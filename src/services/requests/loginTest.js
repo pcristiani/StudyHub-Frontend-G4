@@ -1,5 +1,4 @@
 import { URL_BACK } from '../util/constants'
-import { decodificaJwt } from '../util/conversionBase64'
 import axios from 'axios';
 
 // debugger;/
@@ -12,8 +11,8 @@ export const getToken = async (cedula, password) => {
         });
 
         if (response.status === 200) {
-            let objUser = decodificaJwt(response.data);
-            console.log("***Existe Usuario***", response.data);
+            //   let objUser = decodificaJwt(response.data);
+            console.log("Usuario autenticado correctamente: ", response.data);
             return response.data;
         }
     } catch (error) {
@@ -21,23 +20,27 @@ export const getToken = async (cedula, password) => {
     }
 }
 
-// Valida las credenciales del usuario
-export const validateCredentials = async (cedula, password) => {
+
+/// Modificar contraseña
+export const modificarPassword = async (idUsuario, jwtLogin) => {
+    const body='14'
     try {
-        // console.log("28cedula: ", cedula, "Contraseña: ", password);
-        let response = await axios.post(URL_BACK.loginTest, {
-            "cedula": cedula,
-            "password": password
-        });
-
-        if (response.status === 200) {
-            // let objUser = decodificaJwt(response.data);
-            console.log("Usuario autenticado correctamente", response.data);
-
-            return response.data;
+        let headersList = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
         }
+
+        let reqOptions = {
+            url: URL_BACK.modificarPassword + idUsuario,
+            method: "PUT",
+            headers: headersList,
+        }
+        body: JSON.stringify(body)
+
+        const response = await axios.request(reqOptions);
+        return response.ok;
     } catch (error) {
-        console.log(error);
+        console.error('Error al modificar la contraseña', error);
+        throw error;
     }
 }
-

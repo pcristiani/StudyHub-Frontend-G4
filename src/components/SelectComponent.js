@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { getUsers } from '../services/requests/getUsers';
+import { getUsuarios } from '../services/requests/getUsuarios';
 import { DatosCarreras, DatosAsignaturas } from '../services/requests/obtenerCarreras';
 
 import Select from '@mui/joy/Select';

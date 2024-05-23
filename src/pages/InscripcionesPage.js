@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { getUsers } from '../services/requests/getUsers';
+import { getUsuarios } from '../services/requests/getUsuarios';
 import { getToken } from '../services/requests/loginTest';
 
 import Typography from '@mui/material/Typography';
@@ -15,7 +15,7 @@ const InscripcionesPage = () => {
   // console.log("IdUser : ", user.id);
 
   useEffect(() => {
-    getUsers(user.id).then(result => {
+    getUsuarios(user.id).then(result => {
       // console.log("Datos Usuario: ", result);
     });
   }, []);

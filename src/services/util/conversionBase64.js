@@ -39,7 +39,7 @@ function decodificaJwt(strJwt) {
     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
   try {
-    console.log('decodificaJwt: ', JSON.parse(jsonPayload));
+    console.log(JSON.parse(jsonPayload));
   } catch (error) {
     console.error(error);
   }

@@ -1,3 +1,5 @@
+import ModificarPassword from "../../components/login/ModificarPassword"
+
 const PORT = {
   back: 8080,   // Puerto backend
   front: 3000,  // Puerto frontend
@@ -39,16 +41,18 @@ const URI_FRONT = {
 
 const URL_BACK = {
   loginTest: `${uriBaseBack}/iniciarSesion`,                                     // http://localhost:8080/iniciarSesion
-  getUser: `${uriBaseBack}/api/usuario/getUsuario/`,                             // http://localhost:8080/api/users/getUser/{id}
-  getUsers: `${uriBaseBack}/api/usuario/getUsuarios`,                            // http://localhost:8080/getAllUsers
+  getUsuario: `${uriBaseBack}/api/usuario/getUsuario/`,                             // http://localhost:8080/api/usuario/getUsuario/{id}
+  getUsuarios: `${uriBaseBack}/api/usuario/getUsuarios`,                            // http://localhost:8080/api/usuario/getUsuarios
   courseRelations: `${uriBaseBack}/course-relations`,                            // http://localhost:8080/course-relations
   forgotPassword: `${uriBaseBack}/forgotPassword`,                               // http://localhost:8080/forgotPassword
   recuperarPassword: `${uriBaseBack}/recuperarPassword`,                         // http://localhost:8080/recuperarPassword
   registerUsr: `${uriBaseBack}/registerUsuario`,                                 // http://localhost:8080/registerUser
-  updateUsr: `${uriBaseBack}/api/usuario/updateUser/`,                           // http://localhost:8080/api/users/updateUser/{id}
-  deleteUser: `${uriBaseBack}/api/usuario/deleteUser/`,                          // http://localhost:8080/api/users/deleteUser/{id}
+  updateUsr: `${uriBaseBack}/api/usuario/updateUser/`,                           // http://localhost:8080/api/usuario/updateUser/{id}
+  deleteUser: `${uriBaseBack}/api/usuario/deleteUser/`,                          // http://localhost:8080/api/usuario/deleteUser/{id}
   estudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`,  // http://localhost:3000/estudiantes-pendientes
   acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,              // http://localhost:3000/acceptEstudiante/{id}
+  modificarDocente: `${uriBaseBack}/api/docente/modificarDocente/`,              // http://localhost:3000/modificarDocente/{id}
+  modificarPassword: `${uriBaseBack}/api/usuario/modificarPassword/`,            // http://localhost:3000/modificarPassword/{id}
 }
 
 const PARAMETERS = {
@@ -56,7 +60,7 @@ const PARAMETERS = {
   clientid: `clientId`,
   code: `code`,
   clientsecret: `emrYoruZKktTVfw5`,
-  accessToken: `eyJhbGciOiJIUzI1NiJ9.eyJjaSI6IjExMSIsImlkIjo1LCJyb2wiOiJBIiwic3ViIjoiMTExIiwiaWF0IjoxNzE2MzM2Mzc4LCJleHAiOjE3MTYzMzcyNzh9.ZrFW4lYQMXEaDlVL3xo0B5pMtJdA5pb5sywRr_Cg4I0`,
+  // accessToken: ``,
 };
 
 const TIPO_ROL = {

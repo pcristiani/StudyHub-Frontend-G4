@@ -30,6 +30,7 @@ const Novedades = () => {
            Grupo 4 - Tecnólogo en Informática
               </Typography>
             </Box>
+
           </Container>
         </div>
       </CssVarsProvider>

@@ -1,11 +1,11 @@
 import { URL_BACK, PARAMETERS } from '../util/constants'
 
-export const getCourseRelations = async () => {
+export const getCourseRelations = async (jwtLogin) => {
     const url = URL_BACK.courseRelations;
 
     let headersList = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${PARAMETERS.accessToken} `,
+        'Authorization': `Bearer ${jwtLogin} `,
     }
 
     let response = await fetch(url, {
