@@ -49,6 +49,8 @@ const URL_BACK = {
   deleteUser: `${uriBaseBack}/api/usuario/deleteUser/`,                          // http://localhost:8080/api/users/deleteUser/{id}
   estudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`,  // http://localhost:3000/estudiantes-pendientes
   acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,              // http://localhost:3000/acceptEstudiante/{id}
+  altaCarera: `${uriBaseBack}/api/carrera/altaCarrera`,                          // 'http://localhost:8080/api/carrera/altaCarrera' \
+
 }
 
 const PARAMETERS = {
