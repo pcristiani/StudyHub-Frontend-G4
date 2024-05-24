@@ -54,6 +54,7 @@ const URL_BACK = {
   modificarDocente: `${uriBaseBack}/api/docente/modificarDocente/`,              // http://localhost:3000/modificarDocente/{id}
   modificarPassword: `${uriBaseBack}/api/usuario/modificarPassword/`,            // http://localhost:3000/modificarPassword/{id}
   altaCarrera: `${uriBaseBack}/api/carrera/altaCarrera`,                          // 'http://localhost:8080/api/carrera/altaCarrera' \
+  altaDocente: `${uriBaseBack}/api/docente/altaDocente`,                          // 'http://localhost:8080/api/docente/altaDocente' \
 }
 
 const PARAMETERS = {

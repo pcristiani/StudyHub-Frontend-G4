@@ -27,6 +27,7 @@ import EditarPerfil from "../components/usuario/EditarPerfil";
 
 import ValidarEstudiantes from "../components/usuario/administrador/ValidarEstudiantes";
 import DashboardAdmin from '../components/usuario/administrador/DashboardAdmin';
+import AltaDocente from '../components/usuario/funcionario/AltaDocente';
 
 
 export const AppRouter = () => {
@@ -52,8 +53,10 @@ export const AppRouter = () => {
 
                 <Route path="/nuestro-equipo" element={<NuestroEquipo user={user.id} />} exact />
                 <Route path="/edit-perfil" element={<EditarPerfil user={user.id} />} exact />
+                
                 <Route path="/not-found" element={<Page404 user={user.id} />} exact />
                 <Route path="/nueva-carrera" element={<AltaCarrera user={user.id} />} exact />
+                <Route path="/nuevo-docente" element={<AltaDocente user={user.id} />} exact />
 
                 <Route path="/validar-estudiantes" element={<ValidarEstudiantes user={user.id} />} exact />
                 <Route path="/dashboard-admin" element={<DashboardAdmin user={user.id} />} exact />
