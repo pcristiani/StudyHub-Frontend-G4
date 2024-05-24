@@ -39,6 +39,8 @@ const URI_FRONT = {
 
 const URL_BACK = {
   loginTest: `${uriBaseBack}/iniciarSesion`,                                     // http://localhost:8080/iniciarSesion
+  cerrarSesion: `${uriBaseBack}/cerrarSesion`,                                   // http://localhost:8080/cerrarSesion
+
   getUsuario: `${uriBaseBack}/api/usuario/getUsuario/`,                          // http://localhost:8080/api/usuario/getUsuario/{id}
   getUsuarios: `${uriBaseBack}/api/usuario/getUsuarios`,                         // http://localhost:8080/api/usuario/getUsuarios
   courseRelations: `${uriBaseBack}/course-relations`,                            // http://localhost:8080/course-relations

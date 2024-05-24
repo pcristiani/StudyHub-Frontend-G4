@@ -28,3 +28,23 @@ export const getToken = async (cedula, password) => {
         });
     }
 }
+
+// Cierra la sesion del usuario
+export const cerrarSesion = async (jwtLogin) => {
+    try {
+        let response = await axios.post(URL_BACK.cerrarSesion, jwtLogin);
+
+        if (response.status === 200) {
+            console.log("Cerrar sesion: ", response.data);
+            return response.data;
+        } else {
+            swal("¡Advertencia!", 'Un error inesperado ocurrio', "error", {
+                timer: 4000
+            });
+        }
+    } catch (error) {
+        swal("¡Advertencia!", 'Un error inesperado ocurrio', "error", {
+            timer: 3000
+        });
+    }
+}
