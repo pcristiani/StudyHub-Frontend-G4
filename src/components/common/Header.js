@@ -158,7 +158,7 @@ export default function Header() {
                             {(user.rol === TIPO_ROL.ADMIN) &&
                                 <>
                                     <Dropdown>
-                                        <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
+                                    <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
                                             <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                                 <Button variant="plain" color="neutral" component="a" href='/dashboard-admin' size="sm">
                                                     Alta coordinador y funcionario
@@ -392,7 +392,7 @@ export default function Header() {
                                         Ajustes
                                     </MenuItem>
                                     <ListDivider />
-                                    <MenuItem href={URI_FRONT.homeUri} onClick={handleLogout}>
+                                    <MenuItem href={URI_FRONT.modificarPasswordUri} component="a">
                                         <Key />
                                         Cambiar contraseña
                                     </MenuItem>

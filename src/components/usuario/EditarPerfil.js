@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
@@ -12,26 +13,85 @@ import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import { AuthContext } from '../../context/AuthContext';
-import { decodificaJwt } from '../../services/util/conversionBase64';
-import { getToken } from '../../services/requests/loginTest';
-import { getUsuario } from '../../services/requests/getUsuario';
+import { getUsuario, modificarDatosUsuario } from "../../services/requests/usuarioService";
+import { types } from '../../context/types';
 
 
 export default function EditarPerfil() {
+    const { user } = useContext(AuthContext);
+    const [userData, setUserData] = useState(null);
+    const [error, setError] = useState(null);
+    const context = useContext(AuthContext);
 
-    // const [strJwt, setStrJwt] = useState(null);
-
-    const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
-    console.log("User: ", user.id);
-    // const jwtresult = getToken("111", "XdMiq4cRVtSl");
-
+    const DatosRol = [
+        { cod: 'A', rol: `Administrador` },
+        { cod: 'E', rol: `Estudiante` },
+        { cod: 'C', rol: `Coordinador` },
+        { cod: 'I', rol: `Invitado` },
+        { cod: 'F', rol: `Funcionario` }
+    ];
 
     useEffect(() => {
-        getUsuario(user.id, user.jwtLogin).then(result => {
-            console.log("Datos Usuario: ", result);
-        });
-    }, []);
+        const fetchUser = async () => {
+            try {
+                const result = await getUsuario(user.id, user.jwtLogin);
+                setUserData(result);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+        fetchUser();
+    }, [user]);
 
+    useEffect(() => {
+        if (userData) {
+            console.log("Datos del Usuario: ", userData);
+        }
+    }, [userData]);
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    if (!userData) {
+        return <div>Cargando...</div>;
+    }
+
+
+    const autentication = (idUsuario, cedula, nombre, apellido, rol, email, jwtLogin) => {
+        const action = {
+            type: types.login,
+            payload: {
+                id: idUsuario,
+                cedula: cedula,
+                nombre: nombre,
+                apellido: apellido,
+                email: email,
+                rol: rol,
+                jwtLogin: jwtLogin
+            }
+        }
+        context.dispatch(action);
+    }
+
+    const handleModificar = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        let nombre = data.get('nombre');
+        let apellido = data.get('apellido');
+        let email = data.get('email');
+        let cedula = data.get('cedula');
+        let rol = data.get('rol');
+
+        modificarDatosUsuario(user.id, nombre, apellido, email, userData.fechaNacimiento, rol, cedula, user.jwtLogin).then((result) => {
+            if (result) {
+                console.log("Datos modificados correctamente: ", result);
+                autentication(user.id, cedula, nombre, apellido, rol, email, user.jwtLogin);
+            } else {
+                console.log("Error al modificar los datos del usuario: ", result);
+            }
+        });
+    }
 
     return (
         <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
@@ -40,63 +100,45 @@ export default function EditarPerfil() {
                     <Typography level="title-md">Datos de usuario</Typography>
                 </Box>
                 <Divider />
-                <Stack direction="flex" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    {/* <Stack direction="flex" spacing={1.5}>
-                            <AspectRatio ratio="1" height={570} sx={{ borderRadius: '100%', display: { xs: 'flex', md: 'flex' } }}>
-                                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
-                                    srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
-                                    loading="lazy"
-                                    alt="" />
-                            </AspectRatio>
-                        </Stack> */}
+                {/* <Stack direction="flex" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}> */}
+                <Box component="form" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', width: '100%' }} onSubmit={handleModificar}>
                     <Stack>
                         <Stack spacing={1}>
-                            <FormLabel>Nombre</FormLabel>
-                            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
-                                <Input size="sm" placeholder="Nombre" defaultValue={user.nombre} readOnly />
-                                <Input size="sm" placeholder="Apellido" sx={{}} defaultValue={user.apellido} readOnly />
+                            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+                                <label>Nombre</label>
+                                <Input size="sm" id="nombre" name="nombre" defaultValue={userData.nombre} />
+                                <Input size="sm" id="apellido" name="apellido" sx={{}} defaultValue={userData.apellido} />
                             </FormControl>
-                        </Stack>
-                        <Stack>
-                            <FormControl>
-                                <FormLabel>Cedula</FormLabel>
-                                <Input size="sm" placeholder="Cedula" defaultValue={user.cedula} readOnly />
-                                <FormLabel>Email</FormLabel>
-                                <Input size="sm" type="email" defaultValue={user.email} readOnly placeholder="Email" sx={{ flexGrow: 1 }} />
-                            </FormControl>
-                        </Stack>
 
+                            <FormControl>
+                                <label>Cedula</label>
+                                <Input size="sm" id="cedula" name="cedula" defaultValue={userData.cedula} readOnly />
+                            </FormControl>
+
+                            <FormControl>
+                                <label>Email</label>
+                                <Input size="sm" id="email" name="email" type="email" defaultValue={userData.email} />
+                            </FormControl>
+
+                        </Stack>
                         <div marginTop={2}>
                             <FormControl sx={{ marginTop: "4px" }} >
-                                <FormLabel>Perfil</FormLabel>
-                                <Select size="sm" defaultValue="1">
-                                    <Option value="1">
-                                        Administrador
-                                    </Option>
-                                    <Option value="2">
-                                        Estudiante
-                                    </Option>
+                                <label>Perfil</label>
+                                <Select size="sm" id="rol" name="rol" defaultValue={user.rol}>
+                                    {DatosRol.map((strRol, index) => (
+                                        <Option key={index} value={strRol.cod}>{strRol.rol}</Option>
+                                    ))}
                                 </Select>
                             </FormControl>
                         </div>
                     </Stack>
-                </Stack>
-                {/*<CardActions sx={{ alignSelf: 'flex-end', pt: 1 }}> */}
-                <div style={{ display: 'flex', marginTop: '10px' }}>
-                    <div style={{ padding: '5px' }}>
-                        <Button size="sm" variant="solid">
-                            Guardar
-                        </Button>
-                    </div>
-                    <div style={{ padding: '5px' }}>
-                        <Button size="sm" variant="outlined" color="neutral">
-                            Cancelar
-                        </Button>
-                    </div>
-                </div>
-                {/* </CardActions> */}
+                    <Stack direction="row" spacing={2} sx={{ marginTop: 2, justifyContent: 'right' }}>
+                        <Button type="submit" size="sm" alignItems="right" variant="solid">Guardar</Button>
+                        <Button size="sm" variant="outlined" href='/'>Cancelar</Button>
+                    </Stack>
+                </Box>
+                {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
             </Card>
         </Box>
     );
 }
-

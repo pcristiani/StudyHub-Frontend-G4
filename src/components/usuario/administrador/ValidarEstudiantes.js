@@ -11,7 +11,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { getEstudiantesPendientes, acceptEstudiante } from '../../../services/requests/getUsuarios';
+import { getEstudiantesPendientes, acceptEstudiante } from '../../../services/requests/estudianteServices';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import { AuthContext } from '../../../context/AuthContext';
@@ -61,7 +61,6 @@ export default function ValidarEstudiantes() {
 
     return (
         <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <ModificarPassword />
 
             <Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
                 Lista de estudiantes a validar

@@ -49,6 +49,7 @@ function Header(props) {
             ]}
         />
     );
+
 }
 
 function SideNav(props) {
@@ -100,9 +101,11 @@ function Main(props) {
         <Box
             component="main"
             className="Main"
-       
+
+
+
             {...props}
-            sx={[{ p: 2 }, ...(Array.isArray(props.sx) ? props.sx : [props.sx])]}
+            sx={[{ p: 2, bgcolor: 'red' }, ...(Array.isArray(props.sx) ? props.sx : [props.sx])]}
         />
     );
 }

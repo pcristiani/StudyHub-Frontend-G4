@@ -1,4 +1,4 @@
-import { URL_BACK, PARAMETERS } from '../util/constants'
+import { URL_BACK } from '../util/constants'
 
 export const getCourseRelations = async (jwtLogin) => {
     const url = URL_BACK.courseRelations;

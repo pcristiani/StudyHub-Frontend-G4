@@ -14,8 +14,10 @@ const theme = extendTheme({ cssVarPrefix: 'demo' });
 const Novedades = () => {
   return (
     <>
-      <CssVarsProvider defaultMode="dark" theme={theme} colorSchemeSelector="#demo_dark-mode-by-default" modeStorageKey="demo_dark-mode-by-default" disableNestedContext>
-        <div id="demo_dark-mode-by-default">
+      <Box>
+
+ 
+        <div >
           <Container component="main" maxWidth="xs">
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
               <div sx={{ m: 19, bgcolor: 'secondary.main' }}>
@@ -33,7 +35,8 @@ const Novedades = () => {
 
           </Container>
         </div>
-      </CssVarsProvider>
+   
+      </Box>
     </>
   );
 };

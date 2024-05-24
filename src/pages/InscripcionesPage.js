@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { getUsuarios } from '../services/requests/getUsuarios';
-import { getToken } from '../services/requests/loginTest';
+import { getUsuarios } from '../services/requests/usuarioService';
+import { getToken } from '../services/requests/loginService';
 
 import Typography from '@mui/material/Typography';
 import { CssVarsProvider } from '@mui/joy/styles';

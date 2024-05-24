@@ -27,7 +27,7 @@ import EditarPerfil from "../components/usuario/EditarPerfil";
 
 import ValidarEstudiantes from "../components/usuario/administrador/ValidarEstudiantes";
 import DashboardAdmin from '../components/usuario/administrador/DashboardAdmin';
-
+import ModificarPassword from '../components/login/ModificarPassword';
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -57,6 +57,7 @@ export const AppRouter = () => {
 
                 <Route path="/validar-estudiantes" element={<ValidarEstudiantes user={user.id} />} exact />
                 <Route path="/dashboard-admin" element={<DashboardAdmin user={user.id} />} exact />
+                <Route path="/modificar-password" element={<ModificarPassword user={user.id} />} />
 
                 {/* <Route path="/demo" element={<Demo user={user.id} />} exact /> */}
 

@@ -18,9 +18,11 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
 
-import { getUsuario } from '../../services/requests/getUsuario';
-import { getToken } from '../../services/requests/loginTest';
-import { decodificaJwt } from '../../services/util/conversionBase64'
+// import { getUsuario } from '../../services/requests/getUsuario';
+import { getToken } from '../../services/requests/loginService';
+import { getUsuario } from '../../services/requests/usuarioService';
+import { decodificaJwt } from '../../services/util/conversionBase64';
+
 
 const defaultTheme = createTheme();
 //jwQ0qMQt77Hw
@@ -28,6 +30,7 @@ const defaultTheme = createTheme();
 function Login() {
     const context = useContext(AuthContext);
     const history = useNavigate();
+
     const autentication = (idUsuario, cedula, nombre, apellido, rol, email, jwtLogin) => {
         const action = {
             type: types.login,
@@ -44,19 +47,25 @@ function Login() {
         context.dispatch(action);
     }
 
+    // autentication("5", "111", "Seba", "Gonzalez", "A", "asd@asd", resultJwt);
     async function getInfoUsuario(payload, jwtLogin) {
         let user = await getUsuario(payload.id, jwtLogin);
 
         autentication(user.idUsuario, user.cedula, user.nombre, user.apellido, user.rol, user.email, jwtLogin);
-        // autentication("5", "111", "Seba", "Gonzalez", "A", "asd@asd", resultJwt);
+        let rol = `Estudiante`;
+        if (user.rol === 'A') rol = `Administrador`;
+        if (user.rol === 'C') rol = `Coordinador`;
+        if (user.rol === 'I') rol = `Invitado`;
+        if (user.rol === 'F') rol = `Funcionario`;
+
         swal({
             title: "Acceso correcto\n\n",
-            text: "Nombre: " + user.nombre + " " + user.apellido + " Cedula: " + user.cedula,
+            text: "Nombre: " + user.nombre + " " + user.apellido + "\nCedula: " + user.cedula + "\nRol: " + rol,
             icon: "success",
+            dangerMode: false,
             position: "center",
             timer: 4000
         });
-        //   return usuario;
     }
 
     const handleSubmit = (event) => {
@@ -64,11 +73,12 @@ function Login() {
         const data = new FormData(event.currentTarget);
         let cedula = data.get('cedula');
         let password = data.get('password');
+
         async function validarLogin() {
             const token = await getToken(cedula, password);
-            let payload = decodificaJwt(token);
-
+            let payload = null;
             if (token !== null && token !== undefined) {
+                payload = decodificaJwt(token);
                 getInfoUsuario(payload, token).then(() => {
                     history('/Novedades');
                 });
@@ -86,7 +96,6 @@ function Login() {
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
                 <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-
                     <div sx={{ bgcolor: 'secondary.main' }}>
                         <img src={logo} className="animate-bounce" alt="logo" />
                     </div>
@@ -116,3 +125,21 @@ function Login() {
 }
 
 export default Login;
+
+
+
+
+// if (response.ok) {
+//     swal({
+//         title: "Email de recuperacion su correo electronico.\n\n",
+//         icon: "success",
+//         position: "center",
+//         timer: 4000
+//     });
+// } else {
+//     swal("¡Advertencia!", 'Email invalido', "error", {
+//         timer: 3000
+//     });
+// }
+
+// return user;

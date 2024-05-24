@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import Typography from '@mui/material/Typography';
 import logo from '../img/logo.png';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { MyAnimation } from '../components/common/AnimationType';
-
-import { CssVarsProvider } from '@mui/joy/styles';
-import { extendTheme } from '@mui/joy/styles';
+import { StyledEngineProvider, CssVarsProvider, extendTheme } from '@mui/joy/styles'
+// import { getAllFilesFrontMatter } from '@/lib/mdx'
+// import {  QueryClientProvider } from 'react-query';
 
 const theme = extendTheme({ cssVarPrefix: 'demo' });
 // debugger;
