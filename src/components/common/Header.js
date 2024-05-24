@@ -296,7 +296,7 @@ export default function Header() {
                                                 <Button variant="plain" color="neutral" component="a" href='/nueva-carrera' size="sm">
                                                     Alta carrera
                                                 </Button>
-                                                <Button variant="plain" color="neutral" component="a" href='' size="sm">
+                                                <Button variant="plain" color="neutral" component="a" href='/nueva-asignatura' size="sm">
                                                     Alta asignatura
                                                 </Button>
                                                 <Button variant="plain" color="neutral" component="a" href='' size="sm">
