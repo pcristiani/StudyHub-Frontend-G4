@@ -3,9 +3,8 @@ const PORT = {
   front: 3000,  // Puerto frontend
 }
 
-
 // const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
-//const uriBaseFront = `https://frontstudyhub.vercel.app`
+// const uriBaseFront = `https://frontstudyhub.vercel.app`
 
 const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
 const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
@@ -49,11 +48,15 @@ const URL_BACK = {
   updateUsr: `${uriBaseBack}/api/usuario/updateUser/`,                           // http://localhost:8080/api/usuario/updateUser/{id}
   deleteUser: `${uriBaseBack}/api/usuario/deleteUser/`,                          // http://localhost:8080/api/usuario/deleteUser/{id}
   modificarUsuario: `${uriBaseBack}/api/usuario/modificarUsuario/`,              // http://localhost:8080/api/usuario/modificarUsuario/{id}
+
   estudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`,  // http://localhost:8080/estudiantes-pendientes
   acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,              // http://localhost:8080/acceptEstudiante/{id}
   modificarDocente: `${uriBaseBack}/api/docente/modificarDocente/`,              // http://localhost:8080/modificarDocente/{id}
   modificarPassword: `${uriBaseBack}/api/usuario/modificarPassword/`,            // http://localhost:8080/modificarPassword/{id}
   altaCarrera: `${uriBaseBack}/api/carrera/altaCarrera`,                         // 'http://localhost:8080/api/carrera/altaCarrera'
+
+  altaDocente: `${uriBaseBack}/api/docente/altaDocente`,                         // 'http://localhost:8080/api/docente/altaDocente'
+  altaAsignatura: `${uriBaseBack}/api/asignatura/altaAsignatura`,                // 'http://localhost:8080/api/asignatura/altaAsignatura'
 }
 
 const PARAMETERS = {

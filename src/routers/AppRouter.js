@@ -11,6 +11,7 @@ import GestionPage from '../pages/GestionPage';
 import Novedades from '../pages/Novedades';
 import Page404 from '../pages/Page404';
 import AltaCarrera from '../components/usuario/coordinador/AltaCarrera'
+import AltaAsignatura from '../components/usuario/coordinador/AltaAsignatura'
 
 import Login from '../components/login/Login';
 import Register from '../components/login/Register';
@@ -28,6 +29,7 @@ import EditarPerfil from "../components/usuario/EditarPerfil";
 import ValidarEstudiantes from "../components/usuario/administrador/ValidarEstudiantes";
 import DashboardAdmin from '../components/usuario/administrador/DashboardAdmin';
 import ModificarPassword from '../components/login/ModificarPassword';
+import AltaDocente from '../components/usuario/funcionario/AltaDocente';
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -52,8 +54,12 @@ export const AppRouter = () => {
 
                 <Route path="/nuestro-equipo" element={<NuestroEquipo user={user.id} />} exact />
                 <Route path="/edit-perfil" element={<EditarPerfil user={user.id} />} exact />
+                
                 <Route path="/not-found" element={<Page404 user={user.id} />} exact />
                 <Route path="/nueva-carrera" element={<AltaCarrera user={user.id} />} exact />
+                <Route path="/nuevo-docente" element={<AltaDocente user={user.id} />} exact />
+                <Route path="/nueva-asignatura" element={<AltaAsignatura user={user.id} />} exact />
+
 
                 <Route path="/validar-estudiantes" element={<ValidarEstudiantes user={user.id} />} exact />
                 <Route path="/dashboard-admin" element={<DashboardAdmin user={user.id} />} exact />

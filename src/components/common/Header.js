@@ -231,7 +231,7 @@ export default function Header() {
                                     <Dropdown>
                                         <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
                                             <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                                <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                                <Button variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sm">
                                                     Alta docente
                                                 </Button>
                                                 <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
@@ -296,7 +296,7 @@ export default function Header() {
                                                 <Button variant="plain" color="neutral" component="a" href='/nueva-carrera' size="sm">
                                                     Alta carrera
                                                 </Button>
-                                                <Button variant="plain" color="neutral" component="a" href='' size="sm">
+                                                <Button variant="plain" color="neutral" component="a" href='/nueva-asignatura' size="sm">
                                                     Alta asignatura
                                                 </Button>
                                                 <Button variant="plain" color="neutral" component="a" href='' size="sm">
