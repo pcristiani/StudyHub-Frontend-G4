@@ -11,11 +11,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { getEstudiantesPendientes, acceptEstudiante } from '../../../services/requests/estudianteServices';
+import { getEstudiantesPendientes, acceptEstudiante } from '../../../services/requests/estudianteService';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import { AuthContext } from '../../../context/AuthContext';
-import ModificarPassword from '../../login/ModificarPassword';
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,

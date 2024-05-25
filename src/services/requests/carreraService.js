@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { URL_BACK, PARAMETERS } from '../util/constants'
-import swal from 'sweetalert';
+import { URL_BACK } from '../util/constants'
 
-
+///
+// Función para obtener las carreras
 export const getCarreras = async (jwtLogin) => {
     const url = URL_BACK.getCarreras;
 
@@ -16,26 +15,6 @@ export const getCarreras = async (jwtLogin) => {
         headers: headers
     });
 
-    const data = await resp.json(); // Convertir la respuesta a JSON
-    console.log("carreras",data.body); // Imprimir el cuerpo de la respuesta en la consola
-
-    return data.body; // Devolver solo el cuerpo de la respuesta
+    const data = await resp.json();
+    return data.body;
 }
-
-
-
-const DatosCarreras = [
-    { idCarrera: 1, name: `Carrera 1` },
-    { idCarrera: 2, name: `Carrera 2` },
-    { idCarrera: 3, name: `Carrera 3` },
-    { idCarrera: 4, name: `Carrera 4` }
-];
-
-
-const DatosAsignaturas = [
-    { idCarrera: 1, name: `Asignatura 1` },
-    { idCarrera: 2, name: `Asignatura 2` },
-    { idCarrera: 3, name: `Asignatura 3` },
-    { idCarrera: 4, name: `Asignatura 4` }
-];
-export { DatosCarreras, DatosAsignaturas };
