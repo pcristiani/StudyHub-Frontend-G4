@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getUsuarios } from '../services/requests/usuarioService';
-import { DatosCarreras, DatosAsignaturas } from '../services/requests/obtenerCarreras';
+import { DatosCarreras, DatosAsignaturas } from '../services/requests/carreraService';
 
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';

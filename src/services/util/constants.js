@@ -59,6 +59,7 @@ const URL_BACK = {
 
   altaDocente: `${uriBaseBack}/api/docente/altaDocente`,                         // 'http://localhost:8080/api/docente/altaDocente'
   altaAsignatura: `${uriBaseBack}/api/asignatura/altaAsignatura`,                // 'http://localhost:8080/api/asignatura/altaAsignatura'
+  getCarreras: `${uriBaseBack}/api/carrera/getCarreras`,                         // 'http://localhost:8080/api/carrera/getCarreras'
 }
 
 const PARAMETERS = {

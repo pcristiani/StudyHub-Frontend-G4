@@ -68,7 +68,7 @@ export default function AltaCarrera() {
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                     {/* <FormControl sx={{ width: '100%', maxWidth: 350, gap: 1 }}> */}
-                        <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
+                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
                         <FormLabel htmlFor="nombre">Nombre</FormLabel>
                         <Input size="small" id="nombre" name="nombre" placeholder="Nombre" required />
                         <FormLabel htmlFor="descripcion">Descripción</FormLabel>

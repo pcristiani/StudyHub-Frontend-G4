@@ -36,6 +36,7 @@ export const acceptEstudiante = async (idUsuario, jwtLogin) => {
             url: URL_BACK.acceptEstudiante + idUsuario,
             method: "PUT",
             headers: headersList,
+            data: true
         }
 
         const response = await axios.request(reqOptions);
@@ -45,7 +46,6 @@ export const acceptEstudiante = async (idUsuario, jwtLogin) => {
         throw error;
     }
 }
-
 
 
 ///
