@@ -3,11 +3,11 @@ const PORT = {
   front: 3000,  // Puerto frontend
 }
 
-// const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
-// const uriBaseFront = `https://frontstudyhub.vercel.app`
+const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
+const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+// const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+// const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 const URI_FRONT = {
   // Uri Estudiante

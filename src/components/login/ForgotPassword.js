@@ -12,7 +12,7 @@ import swal from 'sweetalert';
 import logo from '../../img/logo.png';
 import '../../css/style-navbar.css';
 import '../../css/style.css';
-import { PARAMETERS, URL_BACK, redirigir } from '../../services/util/constants'
+import { PARAMETERS, URL_BACK, redirigir, URI_FRONT } from '../../services/util/constants'
 
 // olvido-contrasenia
 const defaultTheme = createTheme();
@@ -20,6 +20,7 @@ const defaultTheme = createTheme();
 const ForgotPassword = () => {
     let params = new URLSearchParams(window.location.search);
     let token = params.get('token');
+    const redirectHome = URI_FRONT.homeUri;
 
     async function emailValue(email) {
         let response = await fetch(URL_BACK.forgotPassword, {
@@ -39,7 +40,7 @@ const ForgotPassword = () => {
                 timer: 4000
             });
 
-            redirigir(`http://localhost:3000/`);
+            redirigir(redirectHome);
         } else {
             swal("¡Advertencia!", 'Email invalido', "error", {
                 timer: 3000
@@ -56,6 +57,8 @@ const ForgotPassword = () => {
 
 
     async function recuperarPassword(token, newPassword) {
+        const redirectLogin = URI_FRONT.loginUri;
+
         let body = { "token": token, "newPassword": newPassword };
         let response = await fetch(URL_BACK.recuperarPassword, {
             method: 'POST',
@@ -73,7 +76,7 @@ const ForgotPassword = () => {
                 position: "center",
                 timer: 3000
             });
-            redirigir(`http://localhost:3000/login`);
+            redirigir(redirectLogin);
         } else {
             swal("¡Advertencia!", 'Email invalido', "error", {
                 timer: 3000
