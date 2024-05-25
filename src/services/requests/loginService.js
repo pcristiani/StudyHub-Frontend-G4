@@ -1,8 +1,6 @@
 import { URL_BACK } from '../util/constants'
 import axios from 'axios';
-import { redirect } from 'react-router-dom';
 import swal from 'sweetalert';
-import { useState } from 'react';
 
 // debugger;/
 // Devuelve el token de autenticacion

@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { Graphviz } from 'graphviz-react';
 import { jsPDF } from "jspdf";
-import { getCourseRelations } from '../services/requests/getCourseRelations';
+import { getCourseRelations } from '../services/requests/asignaturaService';
 import '../css/style-navbar.css';
 
 const downloadPDF = (event) => {

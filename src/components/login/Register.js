@@ -75,7 +75,7 @@ function Register() {
                     <Typography variant="body2" color="text.secondary">Ingresa la información de tu cuenta</Typography>
 
                     <Box component="form" onSubmit={handleSubmit} noValidate
-                        sx={{ py: 1, display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap', width: '400px' }}>
+                        sx={{ py: 2, display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap', width: '450px' }}>
 
                         <Grid container spacing={0.8}>
                             <Grid item xs={12} sm={6}>
@@ -105,7 +105,7 @@ function Register() {
                             <Grid item xs={12}>
                                 {/* <FormControlLabel control={<Checkbox value="allowExtraEmails" color="primary" />}
                                     label="Acepto recibir información via email." /> */}
-                            <Button  type="submit" fullWidth variant="contained">Registrarse</Button>
+                                <Button type="submit" fullWidth variant="contained">Registrarse</Button>
                             </Grid>
                         </Grid>
                         <Grid container justifyContent="flex-middle">

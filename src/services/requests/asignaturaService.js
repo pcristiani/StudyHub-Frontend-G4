@@ -19,6 +19,8 @@ export const getAsignaturas = async (jwtLogin) => {
 }
 
 
+///
+
 export const altaAsignatura = async (nombre, creditos, descripcion, departamento, previaturas, idCarrera, jwtLogin) => {
     let body = {
         "nombre": nombre,
@@ -27,7 +29,8 @@ export const altaAsignatura = async (nombre, creditos, descripcion, departamento
         "departamento": departamento,
         "activa": true,
         "previaturas": previaturas,
-        "idCarrera": idCarrera
+        "idCarrera": idCarrera,
+        "idDocentes": [1]
     };
 
     let response = await fetch(URL_BACK.altaAsignatura, {
@@ -43,3 +46,23 @@ export const altaAsignatura = async (nombre, creditos, descripcion, departamento
         throw { status: response.status };
     }
 };
+
+
+///
+
+export const getCourseRelations = async (jwtLogin) => {
+    const url = URL_BACK.courseRelations;
+
+    let headersList = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtLogin} `,
+    }
+
+    let response = await fetch(url, {
+        method: "GET",
+        headers: headersList
+    });
+
+    let result = await response.text();
+    return result;
+}

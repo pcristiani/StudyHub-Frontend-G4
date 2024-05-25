@@ -7,7 +7,6 @@ import Button from '@mui/joy/Button';
 
 const options = [];
 
-
 export default function DashboardAdmin() {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
@@ -24,8 +23,8 @@ export default function DashboardAdmin() {
                     <div className="flex grid lg:grid-cols-2 grid-cols-2">
 
                         <section className="text-black body-font">
-                            <div className="px-5 py-5 mx-auto">
-                                <div className="flex flex-col text-center w-full mb-2">
+                            <div className="px-2 py-5 mx-auto">
+                                {/* <div className="flex flex-col text-center w-full mb-2">
                                     <div className="select-none text-black flex space-x-2 mx-auto max-w-sm justify-center">
                                         <Button variant="soft" color="primary" type="submit" className="text-white px-4 py-1 mx-1 rounded-md" onClick={() => window.location.href = '/'}>
                                             Alta
@@ -40,11 +39,9 @@ export default function DashboardAdmin() {
                                             Baja
                                         </Button>
                                     </div>
-                                </div>
-                                <h5 className="text-left sm:text-md text-base">Usuarios</h5>
-                                <Root direction="row" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} >
-                                    <TableAdmin />
-                                </Root>
+                                </div> */}
+                                {/* <h5 className="text-left sm:text-md text-base">Usuarios</h5> */}
+                                <TableAdmin />
                             </div>
                         </section>
                     </div>
@@ -54,14 +51,3 @@ export default function DashboardAdmin() {
         </Stack>
     );
 }
-
-
-// function ocultar(id) {
-//     var elemento = document.getElementById(id);
-//     elemento.style.display = "none";
-// }
-
-// function mostrar(id) {
-//     var elemento = document.getElementById(id);
-//     elemento.style.display = "block";
-// }
