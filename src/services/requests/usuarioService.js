@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { URL_BACK, PARAMETERS } from '../util/constants'
+import { URL_BACK } from '../util/constants'
 import swal from 'sweetalert';
 
 // Devuelve un objeto con los datos del usuario
@@ -66,7 +65,7 @@ export const modificarDatosUsuario = async (idUsuario, nombre, apellido, email, 
    }
 };
 
-export const getUsuarios = async ( jwtLogin) => {
+export const getUsuarios = async (jwtLogin) => {
    try {
       const response = await fetch(`${URL_BACK.getUsuarios}`, {
          method: 'GET',

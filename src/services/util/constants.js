@@ -3,11 +3,11 @@ const PORT = {
   front: 3000,  // Puerto frontend
 }
 
-const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
-const uriBaseFront = `https://frontstudyhub.vercel.app`
+//const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
+//const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-// const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-// const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 const URI_FRONT = {
   // Uri Estudiante
@@ -37,33 +37,60 @@ const URI_FRONT = {
   validarEstudiantesUri: `/validar-estudiantes`, // http://localhost:3000/validar-estudiantes
 }
 
-const URL_BACK = {
-  loginTest: `${uriBaseBack}/iniciarSesion`,                                           // http://localhost:8080/iniciarSesion
-  cerrarSesion: `${uriBaseBack}/cerrarSesion`,                                         // http://localhost:8080/cerrarSesion
+const URL_BACK = { // http://localhost:8080/
+  // loginService
+  loginTest: `${uriBaseBack}/iniciarSesion`,   // POST
+  cerrarSesion: `${uriBaseBack}/cerrarSesion`, // POST
 
-  getUsuario: `${uriBaseBack}/api/usuario/getUsuario/`,                                // http://localhost:8080/api/usuario/getUsuario/{id}
-  getUsuarios: `${uriBaseBack}/api/usuario/getUsuarios`,                               // http://localhost:8080/api/usuario/getUsuarios
-  courseRelations: `${uriBaseBack}/course-relations`,                                  // http://localhost:8080/course-relations
-  forgotPassword: `${uriBaseBack}/forgotPassword`,                                     // http://localhost:8080/forgotPassword
-  recuperarPassword: `${uriBaseBack}/recuperarPassword`,                               // http://localhost:8080/recuperarPassword
-  registerUsr: `${uriBaseBack}/registerUsuario`,                                       // http://localhost:8080/registerUser
-  updateUsr: `${uriBaseBack}/api/usuario/updateUser/`,                                 // http://localhost:8080/api/usuario/updateUser/{id}
-  deleteUser: `${uriBaseBack}/api/usuario/deleteUser/`,                                // http://localhost:8080/api/usuario/deleteUser/{id}
-  modificarUsuario: `${uriBaseBack}/api/usuario/modificarUsuario/`,                    // http://localhost:8080/api/usuario/modificarUsuario/{id}
+  ///
+  // usuarioService
+  registerUsr: `${uriBaseBack}/registerUsuario`,         // POST
+  recuperarPassword: `${uriBaseBack}/recuperarPassword`, // POST
+  forgotPassword: `${uriBaseBack}/forgotPassword`,       // POST
 
-  estudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`,        // http://localhost:8080/estudiantes-pendientes
-  acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,                    // http://localhost:8080/acceptEstudiante/{id}
-  modificarPassword: `${uriBaseBack}/api/usuario/modificarPassword/`,                  // http://localhost:8080/modificarPassword/{id}
+  getUsuarios: `${uriBaseBack}/api/usuario/getUsuarios`, // GET
+  getUsuario: `${uriBaseBack}/api/usuario/getUsuario/`,  // GET
 
-  altaDocente: `${uriBaseBack}/api/docente/altaDocente`,                               // http://localhost:8080/api/docente/altaDocente
-  modificarDocente: `${uriBaseBack}/api/docente/modificarDocente/`,                    // http://localhost:8080/modificarDocente/{id}
+  modificarUsuario: `${uriBaseBack}/api/usuario/modificarUsuario/`,   // PUT
+  modificarPerfil: `${uriBaseBack}/api/usuario/modificarPerfil/`,     // PUT
+  modificarPassword: `${uriBaseBack}/api/usuario/modificarPassword/`, // PUT
+  deleteUsuario: `${uriBaseBack}/api/usuario/bajaUsuario/`,           // DELETE
 
-  altaAsignatura: `${uriBaseBack}/api/asignatura/altaAsignatura`,                      // http://localhost:8080/api/asignatura/altaAsignatura
-  getAsignaturas: `${uriBaseBack}/api/asignatura/getAsignaturas`,                      // http://localhost:8080/api/asignatura/getAsignaturas
+  acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,                // PUT
+  getEstudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`, // GET
 
-  altaCarrera: `${uriBaseBack}/api/carrera/altaCarrera`,                               // http://localhost:8080/api/carrera/altaCarrera
-  getCarreras: `${uriBaseBack}/api/carrera/getCarreras`,                               // http://localhost:8080/api/carrera/getCarrera'
-  asignarCoordinadorCarrera: `${uriBaseBack}/api/carrera/asignarCoordinadorCarrera/`,  // http://localhost:8080/api/carrera/asignarCoordinadorCarrera/{id}
+  ///
+  // docenteService
+  altaDocente: `${uriBaseBack}/api/docente/altaDocente`,             // POST
+  modificarDocente: `${uriBaseBack}/api/docente/modificarDocente/`,  // PUT
+  deleteDocente: `${uriBaseBack}/api/docente/bajaDocente/`,          // DELETE
+
+  getDocentes: `${uriBaseBack}/api/usuario/getDocentes`,                             // GET
+  getDocentesByAsignatura: `${uriBaseBack}/api/usuario/getDocentesByAsignaturaId/`,  // GET
+
+  ///
+  // asignaturaService
+  registroHorarios: `${uriBaseBack}/api/asignatura/registroHorarios/`,          // POST
+  inscripcionAsignatura: `${uriBaseBack}/api/asignatura/inscripcionAsignatura`, // POST
+  getHorarios: `${uriBaseBack}/api/asignatura/getHorarios/`,     // POST // ! VER
+  altaAsignatura: `${uriBaseBack}/api/asignatura/altaAsignatura`, // POST
+  getAsignaturas: `${uriBaseBack}/api/asignatura/getAsignaturas`, // GET
+  getAsignaturasDeCarrera: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarrera/`, // GET
+  courseRelations: `${uriBaseBack}/course-relations`, // GET
+
+  ///
+  // carreraService
+  modificarCarrera: `${uriBaseBack}/api/carrera/modificarCarrera/`, // PUT
+  asignarCoordinadorCarrera: `${uriBaseBack}/api/carrera/asignarCoordinadorCarrera/`, // PUT
+  acceptEstudianteCarrera: `${uriBaseBack}/api/carrera/acceptEstudianteCarrera`,      // PUT
+  inscripcionCarrera: `${uriBaseBack}/api/carrera/inscripcionCarrera`,    // POST
+  altaPeriodoDeExamen: `${uriBaseBack}/api/carrera/altaPeriodoDeExamen/`, // POST
+  altaCarrera: `${uriBaseBack}/api/carrera/altaCarrera`,                  // POST
+  getInscriptosPendientes: `${uriBaseBack}/api/carrera/getInscriptosPendientes/`, // GET
+  getCarreras: `${uriBaseBack}/api/carrera/getCarreras`, // GET
+
+  getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`, // GET
+  getCarrerasInscripcionesPendientes: `${uriBaseBack}/api/carrera/getCarrerasInscripcionesPendientes`, // GET
 }
 
 const PARAMETERS = {

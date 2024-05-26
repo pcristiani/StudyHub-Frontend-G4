@@ -6,7 +6,7 @@ import axios from 'axios';
 
 /// Estudiantes sin validar
 export const getEstudiantesPendientes = async (jwtLogin) => {
-    const url = URL_BACK.estudiantesPendientes;
+    const url = URL_BACK.getEstudiantesPendientes;
 
     let headersList = {
         'Content-Type': 'application/json',
