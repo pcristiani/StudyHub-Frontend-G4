@@ -23,8 +23,9 @@ const URI_FRONT = {
 
   // Uri Invitado
   novedadesUri: `/novedades`,                   // http://localhost:3000/novedades
+  dashboardUri: `/dashboard-admin`,             // http://localhost:3000/dashboard-admin
   //pregFrecuentesUri: `/preg-frecuentes`,      // http://localhost:3000/preguntas-frecuentes
-  contactoUri: `/demo`,                         // http://localhost:3000/contacto
+  contactoUri: `/contacto`,                     // http://localhost:3000/contacto
 
   // Uri Auth
   loginUri: `/login`,                           // http://localhost:3000/login

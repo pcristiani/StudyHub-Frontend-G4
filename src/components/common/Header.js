@@ -136,7 +136,8 @@ export default function Header() {
    const { user, dispatch } = useContext(AuthContext);
    const navigate = useNavigate();
    const [menuIndex, setMenuIndex] = React.useState(null);
-
+   const idA = 'a';
+   const idM = 'm';
 
    async function cerrarSesionUsuario(jwtLogin) {
       const result = await cerrarSesion(jwtLogin);
@@ -176,30 +177,37 @@ export default function Header() {
                         <>
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
-                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href='/dashboard-admin' size="sm">
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0.5, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                    <Button variant="plain" color="neutral" component="a" href='/alta-funcionario-coordinador' size="sm">
                                        Alta coordinador y funcionario
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
-                                       Modificar datos coordinador y funcionario
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    {/* <Button variant="plain" color="neutral" component="a" href='/dashboard-admin' size="sm">
+                                       Modificar coordinador y funcionario
+                                    </Button> */}
+                                    {/* <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Eliminar coordinador o funcionario
+                                    </Button> */}
+                                    <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sm">
+                                       Modificar coordinador y funcionario
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='./resumen-actividad' size="sm" sx={{ alignSelf: 'center' }}>
-                                       Resumen de actividad
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'center' }}>
+                                    <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idA}`} size="sm">
                                        Asignar coordinador
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm" sx={{ alignSelf: 'center' }}>
+                                    {/* <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                       Asignar coordinador
+                                    </Button> */}
+
+                                    <Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm">
                                        Validar usuario de estudiante
                                     </Button>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
-                           <Button variant="plain" color="neutral" component="a" href='./listados-busquedas' size="sm" sx={{ alignSelf: 'center' }}>
+                           <Button variant="plain" color="neutral" component="a" href='./listados-busquedas' size="sm">
                               Listados y búsquedas
+                           </Button>
+                           <Button variant="plain" color="neutral" component="a" href='./resumen-actividad' size="sm">
+                              Resumen de actividad
                            </Button>
 
                         </>

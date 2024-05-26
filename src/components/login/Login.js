@@ -1,17 +1,16 @@
 import React, { useContext, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import Button from '@mui/joy/Button';
+import Input from '@mui/joy/Input';
+import Stack from '@mui/joy/Stack';
+import Link from '@mui/joy/Link';
+import Grid from '@mui/joy/Grid';
+import Box from '@mui/joy/Box';
+import Typography from '@mui/joy/Typography';
+import Container from '@mui/joy/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
-import '../../css/style-navbar.css';
-import '../../css/style.css';
+// import '../../css/style-navbar.css';
+// import '../../css/style.css';
 import logo from '../../img/logo.png';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,6 +21,7 @@ import { types } from '../../context/types';
 import { getToken } from '../../services/requests/loginService';
 import { getUsuario } from '../../services/requests/usuarioService';
 import { decodificaJwt } from '../../services/util/conversionBase64';
+import { Sheet } from '@mui/joy';
 
 
 const defaultTheme = createTheme();
@@ -93,34 +93,34 @@ function Login() {
 
 
     return (
-        <ThemeProvider theme={defaultTheme}>
+        <Sheet>
             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
                 <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div sx={{ bgcolor: 'secondary.main' }}>
                         <img src={logo} className="animate-bounce" alt="logo" />
                     </div>
-                    <Typography component="h1" variant="h4">Iniciar Sesión</Typography>
+                    <h2 component="h1" variant="h4">Iniciar Sesión</h2>
 
-                    <Typography variant="body2" color="text.secondary">¿Aun no tienes cuenta?
-                        <Link href="/registrarse" variant="body2" sx={{ p: 0.5 }}>Entra aquí</Link>
+                    <Typography variant="body2" fontSize={15} color="text.secondary">¿Aun no tienes cuenta?
+                        <Link href="/registrarse" fontSize={15} variant="body2" sx={{ p: 0.5 }}>Entra aquí</Link>
                     </Typography>
-
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px' }}>
-                        <TextField margin="dense" required fullWidth id="cedula" label="Cédula" name="cedula" autoComplete="text" autoFocus />
-                        <TextField margin="dense" required fullWidth name="password" label="Contraseña" type="password" id="password" autoComplete="current-password" />
-                        <FormControlLabel control={<Checkbox value="remember" color="primary" />}
-                            label="Recuerdame" />
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 3 }}>Iniciar sesión</Button>
-                        <Grid container spacing={1}>
-                            <Grid item>
+                        <Stack spacing={0.8}>
+                            <Input id="cedula" label="Cédula" name="cedula" autoComplete="text" autoFocus required />
+                            <Input name="password" label="Contraseña" type="password" id="password" autoComplete="current-password" required />
+                            {/* <FormControlLabel control={<Checkbox value="remember" size='sm' />} sx={{ mt: 0.5, mx: 0.5 }}
+                                label="Recuerdame" /> */}
+                            <Button type="submit" fullWidth sx={{ mt: 1, mb: 3 }}>Iniciar sesión</Button>
+                            <Grid container spacing={1}>
+                                <Grid item>
+                                </Grid>
+                                <Link href="/olvido-contrasenia" variant="body2" fontSize={15}>¿Has olvidado tu contraseña?</Link>
                             </Grid>
-                            <Link href="/olvido-contrasenia" variant="body2">¿Has olvidado tu contraseña?</Link>
-                        </Grid>
+                        </Stack>
                     </Box>
-
                 </Box>
             </Container>
-        </ThemeProvider>
+        </Sheet>
     );
 }
 

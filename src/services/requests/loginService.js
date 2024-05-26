@@ -46,7 +46,8 @@ export const cerrarSesion = async (jwtLogin) => {
     }
 }
 
-
+///
+// Modificar contraseña del usuario
 export const modificarPassword = async (idUsuario, newPassword, jwtLogin) => {
     try {
         let headersList = {

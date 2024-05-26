@@ -24,6 +24,8 @@ export const getCarreras = async (jwtLogin) => {
 ///
 
 export const asignarCoordinadorCarrera = async (idUsuario, idCarrera, jwtLogin) => {
+
+    console.log("IDUsuario: ", idUsuario, "IDCarrera: ", idCarrera.ida, "JWT: ", jwtLogin);
     try {
         let headersList = {
             'Content-Type': 'application/json',
@@ -33,7 +35,7 @@ export const asignarCoordinadorCarrera = async (idUsuario, idCarrera, jwtLogin) 
             url: URL_BACK.asignarCoordinadorCarrera + idUsuario,
             method: "PUT",
             headers: headersList,
-            data: idCarrera
+            data: idCarrera.ida
         }
 
         let response = await axios.request(reqOptions);

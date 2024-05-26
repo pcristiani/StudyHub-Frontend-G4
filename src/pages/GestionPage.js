@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import { Graphviz } from 'graphviz-react';
 import { jsPDF } from "jspdf";
 import { getCourseRelations } from '../services/requests/asignaturaService';
-import '../css/style-navbar.css';
+// import '../css/style-navbar.css';
 
 const downloadPDF = (event) => {
     var doc = new jsPDF();

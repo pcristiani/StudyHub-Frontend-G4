@@ -5,16 +5,15 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
-import IconButton from '@mui/material/IconButton';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import Checkbox from '@mui/joy/Checkbox';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import { getEstudiantesPendientes, acceptEstudiante } from '../../../services/requests/estudianteService';
 import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import { AuthContext } from '../../../context/AuthContext';
+import Sheet from '@mui/joy/Sheet';
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -59,74 +58,66 @@ export default function ValidarEstudiantes() {
     const segundaMitad = usuariosNoValidados.slice(mitad);
 
     return (
-        <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Sheet>
+            <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <h1 sx={{ mt: 4, mb: 2 }} variant="h5">
+                    Lista de estudiantes a validar
+                </h1>
+                <FormGroup row>
+                    <FormControlLabel
+                        control={
+                            <Checkbox color="neutral" size="sm" variant="outlined" checked={dense}
+                                onChange={(event) => setDense(event.target.checked)} />
+                        } sx={{ gap: 1 }} label=" Vista compacta" />
+                    <FormControlLabel
+                        control={
+                            <Checkbox color="neutral" size="sm" variant="outlined" checked={secondary}
+                                onChange={(event) => setSecondary(event.target.checked)} />
+                        } sx={{ gap: 1 }} label="Más información" />
+                </FormGroup>
 
-            <Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
-                Lista de estudiantes a validar
-            </Typography>
-            <FormGroup row>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={dense}
-                            onChange={(event) => setDense(event.target.checked)} />
-                    }
-                    label="Vista compacta"
-                />
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={secondary}
-                            onChange={(event) => setSecondary(event.target.checked)} />
-                    }
-                    label="Más información"
-                />
-            </FormGroup>
-
-            <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ minHeight: '20vh', maxWidth: '90vh' }}>
-                <Grid item xs={12} md={6}>
-                    <Demo>
+                <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ minHeight: '20vh', maxWidth: '120vh' }}>
+                    <Grid item xs={12} md={6}>
+                        {/* <Demo> */}
                         <List dense={dense}>
                             {primeraMitad.map(usuario => (
                                 <ListItem key={usuario.id} secondaryAction={
-                                    <IconButton edge="end" aria-label="validate" onClick={() => handleValidateClick(usuario.id)}>
+                                    <ListItemAvatar edge="end" aria-label="validate" onClick={() => handleValidateClick(usuario.id)}>
                                         <TaskAltSharpIcon />
-                                    </IconButton>
-                                }>
+                                    </ListItemAvatar>}>
                                     <ListItemAvatar>
                                         <AccountCircleSharpIcon fontSize='large' />
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={`${usuario.nombre} ${usuario.apellido}`}
-                                        secondary={secondary ? `Cedula: ${usuario.cedula}` : null}
-                                    />
+                                        secondary={secondary ? `Cedula: ${usuario.cedula}` : null} />
                                 </ListItem>
                             ))}
                         </List>
-                    </Demo>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Demo>
+                        {/* </Demo> */}
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        {/* <Demo> */}
                         <List dense={dense}>
                             {segundaMitad.map(usuario => (
                                 <ListItem key={usuario.id} secondaryAction={
-                                    <IconButton edge="end" aria-label="validate" onClick={() => handleValidateClick(usuario.id)}>
+                                    <ListItemAvatar edge="end" aria-label="validate" onClick={() => handleValidateClick(usuario.id)}>
                                         <TaskAltSharpIcon />
-                                    </IconButton>
-                                }>
+                                    </ListItemAvatar>}>
                                     <ListItemAvatar>
                                         <AccountCircleSharpIcon fontSize='large' />
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={`${usuario.nombre} ${usuario.apellido}`}
-                                        secondary={secondary ? `Cedula: ${usuario.cedula}` : null}
-                                    />
+                                        secondary={secondary ? `Cedula: ${usuario.cedula}` : null} />
                                 </ListItem>
                             ))}
                         </List>
-                    </Demo>
+                        {/* </Demo> */}
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Box>
+            </Box>
+        </Sheet>
+
     );
 }

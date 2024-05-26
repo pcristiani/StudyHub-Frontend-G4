@@ -1,9 +1,9 @@
 // import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import '../../css/style-navbar.css';
+// import '../../css/style-navbar.css';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useContext } from 'react';
 import { useColorScheme } from '@mui/joy/styles';
 import IconButton from '@mui/joy/IconButton';
@@ -15,7 +15,7 @@ import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import Navigation from './Navigation';
 import { useNavigate } from 'react-router-dom'
 
-import '../../css/style-navbar.css';
+// import '../../css/style-navbar.css';
 import Logo from '../../img/logo.png';
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';

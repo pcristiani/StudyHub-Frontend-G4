@@ -102,10 +102,29 @@ function Main(props) {
             component="main"
             className="Main"
 
-
-
             {...props}
-            sx={[{ p: 2, bgcolor: 'red' }, ...(Array.isArray(props.sx) ? props.sx : [props.sx])]}
+            sx={[
+                {
+                    position: 'fixed', zIndex: 1200, width: '100%', height: '100%',
+                    // bgcolor: '#0d1117',
+                    // color:'text-primary',
+                    bgcolor: 'background.surface',
+                    // // flexDirection: 'row',
+                    // justifyContent: 'space-between',
+                    // alignItems: 'center',
+                    // // gridColumn: '1 / -1',
+                    // borderBottom: '1px solid',
+                    // display: {
+                    //     xs: 'absolute',
+                    //     md: 'absolute',
+
+                    // },
+                    // // position: 'flex',
+                    // top: 0,
+                    // bottom: 0,
+                    // //  minHeight: '768px',
+                    // zIndex: 1100,
+                }, ...(Array.isArray(props.sx) ? props.sx : [props.sx])]}
         />
     );
 }
@@ -118,8 +137,11 @@ function SideDrawer(
         <Box
             {...other}
             sx={[
-                { position: 'fixed', zIndex: 1200, width: '100%', height: '100%' },
-                ...(Array.isArray(other.sx) ? other.sx : [other.sx]),
+                {
+                    position: 'fixed', zIndex: 1200, width: '100%', height: '100%',
+                    bgcolor: 'background.surface',
+
+                },                ...(Array.isArray(other.sx) ? other.sx : [other.sx]),
             ]}
         >
             <Box
@@ -130,6 +152,8 @@ function SideDrawer(
                     inset: 0,
                     bgcolor: (theme) =>
                         `rgba(${theme.vars.palette.neutral.darkChannel} / 0.8)`,
+                    bgcolor: '#0d1117',
+
                 }}
             />
             <Sheet
@@ -140,6 +164,7 @@ function SideDrawer(
                     p: 2,
                     boxShadow: 'lg',
                     bgcolor: 'background.surface',
+
                 }}
             >
                 {other.children}

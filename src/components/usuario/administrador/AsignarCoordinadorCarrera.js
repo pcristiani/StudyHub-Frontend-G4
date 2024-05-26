@@ -35,7 +35,7 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function TableAdmin() {
+export default function AsignarCoordinadorCarrera() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -87,18 +87,13 @@ export default function TableAdmin() {
   //   }
   // }, [coordinadorCarreraData]);
 
-  const handleViewProfile = (idUsuario) => {
-    console.log(`ID: ${idUsuario}`);
-  };
+
 
   const handleValidateUser = (idUsuario) => {
     console.log(`ID: ${idUsuario}`);
   };
 
-  const handleDeleteUser = async (idUsuario) => {
-    await bajaUsuario(idUsuario, user.jwtLogin);
-    console.log(`IDs: ${idUsuario}`);
-  };
+
 
 
   // const emptyRows =
@@ -117,7 +112,7 @@ export default function TableAdmin() {
   return (
     <Box sx={{ minHeight: '20vh', maxWidth: '600px' }}>
       <Typography level="body-sm" color='neutral' textAlign="center" sx={{ pb: 1 }}>
-        ← Funcionarios y Coordinadores →
+        ← Asignar Coordinador a carrera →
       </Typography>
       <Sheet
         variant="outlined"
@@ -151,32 +146,16 @@ export default function TableAdmin() {
           </thead>
           <tbody>
             {coordinadorData.map((row) => (
-              row.rol !== 'E' && row.rol !== 'A' && (
+              row.rol === 'C' && (
                 <tr key={row.idUsuario}>
                   <td>{row.nombre} {row.apellido}</td>
                   <td>{row.cedula}</td>
                   <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : ''}</td>
                   <td>{row.activo ? 'Validado' : 'No Validado'}</td>
-                  {/* <Select size='sm' style={{ marginTop: '2px' }} defaultValue={row.validado} placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
-                    {dataSelect.map((carrera, index) => (
-                      <Option key={index} value={carrera.id}>{carrera.validado}</Option>
-                    ))}
-                  </Select> */}
                   <td>
                     <Box sx={{ display: 'flex', gap: 1 }}>
-                      <Button size="small" variant="plain" color="primary" onClick={() => handleViewProfile(row.idUsuario)}>
-                        <Tooltip title="Modificar datos" variant="plain" color="primary">
-                          <AccountCircleSharpIcon />
-                        </Tooltip>
-                      </Button>
-                      {/* <Button size="small" variant="plain" color="neutral" onClick={() => handleValidateUser(row.idUsuario)}>
-                        <ModalSelect />
-                      </Button> */}
-                      <Button size="small" variant="plain" color="danger" onClick={() => handleDeleteUser(row.idUsuario)}>
-                        <Tooltip title="Baja usuario" variant="plain" color="primary">
-                          <TaskAltSharpIcon />
-
-                        </Tooltip>
+                      <Button size="small" >
+                        <ModalSelect ida={row.idUsuario} />
                       </Button>
                     </Box>
                   </td>
@@ -186,6 +165,22 @@ export default function TableAdmin() {
           </tbody>
         </Table>
       </Sheet>
-    </Box>
+    </Box >
   );
 }
+
+
+
+// {/* <Select size='sm' style={{ marginTop: '2px' }} defaultValue={row.validado} placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
+//                     {dataSelect.map((carrera, index) => (
+//                       <Option key={index} value={carrera.id}>{carrera.validado}</Option>
+//                     ))}
+//                   </Select> */}
+// {/* <Button size="small" variant="plain" color="primary" onClick={() => handleViewProfile(row.idUsuario)}>
+//                         <Tooltip title="Modificar datos" variant="plain" color="primary">
+//                           <AccountCircleSharpIcon />
+//                         </Tooltip>
+//                       </Button> */}
+// {/* <Button size="small" variant="plain" color="neutral" onClick={() => handleValidateUser(row.idUsuario)}>
+//                         <ModalSelect />
+//                       </Button> */}

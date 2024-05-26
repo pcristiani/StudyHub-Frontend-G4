@@ -2,6 +2,10 @@ import React, { useEffect, useReducer } from 'react';
 import { AuthContext } from './context/AuthContext';
 import { authReducer } from './context/authReducer';
 import { AppRouter } from './routers/AppRouter';
+// import './css/tailwind.css'
+// import '../css/style.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const init = () => {
   const userCookie = document.cookie.split('; ').find(row => row.startsWith('user='));
@@ -20,7 +24,7 @@ export const MainPage = () => {
       <AuthContext.Provider value={{
         user, dispatch
       }}>
-        <AppRouter />  
+        <AppRouter />
       </AuthContext.Provider>
     </>
   )

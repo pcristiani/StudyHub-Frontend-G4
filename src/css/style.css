@@ -81,6 +81,11 @@ body {
   
 }
 
+.box {
+  border-radius: theme('borderRadius.lg');
+  background-color: theme('colors.white');
+  padding: theme('spacing.4');
+}
 .logo-desktop {
   max-width: 40px;
   max-height: 40px;
@@ -341,11 +346,11 @@ div {
 
 .footer {
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: #ffffff;
+  /* background: #ffffff; */
   position: fixed;
     bottom: 0;
   width: 100%;
-  color: #a8a8a8;
+  color: #868686;
   font-weight: normal;
   /* padding: 3px; */
   justify-content: center;
@@ -353,7 +358,3 @@ div {
   font-size: 12px;
   /* z-index: 1000; muestre por encima de los otros elementos. */
 }
-
-
-/* --////////// aca */
-

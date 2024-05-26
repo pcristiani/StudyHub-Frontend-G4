@@ -87,7 +87,7 @@ export function MyAnimationFooter() {
             marginTop: '10px',
           }}
           cursor={false}
-          repeat={1}
+          repeat={3}
         />
         <TypeAnimation
           sequence={[

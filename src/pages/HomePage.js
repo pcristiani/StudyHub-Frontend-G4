@@ -5,8 +5,6 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { MyAnimation } from '../components/common/AnimationType';
 import { StyledEngineProvider, CssVarsProvider, extendTheme } from '@mui/joy/styles'
-// import { getAllFilesFrontMatter } from '@/lib/mdx'
-// import {  QueryClientProvider } from 'react-query';
 
 const theme = extendTheme({ cssVarPrefix: 'demo' });
 // debugger;
@@ -23,7 +21,6 @@ const HomePage = () => {
               <br></br>
               <Typography className="text-dark focus-ring-primary" component="h1" >
                 <MyAnimation />
-
               </Typography>
             </Box>
           </Container>
