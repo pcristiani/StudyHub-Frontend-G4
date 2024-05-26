@@ -23,13 +23,11 @@ const dataSelect = [
 ];
 
 export function ModalSelect(ida) {
-    const [open, setOpen] = React.useState(false);
     const { user } = useContext(AuthContext);
+    const [open, setOpen] = React.useState(false);
     const [carreraData, setCarreraData] = useState([]);
     const [error, setError] = useState(null);
-    const [selectedId, setSelectedId] = useState(null);
     const history = useNavigate();
-
 
     useEffect(() => {
         const fetchCarreras = async () => {
@@ -49,7 +47,7 @@ export function ModalSelect(ida) {
         }
     }, [carreraData]);
 
-
+    ///
     let intValue = parseInt(ida.value, 10);
     // let intValue = convertObjectToInt(ida);
     console.log(ida.id);

@@ -13,12 +13,10 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import swal from 'sweetalert';
 
-import { asignarCoordinadorCarrera } from '../../../services/requests/carreraService';
+
 import { getUsuarios, bajaUsuario } from '../../../services/requests/usuarioService';
 import TaskAltSharpIcon from '@mui/icons-material/Delete';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleOutlined';
-import IconValidar from '@mui/icons-material/CheckCircle';
-import { ModalSelect } from '../../common/ModalSelect';
 import Tooltip from '@mui/joy/Tooltip';
 
 
@@ -36,15 +34,10 @@ function preventDefault(event) {
 }
 
 export default function TableAdmin() {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
   const { user } = useContext(AuthContext);
   const history = useNavigate();
-  const [coordinadorCarreraData, setCordinadorCarreraData] = useState([]);
   const [error, setError] = useState(null);
   const [coordinadorData, setCoordinadorData] = useState([]);
-
 
   useEffect(() => {
     const fetchCoordinador = async () => {
@@ -64,29 +57,7 @@ export default function TableAdmin() {
     }
   }, [coordinadorData]);
 
-
   ///
-
-  // useEffect(() => {
-  //   const fetchCoordinadorCarreras = async () => {
-
-  //     try {
-  //       const result = await asignarCoordinadorCarrera(2, 4, user.jwtLogin);
-  //       console.log("Resultado: ", result);
-  //       setCordinadorCarreraData(result);
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   };
-  //   fetchCoordinadorCarreras();
-  // }, [user]);
-
-  // useEffect(() => {
-  //   if (coordinadorCarreraData) {
-  //     console.log("Carreras: ", coordinadorCarreraData);
-  //   }
-  // }, [coordinadorCarreraData]);
-
   const handleViewProfile = (idUsuario) => {
     console.log(`ID: ${idUsuario}`);
   };
@@ -99,20 +70,6 @@ export default function TableAdmin() {
     await bajaUsuario(idUsuario, user.jwtLogin);
     console.log(`IDs: ${idUsuario}`);
   };
-
-
-  // const emptyRows =
-  //   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
-
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10));
-  //   setPage(0);
-  // };
-
 
   return (
     <Box sx={{ minHeight: '20vh', maxWidth: '600px' }}>
@@ -157,11 +114,6 @@ export default function TableAdmin() {
                   <td>{row.cedula}</td>
                   <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : ''}</td>
                   <td>{row.activo ? 'Validado' : 'No Validado'}</td>
-                  {/* <Select size='sm' style={{ marginTop: '2px' }} defaultValue={row.validado} placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
-                    {dataSelect.map((carrera, index) => (
-                      <Option key={index} value={carrera.id}>{carrera.validado}</Option>
-                    ))}
-                  </Select> */}
                   <td>
                     <Box sx={{ display: 'flex', gap: 1 }}>
                       <Button size="small" variant="plain" color="primary" onClick={() => handleViewProfile(row.idUsuario)}>
@@ -169,13 +121,9 @@ export default function TableAdmin() {
                           <AccountCircleSharpIcon />
                         </Tooltip>
                       </Button>
-                      {/* <Button size="small" variant="plain" color="neutral" onClick={() => handleValidateUser(row.idUsuario)}>
-                        <ModalSelect />
-                      </Button> */}
                       <Button size="small" variant="plain" color="danger" onClick={() => handleDeleteUser(row.idUsuario)}>
                         <Tooltip title="Baja usuario" variant="plain" color="primary">
                           <TaskAltSharpIcon />
-
                         </Tooltip>
                       </Button>
                     </Box>
@@ -189,3 +137,26 @@ export default function TableAdmin() {
     </Box>
   );
 }
+
+
+// {/* <Select size='sm' style={{ marginTop: '2px' }} defaultValue={row.validado} placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
+//                     {dataSelect.map((carrera, index) => (
+//                       <Option key={index} value={carrera.id}>{carrera.validado}</Option>
+//                     ))}
+//                   </Select> */}
+// {/* <Button size="small" variant="plain" color="neutral" onClick={() => handleValidateUser(row.idUsuario)}>
+//                         <ModalSelect />
+//                       </Button> */}
+
+
+// const emptyRows =
+//   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+// const handleChangePage = (event, newPage) => {
+//   setPage(newPage);
+// };
+
+// const handleChangeRowsPerPage = (event) => {
+//   setRowsPerPage(parseInt(event.target.value, 10));
+//   setPage(0);
+// };

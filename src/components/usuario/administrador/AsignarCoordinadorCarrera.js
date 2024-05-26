@@ -1,25 +1,13 @@
 import { useState, useEffect, useContext } from 'react';
 import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
 import Table from '@mui/joy/Table';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import Stack from '@mui/joy/Stack';
-import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
-import { styled } from '@mui/system';
 import { TablePagination, tablePaginationClasses as classes, } from '@mui/base/TablePagination';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
-import swal from 'sweetalert';
-
-import { asignarCoordinadorCarrera } from '../../../services/requests/carreraService';
 import { getUsuarios, bajaUsuario } from '../../../services/requests/usuarioService';
-import TaskAltSharpIcon from '@mui/icons-material/Delete';
-import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleOutlined';
-import IconValidar from '@mui/icons-material/CheckCircle';
 import { ModalSelect } from '../../common/ModalSelect';
-import Tooltip from '@mui/joy/Tooltip';
 
 
 function selectValidar(id, validado) {
@@ -36,12 +24,8 @@ function preventDefault(event) {
 }
 
 export default function AsignarCoordinadorCarrera() {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
   const { user } = useContext(AuthContext);
   const history = useNavigate();
-  const [coordinadorCarreraData, setCordinadorCarreraData] = useState([]);
   const [error, setError] = useState(null);
   const [coordinadorData, setCoordinadorData] = useState([]);
 
@@ -64,51 +48,7 @@ export default function AsignarCoordinadorCarrera() {
     }
   }, [coordinadorData]);
 
-
   ///
-
-  // useEffect(() => {
-  //   const fetchCoordinadorCarreras = async () => {
-
-  //     try {
-  //       const result = await asignarCoordinadorCarrera(2, 4, user.jwtLogin);
-  //       console.log("Resultado: ", result);
-  //       setCordinadorCarreraData(result);
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   };
-  //   fetchCoordinadorCarreras();
-  // }, [user]);
-
-  // useEffect(() => {
-  //   if (coordinadorCarreraData) {
-  //     console.log("Carreras: ", coordinadorCarreraData);
-  //   }
-  // }, [coordinadorCarreraData]);
-
-
-
-  const handleValidateUser = (idUsuario) => {
-    console.log(`ID: ${idUsuario}`);
-  };
-
-
-
-
-  // const emptyRows =
-  //   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
-
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10));
-  //   setPage(0);
-  // };
-
-
   return (
     <Box sx={{ minHeight: '20vh', maxWidth: '600px' }}>
       <Typography level="body-sm" color='neutral' textAlign="center" sx={{ pb: 1 }}>
@@ -131,8 +71,7 @@ export default function AsignarCoordinadorCarrera() {
           backgroundPosition:
             'var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height), var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height)',
           backgroundColor: 'background.surface',
-        }}
-      >
+        }}>
 
         <Table hoverRow>
           <thead>
@@ -153,11 +92,7 @@ export default function AsignarCoordinadorCarrera() {
                   <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : ''}</td>
                   <td>{row.activo ? 'Validado' : 'No Validado'}</td>
                   <td>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                      <Button size="small" >
-                        <ModalSelect ida={row.idUsuario} />
-                      </Button>
-                    </Box>
+                    <ModalSelect ida={row.idUsuario} />
                   </td>
                 </tr>
               )
