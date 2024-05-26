@@ -4,11 +4,8 @@ import Container from '@mui/joy/Container';
 import Box from '@mui/joy/Box';
 import Sheet from '@mui/joy/Sheet';
 
-// import '../css/style.css';
-// import '../css/style-navbar.css';
 import { CssVarsProvider } from '@mui/joy/styles';
 import { extendTheme } from '@mui/joy/styles';
-import { Link } from 'react-router-dom';
 const theme = extendTheme({ cssVarPrefix: 'demo' });
 
 const Novedades = () => {

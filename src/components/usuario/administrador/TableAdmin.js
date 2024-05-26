@@ -4,15 +4,10 @@ import Button from '@mui/joy/Button';
 import Table from '@mui/joy/Table';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import Stack from '@mui/joy/Stack';
-import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
-import { styled } from '@mui/system';
+
 import { TablePagination, tablePaginationClasses as classes, } from '@mui/base/TablePagination';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
-import swal from 'sweetalert';
-
 
 import { getUsuarios, bajaUsuario } from '../../../services/requests/usuarioService';
 import TaskAltSharpIcon from '@mui/icons-material/Delete';
@@ -28,10 +23,6 @@ const dataSelect = [
   selectValidar(false, "No Validado"),
 ];
 
-
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 export default function TableAdmin() {
   const { user } = useContext(AuthContext);
@@ -59,10 +50,6 @@ export default function TableAdmin() {
 
   ///
   const handleViewProfile = (idUsuario) => {
-    console.log(`ID: ${idUsuario}`);
-  };
-
-  const handleValidateUser = (idUsuario) => {
     console.log(`ID: ${idUsuario}`);
   };
 
@@ -147,7 +134,6 @@ export default function TableAdmin() {
 // {/* <Button size="small" variant="plain" color="neutral" onClick={() => handleValidateUser(row.idUsuario)}>
 //                         <ModalSelect />
 //                       </Button> */}
-
 
 // const emptyRows =
 //   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;

@@ -10,8 +10,6 @@ import MenuButton from '@mui/joy/MenuButton';
 import { URI_FRONT, TIPO_ROL } from '../../services/util/constants'
 import Box from '@mui/joy/Box';
 import Logo from '../../img/logo-text.png';
-
-
 import Input from '@mui/joy/Input';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
@@ -21,7 +19,6 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Navigation() {
     const { user, dispatch } = useContext(AuthContext);
-    const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -33,7 +30,6 @@ export default function Navigation() {
 
     return (
         <>
-
             <List size="sm" sx={{ '--ListItem-radius': '8px', '--List-gap': '2px' }}>
                 <ListItem nested>
                     <List aria-labelledby="nav-list-browse">

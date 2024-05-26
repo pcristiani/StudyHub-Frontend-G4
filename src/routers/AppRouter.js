@@ -37,16 +37,12 @@ export const AppRouter = () => {
     const { user } = useContext(AuthContext);
 
     return (
-
-
-
         <BrowserRouter>
             <Layout.Header>
                 <Header />
             </Layout.Header>
 
             <Layout.Main>
-
                 <Routes>
                     <Route path="/" element={<Novedades />} exact />
                     <Route path="/plan-estudios" element={<PlanEstudiosPage user={user.id} />} exact />
@@ -72,8 +68,6 @@ export const AppRouter = () => {
                     <Route path="/alta-funcionario-coordinador" element={<AltaFuncionarioCoordinador user={user.id} />} exact />
                     <Route path="/contacto" element={<ContactoPage user={user.id} />} exact />
 
-                    {/* <Route path="/demo" element={<Demo user={user.id} />} exact /> */}
-
                     <Route path='/login' element={
                         <PublicRoute>
                             <Login />
@@ -91,13 +85,11 @@ export const AppRouter = () => {
                             <Login />
                         </PublicRoute>
                     } />
-
                 </Routes>
 
                 <Footer />
             </Layout.Main >
+
         </BrowserRouter>
-
-
     )
 }

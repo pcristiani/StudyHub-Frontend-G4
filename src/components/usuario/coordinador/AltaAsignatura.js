@@ -17,7 +17,6 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
 import { getAsignaturas, altaAsignatura } from '../../../services/requests/asignaturaService';
-import Close from '@mui/icons-material/Close';
 
 export default function AltaAsignatura() {
     const { user } = useContext(AuthContext);

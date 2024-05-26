@@ -32,13 +32,10 @@ import PropTypes from 'prop-types';
 
 import Navigation from './Navigation';
 import { useNavigate } from 'react-router-dom'
-
 import '../../css/style-navbar.css';
 import Logo from '../../img/logo.png';
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
-// import '../css/bootstrap.min.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { cerrarSesion } from '../../services/requests/loginService';
 
 import { URI_FRONT, TIPO_ROL } from '../../services/util/constants'
@@ -162,7 +159,6 @@ export default function Header() {
 
    return (
       <CssVarsProvider disableTransitionOnChange>
-
          <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', }}>
             <Stack direction="row" justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'none', sm: 'flex' } }}>
                <IconButton size="md" sx={{ display: { xs: 'none', sm: 'flex' }, }}>
@@ -196,7 +192,6 @@ export default function Header() {
                                     {/* <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Asignar coordinador
                                     </Button> */}
-
                                     <Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm">
                                        Validar usuario de estudiante
                                     </Button>
