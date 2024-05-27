@@ -38,6 +38,7 @@ const URI_FRONT = {
   //Uri Administrador
   validarEstudiantesUri: `/validar-estudiantes`,
   modificarFuncionarioUri: `/modificar-funcionario-coordinador`,
+  listadosBusquedasUri: `/listados-busquedas`,
 }
 
 // ? http://localhost:8080/

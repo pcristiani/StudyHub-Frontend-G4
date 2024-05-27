@@ -26,13 +26,14 @@ import Layout from '../components/common/Layout';
 
 import EditarPerfil from "../components/usuario/EditarPerfil";
 
-import ValidarEstudiantes from "../components/usuario/administrador/ValidarEstudiantes";
+import ValidarEstudiantes from "../components/usuario/funcionario/ValidarEstudiantes";
 import DashboardAdmin from '../components/usuario/administrador/DashboardAdmin';
 import ModificarPassword from '../components/login/ModificarPassword';
 import AltaDocente from '../components/usuario/funcionario/AltaDocente';
 import AltaFuncionarioCoordinador from '../components/usuario/administrador/AltaFuncionarioCoordinador';
 import ContactoPage from '../pages/ContactoPage';
 import ModificarFuncionarioCoordinador from '../components/usuario/administrador/ModificarFuncionarioCoordinador';
+import ListadosBusquedas from '../components/usuario/administrador/ListadosBusquedas';
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -68,6 +69,7 @@ export const AppRouter = () => {
                     <Route path="/modificar-password" element={<ModificarPassword user={user.id} />} />
                     <Route path="/alta-funcionario-coordinador" element={<AltaFuncionarioCoordinador user={user.id} />} exact />
                     <Route path="/modificar-funcionario-coordinador" element={<ModificarFuncionarioCoordinador user={user.id} />} exact />
+                    <Route path="/listados-busquedas" element={<ListadosBusquedas user={user.id} />} exact />
 
                     <Route path="/contacto" element={<ContactoPage user={user.id} />} exact />
 

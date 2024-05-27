@@ -24,7 +24,6 @@ export const getCarreras = async (jwtLogin) => {
 ///
 
 export const asignarCoordinadorCarrera = async (idUsuario, idCarrera, jwtLogin) => {
-
     console.log("IDUsuario: ", idUsuario, "IDCarrera: ", idCarrera.ida, "JWT: ", jwtLogin);
     try {
         let headersList = {

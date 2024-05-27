@@ -177,28 +177,17 @@ export default function Header() {
                                     <Button variant="plain" color="neutral" component="a" href='/alta-funcionario-coordinador' size="sm">
                                        Alta coordinador y funcionario
                                     </Button>
-                                    {/* <Button variant="plain" color="neutral" component="a" href='/dashboard-admin' size="sm">
-                                       Modificar coordinador y funcionario
-                                    </Button> */}
-                                    {/* <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
-                                       Eliminar coordinador o funcionario
-                                    </Button> */}
                                     <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sm">
                                        Modificar coordinador y funcionario
                                     </Button>
                                     <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idA}`} size="sm">
                                        Asignar coordinador
                                     </Button>
-                                    {/* <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
-                                       Asignar coordinador
-                                    </Button> */}
-                                    <Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm">
-                                       Validar usuario de estudiante
-                                    </Button>
+
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
-                           <Button variant="plain" color="neutral" component="a" href='./listados-busquedas' size="sm">
+                           <Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadosBusquedasUri} size="sm">
                               Listados y búsquedas
                            </Button>
                            <Button variant="plain" color="neutral" component="a" href='./resumen-actividad' size="sm">
@@ -254,8 +243,11 @@ export default function Header() {
                                     <Button variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sm">
                                        Alta docente
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    {/* <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Validar usuario a estudiantes
+                                    </Button> */}
+                                    <Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm">
+                                       Validar usuario de estudiante
                                     </Button>
                                     <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Validar inscripción a carrera

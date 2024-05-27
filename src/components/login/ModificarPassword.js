@@ -13,12 +13,14 @@ import Card from '@mui/joy/Card';
 import swal from 'sweetalert';
 import { AuthContext } from '../../context/AuthContext';
 import { modificarPassword } from '../../services/requests/loginService';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 export default function ModificarPassword() {
     const { user } = useContext(AuthContext);
     const context = useContext(AuthContext);
+    const history = useNavigate();
 
     async function modificarPasswordUsuario(ud, s, userjwtLogin) {
         const result = await modificarPassword(ud, s, userjwtLogin);
@@ -26,6 +28,8 @@ export default function ModificarPassword() {
             swal("¡Éxito!", 'Has cambiado correctamente la contraseña', "success", {
                 timer: 4000
             });
+            history('/');
+
         } else {
             swal("¡Advertencia!", 'Un error inesperado ocurrio', "error", {
                 timer: 3000
@@ -49,13 +53,15 @@ export default function ModificarPassword() {
                 <Divider />
                 <Stack>
                     <Stack spacing={0}>
-                        <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '280px' } }}>
+                        <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '280px' }, gap: 0.8 }}>
                             <Input size="sm" id="password" name="password" placeholder="Ingresa tu nueva contraseña" required />
+                            <Input size="sm" id="password" name="password" placeholder="Confirmar contraseña" required />
+
                         </FormControl>
                     </Stack>
                     <Stack direction="row" spacing={1} sx={{ marginTop: 1, justifyContent: 'right' }}>
-                        <Button type="submit" size="sm" variant="solid">Guardar</Button>
-                        <Button size="sm" variant="outlined" color="neutral" href='/'>Cancelar</Button>
+                        <Button type="submit" fullWidth size="sm" variant="solid">Guardar</Button>
+                        <Button size="sm" fullWidth variant="outlined" color="neutral" href='./'>Cancelar</Button>
                     </Stack>
                 </Stack>
             </Card>

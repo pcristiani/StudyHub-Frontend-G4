@@ -3,7 +3,6 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
@@ -21,7 +20,6 @@ export default function AltaDocente() {
     async function altaDocente(codigoDocente, nombre) {
 
         let body = { "codigoDocente": codigoDocente, "nombre": nombre };
-
         let response = await fetch(URL_BACK.altaDocente, {
             method: 'POST',
             headers: {
@@ -33,9 +31,12 @@ export default function AltaDocente() {
 
         if (response.ok) {
             console.log("response: ", response);
+
             swal({
-                title: "El docente ha sido creado con éxito\n\n",
+                title: "¡Docente creado!\n\n",
+                text: "El docente ha sido creado con éxito.",
                 icon: "success",
+                dangerMode: false,
                 position: "center",
                 timer: 4000
             });
@@ -70,12 +71,9 @@ export default function AltaDocente() {
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    {/* <FormControl sx={{ width: '100%', maxWidth: 350, gap: 1 }}> */}
-                        <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
-                        <FormLabel htmlFor="codigoDocente">Código</FormLabel>
-                        <Input size="small" id="codigoDocente" name="codigoDocente" placeholder="Código" required />
-                        <FormLabel htmlFor="nombre">Nombre</FormLabel>
-                        <Input size="small" id="nombre" name="nombre" placeholder="Nombre" required />
+                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
+                        <Input size="sm" id="codigoDocente" name="codigoDocente" placeholder="Código" required />
+                        <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
                     </FormControl>
                     <Stack direction="row" spacing={2} sx={{ marginTop: 2, justifyContent: 'center' }}>
                         <Button type="submit" size="small" variant="solid">Guardar</Button>
@@ -86,3 +84,7 @@ export default function AltaDocente() {
         </Box>
     );
 };
+
+// {/* <FormControl sx={{ width: '100%', maxWidth: 350, gap: 1 }}> */}
+//     {/* <FormLabel htmlFor="codigoDocente">Código</FormLabel> */}
+//     {/* <FormLabel htmlFor="nombre">Nombre</FormLabel> */}

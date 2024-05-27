@@ -3,7 +3,6 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
@@ -23,7 +22,6 @@ export default function AltaCarrera() {
         console.log("Alta carrera:", nombre, descripcion);
 
         let body = { "nombre": nombre, "descripcion": descripcion };
-
         let response = await fetch(URL_BACK.altaCarrera, {
             method: 'POST',
             headers: {
@@ -36,8 +34,10 @@ export default function AltaCarrera() {
         if (response.ok) {
             console.log("response: ", response);
             swal({
-                title: "La carrera ha sido creada con éxito\n\n",
+                title: "¡Carrera creada!\n\n",
+                text: "La carrera ha sido creada con éxito",
                 icon: "success",
+                dangerMode: false,
                 position: "center",
                 timer: 4000
             });
@@ -63,23 +63,24 @@ export default function AltaCarrera() {
         <Box component="form" sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                 <Box sx={{ alignSelf: 'center' }}>
-                    <Typography level="title-md">Alta carrera</Typography>
+                    <Typography level="title-lg">Alta carrera</Typography>
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    {/* <FormControl sx={{ width: '100%', maxWidth: 350, gap: 1 }}> */}
                     <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
-                        <FormLabel htmlFor="nombre">Nombre</FormLabel>
-                        <Input size="small" id="nombre" name="nombre" placeholder="Nombre" required />
-                        <FormLabel htmlFor="descripcion">Descripción</FormLabel>
-                        <Input size="small" id="descripcion" name="descripcion" placeholder="Descripción" required />
+                        <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
+                        <Input size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
                     </FormControl>
-                    <Stack direction="row" spacing={2} sx={{ marginTop: 2, justifyContent: 'center' }}>
-                        <Button type="submit" size="small" variant="solid">Guardar</Button>
-                        <Button size="small" variant="outlined" color="neutral" href='/'>Cancelar</Button>
+                    <Stack direction="row" spacing={1} sx={{ marginTop: 1, justifyContent: 'center' }}>
+                        <Button type="submit" fullWidth size="small" variant="solid">Guardar</Button>
+                        <Button size="small" fullWidth variant="outlined" color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Stack>
             </Card>
         </Box>
     );
 };
+
+// {/* <FormControl sx={{ width: '100%', maxWidth: 350, gap: 1 }}> */}
+//     {/* <FormLabel htmlFor="nombre">Nombre</FormLabel> */}
+//     {/* <FormLabel htmlFor="descripcion">Descripción</FormLabel> */}
