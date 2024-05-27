@@ -18,6 +18,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
 import { getAsignaturas, altaAsignatura } from '../../../services/requests/asignaturaService';
 
+
 export default function AltaAsignatura() {
     const { user } = useContext(AuthContext);
     const history = useNavigate();
@@ -44,7 +45,6 @@ export default function AltaAsignatura() {
     }, [carreraData]);
 
     ///
-
     useEffect(() => {
         const fetchAsignaturas = async () => {
             try {
@@ -64,7 +64,6 @@ export default function AltaAsignatura() {
     }, [asignaturaData]);
 
     ///
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -77,7 +76,6 @@ export default function AltaAsignatura() {
             const num = parseInt(item.trim(), 10);
             return isNaN(num) ? null : num;
         }).filter(item => item !== null) : [];
-
         try {
             await altaAsignatura(nombre, creditos, descripcion, departamento, previaturas, idCarrera, user.jwtLogin);
             swal({
@@ -117,11 +115,6 @@ export default function AltaAsignatura() {
                             ))}
                         </Select>
                         <Divider />
-
-                        {/* <FormLabel htmlFor="nombre">Nombre</FormLabel> */}
-                        {/* <FormLabel htmlFor="creditos">Créditos</FormLabel> */}
-                        {/* <FormLabel htmlFor="descripcion">Descripción</FormLabel> */}
-                        {/* <FormLabel htmlFor="departamento">Departamento</FormLabel> */}
                         <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
                         <Input size="sm" id="creditos" name="creditos" placeholder="Créditos" required />
                         <Input size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
@@ -144,10 +137,9 @@ export default function AltaAsignatura() {
                         </Select>
                         <Divider />
                     </FormControl>
-
-                    <Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
-                        <Button type="submit" size="md" variant="solid">Guardar</Button>
-                        <Button size="md" variant="outlined" color="neutral" href='/'>Cancelar</Button>
+                    <Stack direction="row" spacing={1} sx={{ marginTop: 1, justifyContent: 'right' }}>
+                        <Button type="submit" size="md" fullWidth variant="solid">Guardar</Button>
+                        <Button size="md" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Stack>
             </Card>

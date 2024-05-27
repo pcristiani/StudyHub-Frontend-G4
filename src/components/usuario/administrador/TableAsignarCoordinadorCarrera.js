@@ -6,8 +6,8 @@ import Sheet from '@mui/joy/Sheet';
 import { TablePagination, tablePaginationClasses as classes, } from '@mui/base/TablePagination';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
-import { getUsuarios, bajaUsuario } from '../../../services/requests/usuarioService';
-import { ModalSelect } from '../../common/ModalSelect';
+import { getUsuarios } from '../../../services/requests/usuarioService';
+import { ModalSelect } from './ModalSelect';
 
 
 function selectValidar(id, validado) {
@@ -17,7 +17,6 @@ const dataSelect = [
   selectValidar(true, "Validado"),
   selectValidar(false, "No Validado"),
 ];
-
 
 function preventDefault(event) {
   event.preventDefault();
@@ -100,22 +99,6 @@ export default function TableAsignarCoordinadorCarrera() {
           </tbody>
         </Table>
       </Sheet>
-    </Box >
+    </Box>
   );
 }
-
-
-
-// {/* <Select size='sm' style={{ marginTop: '2px' }} defaultValue={row.validado} placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
-//                     {dataSelect.map((carrera, index) => (
-//                       <Option key={index} value={carrera.id}>{carrera.validado}</Option>
-//                     ))}
-//                   </Select> */}
-// {/* <Button size="small" variant="plain" color="primary" onClick={() => handleViewProfile(row.idUsuario)}>
-//                         <Tooltip title="Modificar datos" variant="plain" color="primary">
-//                           <AccountCircleSharpIcon />
-//                         </Tooltip>
-//                       </Button> */}
-// {/* <Button size="small" variant="plain" color="neutral" onClick={() => handleValidateUser(row.idUsuario)}>
-//                         <ModalSelect />
-//                       </Button> */}

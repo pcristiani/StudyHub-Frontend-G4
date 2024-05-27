@@ -8,8 +8,8 @@ import Stack from '@mui/joy/Stack';
 import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
 import Tooltip from '@mui/joy/Tooltip';
-import { AuthContext } from '../../context/AuthContext';
-import { getCarreras, asignarCoordinadorCarrera } from '../../services/requests/carreraService';
+import { AuthContext } from '../../../context/AuthContext';
+import { getCarreras, asignarCoordinadorCarrera } from '../../../services/requests/carreraService';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 
@@ -84,7 +84,6 @@ export function ModalSelect(ida) {
                 });
             }
         }
-
     };
 
     return (
@@ -116,10 +115,3 @@ export function ModalSelect(ida) {
         </React.Fragment >
     );
 }
-
-
-// {/* <Select size='sm' style={{ marginTop: '2px' }} defaultValue={dataSelect.id} placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
-//                                     {dataSelect.map((carrera, index) => (
-//                                         <Option key={index} value={carrera.id}>{carrera.validado}</Option>
-//                                     ))}
-//                                 </Select> */}

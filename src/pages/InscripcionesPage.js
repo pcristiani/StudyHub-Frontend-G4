@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import { CssVarsProvider } from '@mui/joy/styles';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-// import SelectComponent from '../components/SelectComponent'
 
 const InscripcionesPage = () => {
   const { user } = useContext(AuthContext); // Obtengo la informacion de logueo

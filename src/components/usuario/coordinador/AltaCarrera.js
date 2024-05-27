@@ -12,14 +12,14 @@ import { URL_BACK } from '../../../services/util/constants';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 
-// const MyFormComponent = () => {
+
 export default function AltaCarrera() {
     const { user } = useContext(AuthContext);
     console.log(user.jwtLogin);
     const history = useNavigate();
 
     async function altaCarrera(nombre, descripcion) {
-        console.log("Alta carrera:", nombre, descripcion);
+        // console.log("Alta carrera:", nombre, descripcion);
 
         let body = { "nombre": nombre, "descripcion": descripcion };
         let response = await fetch(URL_BACK.altaCarrera, {
@@ -58,9 +58,8 @@ export default function AltaCarrera() {
         history('/Novedades');
     };
 
-
     return (
-        <Box component="form" sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ marginTop: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                 <Box sx={{ alignSelf: 'center' }}>
                     <Typography level="title-lg">Alta carrera</Typography>
@@ -80,7 +79,3 @@ export default function AltaCarrera() {
         </Box>
     );
 };
-
-// {/* <FormControl sx={{ width: '100%', maxWidth: 350, gap: 1 }}> */}
-//     {/* <FormLabel htmlFor="nombre">Nombre</FormLabel> */}
-//     {/* <FormLabel htmlFor="descripcion">Descripción</FormLabel> */}

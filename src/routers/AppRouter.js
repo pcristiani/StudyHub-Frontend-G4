@@ -34,6 +34,7 @@ import AltaFuncionarioCoordinador from '../components/usuario/administrador/Alta
 import ContactoPage from '../pages/ContactoPage';
 import ModificarFuncionarioCoordinador from '../components/usuario/administrador/ModificarFuncionarioCoordinador';
 import ListadosBusquedas from '../components/usuario/administrador/ListadosBusquedas';
+import { ResumenActividad } from '../components/usuario/administrador/ResumenActividad';
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -70,7 +71,7 @@ export const AppRouter = () => {
                     <Route path="/alta-funcionario-coordinador" element={<AltaFuncionarioCoordinador user={user.id} />} exact />
                     <Route path="/modificar-funcionario-coordinador" element={<ModificarFuncionarioCoordinador user={user.id} />} exact />
                     <Route path="/listados-busquedas" element={<ListadosBusquedas user={user.id} />} exact />
-
+                    <Route path="/resumen-actividad" element={<ResumenActividad user={user.id} />} exact />
                     <Route path="/contacto" element={<ContactoPage user={user.id} />} exact />
 
                     <Route path='/login' element={

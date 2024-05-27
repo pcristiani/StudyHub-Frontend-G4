@@ -11,7 +11,6 @@ import { AuthContext } from '../../../context/AuthContext';
 import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded';
 import { getUsuarios, bajaUsuario } from '../../../services/requests/usuarioService';
 import TaskAltSharpIcon from '@mui/icons-material/Delete';
-import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleOutlined';
 import Tooltip from '@mui/joy/Tooltip';
 import { URI_FRONT, redirigir } from '../../../services/util/constants';
 
@@ -126,25 +125,3 @@ export default function TableAdministrador() {
     </Box>
   );
 }
-
-
-// {/* <Select size='sm' style={{ marginTop: '2px' }} defaultValue={row.validado} placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
-//                     {dataSelect.map((carrera, index) => (
-//                       <Option key={index} value={carrera.id}>{carrera.validado}</Option>
-//                     ))}
-//                   </Select> */}
-// {/* <Button size="small" variant="plain" color="neutral" onClick={() => handleValidateUser(row.idUsuario)}>
-//                         <ModalSelect />
-//                       </Button> */}
-
-// const emptyRows =
-//   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-// const handleChangePage = (event, newPage) => {
-//   setPage(newPage);
-// };
-
-// const handleChangeRowsPerPage = (event) => {
-//   setRowsPerPage(parseInt(event.target.value, 10));
-//   setPage(0);
-// };

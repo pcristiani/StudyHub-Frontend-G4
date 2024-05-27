@@ -15,7 +15,6 @@ const PlanEstudiosPage = () => {
       </Container>
     </CssVarsProvider>
   );
-
 }
 
 export default PlanEstudiosPage;

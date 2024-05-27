@@ -190,7 +190,7 @@ export default function Header() {
                            <Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadosBusquedasUri} size="sm">
                               Listados y búsquedas
                            </Button>
-                           <Button variant="plain" color="neutral" component="a" href='./resumen-actividad' size="sm">
+                        <Button variant="plain" color="neutral" component="a" href={URI_FRONT.resumenActividadUri} size="sm">
                               Resumen de actividad
                            </Button>
 
