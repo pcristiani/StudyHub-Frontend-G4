@@ -28,7 +28,7 @@ export default function AltaFuncionarioCoordinador() {
     ];
 
     const handleCancelar = () => {
-        redirigir(URI_FRONT.dashboardUri);
+        redirigir(URI_FRONT.dashboardUri + `?id=m`);
     };
 
     const handleSubmit = async (event) => {
@@ -85,9 +85,9 @@ export default function AltaFuncionarioCoordinador() {
                         </Select>
                     </div>
                 </FormControl>
-                <Stack direction="row" spacing={2} sx={{ marginTop: 2, justifyContent: 'right' }}>
-                    <Button type="submit" size="sm" alignItems="right" variant="solid">Guardar</Button>
-                    <Button size="sm" variant="outlined" color="neutral" onClick={() => handleCancelar()}>
+                <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
+                    <Button type="submit" fullWidth size="sm" alignItems="right" variant="solid">Guardar</Button>
+                    <Button size="sm" fullWidth variant="outlined" color="neutral" onClick={() => handleCancelar()}>
                         Cancelar
                     </Button>
                 </Stack>

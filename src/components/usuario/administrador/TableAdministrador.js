@@ -1,13 +1,19 @@
 import { useState, useEffect, useContext } from 'react';
 import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
 import Table from '@mui/joy/Table';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
+
 import { TablePagination, tablePaginationClasses as classes, } from '@mui/base/TablePagination';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
+import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded';
 import { getUsuarios, bajaUsuario } from '../../../services/requests/usuarioService';
-import { ModalSelect } from '../../common/ModalSelect';
+import TaskAltSharpIcon from '@mui/icons-material/Delete';
+import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleOutlined';
+import Tooltip from '@mui/joy/Tooltip';
+import { URI_FRONT, redirigir } from '../../../services/util/constants';
 
 
 function selectValidar(id, validado) {
@@ -19,16 +25,11 @@ const dataSelect = [
 ];
 
 
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-export default function AsignarCoordinadorCarrera() {
+export default function TableAdministrador() {
   const { user } = useContext(AuthContext);
   const history = useNavigate();
   const [error, setError] = useState(null);
   const [coordinadorData, setCoordinadorData] = useState([]);
-
 
   useEffect(() => {
     const fetchCoordinador = async () => {
@@ -49,10 +50,20 @@ export default function AsignarCoordinadorCarrera() {
   }, [coordinadorData]);
 
   ///
+  const handleModificar = (idUsuario) => {
+    console.log(`ID54: ${idUsuario}`);
+    redirigir(URI_FRONT.modificarFuncionarioUri + `?id=${idUsuario}`);
+  }
+
+  const handleDeleteUser = async (idUsuario) => {
+    await bajaUsuario(idUsuario, user.jwtLogin);
+    console.log(`IDs: ${idUsuario}`);
+  };
+
   return (
     <Box sx={{ minHeight: '20vh', maxWidth: '600px' }}>
       <Typography level="body-sm" color='neutral' textAlign="center" sx={{ pb: 1 }}>
-        ← Asignar Coordinador a carrera →
+        ← Funcionarios y Coordinadores →
       </Typography>
       <Sheet
         variant="outlined"
@@ -71,7 +82,8 @@ export default function AsignarCoordinadorCarrera() {
           backgroundPosition:
             'var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height), var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height)',
           backgroundColor: 'background.surface',
-        }}>
+        }}
+      >
 
         <Table hoverRow>
           <thead>
@@ -85,14 +97,25 @@ export default function AsignarCoordinadorCarrera() {
           </thead>
           <tbody>
             {coordinadorData.map((row) => (
-              row.rol === 'C' && (
+              row.rol !== 'E' && row.rol !== 'A' && (
                 <tr key={row.idUsuario}>
                   <td>{row.nombre} {row.apellido}</td>
                   <td>{row.cedula}</td>
                   <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : ''}</td>
                   <td>{row.activo ? 'Validado' : 'No Validado'}</td>
                   <td>
-                    <ModalSelect ida={row.idUsuario} />
+                    <Box sx={{ display: 'flex', gap: 0.5 }}>
+                      <Button size="small" variant="plain" color="primary" onClick={() => handleModificar(row.idUsuario)}>
+                        <Tooltip title="Modificar datos" variant="plain" color="primary">
+                          <AccountBoxRoundedIcon />
+                        </Tooltip>
+                      </Button>
+                      <Button size="small" variant="plain" color="danger" onClick={() => handleDeleteUser(row.idUsuario)}>
+                        <Tooltip title="Baja usuario" variant="plain" color="danger">
+                          <TaskAltSharpIcon />
+                        </Tooltip>
+                      </Button>
+                    </Box>
                   </td>
                 </tr>
               )
@@ -100,10 +123,9 @@ export default function AsignarCoordinadorCarrera() {
           </tbody>
         </Table>
       </Sheet>
-    </Box >
+    </Box>
   );
 }
-
 
 
 // {/* <Select size='sm' style={{ marginTop: '2px' }} defaultValue={row.validado} placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
@@ -111,11 +133,18 @@ export default function AsignarCoordinadorCarrera() {
 //                       <Option key={index} value={carrera.id}>{carrera.validado}</Option>
 //                     ))}
 //                   </Select> */}
-// {/* <Button size="small" variant="plain" color="primary" onClick={() => handleViewProfile(row.idUsuario)}>
-//                         <Tooltip title="Modificar datos" variant="plain" color="primary">
-//                           <AccountCircleSharpIcon />
-//                         </Tooltip>
-//                       </Button> */}
 // {/* <Button size="small" variant="plain" color="neutral" onClick={() => handleValidateUser(row.idUsuario)}>
 //                         <ModalSelect />
 //                       </Button> */}
+
+// const emptyRows =
+//   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+// const handleChangePage = (event, newPage) => {
+//   setPage(newPage);
+// };
+
+// const handleChangeRowsPerPage = (event) => {
+//   setRowsPerPage(parseInt(event.target.value, 10));
+//   setPage(0);
+// };

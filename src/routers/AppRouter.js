@@ -32,6 +32,7 @@ import ModificarPassword from '../components/login/ModificarPassword';
 import AltaDocente from '../components/usuario/funcionario/AltaDocente';
 import AltaFuncionarioCoordinador from '../components/usuario/administrador/AltaFuncionarioCoordinador';
 import ContactoPage from '../pages/ContactoPage';
+import ModificarFuncionarioCoordinador from '../components/usuario/administrador/ModificarFuncionarioCoordinador';
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -66,6 +67,8 @@ export const AppRouter = () => {
                     <Route path="/dashboard-admin" element={<DashboardAdmin user={user.id} />} exact />
                     <Route path="/modificar-password" element={<ModificarPassword user={user.id} />} />
                     <Route path="/alta-funcionario-coordinador" element={<AltaFuncionarioCoordinador user={user.id} />} exact />
+                    <Route path="/modificar-funcionario-coordinador" element={<ModificarFuncionarioCoordinador user={user.id} />} exact />
+
                     <Route path="/contacto" element={<ContactoPage user={user.id} />} exact />
 
                     <Route path='/login' element={

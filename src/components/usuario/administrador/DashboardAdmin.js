@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import TableAdmin from './TableAdmin';
-import AsignarCoordinadorCarrera from './AsignarCoordinadorCarrera';
+import TableAdministrador from './TableAdministrador';
+import TableAsignarCoordinadorCarrera from './TableAsignarCoordinadorCarrera';
 import Stack from '@mui/material/Stack';
 
 
@@ -28,7 +28,7 @@ export default function DashboardAdmin() {
                         <section className="text-black body-font">
                             <div className="px-2 py-5 mx-auto">
                                 <div>
-                                    {id === 'm' ? <TableAdmin /> : id === 'a' ? <AsignarCoordinadorCarrera /> : ''}
+                                    {id === 'm' ? <TableAdministrador /> : id === 'a' ? <TableAsignarCoordinadorCarrera /> : ''}
                                 </div>
                             </div>
                         </section>

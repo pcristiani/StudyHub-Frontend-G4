@@ -10,11 +10,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/joy/Checkbox';
 import Grid from '@mui/material/Grid';
 import { getEstudiantesPendientes, acceptEstudiante } from '../../../services/requests/estudianteService';
-import TaskAltSharpIcon from '@mui/icons-material/TaskAltSharp';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import { AuthContext } from '../../../context/AuthContext';
 import Sheet from '@mui/joy/Sheet';
-
+import Tooltip from '@mui/joy/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import { CheckBoxRounded, CheckCircle, HowToReg, HowToRegRounded, SafetyCheck, Save, SaveAlt, SaveAsOutlined, TaskAltRounded, VerifiedUser } from '@mui/icons-material';
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
 }));
@@ -23,7 +24,7 @@ export default function ValidarEstudiantes() {
     const [dense, setDense] = useState(false);
     const [secondary, setSecondary] = useState(false);
     const [data, setData] = useState([]);
-    const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         async function fetchValidarEstudiantes() {
@@ -59,31 +60,34 @@ export default function ValidarEstudiantes() {
 
     return (
         <Sheet>
-            <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <h1 sx={{ mt: 4, mb: 2 }} variant="h5">
-                    Lista de estudiantes a validar
-                </h1>
+            <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <h3 sx={{ marginButtom: 6, mt: 4, mb: 2 }} variant="h5">
+                    Validación de estudiantes
+                </h3>
                 <FormGroup row>
                     <FormControlLabel
                         control={
                             <Checkbox color="neutral" size="sm" variant="outlined" checked={dense}
-                                onChange={(event) => setDense(event.target.checked)} />
-                        } sx={{ gap: 1 }} label=" Vista compacta" />
+                            />
+                        } sx={{ gap: 1 }} label="Vista compacta" onChange={(event) => setDense(event.target.checked)} />
                     <FormControlLabel
                         control={
                             <Checkbox color="neutral" size="sm" variant="outlined" checked={secondary}
-                                onChange={(event) => setSecondary(event.target.checked)} />
-                        } sx={{ gap: 1 }} label="Más información" />
+                            />
+                        } sx={{ gap: 2 }} label="Más información" onChange={(event) => setSecondary(event.target.checked)} />
                 </FormGroup>
 
                 <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ minHeight: '20vh', maxWidth: '120vh' }}>
                     <Grid item xs={12} md={6}>
-                        {/* <Demo> */}
                         <List dense={dense}>
                             {primeraMitad.map(usuario => (
                                 <ListItem key={usuario.id} secondaryAction={
                                     <ListItemAvatar edge="end" aria-label="validate" onClick={() => handleValidateClick(usuario.id)}>
-                                        <TaskAltSharpIcon />
+                                        <Tooltip title="Validar cuenta estudiante" variant="plain" color="primary">
+                                            <IconButton aria-label="save" size="medium" color="warning">
+                                                <TaskAltRounded fontSize="inherit" />
+                                            </IconButton>
+                                        </Tooltip>
                                     </ListItemAvatar>}>
                                     <ListItemAvatar>
                                         <AccountCircleSharpIcon fontSize='large' />
@@ -94,15 +98,17 @@ export default function ValidarEstudiantes() {
                                 </ListItem>
                             ))}
                         </List>
-                        {/* </Demo> */}
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        {/* <Demo> */}
                         <List dense={dense}>
                             {segundaMitad.map(usuario => (
                                 <ListItem key={usuario.id} secondaryAction={
                                     <ListItemAvatar edge="end" aria-label="validate" onClick={() => handleValidateClick(usuario.id)}>
-                                        <TaskAltSharpIcon />
+                                        <Tooltip title="Validar cuenta estudiante" variant="plain" color="primary">
+                                            <IconButton aria-label="save" size="medium" color="warning">
+                                                <TaskAltRounded fontSize="inherit" />
+                                            </IconButton>
+                                        </Tooltip>
                                     </ListItemAvatar>}>
                                     <ListItemAvatar>
                                         <AccountCircleSharpIcon fontSize='large' />
@@ -113,7 +119,6 @@ export default function ValidarEstudiantes() {
                                 </ListItem>
                             ))}
                         </List>
-                        {/* </Demo> */}
                     </Grid>
                 </Grid>
             </Box>

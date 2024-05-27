@@ -9,36 +9,39 @@ const PORT = {
 const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
 const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
+// ? http://localhost:3000/
 const URI_FRONT = {
   // Uri Estudiante
-  homeUri: `/`,                                 // http://localhost:3000/
-  planEstudiosUri: `/plan-estudios`,            // http://localhost:3000/plan-estudios
-  inscripcionesUri: `/inscripciones`,           // http://localhost:3000/inscripciones
-  solicitudesUri: `/solicitudes`,               // http://localhost:3000/solicitudes
-  gestionUri: `/gestion`,                       // http://localhost:3000/gestion
+  homeUri: `/`,
+  planEstudiosUri: `/plan-estudios`,
+  inscripcionesUri: `/inscripciones`,
+  solicitudesUri: `/solicitudes`,
+  gestionUri: `/gestion`,
 
-  preferenciasUri: `/preferencias`,             // http://localhost:3000/preferencias
-  editPerfilUri: `/edit-perfil`,                // http://localhost:3000/edit-perfil
-  modificarPasswordUri: `/modificar-password`,  // http://localhost:3000/modificar-password
+  preferenciasUri: `/preferencias`,
+  editPerfilUri: `/edit-perfil`,
+  modificarPasswordUri: `/modificar-password`,
 
   // Uri Invitado
-  novedadesUri: `/novedades`,                   // http://localhost:3000/novedades
-  dashboardUri: `/dashboard-admin`,             // http://localhost:3000/dashboard-admin
-  //pregFrecuentesUri: `/preg-frecuentes`,      // http://localhost:3000/preguntas-frecuentes
-  contactoUri: `/contacto`,                     // http://localhost:3000/contacto
+  novedadesUri: `/novedades`,
+  dashboardUri: `/dashboard-admin`,
+  //pregFrecuentesUri: `/preg-frecuentes`,
+  contactoUri: `/contacto`,
 
   // Uri Auth
-  loginUri: `/login`,                           // http://localhost:3000/login
-  logoutUri: `/logout`,                         // http://localhost:3000/logout
-  registrarseUri: `/registrarse`,               // http://localhost:3000/registrarse
-  forgotPassUri: `/olvido-contrasenia?token=`,  // http://localhost:3000/olvido-contrasenia
-  resetPassUri: `/resetPassword/?token=`,       // http://localhost:3000/resetPassword
+  loginUri: `/login`,
+  logoutUri: `/logout`,
+  registrarseUri: `/registrarse`,
+  forgotPassUri: `/olvido-contrasenia?token=`,
+  resetPassUri: `/resetPassword/?token=`,
 
   //Uri Administrador
-  validarEstudiantesUri: `/validar-estudiantes`, // http://localhost:3000/validar-estudiantes
+  validarEstudiantesUri: `/validar-estudiantes`,
+  modificarFuncionarioUri: `/modificar-funcionario-coordinador`,
 }
 
-const URL_BACK = { // http://localhost:8080/
+// ? http://localhost:8080/
+const URL_BACK = {
   // loginService
   loginTest: `${uriBaseBack}/iniciarSesion`,   // POST
   cerrarSesion: `${uriBaseBack}/cerrarSesion`, // POST

@@ -81,8 +81,10 @@ export default function AltaAsignatura() {
         try {
             await altaAsignatura(nombre, creditos, descripcion, departamento, previaturas, idCarrera, user.jwtLogin);
             swal({
-                title: "La asignatura ha sido creada con éxito\n\n",
+                title: "¡Asignatura creada!\n\n",
+                text: "La asignatura ha sido creada con éxito.",
                 icon: "success",
+                dangerMode: false,
                 position: "center",
                 timer: 4000
             });
@@ -117,12 +119,12 @@ export default function AltaAsignatura() {
                         <Divider />
 
                         {/* <FormLabel htmlFor="nombre">Nombre</FormLabel> */}
-                        <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
                         {/* <FormLabel htmlFor="creditos">Créditos</FormLabel> */}
-                        <Input size="sm" id="creditos" name="creditos" placeholder="Créditos" required />
                         {/* <FormLabel htmlFor="descripcion">Descripción</FormLabel> */}
-                        <Input size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
                         {/* <FormLabel htmlFor="departamento">Departamento</FormLabel> */}
+                        <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
+                        <Input size="sm" id="creditos" name="creditos" placeholder="Créditos" required />
+                        <Input size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
                         <Input size="sm" id="departamento" name="departamento" placeholder="Departamento" required />
                         <Divider />
                         <Select size="sm" placeholder="Seleccionar previas" multiple renderValue={(selected) => (

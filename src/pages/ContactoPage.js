@@ -25,19 +25,19 @@ const ContactoPage = () => {
     <Sheet>
       <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
         <Box component="form" sx={{ marginTop: 11, display: 'flex', flexDirection: 'column', width: '100%' }} onSubmit={''}>
-          <h4 style={{ margin: 0.5, textAlign: 'center' }}>Comunícate con Nosotros</h4>
+          <h3 style={{ margin: 0.5, textAlign: 'center' }}>Comunícate con Nosotros</h3>
           <Typography level="body-sm" sx={{ textAlign: 'center' }}>Envíanos tus comentarios, preguntas o inquietudes</Typography>
-          <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
+          <Stack direction="column" sx={{ marginTop: 2, display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
               <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
               <Input size="sm" id="creditos" name="creditos" placeholder="Telefono" required />
               <Input size="sm" id="descripcion" name="descripcion" placeholder="Email" required />
               <Input size="sm" id="departamento" name="departamento" placeholder="Mensaje" required />
-              <Divider />
+              {/* <Divider /> */}
             </FormControl>
             <Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
-              <Button type="submit" size="md" variant="solid">Guardar</Button>
-              <Button size="md" variant="outlined" color="neutral" href='/'>Cancelar</Button>
+              <Button type="submit" fullWidth size="md" variant="solid">Guardar</Button>
+              <Button size="md" fullWidth variant="outlined" color="neutral" href='/'>Cancelar</Button>
             </Stack>
           </Stack>
         </Box>

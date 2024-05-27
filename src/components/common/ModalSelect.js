@@ -42,7 +42,7 @@ export function ModalSelect(ida) {
 
     useEffect(() => {
         if (carreraData) {
-            console.log("Carreras: ", carreraData);
+            console.log("Carrerass: ", carreraData);
         }
     }, [carreraData]);
 
@@ -57,17 +57,19 @@ export function ModalSelect(ida) {
         let idCarrera = data.get('idcarrera');
         let idUsuario = data.get(ida);
 
+        const idCa = idCarrera;
         console.log(`IDcarrera: ${idCarrera}`);
         console.log("IDcoorinador: ", ida.id);
         if (ida !== null) {
-
             try {
                 await asignarCoordinadorCarrera(idCarrera, ida, user.jwtLogin);
                 swal({
-                    title: "La asignatura ha sido creada con éxito\n\n",
+                    title: "¡Cambios validados!\n\n",
+                    text: "Se le asigno al coordinador la carrera \n" + carreraData[idCa - 1].nombre, ///idCa.ida + "",
                     icon: "success",
+                    dangerMode: false,
                     position: "center",
-                    timer: 4000
+                    timer: 5000
                 });
                 //    history('/Novedades');
             } catch (error) {
@@ -88,7 +90,7 @@ export function ModalSelect(ida) {
     return (
         <React.Fragment>
             <Tooltip title="Asignar coordinador a una carrera">
-                <Button size="small" onClick={() => setOpen(true)}>
+                <Button size="sm" variant="outlined" color="primary" onClick={() => setOpen(true)}>
                     Asignar
                 </Button>
             </Tooltip>

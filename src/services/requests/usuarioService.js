@@ -49,7 +49,8 @@ export const modificarDatosUsuario = async (idUsuario, nombre, apellido, email, 
          swal("¡Advertencia!", 'Los datos ingresados no son correctos', "error", { timer: 3000 });
       } else {
          swal({
-            title: "Se modificaron los datos de perfil\n\n",
+            title: "¡Cambios validados!\n\n",
+            text: "Los datos han sido actualizados correctamente.",
             icon: "success",
             dangerMode: false,
             position: "center",
