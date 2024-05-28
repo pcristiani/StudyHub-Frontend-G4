@@ -43,6 +43,7 @@ export default function AltaFuncionarioCoordinador() {
         let password = '123';
         try {
             await registrarUsuario(nombre, apellido, cedula, password, email, fecha, rol, user.jwtLogin);
+          
             swal({
                 title: "El usuario ha sido creado con éxito\n\n",
                 icon: "success",
@@ -52,7 +53,7 @@ export default function AltaFuncionarioCoordinador() {
             history('/Novedades');
         } catch (error) {
             let errorMsg = 'Los datos ingresados no son correctos o ya existe un usuario con esa cedula';
-            if (error.status === 401) {
+            if (error.status === 400) {
                 errorMsg = 'No autorizado. Verifica tu token de autenticación.';
             } else if (error.status === 500) {
                 errorMsg = 'Error interno del servidor. Inténtalo más tarde.';

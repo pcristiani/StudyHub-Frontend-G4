@@ -101,7 +101,7 @@ export default function TableAdministrador() {
                   <td>{row.nombre} {row.apellido}</td>
                   <td>{row.cedula}</td>
                   <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : ''}</td>
-                  <td>{row.activo ? 'Validado' : 'No Validado'}</td>
+                  <td>{row.activo ? 'Activo' : 'Inactivo'}</td>
                   <td>
                     <Box sx={{ display: 'flex', gap: 0.5 }}>
                       <Button size="small" variant="plain" color="primary" onClick={() => handleModificar(row.idUsuario)}>

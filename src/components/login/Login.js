@@ -50,7 +50,7 @@ function Login() {
     // autentication("5", "111", "Seba", "Gonzalez", "A", "asd@asd", resultJwt);
     async function getInfoUsuario(payload, jwtLogin) {
         let user = await getUsuario(payload.id, jwtLogin);
-
+console.log("re",user);
         autentication(user.idUsuario, user.cedula, user.nombre, user.apellido, user.rol, user.email, jwtLogin);
         let rol = `Estudiante`;
         if (user.rol === 'A') rol = `Administrador`;

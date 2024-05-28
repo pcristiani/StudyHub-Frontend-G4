@@ -23,12 +23,11 @@ export const getAsignaturas = async (jwtLogin) => {
 export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
     const url = URL_BACK.getAsignaturasDeCarrera;
     let headersList = {
-        "Accept": "*/*",
-        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${jwtLogin}`
     }
 
-    let response = await fetch(`http://localhost:8080/api/asignatura/getAsignaturasDeCarrera?idCarrera=` +idCarrera, {
+    let response = await fetch(`http://localhost:8080/api/asignatura/getAsignaturasDeCarrera?idCarrera=` + idCarrera, {
         method: "GET",
         headers: headersList
     });

@@ -205,10 +205,10 @@ export default function Header() {
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Inscripciones
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href='./not-found' size="sm">
+                                    <Button variant="plain" color="neutral" component="a" href='./inscripcion-carrera' size="sm">
                                        Carrera
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    <Button variant="plain" color="neutral" component="a" href='/inscripcion-asignatura' size="sm">
                                        Asignatura
                                     </Button>
                                     <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
