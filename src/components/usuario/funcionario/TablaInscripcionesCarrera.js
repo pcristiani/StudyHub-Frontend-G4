@@ -42,72 +42,51 @@ export default function TablaInscripcionesCarrera() {
   const location = useLocation();
   const [id, setId] = useState(null);
 
-  // useEffect(() => {
+
   const queryParams = new URLSearchParams(location.search);
-  const idFromUrl = queryParams.get('id');
-  // setId(idFromUrl);
-  // }, [location]);
-  console.log('id en Tabla: ', idFromUrl);
+  const idCarrera = queryParams.get('id');
+
+  console.log('id en Tabla: ', idCarrera);
 
 
-  const fetchCoordinador = async () => {
+  useEffect(() => {
+    fetchInscriptosPendientes();
+  }, [user]);
+
+
+  const fetchInscriptosPendientes = async () => {
     try {
-      const result = await getInscriptosPendientes(idFromUrl, user.jwtLogin);
+      let result = await getInscriptosPendientes(idCarrera, user.jwtLogin);
+      console.log('id en Tablaaasde: ', result.length);
+      if (result.length === 0) {
+        history('/validar-inscripciones-carrera');
+      }
       setCoordinadorData(result);
+
     } catch (error) {
       setError(error.message);
     }
-
   }
-  fetchCoordinador();
 
-  useEffect(() => {
-    if (coordinadorData) {
-      console.log("Inscriptos pendientes: ", coordinadorData);
-    }
-  }, [coordinadorData]);
+
+
 
   const handleValidar = async (idEstudiante) => {
 
-    const result = await acceptEstudianteCarrera(idEstudiante, idFromUrl, user.jwtLogin);
-    if (result.status === 200) {
-      console.log("Se cambio la passwords: ", result.data);
-      swal({
-        title: "¡Inscripción validada!\n\n",
-        text: "Inscripción a carrera validada.",
-        icon: "success",
-        dangerMode: false,
-        position: "center",
-        timer: 4000
-      });
-      fetchCoordinador();
-      // return result.status;
-    } else {
-     
-    }
-    // if (result.ok) {
-
+    await acceptEstudianteCarrera(idEstudiante, idCarrera, user.jwtLogin);
+    fetchInscriptosPendientes();
+    // if (result.status === 200) {
     //   swal({
-    //     title: "¡Docente creado!\n\n",
-    //     text: "El docente ha sido creado con éxito.",
+    //     title: "¡Inscripción validada!\n\n",
+    //     text: "Inscripción a carrera validada.",
     //     icon: "success",
     //     dangerMode: false,
     //     position: "center",
-    //     timer: 4000
-    //   });
-    // } else {
-    //   let errorMsg = 'Los datos ingresados no son correctos o ya existe un docente con ese nombre';
-    //   if (result.status === 401) {
-    //     errorMsg = 'No autorizado. Verifica tu token de autenticación.';
-    //   } else if (result.status === 500) {
-    //     errorMsg = 'Error interno del servidor. Inténtalo más tarde.';
-    //   }
-    //   swal("Error", errorMsg, "error", {
     //     timer: 3000
     //   });
+
     // }
 
-    // history('/Novedades');
   };
 
 

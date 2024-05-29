@@ -32,7 +32,7 @@ export default function TableAdministrador() {
   const { user } = useContext(AuthContext);
   const history = useNavigate();
   const [error, setError] = useState(null);
-  const [coordinadorData, setCoordinadorData] = useState([]);
+  const [dataBaja, setDataBaja] = useState([]);
 
   // useEffect(() => {
   //   const fetchCoordinador = async () => {
@@ -49,10 +49,11 @@ export default function TableAdministrador() {
   const fetchCoordinador = async () => {
     try {
       const result = await getUsuarios(user.jwtLogin);
-      setCoordinadorData(result);
+      setDataBaja(result);
     } catch (error) {
       setError(error.message);
     }
+
   };
 
   useEffect(() => {
@@ -61,10 +62,10 @@ export default function TableAdministrador() {
 
 
   useEffect(() => {
-    if (coordinadorData) {
-      console.log("coordinadorData: ", coordinadorData);
+    if (dataBaja) {
+      console.log("coordinadorData: ", dataBaja);
     }
-  }, [coordinadorData]);
+  }, [dataBaja]);
 
   ///
   const handleModificar = (idUsuario) => {
@@ -72,19 +73,20 @@ export default function TableAdministrador() {
   }
 
   const handleDeleteUser = async (idUsuario, activo) => {
-    console.log("activo: ", activo);
     if (!activo) {
-      const usuario = await getUsuario(idUsuario, user.jwtLogin);
-      modificarDatosUsuario(idUsuario, usuario.nombre, usuario.apellido, usuario.email, usuario.fechaNacimiento, usuario.rol, usuario.cedula, user.jwtLogin).then((result) => {
-        if (result) {
-          console.log("Datos modificados correctamente: ", result);
-        } else {
-          console.log("Error al modificar los datos del usuario: ", result);
-        }
-      });
+      // const usuario = await getUsuario(idUsuario, user.jwtLogin);
+      //   await modificarDatosUsuario(idUsuario, usuario.nombre, usuario.apellido, usuario.email, usuario.fechaNacimiento, usuario.rol, usuario.cedula, user.jwtLogin);
+      // .then((result) => {
+      // if (result) {
+      //   console.log("Datos modificados correctamente: ", result);
+      // } else {
+      //   console.log("Error al modificar los datos del usuario: ", result);
+      // }
+      //  fetchCoordinador();
+      //  });
     } else {
       try {
-        bajaUsuario(idUsuario, user.jwtLogin);
+        await bajaUsuario(idUsuario, user.jwtLogin);
         fetchCoordinador();
       } catch (error) {
         setError(error.message);
@@ -129,7 +131,7 @@ export default function TableAdministrador() {
             </tr>
           </thead>
           <tbody>
-            {coordinadorData.map((row) => (
+            {dataBaja.map((row) => (
               row.rol !== 'E' && row.rol !== 'A' && (
                 <tr key={row.idUsuario}>
                   <td>{row.nombre} {row.apellido}</td>

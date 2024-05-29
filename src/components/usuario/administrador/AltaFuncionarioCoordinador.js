@@ -43,7 +43,6 @@ export default function AltaFuncionarioCoordinador() {
         let password = '123';
         try {
             await registrarUsuario(nombre, apellido, cedula, password, email, fecha, rol, user.jwtLogin);
-          
             swal({
                 title: "El usuario ha sido creado con éxito\n\n",
                 icon: "success",

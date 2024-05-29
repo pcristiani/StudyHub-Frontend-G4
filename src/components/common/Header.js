@@ -32,7 +32,7 @@ import PropTypes from 'prop-types';
 
 import Navigation from './Navigation';
 import { useNavigate } from 'react-router-dom'
-import '../../css/style-navbar.css';
+// import '../../css/style-navbar.css';
 import Logo from '../../img/logo.png';
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
@@ -172,28 +172,33 @@ export default function Header() {
                      {(user.rol === TIPO_ROL.ADMIN) &&
                         <>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
-                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0.5, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href='/alta-funcionario-coordinador' size="sm">
-                                       Alta coordinador y funcionario
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sm">
-                                       Modificar coordinador y funcionario
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idA}`} size="sm">
-                                       Asignar coordinador
-                                    </Button>
-
-                                 </Menu>
-                              </MenuButton>
+                              <Tooltip title="Funcionarios/Coordinadores" variant="plain" color="neutral">
+                                 <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">
+                                    Administración de usuarios
+                                 </MenuButton>
+                              </Tooltip>
+                              <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0.5, '--ListItem-radius': 'var(--joy-radius-sm)' }}>
+                                 <Button variant="plain" color="neutral" component="a" href={`/alta-funcionario-coordinador`} size="sm">
+                                    Alta de usuario
+                                 </Button>
+                                 <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sm">
+                                    Modificar/Baja usuarios
+                                 </Button>
+                              </Menu>
                            </Dropdown>
-                           <Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadosBusquedasUri} size="sm">
-                              Listados y búsquedas
-                           </Button>
-                        <Button variant="plain" color="neutral" component="a" href={URI_FRONT.resumenActividadUri} size="sm">
+                           <Tooltip title="Asignar coordinador a carrera" variant="plain" color="neutral">
+                              <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idA}`} size="sm">
+                                 Asignar coordinador
+                              </Button>
+                           </Tooltip>
+                           <Tooltip title="Listados y búsquedas de usuarios" variant="plain" color="neutral">
+                              <Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadosBusquedasUri} size="sm">
+                                 Listados y búsquedas
+                              </Button>
+                           </Tooltip>
+                           <Button variant="plain" color="neutral" component="a" href={URI_FRONT.resumenActividadUri} size="sm">
                               Resumen de actividad
                            </Button>
-
                         </>
                      }
                      {
@@ -203,7 +208,8 @@ export default function Header() {
                               Plan de estudios
                            </Button>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Inscripciones
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">
+                                 Inscripciones
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <Button variant="plain" color="neutral" component="a" href='./inscripcion-carrera' size="sm">
                                        Carrera
@@ -218,7 +224,8 @@ export default function Header() {
                               </MenuButton>
                            </Dropdown>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Listados y búsquedas
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">
+                                 Listados y búsquedas
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Asignaturas aprobadas
@@ -247,7 +254,7 @@ export default function Header() {
                                        Validar usuario a estudiantes
                                     </Button> */}
                                     <Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm">
-                                       Validar usuario de estudiante
+                                       Validar estudiante
                                     </Button>
                                     <Button variant="plain" color="neutral" component="a" href='/validar-inscripciones-carrera' size="sm">
                                        Validar inscripciónes a carrera
@@ -338,7 +345,7 @@ export default function Header() {
                         Novedades
                      </Button>
                      {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sm" sx={{ alignSelf: 'center' }}>
-                                Preguntas frecuentas
+Preguntas frecuentas
                             </Button> */}
                      <Button variant="plain" color="neutral" component="a" href={URI_FRONT.contactoUri} size="sm" sx={{ alignSelf: 'center' }}>
                         Contacto
@@ -350,12 +357,10 @@ export default function Header() {
             <Box sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
                <IconButton variant="plain" color="neutral" onClick={() => setOpen(true)}>
                   <MenuRoundedIcon />
-
                   <Stack direction="row" justifyContent="center" alignItems="center" textAlign="center" sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
                      <IconButton size="sm" justifyContent="center" alignItems="center" textAlign="center" sx={{ m: 0.2, display: { xs: 'inline-flex', sm: 'none' }, }}>
 
                         <DialogTitle>StudyHub</DialogTitle>
-
                      </IconButton>
                   </Stack>
                </IconButton>

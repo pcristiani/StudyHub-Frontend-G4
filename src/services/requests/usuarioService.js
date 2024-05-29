@@ -25,6 +25,7 @@ export const getUsuario = async (idUsuario, jwtLogin) => {
 ///
 // Modifica los datos del usuario
 export const modificarDatosUsuario = async (idUsuario, nombre, apellido, email, fechaNacimiento, rol, cedula, jwtLogin) => {
+   console.log("idUsuarioaaaa: ", idUsuario, nombre, apellido, email, fechaNacimiento, rol, cedula, jwtLogin);
    try {
       const response = await fetch(`${URL_BACK.modificarUsuario}${idUsuario}`, {
          method: 'PUT',

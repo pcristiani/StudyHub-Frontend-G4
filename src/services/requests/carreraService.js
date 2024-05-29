@@ -114,15 +114,18 @@ export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin)
             data: body
         }
         let response = await axios.request(reqOptions);
-
         if (response.status === 200) {
-            console.log("Se cambio la passwords: ", response.data);
-       
-            return response.status;
-        } else {
-            swal("¡Advertencia!", 'Error al modificar la contraseña', "error", {
-                timer: 4000
+
+            swal({
+                title: "¡Inscripción validada!\n\n",
+                text: "Inscripción a carrera validada.",
+                icon: "success",
+                dangerMode: false,
+                position: "center",
+                timer: 3000
             });
+            return response;
+
         }
     } catch (error) {
         swal("¡Advertencia!", 'Error al modificar la contraseña', "error", {
