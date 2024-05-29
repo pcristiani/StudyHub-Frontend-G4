@@ -37,6 +37,8 @@ import ListadosBusquedas from '../components/usuario/administrador/ListadosBusqu
 import { ResumenActividad } from '../components/usuario/administrador/ResumenActividad';
 import InscripcionCarrera from '../components/usuario/estudiante/InscripcionCarrera';
 import InscripcionAsignatura from '../components/usuario/estudiante/InscripcionAsignatura';
+import ValidarInscripcionesCarrera from '../components/usuario/funcionario/ValidarInscripcionesCarrera';
+import TablaInscripcionesCarrera from '../components/usuario/funcionario/TablaInscripcionesCarrera';
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -77,6 +79,10 @@ export const AppRouter = () => {
                     <Route path="/contacto" element={<ContactoPage user={user.id} />} exact />
                     <Route path="/inscripcion-carrera" element={<InscripcionCarrera user={user.id} />} exact />
                     <Route path="/inscripcion-asignatura" element={<InscripcionAsignatura />} exact />
+                    <Route path="/validar-inscripciones-carrera" element={<ValidarInscripcionesCarrera user={user.id} />} exact />
+
+                    <Route path="/tabla-inscripciones-carrera" element={<TablaInscripcionesCarrera user={user.id} />} exact />
+
 
                     <Route path='/login' element={
                         <PublicRoute>

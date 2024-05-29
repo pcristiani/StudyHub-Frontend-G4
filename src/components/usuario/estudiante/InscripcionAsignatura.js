@@ -47,7 +47,10 @@ export default function InscripcionAsignatura() {
     const handleChange = (event, newValue) => {
         console.log("Selected: ", newValue);
         setSelectedCarrera(newValue);
-        getInfoUsuario(selectedCarrera);
+        console.log("Selected carrera: ", selectedCarrera);
+        // if (selectedCarrera !== null) {
+            getInfoUsuario(selectedCarrera);
+        // }
     };
 
 

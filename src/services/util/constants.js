@@ -98,6 +98,7 @@ const URL_BACK = {
 
   getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`, // GET
   getCarrerasInscripcionesPendientes: `${uriBaseBack}/api/carrera/getCarrerasInscripcionesPendientes`, // GET
+  
 }
 
 const PARAMETERS = {

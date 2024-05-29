@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getUsuarios } from '../../../services/requests/usuarioService';
 import { ModalSelect } from './ModalSelect';
+import { FormatCedula } from '../../../services/data/FormatCedula';
 
 
 function selectValidar(id, validado) {
@@ -87,9 +88,9 @@ export default function TableAsignarCoordinadorCarrera() {
               row.rol === 'C' && (
                 <tr key={row.idUsuario}>
                   <td>{row.nombre} {row.apellido}</td>
-                  <td>{row.cedula}</td>
+                  <td>{FormatCedula(row.cedula)}</td>
                   <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : ''}</td>
-                  <td>{row.activo ? 'Validado' : 'No Validado'}</td>
+                  <td>{row.activo ? 'Activo' : 'Inactivo'}</td>
                   <td>
                     <ModalSelect ida={row.idUsuario} />
                   </td>

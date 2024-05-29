@@ -249,8 +249,8 @@ export default function Header() {
                                     <Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm">
                                        Validar usuario de estudiante
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
-                                       Validar inscripción a carrera
+                                    <Button variant="plain" color="neutral" component="a" href='/validar-inscripciones-carrera' size="sm">
+                                       Validar inscripciónes a carrera
                                     </Button>
                                  </Menu>
                               </MenuButton>
