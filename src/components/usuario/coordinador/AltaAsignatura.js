@@ -72,10 +72,15 @@ export default function AltaAsignatura() {
         let descripcion = data.get('descripcion');
         let departamento = data.get('departamento');
         let idCarrera = data.get('idcarrera');
-        let previaturas = data.get('idprevias') ? data.get('idprevias').split(',').map(item => {
+        let previaturas = data.get('idprevias') ? data.get('idprevias').split('').map(item => {
             const num = parseInt(item.trim(), 10);
             return isNaN(num) ? null : num;
         }).filter(item => item !== null) : [];
+        console.log("Previas: ", previaturas);
+
+        const array = previaturas;
+        const result = array.join(' ');
+       // console.log("Previas: ", result);
         try {
             await altaAsignatura(nombre, creditos, descripcion, departamento, previaturas, idCarrera, user.jwtLogin);
             swal({
