@@ -45,12 +45,12 @@ const URI_FRONT = {
 
 // ? http://localhost:8080/
 const URL_BACK = {
-  // loginService
+  // LOGINSERVICE
   loginTest: `${uriBaseBack}/iniciarSesion`,   // POST
   cerrarSesion: `${uriBaseBack}/cerrarSesion`, // POST
 
   ///
-  // usuarioService
+  // USUARIOSERVICE
   registerUsr: `${uriBaseBack}/registerUsuario`,         // POST
   recuperarPassword: `${uriBaseBack}/recuperarPassword`, // POST
   forgotPassword: `${uriBaseBack}/forgotPassword`,       // POST
@@ -67,7 +67,7 @@ const URL_BACK = {
   getEstudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`, // GET
 
   ///
-  // docenteService
+  // DOCENTESERVICE
   altaDocente: `${uriBaseBack}/api/docente/altaDocente`,             // POST
   modificarDocente: `${uriBaseBack}/api/docente/modificarDocente/`,  // PUT
   deleteDocente: `${uriBaseBack}/api/docente/bajaDocente/`,          // DELETE
@@ -76,7 +76,7 @@ const URL_BACK = {
   getDocentesByAsignatura: `${uriBaseBack}/api/usuario/getDocentesByAsignaturaId/`,  // GET
 
   ///
-  // asignaturaService
+  // ASIGNATURASERVICE
   registroHorarios: `${uriBaseBack}/api/asignatura/registroHorarios/`,          // POST
   inscripcionAsignatura: `${uriBaseBack}/api/asignatura/inscripcionAsignatura`, // POST
   getHorarios: `${uriBaseBack}/api/asignatura/getHorarios/`,     // POST // ! VER
@@ -86,7 +86,7 @@ const URL_BACK = {
   courseRelations: `${uriBaseBack}/course-relations`, // GET
 
   ///
-  // carreraService
+  // CARRERASERVICE
   modificarCarrera: `${uriBaseBack}/api/carrera/modificarCarrera/`, // PUT
   asignarCoordinadorCarrera: `${uriBaseBack}/api/carrera/asignarCoordinadorCarrera/`, // PUT
   acceptEstudianteCarrera: `${uriBaseBack}/api/carrera/acceptEstudianteCarrera`,      // PUT
@@ -98,7 +98,7 @@ const URL_BACK = {
 
   getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`, // GET
   getCarrerasInscripcionesPendientes: `${uriBaseBack}/api/carrera/getCarrerasInscripcionesPendientes`, // GET
-  
+
 }
 
 const PARAMETERS = {

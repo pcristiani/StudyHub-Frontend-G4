@@ -1,18 +1,19 @@
 import React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
+import Input from '@mui/joy/Input';
+import Button from '@mui/joy/Button';
+import Box from '@mui/joy/Box';
+import Typography from '@mui/joy/Typography';
+import Container from '@mui/joy/Container';
+import Card from '@mui/joy/Card';
 
-import logo from '../../img/logo.png';
-import '../../css/style-navbar.css';
-import '../../css/style.css';
 import { PARAMETERS, URL_BACK, redirigir, URI_FRONT } from '../../services/util/constants'
+import { Divider, Sheet } from '@mui/joy';
+import FormControl from '@mui/joy/FormControl';
+import Stack from '@mui/joy/Stack';
+
 
 // olvido-contrasenia
 const defaultTheme = createTheme();
@@ -100,44 +101,49 @@ const ForgotPassword = () => {
     }
 
     return (
-        <ThemeProvider theme={defaultTheme}>
+        <Sheet>
             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
-                <Box sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
-
-                    <div sx={{ m: 0, bgcolor: 'secondary.main' }}>
-                        <img src={logo} className="animate-bounce" alt="logo" />
-                    </div>
-
+                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     {(!token) ?
                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 0 }}>
-                            <>
-                                <Typography component="h1" variant="h4">Verificar su identidad</Typography>
-                                <Typography variant="body2" color="text.secondary">Ingresa tu correo de recuperación.</Typography>
-                                <TextField margin="normal" required fullWidth id="email" label="Correo electrónico" name="email" autoComplete="text" autoFocus />
-                                <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 3 }}>Siguiente</Button>
-                                <Grid container spacing={1}>
-                                    <Grid item>
-                                    </Grid>
-                                </Grid>
-                            </>
+                            <Card sx={{ display: 'flex', alignSelf: 'center', }}>
+                                <Box sx={{ margin: 1, alignSelf: 'center' }}>
+                                    <Typography level="title-lg">Verificar su identidad</Typography>
+                                </Box>
+                                <Divider />
+                                <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+                                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 1 }}>
+                                        <Input size="sm" id="email" name="email" placeholder="Ingresar correo de recuperacion" autoComplete="text" autoFocus required />
+                                    </FormControl>
+                                    <Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
+                                        <Button type="submit" fullWidth>Siguiente</Button>
+                                    </Stack>
+                                </Stack>
+                            </Card>
                         </Box>
                         :
                         <Box component="form" onSubmit={resetPassword} noValidate sx={{ mt: 0 }}>
-                            <>
-                                <Typography component="h2" variant="h5">Restablezca la contraseña</Typography>
-                                <TextField margin="normal" required fullWidth id="newPass" type='password' label="Crear una nueva contraseña" name="newPass" />
-                                <TextField margin="md" required fullWidth id="confirmNewPass" type='password' label="Confirma la contraseña nueva" name="confirmNewPass" />
-                                <Button type="submit" fullWidth variant="contained" sx={{ mt: 1, mb: 3 }}>Cambiar contraseña</Button>
-                                <Grid container spacing={1}>
-                                    <Grid item>
-                                    </Grid>
-                                </Grid>
-                            </>
+                            <Card sx={{ display: 'flex', alignSelf: 'center', }}>
+                                <Box sx={{ margin: 1, alignSelf: 'center' }}>
+                                    <Typography level="title-lg">Restablezca la contraseña</Typography>
+                                </Box>
+                                <Divider />
+                                <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+                                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 1 }}>
+                                        <Input size="sm" name="password" placeholder="Nueva contraseña" type="password" id="newPass" autoComplete="current-password" required />
+                                        <Input size="sm" name="password" placeholder="Confirmar nueva contraseña" type="password" id="confirmNewPass" autoComplete="current-password" required />
+                                    </FormControl>
+                                    <Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
+                                        <Button type="submit" fullWidth variant="solid">Cambiar contraseña</Button>
+                                        <Button variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
+                                    </Stack>
+                                </Stack>
+                            </Card>
                         </Box>
                     }
                 </Box>
             </Container>
-        </ThemeProvider>
+        </Sheet >
     );
 }
 export default ForgotPassword;

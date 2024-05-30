@@ -76,11 +76,7 @@ export default function AltaAsignatura() {
             const num = parseInt(item.trim(), 10);
             return isNaN(num) ? null : num;
         }).filter(item => item !== null) : [];
-        console.log("Previas: ", previaturas);
 
-        const array = previaturas;
-        const result = array.join(' ');
-       // console.log("Previas: ", result);
         try {
             await altaAsignatura(nombre, creditos, descripcion, departamento, previaturas, idCarrera, user.jwtLogin);
             swal({
