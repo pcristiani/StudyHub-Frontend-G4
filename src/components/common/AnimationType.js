@@ -42,7 +42,7 @@ export function MyAnimation() {
 export function MyAnimationFooter() {
   const listItemss = [
     { strAnimated: "StudyHub" },
-    { strAnimated: "Este proyecto fue realizado por el Grupo 4 del Tecnólogo en Informática." },
+    { strAnimated: "Grupo 4 - Tecnólogo en Informática." },
     { strAnimated: "Integrantes:" },]
 
   let integrantes = {
@@ -68,6 +68,7 @@ export function MyAnimationFooter() {
             marginTop: '50px',
             display: 'block',
             fontStyle: 'bold',
+
           }}
           repeat={1}
         />
@@ -81,7 +82,7 @@ export function MyAnimationFooter() {
           speed={50}
           deletionSpeed={90}
           style={{
-            height: '45px',
+            height: '35px',
             fontSize: '0.4em',
             display: 'block',
             marginTop: '10px',

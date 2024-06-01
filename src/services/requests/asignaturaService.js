@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 import { URL_BACK } from '../util/constants'
 
 // Función para obtener las asignaturas

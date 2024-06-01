@@ -1,7 +1,5 @@
 import { URL_BACK } from '../util/constants'
 import axios from 'axios';
-import swal from 'sweetalert';
-
 
 ///
 
@@ -52,7 +50,7 @@ export const acceptEstudiante = async (idUsuario, jwtLogin) => {
 
 // Inscripcion a carrera
 export const inscripcionCarrera = async (idUsuario, idCarrera, jwtLogin) => {
-
+    let url = URL_BACK.inscripcionCarrera;
     let headersList = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${jwtLogin}`,
@@ -64,7 +62,7 @@ export const inscripcionCarrera = async (idUsuario, idCarrera, jwtLogin) => {
         "validado": false
     });
 
-    let response = await fetch("http://localhost:8080/api/carrera/inscripcionCarrera", {
+    let response = await fetch(url, {
         method: "POST",
         body: bodyContent,
         headers: headersList

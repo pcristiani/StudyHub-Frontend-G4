@@ -43,7 +43,7 @@ export default function ModificarPassword() {
 
 		if (newPassword2 !== newPassword) {
 			swal("¡Advertencia!", 'Contraseñas no coinciden', "error", {
-				timer: 1000,
+				timer: 2000,
 			});
 		} else {
 			modificarPasswordUsuario(user.id, newPassword, user.jwtLogin);

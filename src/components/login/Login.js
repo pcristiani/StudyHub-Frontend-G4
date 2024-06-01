@@ -9,15 +9,11 @@ import Typography from '@mui/joy/Typography';
 import Container from '@mui/joy/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
-// import '../../css/style-navbar.css';
-// import '../../css/style.css';
+
 import logo from '../../img/logo.png';
 import { useNavigate } from 'react-router-dom';
-
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
-
-// import { getUsuario } from '../../services/requests/getUsuario';
 import { getToken } from '../../services/requests/loginService';
 import { getUsuario } from '../../services/requests/usuarioService';
 import { decodificaJwt } from '../../services/util/conversionBase64';
@@ -25,7 +21,7 @@ import { Sheet } from '@mui/joy';
 
 
 const defaultTheme = createTheme();
-//jwQ0qMQt77Hw
+
 ///
 
 function Login() {
@@ -48,7 +44,7 @@ function Login() {
 		context.dispatch(action);
 	}
 
-	// autentication("5", "111", "Seba", "Gonzalez", "A", "asd@asd", resultJwt);
+
 	async function getInfoUsuario(payload, jwtLogin) {
 		let user = await getUsuario(payload.id, jwtLogin);
 		console.log("re", user);
@@ -91,7 +87,6 @@ function Login() {
 		}
 		validarLogin();
 	}
-
 
 	return (
 		<Sheet>

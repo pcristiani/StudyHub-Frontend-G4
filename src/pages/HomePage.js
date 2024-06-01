@@ -4,7 +4,7 @@ import logo from '../img/logo.png';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { MyAnimation } from '../components/common/AnimationType';
-import { StyledEngineProvider, CssVarsProvider, extendTheme } from '@mui/joy/styles'
+import {  CssVarsProvider, extendTheme } from '@mui/joy/styles'
 
 const theme = extendTheme({ cssVarPrefix: 'demo' });
 // debugger;
