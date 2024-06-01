@@ -145,23 +145,45 @@ code {
 }
 
 
-.swal-button {
-  padding: 7px 19px;
-  border-radius: 2px;
-  background-color: #4962B3;
-  font-size: 12px;
-  border: 1px solid #3e549a;
-  text-shadow: 1px -1px 0px rgba(0, 0, 0, 0.4);
-  border-radius: 5px;
+// SweetAlert
+.swal-title {
+  font-size: 24px;
+  color: #000;
+  text-shadow: 1px -1px 0px rgba(192, 192, 192, 0.3);
+  font-family:  sans-serif;
 }
+
 .swal-text {
   font-size: 15px;
   color: #000;
+  text-shadow: 1px -1px 0px rgba(190, 190, 190, 0.2);
+  font-family: sans-serif;
+}
+
+.swal-button {
+  padding: 8px 25px;
+  border-radius: 1px;
+  background-color: #1f3f96;
+  font-size: 14px;
+  display: flex;
+  border: 1px solid #262727;
+  text-shadow: 1px -1px 0px rgba(49, 49, 49, 0.4);
+  border-radius: 5px;
+}
+
+.swal-button:hover {
+  color: #000000;
+}
+
+.swal-modal {
+  background-color: rgba(255, 255, 255, 0.89);
+  border: 2px solid black;
 }
 
 .swal-overlay {
   background-color: rgba(13, 148, 136, 0.45);
 }
+
 
 @keyframes scale-animation {
   0% {

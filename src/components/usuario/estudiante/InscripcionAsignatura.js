@@ -13,7 +13,7 @@ import Select from '@mui/joy/Select';
 
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
-import { getCarreras } from '../../../services/requests/carreraService';
+import { getCarreras, getCarrerasInscripto } from '../../../services/requests/carreraService';
 import { getAsignaturasDeCarrera } from '../../../services/requests/asignaturaService';
 
 
@@ -28,8 +28,9 @@ export default function InscripcionAsignatura() {
     useEffect(() => {
         const fetchCarreras = async () => {
             try {
-                const result = await getCarreras(user.jwtLogin);
+                const result = await getCarrerasInscripto(user.id, user.jwtLogin);
                 setCarreraData(result);
+                console.log("Carreras inscripto: ", carreraData);
             } catch (error) {
                 setError(error.message);
             }
@@ -47,11 +48,11 @@ export default function InscripcionAsignatura() {
     const handleChange = (event, newValue) => {
         console.log("Selected: ", newValue);
         setSelectedCarrera(newValue);
-        console.log("Selected carrera: ", selectedCarrera);
         // if (selectedCarrera !== null) {
-            getInfoUsuario(selectedCarrera);
+        getInfoUsuario(newValue);
         // }
     };
+    console.log("Selected carrera: ", selectedCarrera);
 
 
     async function getInfoUsuario(selectedCarrera) {
@@ -78,7 +79,7 @@ export default function InscripcionAsignatura() {
                         ))}
                     </Select>
                 </FormControl>
-                <Divider />
+                {/* <Divider /> */}
 
                 <Stack direction="row" spacing={1} sx={{ marginTop: 1, justifyContent: 'right' }}>
                     <Button type="submit" size="md" fullWidth variant="solid">Guardar</Button>

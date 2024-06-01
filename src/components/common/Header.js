@@ -268,7 +268,7 @@ export default function Header() {
                                     <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Horario de asignatura
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    <Button variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sm">
                                        Período de examen
                                     </Button>
                                     <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">

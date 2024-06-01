@@ -59,7 +59,7 @@ export default function AltaCarrera() {
     };
 
     return (
-        <Box component="form" sx={{ marginTop: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                 <Box sx={{ alignSelf: 'center' }}>
                     <Typography level="title-lg">Alta carrera</Typography>
@@ -70,9 +70,9 @@ export default function AltaCarrera() {
                         <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
                         <Input size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
                     </FormControl>
-                    <Stack direction="row" spacing={1} sx={{ marginTop: 1, justifyContent: 'center' }}>
-                        <Button type="submit" fullWidth size="small" variant="solid">Guardar</Button>
-                        <Button size="small" fullWidth variant="outlined" color="neutral" href='/'>Cancelar</Button>
+                    <Stack direction="row" spacing={1} sx={{ marginTop: 1, justifyContent: 'right' }}>
+                        <Button type="submit" size="md" fullWidth variant="solid">Guardar</Button>
+                        <Button size="md" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Stack>
             </Card>

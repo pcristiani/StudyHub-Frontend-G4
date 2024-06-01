@@ -73,6 +73,29 @@ export const getCarrerasInscripcionesPendientes = async (jwtLogin) => {
     return data;
 }
 
+///
+// Devuelve las carreras donde el estudiante esta inscripto
+export const getCarrerasInscripto = async (idEstudiante, jwtLogin) => {
+    try {
+        const response = await fetch(`${URL_BACK.getCarrerasInscripto}${idEstudiante}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtLogin}`,
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Error al realizar el GET');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al realizar el GET:', error);
+        throw error;
+    }
+};
+
+
 
 ///
 export const getInscriptosPendientes = async (idCarrera, jwtLogin) => {
@@ -125,13 +148,13 @@ export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin)
                 timer: 3000
             });
             return response;
-
         }
     } catch (error) {
         swal("¡Advertencia!", 'Error al modificar la contraseña', "error", {
             timer: 3000
         });
     }
-
-
 }
+
+///
+

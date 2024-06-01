@@ -96,7 +96,7 @@ const URL_BACK = {
   getInscriptosPendientes: `${uriBaseBack}/api/carrera/getInscriptosPendientes/`, // GET
   getCarreras: `${uriBaseBack}/api/carrera/getCarreras`, // GET
 
-  getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`, // GET
+  getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`, // GET  // por parametros pasamos el id usuario y devuelve las carreras en las que esta inscripto
   getCarrerasInscripcionesPendientes: `${uriBaseBack}/api/carrera/getCarrerasInscripcionesPendientes`, // GET
 
 }
