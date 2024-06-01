@@ -1,7 +1,0 @@
-acceptEstudianteCarrera
-inscripcionCarrera
-
-son iguales, para que mandamos validado?
-
-
-agregar previaturas?

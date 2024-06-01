@@ -68,11 +68,9 @@ export default function RegistrarPreviaturas() {
     }, [docenteData]);
     ///
 
-
     const handleChange = (event, newValue) => {
         console.log("Selected: ", newValue);
         setSelectedCarrera(newValue);
-
         if (selectedCarrera !== null) {
             getInfoCarrera(newValue);
         }
@@ -166,11 +164,13 @@ export default function RegistrarPreviaturas() {
                             ))}
                         </Select>
                         <Divider />
+
                         <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
                         <Input size="sm" id="creditos" name="creditos" placeholder="Créditos" required />
                         <Input size="sm" id="descripcion" name="descripcion" placeholder="Descripción" />
                         <Input size="sm" id="departamento" name="departamento" placeholder="Departamento" />
                         <Divider />
+
                         <Select size="sm" placeholder="Seleccionar previas" multiple renderValue={(selected) => (
                             <Box sx={{ display: 'flex', gap: '0.25rem' }}>
                                 {selected.map((selectedOption) => (

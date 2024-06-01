@@ -20,8 +20,6 @@ export default function AltaCarrera() {
     const history = useNavigate();
 
     async function altaCarrera(nombre, descripcion, requisitos, duracion) {
-        // console.log("Alta carrera:", nombre, descripcion);
-
         let body = { "nombre": nombre, "descripcion": descripcion, "requisitos": requisitos, "duracion": duracion };
         let response = await fetch(URL_BACK.altaCarrera, {
             method: 'POST',
