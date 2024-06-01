@@ -135,6 +135,8 @@ export default function Header() {
    const [menuIndex, setMenuIndex] = React.useState(null);
    const idA = 'a';
    const idM = 'm';
+   const idL = 'l';
+
 
    async function cerrarSesionUsuario(jwtLogin) {
       const result = await cerrarSesion(jwtLogin);
@@ -192,7 +194,7 @@ export default function Header() {
                               </Button>
                            </Tooltip>
                            <Tooltip title="Listados y búsquedas de usuarios" variant="plain" color="neutral">
-                              <Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadosBusquedasUri} size="sm">
+                              <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idL}`} size="sm">
                                  Listados y búsquedas
                               </Button>
                            </Tooltip>
@@ -265,7 +267,7 @@ export default function Header() {
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Registros
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.registrarHorarioAsignaturaUri} size="sm">
                                        Horario de asignatura
                                     </Button>
                                     <Button variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sm">
@@ -318,7 +320,7 @@ export default function Header() {
                                     <Button variant="plain" color="neutral" component="a" href='/nueva-asignatura' size="sm">
                                        Alta asignatura
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='' size="sm">
+                                    <Button variant="plain" color="neutral" component="a" href='/registrar-previaturas' size="sm">
                                        Registrar previas
                                     </Button>
                                  </Menu>

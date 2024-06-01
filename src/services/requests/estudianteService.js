@@ -52,7 +52,7 @@ export const acceptEstudiante = async (idUsuario, jwtLogin) => {
 
 // Inscripcion a carrera
 export const inscripcionCarrera = async (idUsuario, idCarrera, jwtLogin) => {
- 
+
     let headersList = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${jwtLogin}`,

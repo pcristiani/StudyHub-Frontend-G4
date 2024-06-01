@@ -22,7 +22,7 @@ export const getAsignaturas = async (jwtLogin) => {
 ///
 export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
     const url = URL_BACK.getAsignaturasDeCarrera;
-    
+
     let headersList = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${jwtLogin}`
@@ -64,6 +64,52 @@ export const altaAsignatura = async (nombre, creditos, descripcion, departamento
     }
 };
 
+
+///
+export const getDocentesByAsignatura = async (idAsignatura, jwtLogin) => {
+    const url = URL_BACK.getDocentesByAsignatura;
+
+    let headersList = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtLogin}`
+    }
+
+    let response = await fetch(url + idAsignatura, {
+        method: "GET",
+        headers: headersList
+    });
+
+    const data = await response.json();
+    return data;
+}
+
+///
+export const registroHorarios = async (idDocente, anio, diasemana, horaInicio, horaFin, idAsignatura, jwtLogin) => {
+    let body = {
+        "idDocente": idDocente,
+        "anio": anio,
+        "dtHorarioDias": [
+            {
+                "diaSemana": diasemana,
+                "horaInicio": horaInicio,
+                "horaFin": horaFin
+            }
+        ]
+    };
+
+    let response = await fetch(URL_BACK.registroHorarios + idAsignatura, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+        throw { status: response.status };
+    }
+};
 
 ///
 

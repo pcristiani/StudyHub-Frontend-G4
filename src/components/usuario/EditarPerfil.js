@@ -93,16 +93,16 @@ export default function EditarPerfil() {
     }
 
     return (
-        <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
+        <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                 <Box sx={{ alignSelf: 'center' }}>
                     <Typography level="title-md">Datos de usuario</Typography>
                 </Box>
-                <Divider />       
+                <Divider />
                 <Box component="form" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', width: '100%' }} onSubmit={handleModificar}>
                     <Stack>
                         <Stack spacing={1}>
-                            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+                            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.6 }}>
                                 <label>Nombre</label>
                                 <Input size="sm" id="nombre" name="nombre" defaultValue={userData.nombre} />
                                 <Input size="sm" id="apellido" name="apellido" sx={{}} defaultValue={userData.apellido} />
@@ -110,7 +110,7 @@ export default function EditarPerfil() {
 
                             <FormControl>
                                 <label>Cedula</label>
-                                <Input size="sm" id="cedula" name="cedula" defaultValue={userData.cedula} readOnly />
+                                <Input size="sm" id="cedula" name="cedula" defaultValue={userData.cedula} disabled />
                             </FormControl>
 
                             <FormControl>
@@ -120,9 +120,9 @@ export default function EditarPerfil() {
 
                         </Stack>
                         <div marginTop={2}>
-                            <FormControl sx={{ marginTop: "4px" }} >
+                            <FormControl sx={{ marginTop: "4px" }}>
                                 <label>Perfil</label>
-                                <Select size="sm" id="rol" name="rol" defaultValue={user.rol}>
+                                <Select size="sm" id="rol" name="rol" defaultValue={user.rol} disabled>
                                     {DatosRol.map((strRol, index) => (
                                         <Option key={index} value={strRol.cod}>{strRol.rol}</Option>
                                     ))}
@@ -134,7 +134,7 @@ export default function EditarPerfil() {
                         <Button type="submit" size="sm" alignItems="right" variant="solid">Guardar</Button>
                         <Button size="sm" variant="outlined" href='/'>Cancelar</Button>
                     </Stack>
-                </Box>           
+                </Box>
             </Card>
         </Box>
     );

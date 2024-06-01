@@ -41,6 +41,8 @@ const URI_FRONT = {
   listadosBusquedasUri: `/listados-busquedas`,
   resumenActividadUri: `/resumen-actividad`,
 
+  //Uri Funcionario
+  registrarHorarioAsignaturaUri: `/registrar-horario-asignatura`,
 }
 
 // ? http://localhost:8080/

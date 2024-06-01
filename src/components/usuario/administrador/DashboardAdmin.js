@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import TableAdministrador from './TableAdministrador';
 import TableAsignarCoordinadorCarrera from './TableAsignarCoordinadorCarrera';
 import Stack from '@mui/material/Stack';
+import ListadosBusquedas from './ListadosBusquedas';
 
 
 export default function DashboardAdmin() {
@@ -28,7 +29,7 @@ export default function DashboardAdmin() {
                         <section className="text-black body-font">
                             <div className="px-2 py-5 mx-auto">
                                 <div>
-                                    {id === 'm' ? <TableAdministrador /> : id === 'a' ? <TableAsignarCoordinadorCarrera /> : ''}
+                                    {id === 'm' ? <TableAdministrador /> : id === 'a' ? <TableAsignarCoordinadorCarrera /> : id === 'l' ? <ListadosBusquedas /> : ''}
                                 </div>
                             </div>
                         </section>

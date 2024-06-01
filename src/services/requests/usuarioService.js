@@ -22,6 +22,53 @@ export const getUsuario = async (idUsuario, jwtLogin) => {
    }
 };
 
+
+///
+// Devuelve los datos de todos los usuarios
+export const getUsuarios = async (jwtLogin) => {
+   try {
+      const response = await fetch(`${URL_BACK.getUsuarios}`, {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+         },
+      });
+      if (!response.ok) {
+         throw new Error('Error al realizar el GET');
+      }
+      const data = await response.json();
+      return data;
+   } catch (error) {
+      console.error('Error al realizar el GET:', error);
+      throw error;
+   }
+};
+
+
+///
+// Devuelve los datos de todos los usuarios
+export const getDocentes = async (jwtLogin) => {
+   try {
+      const response = await fetch(`${URL_BACK.getDocentes}`, {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+         },
+      });
+      if (!response.ok) {
+         throw new Error('Error al realizar el GET');
+      }
+      const data = await response.json();
+      return data;
+   } catch (error) {
+      console.error('Error al realizar el GET:', error);
+      throw error;
+   }
+};
+
+
 ///
 // Modifica los datos del usuario
 export const modificarDatosUsuario = async (idUsuario, nombre, apellido, email, fechaNacimiento, rol, cedula, jwtLogin) => {
@@ -66,49 +113,45 @@ export const modificarDatosUsuario = async (idUsuario, nombre, apellido, email, 
    }
 };
 
+
 ///
-// Devuelve los datos de todos los usuarios
-export const getUsuarios = async (jwtLogin) => {
+// Modifica los datos del usuario
+export const modificarPerfilUsuario = async (idUsuario, nombre, apellido, email, fechaNacimiento, jwtLogin) => {
+
    try {
-      const response = await fetch(`${URL_BACK.getUsuarios}`, {
-         method: 'GET',
+      const response = await fetch(`${URL_BACK.modificarPerfil}${idUsuario}`, {
+         method: 'PUT',
          headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
          },
+         body: JSON.stringify({
+            "nombre": nombre,
+            "apellido": apellido,
+            "email": email,
+            "fechaNacimiento": fechaNacimiento
+         })
       });
       if (!response.ok) {
-         throw new Error('Error al realizar el GET');
+         swal("¡Advertencia!", 'Los datos ingresados no son correctos', "error", { timer: 3000 });
+      } else {
+         swal({
+            title: "¡Cambios validados!\n\n",
+            text: "Los datos han sido actualizados correctamente.",
+            icon: "success",
+            dangerMode: false,
+            position: "center",
+            timer: 4000
+         });
       }
-      const data = await response.json();
-      return data;
    } catch (error) {
-      console.error('Error al realizar el GET:', error);
-      throw error;
+      swal("¡Advertencia!", 'Los datos ingresados no son correctos', "error", {
+         timer: 3000
+      });
    }
 };
 
-///
-// Devuelve los datos de todos los usuarios
-export const getDocentes = async (jwtLogin) => {
-   try {
-      const response = await fetch(`${URL_BACK.getDocentes}`, {
-         method: 'GET',
-         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${jwtLogin}`,
-         },
-      });
-      if (!response.ok) {
-         throw new Error('Error al realizar el GET');
-      }
-      const data = await response.json();
-      return data;
-   } catch (error) {
-      console.error('Error al realizar el GET:', error);
-      throw error;
-   }
-};
+
 
 ///
 // Registrar usuario

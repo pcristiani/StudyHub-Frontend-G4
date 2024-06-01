@@ -7,14 +7,12 @@ import Sheet from '@mui/joy/Sheet';
 import { FormatCedula, DeleteFormatCedula } from '../../../services/data/FormatCedula';
 
 import { TablePagination, tablePaginationClasses as classes, } from '@mui/base/TablePagination';
-import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded';
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
-import TaskAltSharpIcon from '@mui/icons-material/Delete';
+
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getUsuarios, bajaUsuario, getUsuario, modificarDatosUsuario } from '../../../services/requests/usuarioService';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+
 import Tooltip from '@mui/joy/Tooltip';
 import { URI_FRONT, redirigir } from '../../../services/util/constants';
 import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
