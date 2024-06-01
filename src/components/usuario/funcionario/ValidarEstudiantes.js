@@ -16,9 +16,11 @@ import Sheet from '@mui/joy/Sheet';
 import Tooltip from '@mui/joy/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import { CheckBoxRounded, CheckCircle, HowToReg, HowToRegRounded, SafetyCheck, Save, SaveAlt, SaveAsOutlined, TaskAltRounded, VerifiedUser } from '@mui/icons-material';
+
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
 }));
+
 
 export default function ValidarEstudiantes() {
     const [dense, setDense] = useState(false);
@@ -41,7 +43,6 @@ export default function ValidarEstudiantes() {
                 console.error('Error fetching users:', error);
             }
         }
-
         fetchValidarEstudiantes();
     }, []);
 
@@ -123,6 +124,5 @@ export default function ValidarEstudiantes() {
                 </Grid>
             </Box>
         </Sheet>
-
     );
 }

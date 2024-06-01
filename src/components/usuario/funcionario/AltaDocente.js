@@ -31,7 +31,6 @@ export default function AltaDocente() {
 
         if (response.ok) {
             console.log("response: ", response);
-
             swal({
                 title: "¡Docente creado!\n\n",
                 text: "El docente ha sido creado con éxito.",

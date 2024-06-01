@@ -158,3 +158,57 @@ export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin)
 
 ///
 
+export const altaPeriodoExamen = async (dtFechaInicio, dtFechaFin, idCarrera, jwtLogin) => {
+
+    let bodyContent = JSON.stringify({
+        "inicio": {
+            "anio": dtFechaInicio.getYear(),
+            "mes": dtFechaInicio.getMonth(),
+            "dia": dtFechaInicio.getDay()
+        },
+        "fin": {
+            "anio": dtFechaFin.getYear(),
+            "mes": dtFechaFin.getMonth(),
+            "dia": dtFechaFin.getDay()
+        }
+    });
+
+
+    let response = await fetch(URL_BACK.altaPeriodoDeExamen + idCarrera, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        },
+        body: bodyContent,
+    });
+
+    if (!response.ok) {
+        throw { status: response.status };
+    }
+};
+
+
+// let bodyContent = JSON.stringify({
+//     "inicio": {
+//         "anio": 2014,
+//         "mes": 10,
+//         "dia": 10
+//     },
+//     "fin": {
+//         "anio": 2014,
+//         "mes": 10,
+//         "dia": 20
+//     }
+// });
+
+
+// let reqOptions = {
+//     url: "http://localhost:8080/api/carrera/altaPeriodoDeExamen/1",
+//     method: "POST",
+//     headers: headersList,
+//     data: bodyContent,
+// }
+
+// let response = await axios.request(reqOptions);
+// console.log(response.data);

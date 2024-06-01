@@ -101,6 +101,7 @@ export default function AltaAsignatura() {
         }
     };
 
+    
     return (
         <Box component="form" sx={{ marginTop: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>

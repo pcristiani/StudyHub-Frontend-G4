@@ -5,7 +5,6 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Select from '@mui/joy/Select';
@@ -99,8 +98,7 @@ export default function EditarPerfil() {
                 <Box sx={{ alignSelf: 'center' }}>
                     <Typography level="title-md">Datos de usuario</Typography>
                 </Box>
-                <Divider />
-                {/* <Stack direction="flex" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}> */}
+                <Divider />       
                 <Box component="form" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', width: '100%' }} onSubmit={handleModificar}>
                     <Stack>
                         <Stack spacing={1}>
@@ -136,8 +134,7 @@ export default function EditarPerfil() {
                         <Button type="submit" size="sm" alignItems="right" variant="solid">Guardar</Button>
                         <Button size="sm" variant="outlined" href='/'>Cancelar</Button>
                     </Stack>
-                </Box>
-                {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
+                </Box>           
             </Card>
         </Box>
     );
