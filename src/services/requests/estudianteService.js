@@ -52,13 +52,11 @@ export const acceptEstudiante = async (idUsuario, jwtLogin) => {
 
 // Inscripcion a carrera
 export const inscripcionCarrera = async (idUsuario, idCarrera, jwtLogin) => {
-    // try {
-
+ 
     let headersList = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${jwtLogin}`,
     }
-
 
     let bodyContent = JSON.stringify({
         "idCarrera": idCarrera,
@@ -75,39 +73,3 @@ export const inscripcionCarrera = async (idUsuario, idCarrera, jwtLogin) => {
     let data = await response.text();
     console.log(data);
 }
-//         let response = await axios.post(URL_BACK.inscripcionCarrera, {
-//             "idCarrera": idCarrera,
-//             "idEstudiante": idUsuario,
-//             "validado": false
-//         }, headersList);
-
-//         if (response.status === 200) {
-//             console.log("Usuario autenticado correctamente: ", response.data);
-//             return response.data;
-//         } else {
-//             swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
-//                 timer: 4000
-//             });
-//         }
-//     } catch (error) {
-//         swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
-//             timer: 3000
-//         });
-//     }
-// }
-
-
-// let bodyContent = JSON.stringify({
-//     "idCarrera": 2,
-//     "idEstudiante": 5,
-//     "validado": false
-// });
-
-// let response = await fetch("http://localhost:8080/api/carrera/inscripcionCarrera", {
-//     method: "POST",
-//     body: bodyContent,
-//     headers: headersList
-// });
-
-// let data = await response.text();
-// console.log(data);

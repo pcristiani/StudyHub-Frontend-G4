@@ -63,20 +63,21 @@ export default function AltaDocente() {
 
 
     return (
-        <Box component="form" sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                 <Box sx={{ alignSelf: 'center' }}>
                     <Typography level="title-md">Alta docente</Typography>
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
+                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
                         <Input size="sm" id="codigoDocente" name="codigoDocente" placeholder="Código" required />
                         <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
+                        <Divider />
                     </FormControl>
-                    <Stack direction="row" spacing={2} sx={{ marginTop: 2, justifyContent: 'center' }}>
-                        <Button type="submit" size="small" variant="solid">Guardar</Button>
-                        <Button size="small" variant="outlined" color="neutral" href='/'>Cancelar</Button>
+                    <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
+                        <Button type="submit" size="sm" fullWidth variant="soft">Guardar</Button>
+                        <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Stack>
             </Card>

@@ -89,6 +89,28 @@ export const getUsuarios = async (jwtLogin) => {
 };
 
 ///
+// Devuelve los datos de todos los usuarios
+export const getDocentes = async (jwtLogin) => {
+   try {
+      const response = await fetch(`${URL_BACK.getDocentes}`, {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+         },
+      });
+      if (!response.ok) {
+         throw new Error('Error al realizar el GET');
+      }
+      const data = await response.json();
+      return data;
+   } catch (error) {
+      console.error('Error al realizar el GET:', error);
+      throw error;
+   }
+};
+
+///
 // Registrar usuario
 export const registrarUsuario = async (nombre, apellido, cedula, password, email, fechaNacimiento, rol, jwtLogin) => {
    let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": rol };
@@ -110,7 +132,6 @@ export const registrarUsuario = async (nombre, apellido, cedula, password, email
       });
    }
 };
-
 
 
 ///
@@ -142,55 +163,3 @@ export const bajaUsuario = async (idUsuario, jwtLogin) => {
    }
 
 };
-
-
-// ///
-// export const getUsuarios = async (idUsuario, jwtLogin) => {
-
-//    const url = URL_BACK.getUsuarios;
-//    const headers = {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${jwtLogin}`
-//    }
-//    const resp = await fetch(url, {
-//       method: "GET",
-//       headers: headers
-//    });
-
-//    const usuario = [];
-//    let data = await resp.json();
-//    data.map(info => {
-//       if (info.id === idUsuario) {
-//          usuario.push({
-//             id: info.idUsuario,
-//             cedula: info.cedula,
-//             name: info.nombre,
-//             apellido: info.apellido,
-//             rol: 'A',
-//          })
-//       }
-//    });
-//    return usuario[0];
-// }
-
-
-// const handlePost = async () => {
-//    try {
-//       const response = await fetch(`${URL_BACK.getUsuario}${'idUsuario'}`, {
-//          method: 'POST',
-//          headers: {
-//             'Content-Type': 'application/json'
-//          },
-//          body: JSON.stringify({ variable1: 'valor1', variable2: 'valor2' })
-//       });
-//       if (!response.ok) {
-//          throw new Error('Error al realizar el POST');
-//       }
-//       const data = await response.data();
-//       return data;
-//       // setResultadoPost(data);
-//    } catch (error) {
-//       console.error('Error al realizar el POST:', error);
-//    }
-// };
-

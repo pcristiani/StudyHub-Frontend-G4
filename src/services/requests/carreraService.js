@@ -24,7 +24,6 @@ export const getCarreras = async (jwtLogin) => {
 ///
 
 export const asignarCoordinadorCarrera = async (idUsuario, idCarrera, jwtLogin) => {
-    console.log("IDUsuario: ", idUsuario, "IDCarrera: ", idCarrera.ida, "JWT: ", jwtLogin);
     try {
         let headersList = {
             'Content-Type': 'application/json',
@@ -73,6 +72,7 @@ export const getCarrerasInscripcionesPendientes = async (jwtLogin) => {
     return data;
 }
 
+
 ///
 // Devuelve las carreras donde el estudiante esta inscripto
 export const getCarrerasInscripto = async (idEstudiante, jwtLogin) => {
@@ -94,7 +94,6 @@ export const getCarrerasInscripto = async (idEstudiante, jwtLogin) => {
         throw error;
     }
 };
-
 
 
 ///
@@ -138,7 +137,6 @@ export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin)
         }
         let response = await axios.request(reqOptions);
         if (response.status === 200) {
-
             swal({
                 title: "¡Inscripción validada!\n\n",
                 text: "Inscripción a carrera validada.",
@@ -158,8 +156,8 @@ export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin)
 
 ///
 
+// Registro Periodos de Examen
 export const altaPeriodoExamen = async (dtFechaInicio, dtFechaFin, idCarrera, jwtLogin) => {
-
     let bodyContent = JSON.stringify({
         "inicio": {
             "anio": dtFechaInicio.getYear(),
@@ -172,7 +170,6 @@ export const altaPeriodoExamen = async (dtFechaInicio, dtFechaFin, idCarrera, jw
             "dia": dtFechaFin.getDay()
         }
     });
-
 
     let response = await fetch(URL_BACK.altaPeriodoDeExamen + idCarrera, {
         method: 'POST',
@@ -188,27 +185,3 @@ export const altaPeriodoExamen = async (dtFechaInicio, dtFechaFin, idCarrera, jw
     }
 };
 
-
-// let bodyContent = JSON.stringify({
-//     "inicio": {
-//         "anio": 2014,
-//         "mes": 10,
-//         "dia": 10
-//     },
-//     "fin": {
-//         "anio": 2014,
-//         "mes": 10,
-//         "dia": 20
-//     }
-// });
-
-
-// let reqOptions = {
-//     url: "http://localhost:8080/api/carrera/altaPeriodoDeExamen/1",
-//     method: "POST",
-//     headers: headersList,
-//     data: bodyContent,
-// }
-
-// let response = await axios.request(reqOptions);
-// console.log(response.data);

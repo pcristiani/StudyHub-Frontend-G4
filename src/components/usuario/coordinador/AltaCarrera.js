@@ -11,6 +11,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import { URL_BACK } from '../../../services/util/constants';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
+import Textarea from '@mui/joy/Textarea';
 
 
 export default function AltaCarrera() {
@@ -18,10 +19,10 @@ export default function AltaCarrera() {
     console.log(user.jwtLogin);
     const history = useNavigate();
 
-    async function altaCarrera(nombre, descripcion) {
+    async function altaCarrera(nombre, descripcion, requisitos, duracion) {
         // console.log("Alta carrera:", nombre, descripcion);
 
-        let body = { "nombre": nombre, "descripcion": descripcion };
+        let body = { "nombre": nombre, "descripcion": descripcion, "requisitos": requisitos, "duracion": duracion };
         let response = await fetch(URL_BACK.altaCarrera, {
             method: 'POST',
             headers: {
@@ -53,8 +54,11 @@ export default function AltaCarrera() {
         const data = new FormData(event.currentTarget);
         let nombre = data.get('nombre');
         let descripcion = data.get('descripcion');
-        console.log(nombre, descripcion);
-        altaCarrera(nombre, descripcion);
+        let requisitos = data.get('requisitos');
+        let duracion = data.get('duracion');
+
+        console.log(nombre, descripcion, requisitos, duracion);
+        altaCarrera(nombre, descripcion, requisitos, duracion);
         history('/Novedades');
     };
 
@@ -66,11 +70,14 @@ export default function AltaCarrera() {
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
+                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
                         <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
-                        <Input size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
+                        <Textarea minRows={3} size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
+                        <Textarea minRows={3} size="sm" id="requisitos" name="requisitos" placeholder="Requisitos" required />
+                        <Input size="sm" type="number" id="duracion" name="duracion" placeholder="Duración" required />
+                        <Divider />
                     </FormControl>
-                    <Stack direction="row" spacing={1} sx={{ marginTop: 1, justifyContent: 'right' }}>
+                    <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
                         <Button type="submit" size="md" fullWidth variant="solid">Guardar</Button>
                         <Button size="md" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>

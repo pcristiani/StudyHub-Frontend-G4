@@ -16,15 +16,19 @@ import { Chip } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
-import { getAsignaturas, altaAsignatura } from '../../../services/requests/asignaturaService';
+import { getAsignaturasDeCarrera, altaAsignatura } from '../../../services/requests/asignaturaService';
+import { getDocentes } from '../../../services/requests/usuarioService';
 
 
 export default function AltaAsignatura() {
     const { user } = useContext(AuthContext);
     const history = useNavigate();
     const [carreraData, setCarreraData] = useState([]);
+    const [docenteData, setDocenteData] = useState([]);
     const [asignaturaData, setAsignaturaData] = useState([]);
     const [error, setError] = useState(null);
+    const [selectedCarrera, setSelectedCarrera] = useState('');
+
 
     useEffect(() => {
         const fetchCarreras = async () => {
@@ -44,24 +48,60 @@ export default function AltaAsignatura() {
         }
     }, [carreraData]);
 
-    ///
+
     useEffect(() => {
-        const fetchAsignaturas = async () => {
+        const fetchDocente = async () => {
             try {
-                const results = await getAsignaturas(user.jwtLogin);
-                setAsignaturaData(results);
+                const results = await getDocentes(user.jwtLogin);
+                setDocenteData(results);
             } catch (error) {
                 setError(error.message);
             }
         };
-        fetchAsignaturas();
+        fetchDocente();
     }, [user]);
 
     useEffect(() => {
-        if (asignaturaData) {
-            console.log("Asignaturas: ", asignaturaData);
+        if (docenteData) {
+            console.log("Docente: ", docenteData);
         }
-    }, [asignaturaData]);
+    }, [docenteData]);
+    ///
+    // useEffect(() => {
+    //     const fetchAsignaturas = async () => {
+    //         try {
+    //             // const results = await getAsignaturas(user.jwtLogin);
+    //             const results = await getAsignaturasDeCarrera(carreraData, user.jwtLogin);
+
+    //             setAsignaturaData(results);
+    //         } catch (error) {
+    //             setError(error.message);
+    //         }
+    //     };
+    //     fetchAsignaturas();
+    // }, [user]);
+
+    // useEffect(() => {
+    //     if (asignaturaData) {
+    //         console.log("Asignaturas: ", asignaturaData);
+    //     }
+    // }, [asignaturaData]);
+
+    const handleChange = (event, newValue) => {
+        console.log("Selected: ", newValue);
+        setSelectedCarrera(newValue);
+
+        if (selectedCarrera !== null) {
+            getInfoCarrera(newValue);
+        }
+    };
+    console.log("Selected carrera: ", selectedCarrera);
+
+
+    async function getInfoCarrera(selectedCarrera) {
+        let result = await getAsignaturasDeCarrera(selectedCarrera, user.jwtLogin);
+        setAsignaturaData(result);
+    }
 
     ///
     const handleSubmit = async (event) => {
@@ -72,13 +112,22 @@ export default function AltaAsignatura() {
         let descripcion = data.get('descripcion');
         let departamento = data.get('departamento');
         let idCarrera = data.get('idcarrera');
+
+        let idDocente = data.get('iddocente') ? data.get('iddocente').split('').map(item => {
+            const nums = parseInt(item.trim(), 10);
+            return isNaN(nums) ? null : nums;
+        }).filter(item => item !== null) : [];
+
+        console.log("Id docente: ", idDocente);
+
         let previaturas = data.get('idprevias') ? data.get('idprevias').split('').map(item => {
             const num = parseInt(item.trim(), 10);
             return isNaN(num) ? null : num;
         }).filter(item => item !== null) : [];
+        console.log("Id previaturas: ", previaturas);
 
         try {
-            await altaAsignatura(nombre, creditos, descripcion, departamento, previaturas, idCarrera, user.jwtLogin);
+            await altaAsignatura(nombre, creditos, descripcion, departamento, previaturas, idCarrera, idDocente, user.jwtLogin);
             swal({
                 title: "¡Asignatura creada!\n\n",
                 text: "La asignatura ha sido creada con éxito.",
@@ -101,9 +150,9 @@ export default function AltaAsignatura() {
         }
     };
 
-    
+
     return (
-        <Box component="form" sx={{ marginTop: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                 <Box sx={{ margin: 1, alignSelf: 'center' }}>
                     <Typography level="title-lg">Alta asignatura</Typography>
@@ -111,16 +160,34 @@ export default function AltaAsignatura() {
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                     <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
-                        <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
+                        <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
                             {carreraData.map((carrera, index) => (
                                 <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                             ))}
                         </Select>
                         <Divider />
+
+                        <Select size="sm" placeholder="Seleccionar docente" multiple renderValue={(selecteds) => (
+                            <Box sx={{ display: 'flex', gap: '0.25rem' }}>
+                                {selecteds.map((selectedOptions) => (
+                                    <Chip variant="soft" color="primary">
+                                        {selectedOptions.label}
+                                    </Chip>
+                                ))}
+                            </Box>
+                        )}
+                            slotProps={{ listbox: { sx: { width: '100%', }, }, }}
+                            id="iddocente" name="iddocente">
+                            {Array.isArray(docenteData) && docenteData.map((docente, index) => (
+                                <Option key={index} value={docente.idDocente}>{docente.nombre}</Option>
+
+                            ))}
+                        </Select>
+                        <Divider />
                         <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
                         <Input size="sm" id="creditos" name="creditos" placeholder="Créditos" required />
-                        <Input size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
-                        <Input size="sm" id="departamento" name="departamento" placeholder="Departamento" required />
+                        <Input size="sm" id="descripcion" name="descripcion" placeholder="Descripción" />
+                        <Input size="sm" id="departamento" name="departamento" placeholder="Departamento" />
                         <Divider />
                         <Select size="sm" placeholder="Seleccionar previas" multiple renderValue={(selected) => (
                             <Box sx={{ display: 'flex', gap: '0.25rem' }}>
@@ -133,15 +200,15 @@ export default function AltaAsignatura() {
                         )}
                             slotProps={{ listbox: { sx: { width: '100%', }, }, }}
                             id="idprevias" name="idprevias">
-                            {asignaturaData.map((previas, index) => (
-                                <Option key={index} value={previas.idAsignatura}>{previas.nombre}</Option>
+                            {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
+                                <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                             ))}
                         </Select>
                         <Divider />
                     </FormControl>
                     <Stack direction="row" spacing={1} sx={{ marginTop: 1, justifyContent: 'right' }}>
-                        <Button type="submit" size="md" fullWidth variant="solid">Guardar</Button>
-                        <Button size="md" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
+                        <Button type="submit" size="sm" fullWidth variant="soft">Guardar</Button>
+                        <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Stack>
             </Card>
