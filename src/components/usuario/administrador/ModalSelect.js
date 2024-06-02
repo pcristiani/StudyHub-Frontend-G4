@@ -112,6 +112,6 @@ export function ModalSelect(ida) {
                     </form>
                 </ModalDialog>
             </Modal>
-        </React.Fragment >
+        </React.Fragment>
     );
 }

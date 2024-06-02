@@ -70,7 +70,7 @@ export default function AltaFuncionarioCoordinador() {
                     <Typography level="title-lg">Funcionario / Coordinador</Typography>
                 </Box>
                 <Divider />
-                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
+                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
                     <Input size="sm" id="nombre" name="nombre" placeholder="Nombre:" required />
                     <Input size="sm" id="apellido" name="apellido" placeholder="Apellido:" required />
                     <Input size="sm" id="cedula" name="cedula" placeholder="Cedula:" required />
@@ -86,7 +86,7 @@ export default function AltaFuncionarioCoordinador() {
                     </div>
                 </FormControl>
                 <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
-                    <Button type="submit" fullWidth size="sm" alignItems="right" variant="solid">Guardar</Button>
+                    <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">                        Guardar</Button>
                     <Button size="sm" fullWidth variant="outlined" color="neutral" onClick={() => handleCancelar()}>
                         Cancelar
                     </Button>

@@ -98,25 +98,24 @@ export default function InscripcionCarrera() {
     };
 
     return (
-        <Box component="form" sx={{ marginTop: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                 <Box sx={{ margin: 1, alignSelf: 'center' }}>
                     <Typography level="title-lg">Inscripcion Carrera</Typography>
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
+                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
                         <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
                             {carreraData.map((carrera, index) => (
                                 <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                             ))}
                         </Select>
                         <Divider />
-                        <Divider />
                     </FormControl>
-                    <Stack direction="row" spacing={1} sx={{ marginTop: 1, justifyContent: 'right' }}>
-                        <Button type="submit" size="md" fullWidth variant="solid">Guardar</Button>
-                        <Button size="md" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
+                    <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
+                        <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
+                        <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Stack>
             </Card>

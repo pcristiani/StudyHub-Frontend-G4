@@ -107,7 +107,12 @@ function Login() {
 							{/* <FormControlLabel control={<Checkbox value="remember" size='sm' />} sx={{ mt: 0.5, mx: 0.5 }}
                                 label="Recuerdame" /> */}
 						
-							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3 }}>Iniciar sesión</Button>
+							{/* <Button type="submit" fullWidth sx={{ mt: 1, mb: 3 }}>Iniciar sesión</Button> */}
+							{/* <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.1 }} variant="soft"> */}
+							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">
+								Iniciar sesión</Button>
+
+
 							<Grid container spacing={1}>
 								<Grid item>
 								</Grid>

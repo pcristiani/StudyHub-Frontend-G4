@@ -54,7 +54,6 @@
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -webkit-appearance: none;
@@ -64,6 +63,8 @@
   -webkit-line-break: auto;
   white-space: normal;
   word-wrap: break-word; */
+  /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */
+  z-index: 1000; 
 }
 
 
@@ -73,6 +74,7 @@ body {
   place-content: center;
   -webkit-user-select: none;
   user-select: none;
+  z-index: 1000; 
   /* background: #080303; */
 }
 
@@ -85,6 +87,7 @@ body {
   border-radius: theme('borderRadius.lg');
   background-color: theme('colors.white');
   padding: theme('spacing.4');
+  z-index: 1000; 
 }
 .logo-desktop {
   max-width: 40px;
@@ -110,7 +113,7 @@ body {
 }
 
 .ico-navbar {
-    height: 90%;
+  height: 90%;
   width: 90%;
 }
 
@@ -127,12 +130,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+  z-index: 1000; 
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+bottom{
+  z-index: 1000; 
 }
 
 /* ANIMATION */
@@ -143,7 +149,6 @@ code {
   transform: scale(0.8);
   animation: scale-animation 4s 1;
 }
-
 
 // SweetAlert
 .swal-title {
@@ -221,7 +226,7 @@ code {
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    /* animation: App-logo-spin infinite 10s linear; */
+   animation: App-logo-spin infinite 10s linear; 
   }
 }
 
@@ -236,7 +241,9 @@ code {
   color: white;
 }
 
-
+.Stack{
+  z-index: 1000; 
+}
 .animate-bounce {
   animation-name: bounce;
   animation-duration: 1s;
@@ -358,6 +365,7 @@ code {
   animation-name: bounce;
   border-radius: 5px;
   flood-opacity: 100%;
+  z-index: 1000; 
 }
 
 
@@ -369,14 +377,18 @@ div {
 .footer {
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   /* background: #ffffff; */
-  position: fixed;
+  position: absolute;
     bottom: 0;
   width: 100%;
+  height: 110px;
   color: #868686;
   font-weight: normal;
-  /* padding: 3px; */
+  padding-left: 14px;
+  padding-right: 14px;
+
   justify-content: center;
   text-align: left;
   font-size: 12px;
-  /* z-index: 1000; muestre por encima de los otros elementos. */
+  /* z-index: 1000;  */
+  /* // muestre por encima de los otros elementos. */
 }

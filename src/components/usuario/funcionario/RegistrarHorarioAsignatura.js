@@ -213,20 +213,20 @@ export default function RegistrarHorarioAsignatura() {
                   </Select>
                </FormControl>
 
-               <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right' }}>
-                  <Button type="submit" size="sm" fullWidth variant="soft">Guardar</Button>
+               <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
+                  <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
                   <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                </Stack>
             </Stack>
-         </Card >
-      </Box >
+         </Card>
+      </Box>
    );
 };
 
 const timeSlots = Array.from(new Array(24 * 1)).map(
    (_, index) =>
       `${index < 20 ? '' : ''}${Math.floor(index / 1)
-} hs`,
+      } hs`,
 );
 
 // <///:${index % 1 === 0 ? '0' : ''

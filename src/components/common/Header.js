@@ -32,7 +32,6 @@ import PropTypes from 'prop-types';
 
 import Navigation from './Navigation';
 import { useNavigate } from 'react-router-dom'
-// import '../../css/style-navbar.css';
 import Logo from '../../img/logo.png';
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
@@ -142,7 +141,7 @@ export default function Header() {
       const result = await cerrarSesion(jwtLogin);
       if (result !== null && result !== undefined) {
          swal("Cerrar Sesion", 'Has cerrado sesión correctamente', "success", {
-            timer: 4000
+            timer: 3000
          });
       } else {
          swal("¡Advertencia!", 'Un error inesperado ocurrio', "error", {
@@ -212,7 +211,7 @@ export default function Header() {
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">
                                  Inscripciones
-                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0., '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <Button variant="plain" color="neutral" component="a" href='./inscripcion-carrera' size="sm">
                                        Carrera
                                     </Button>
@@ -228,7 +227,7 @@ export default function Header() {
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">
                                  Listados y búsquedas
-                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Asignaturas aprobadas
                                     </Button>
@@ -248,7 +247,7 @@ export default function Header() {
                         <>
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
-                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <Button variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sm">
                                        Alta docente
                                     </Button>
@@ -266,7 +265,7 @@ export default function Header() {
                            </Dropdown>
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Registros
-                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <Button variant="plain" color="neutral" component="a" href={URI_FRONT.registrarHorarioAsignaturaUri} size="sm">
                                        Horario de asignatura
                                     </Button>
@@ -280,8 +279,8 @@ export default function Header() {
                               </MenuButton>
                            </Dropdown>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Calificaciones
-                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm" >Calificaciones
+                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap:0.8, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
                                     <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Registro calificaciones fin de curso
                                     </Button>
@@ -295,12 +294,12 @@ export default function Header() {
                               </MenuButton>
                            </Dropdown>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Listados y búsquedas
-                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm" >Listados y búsquedas
+                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
+                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{  alignSelf: 'left' }}>
                                        Carreras
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{  alignSelf: 'left' }}>
                                        Asignaturas
                                     </Button>
                                  </Menu>

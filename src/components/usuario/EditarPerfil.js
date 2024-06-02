@@ -130,9 +130,10 @@ export default function EditarPerfil() {
                             </FormControl>
                         </div>
                     </Stack>
-                    <Stack direction="row" spacing={2} sx={{ marginTop: 2, justifyContent: 'right' }}>
-                        <Button type="submit" size="sm" alignItems="right" variant="solid">Guardar</Button>
-                        <Button size="sm" variant="outlined" href='/'>Cancelar</Button>
+
+                    <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
+                        <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
+                        <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Box>
             </Card>

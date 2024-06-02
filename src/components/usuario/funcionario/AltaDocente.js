@@ -76,7 +76,7 @@ export default function AltaDocente() {
                         <Divider />
                     </FormControl>
                     <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
-                        <Button type="submit" size="sm" fullWidth variant="soft">Guardar</Button>
+                        <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
                         <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Stack>

@@ -1,7 +1,6 @@
 import { redirigir } from '../../services/util/constants';
 
-import '../../css/style-navbar.css';
-import '../../css/style.css';
+
 import { URI_FRONT } from '../../services/util/constants'
 
 

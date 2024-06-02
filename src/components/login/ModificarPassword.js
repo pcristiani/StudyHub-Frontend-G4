@@ -90,7 +90,9 @@ export default function ModificarPassword() {
 								</FormControl>
 
 							</FormControl>
-							<Button type="submit" variant="soft" color="primary" >Actualizar contraseña</Button>
+							{/* <Button type="submit" variant="soft" color="primary" >Actualizar contraseña</Button> */}
+							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">
+								Actualizar contraseña</Button>
 						</Stack>
 
 					</form>

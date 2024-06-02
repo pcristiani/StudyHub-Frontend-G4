@@ -139,7 +139,7 @@ export default function RegistrarPreviaturas() {
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
+                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
                         <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
                             {carreraData.map((carrera, index) => (
                                 <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
@@ -188,8 +188,8 @@ export default function RegistrarPreviaturas() {
                         </Select>
                         <Divider />
                     </FormControl>
-                    <Stack direction="row" spacing={1} sx={{ marginTop: 1, justifyContent: 'right' }}>
-                        <Button type="submit" size="sm" fullWidth variant="soft">Guardar</Button>
+                    <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
+                        <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
                         <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Stack>

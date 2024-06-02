@@ -134,7 +134,7 @@ const ForgotPassword = () => {
                                         <Input size="sm" name="password" placeholder="Confirmar nueva contraseña" type="password" id="confirmNewPass" autoComplete="current-password" required />
                                     </FormControl>
                                     <Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
-                                        <Button type="submit" fullWidth variant="solid">Cambiar contraseña</Button>
+                                        <Button type="submit" fullWidth variant="soft">Cambiar contraseña</Button>
                                         <Button variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                                     </Stack>
                                 </Stack>

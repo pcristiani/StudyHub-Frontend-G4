@@ -15,7 +15,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import Sheet from '@mui/joy/Sheet';
 import Tooltip from '@mui/joy/Tooltip';
 import IconButton from '@mui/material/IconButton';
-import { CheckBoxRounded, CheckCircle, HowToReg, HowToRegRounded, SafetyCheck, Save, SaveAlt, SaveAsOutlined, TaskAltRounded, VerifiedUser } from '@mui/icons-material';
+import {  TaskAltRounded } from '@mui/icons-material';
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -61,7 +61,7 @@ export default function ValidarEstudiantes() {
 
     return (
         <Sheet>
-            <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <h3 sx={{ marginButtom: 6, mt: 4, mb: 2 }} variant="h5">
                     Validación de estudiantes
                 </h3>

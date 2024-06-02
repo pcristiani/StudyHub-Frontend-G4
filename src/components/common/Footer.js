@@ -71,7 +71,7 @@ function Copyright() {
 
 function Footer() {
     return (
-        <div className='footer py-3' style={{ width: '100%', padding: '20px' }}>
+        <div className='footer my-2' style={{ width: '100%'}}>
             <Box>
                 <Copyright />
             </Box>
