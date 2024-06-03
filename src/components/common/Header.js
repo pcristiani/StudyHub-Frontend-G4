@@ -251,9 +251,7 @@ export default function Header() {
                                     <Button variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sm">
                                        Alta docente
                                     </Button>
-                                    {/* <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
-                                       Validar usuario a estudiantes
-                                    </Button> */}
+
                                     <Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm">
                                        Validar estudiante
                                     </Button>
@@ -345,9 +343,7 @@ export default function Header() {
                      <Button variant="plain" color="neutral" component="a" href={URI_FRONT.novedadesUri} size="sm" sx={{ alignSelf: 'center' }}>
                         Novedades
                      </Button>
-                     {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sm" sx={{ alignSelf: 'center' }}>
-Preguntas frecuentas
-                            </Button> */}
+
                      <Button variant="plain" color="neutral" component="a" href={URI_FRONT.contactoUri} size="sm" sx={{ alignSelf: 'center' }}>
                         Contacto
                      </Button>
@@ -386,7 +382,7 @@ Preguntas frecuentas
                            <Avatar src="https://i.pravatar.cc/40?img=59" srcSet="https://i.pravatar.cc/80?img=59" sx={{ maxWidth: '32px', maxHeight: '32px' }} />
                         </MenuButton>
                         <Menu placement="bottom-end" size="sm" sx={{ zIndex: '99999', p: 1, gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                           <MenuItem>
+                           <MenuItem href={URI_FRONT.editPerfilUri} component="a">
                               <Box sx={{ display: 'flex', alignItems: 'center', }}>
                                  <Avatar src="https://i.pravatar.cc/40?img=59" srcSet="https://i.pravatar.cc/80?img=59" sx={{ borderRadius: '50%' }} />
                                  <Box sx={{ ml: 1.5 }}>
@@ -405,7 +401,7 @@ Preguntas frecuentas
                               <AccountCircleOutlined />
                               Perfil
                            </MenuItem>
-                           <MenuItem href={URI_FRONT.editPerfilUri} component="a">
+                           <MenuItem href='/' component="a">
                               <SettingsRoundedIcon />
                               Ajustes
                            </MenuItem>
@@ -427,9 +423,6 @@ Preguntas frecuentas
                         <Button variant="outlined" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
                            Iniciar sesión
                         </Button>
-                        {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.signupUri} size="sm">
-                                    Registrarse
-                                </Button> */}
                      </Stack>
 
                      <Stack direction="row" justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'flex', sm: 'none' } }}>
@@ -454,8 +447,6 @@ Preguntas frecuentas
                }
             </Box>
          </Box>
-      </CssVarsProvider >
+      </CssVarsProvider>
    );
 }
-
-// {/* <Nav.Link className="nav-link" href={URI_FRONT.homeUri}>Inicio</Nav.Link> */ }

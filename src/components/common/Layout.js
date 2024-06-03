@@ -109,20 +109,20 @@ function Main(props) {
                     // bgcolor: '#0d1117',
                     // color:'text-primary',
                     bgcolor: 'background.surface',
-                    // // flexDirection: 'row',
+                    //  flexDirection: 'row',
                     // justifyContent: 'space-between',
                     // alignItems: 'center',
-                    // // gridColumn: '1 / -1',
+                    //  gridColumn: '1 / -1',
                     // borderBottom: '1px solid',
                     // display: {
                     //     xs: 'absolute',
                     //     md: 'absolute',
 
                     // },
-                    // // position: 'flex',
+                    //  position: 'flex',
                     // top: 0,
                     // bottom: 0,
-                    // //  minHeight: '768px',
+                    //   minHeight: '768px',
                     // zIndex: 1100,
                 }, ...(Array.isArray(props.sx) ? props.sx : [props.sx])]}
         />
@@ -141,7 +141,7 @@ function SideDrawer(
                     position: 'fixed', zIndex: 1200, width: '100%', height: '100%',
                     bgcolor: 'background.surface',
 
-                },                ...(Array.isArray(other.sx) ? other.sx : [other.sx]),
+                }, ...(Array.isArray(other.sx) ? other.sx : [other.sx]),
             ]}
         >
             <Box

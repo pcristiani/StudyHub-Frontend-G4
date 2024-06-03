@@ -90,7 +90,6 @@ export default function ModificarPassword() {
 								</FormControl>
 
 							</FormControl>
-							{/* <Button type="submit" variant="soft" color="primary" >Actualizar contraseña</Button> */}
 							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">
 								Actualizar contraseña</Button>
 						</Stack>
@@ -101,7 +100,3 @@ export default function ModificarPassword() {
 		</React.Fragment>
 	);
 }
-
-
-// {/* <Input size="sm" type='password' id="password" name="password" placeholder="Nueva contraseña" required /> */ }
-// {/* <Input size="sm" type='password' id="password2" name="password2" placeholder="Confirmar nueva contraseña" required /> */ }

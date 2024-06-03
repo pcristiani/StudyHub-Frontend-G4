@@ -114,7 +114,6 @@ export default function RegistrarPreviaturas() {
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
 						</Select>
-						{/* <Divider /> */}
 
 						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" >
 							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (

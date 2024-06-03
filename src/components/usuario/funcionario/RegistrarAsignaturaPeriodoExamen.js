@@ -142,7 +142,7 @@ export default function RegistrarAsignaturaPeriodoExamen() {
          swal("Error", errorMsg, "error", {
             timer: 3000
          });
-         // }
+
       }
    };
 
@@ -177,11 +177,7 @@ export default function RegistrarAsignaturaPeriodoExamen() {
                      ))}
                   </Select>
 
-                  {/* <Select size="sm" defaultValue="Seleccionar docente" placeholder="Seleccionar docente" id="iddocente" name="iddocente">
-                     {Array.isArray(docenteData) && docenteData.map((docente, index) => (
-                        <Option key={index} value={docente.idDocente}>{docente.nombre}</Option>
-                     ))}
-                  </Select> */}
+
                   <Divider />
 
                   <Select size="sm" placeholder="Seleccionar docente" multiple renderValue={(selecteds) => (
@@ -205,48 +201,6 @@ export default function RegistrarAsignaturaPeriodoExamen() {
                      <Input type="datetime-local" size='sm' slotProps={{ input: { min: selectedInicio, max: selectedFin, }, }} id="fechaHora" name="fechaHora" />
                   }
 
-
-
-                  {/*      <Select size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo">
-                     {years.map((year) => (
-                        <Option key={year} value={year}>
-                           {year}
-                        </Option>
-                     ))}
-                  </Select>
-
-                  <Select size="sm" value={selectedDay} onChange={(event, newValue) => setSelectedDay(newValue)} placeholder="Dia de la semana" id="diasemana" name="diasemana">
-                     {diasSemana.map((day) => (
-                        <Option key={day.value} value={day.value}>
-                           {day.label}
-                        </Option>
-                     ))}
-                  </Select> */}
-
-                  {/* <Stack direction="row" spacing={0.6} sx={{ justifyContent: 'right' }}>
-                     <Autocomplete size="sm" id="inicioclase" name="inicioclase" options={timeSlots} placeholder="Inicia la clase" onChange={(event, newValue) => setSelectedInicio(newValue)} />
-                     <Autocomplete size="sm" id="finclase" name="finclase" options={timeSlots} placeholder="Finaliza la clase" onChange={(event, newValue) => setSelectedFin(newValue)} />
-                     <Tooltip title="Agregar a horario de clase" variant="plain" color="primary">
-                        <Button size="sm" variant="none" color="neutral" onClick={handleChangeHorario}>
-                           <ControlPointIcon variant="outlined" color="primary" />
-                        </Button>
-                     </Tooltip>
-                  </Stack>
-                  <Divider />
-
-                  <Select size="sm" placeholder="Horario de clase" multiple renderValue={(selected) => (
-                     <Box sx={{ display: 'flex', gap: '0.25rem' }}>
-                        {selected.map((selectedOption) => (
-                           <Chip key={selectedOption.value} variant="soft" color="primary">
-                              {selectedOption.label} {selectedOption.horario}
-                           </Chip>
-                        ))}
-                     </Box>)}
-                     slotProps={{ listbox: { sx: { width: '100%', }, }, }}>
-                     {Array.isArray(horarioData) && horarioData.map((horario, index) => (
-                        <Option key={index} value={horario.diaSemana}> {horario.diaSemana} DE {horario.horaInicio} A {horario.horaFin} HS</Option>
-                     ))}
-                  </Select> */}
                </FormControl>
 
                <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>

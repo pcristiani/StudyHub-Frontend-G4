@@ -23,8 +23,7 @@ export default function AltaFuncionarioCoordinador() {
 
     const DatosRol = [
         { cod: 'C', rol: `Coordinador` },
-        { cod: 'F', rol: `Funcionario` }
-        // { cod: 'A', rol: `Administrador` },
+        { cod: 'F', rol: `Funcionario` }     
     ];
 
     const handleCancelar = () => {

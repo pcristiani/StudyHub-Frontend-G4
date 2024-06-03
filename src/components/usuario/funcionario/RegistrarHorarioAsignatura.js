@@ -229,4 +229,3 @@ const timeSlots = Array.from(new Array(24 * 1)).map(
       } hs`,
 );
 
-// <///:${index % 1 === 0 ? '0' : ''

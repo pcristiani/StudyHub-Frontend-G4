@@ -156,10 +156,8 @@ function EnhancedTableToolbar(props) {
   const handleClose = () => setAnchorEl(null);
 
   const handleAdd = () => {
-
     console.log('Agregar');
   }
-
 
 
   return (
@@ -172,7 +170,6 @@ function EnhancedTableToolbar(props) {
       {numSelected > 0 ? (
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.6 }}>
-
 
             <Tooltip title="Delete">
               <IconButton size="sm" color="danger" variant="solid" onClick={handleAdd}>
@@ -219,7 +216,6 @@ export default function TableSortAndSelection() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filter, setFilter] = useState('');
-  const [filter2, setFilter2] = useState('');
 
   const [asignaturasCarreraData, setAsignaturasCarreraData] = useState([]);
   const { user } = useContext(AuthContext);
@@ -291,7 +287,7 @@ export default function TableSortAndSelection() {
           '--TableCell-headBackground': 'transparent',
           '--TableCell-selectedBackground': (theme) => theme.vars.palette.success.softBg,
           '& thead th:nth-child(1)': { width: '40px', },
-          '& thead th:nth-child(2)': { width: '35%', },        
+          '& thead th:nth-child(2)': { width: '35%', },
         }}>
         <EnhancedTableHead
           numSelected={selected.length}
@@ -377,14 +373,3 @@ export default function TableSortAndSelection() {
     </Sheet>
   );
 }
-
-
-
-// {/* <Box sx={{ display: 'flex-end', gap: 0 }}>
-//                     <Button size="small" variant="plain" color="primary">
-//                       {/* </Button> 'onClick={() => handleModificar(row.idUsuario)}'> */}
-// < Tooltip title = "Ver más" variant = "plain" color = "primary" >
-//   <OpenInNewIcon />
-//                       </Tooltip >
-//                     </Button >
-//                   </Box >

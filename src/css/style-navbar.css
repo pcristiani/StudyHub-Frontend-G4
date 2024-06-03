@@ -1,66 +1,67 @@
+
 body {
-    margin: 0;
-    /* background-color: #f1f1f1; */
-    font-family: Arial, Helvetica, sans-serif;
-    z-index: 1000; 
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	z-index: 1000;
 }
 
 .navbar {
-    background-color: #0d1117;
-    position: fixed;
-    /* top: -50px;
+	background-color: #0d1117;
+	position: fixed;
+	/* top: -50px;
     width: 500%;     */
-    display: block;
-    transition: top 0.3s;
-    text-decoration: none;    
+	display: block;
+	transition: top 0.3s;
+	text-decoration: none;
 }
 
 .navbar-brand {
-    display: none;
-    text-decoration: none;
+	display: none;
+	text-decoration: none;
 }
 
 .text-studyhub {
-    text-decoration: none;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: rgb(51, 160, 223);
-    font-size: 18px;
-    font-weight: bold;
-    margin-right: 10px;
+	text-decoration: none;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	color: rgb(51, 160, 223);
+	font-size: 18px;
+	font-weight: bold;
+	margin-right: 10px;
 }
 
 .link-footer {
-    text-decoration: none;
-    display: flex;
-    font-size: 12px;
-    color: #797979;
+	text-decoration: none;
+	display: flex;
+	font-size: 12px;
+	color: #797979;
 }
 
 .link-footer:hover {
-    /* font-weight: bold; */
-    display: block;
-    color: rgb(163, 163, 163);
+	/* font-weight: bold; */
+	display: block;
+	color: rgb(163, 163, 163);
 }
 
 .link-style {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-margin-top: 10px;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-    color: #094872;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	margin-top: 10px;
+	text-decoration: none;
+	display: block;
+	cursor: pointer;
+	color: #094872;
 }
+
 .link-style:hover {
-    margin-top: 10px;
-    cursor: pointer;
-    display: block;
-    color: #096e72;
-    transform: scale(1.1);
+	margin-top: 10px;
+	cursor: pointer;
+	display: block;
+	color: #096e72;
+	transform: scale(1.1);
 }
 
 
 .avatar-perfil {
-    display: block;
+	display: block;
 }
 
 /*
@@ -70,75 +71,75 @@ margin-top: 10px;
 */
 
 .navbar a {
-    float: left;
-    display: block;
-    color: #d4d4d4;
-    text-align: center;
-    /* padding: 15px; */
-    text-decoration: none;
-    font-size: 17px;
+	float: left;
+	display: block;
+	color: #d4d4d4;
+	text-align: center;
+	/* padding: 15px; */
+	text-decoration: none;
+	font-size: 17px;
 }
 
 .navbar a:hover {
-    /* background-color: #ddd; */
-    color: black;
+	/* background-color: #ddd; */
+	color: black;
 }
 
 
 .scrollspy-example {
-    position: fixed;
-    display: block;
-    height: 100%;
-    width: 100%;
-    /* color: rgb(6, 27, 143); */
-    margin-top: .5rem;
-    overflow: auto
+	position: fixed;
+	display: block;
+	height: 100%;
+	width: 100%;
+	/* color: rgb(6, 27, 143); */
+	margin-top: .5rem;
+	overflow: auto;
 }
 
 .scrollspy-example-2 {
-    height: 350px;
-    overflow: auto
+	height: 350px;
+	overflow: auto;
 }
 
 .simple-list-example-scrollspy .active {
-    background-color: rgba(var(--bd-violet-rgb), 0.15)
+	background-color: rgba(var(--bd-violet-rgb), 0.15);
 }
 
 .bd-example-border-utils [class^="border"] {
-    display: inline-block;
-    width: 5rem;
-    height: 5rem;
-    margin: .25rem;
-    /* background-color: var(--bs-tertiary-bg) */
+	display: inline-block;
+	width: 5rem;
+	height: 5rem;
+	margin: .25rem;
+	/* background-color: var(--bs-tertiary-bg) */
 }
 
 .bd-example-rounded-utils [class*="rounded"] {
-    margin: .25rem
+	margin: .25rem;
 }
 
-@media (max-width: 768px) {
-    .navbar-brand {
-        display: block;
-    }
+@media (max-width: 968px) {
+	.navbar-brand {
+		display: block;
+	}
 
-    .navbar-brand2 {
-        display: block;
-        text-decoration: none;
-    }
+	.navbar-brand2 {
+		display: block;
+		text-decoration: none;
+	}
 
-    .avatar-perfil {
-        display: none;
-    }
+	.avatar-perfil {
+		display: none;
+	}
 }
 
 .navInformation {
-    display: flex;
+	display: flex;
 }
 
-@media only screen and (max-width: 600px) {
-    .navInformation {
-        display: inline-block;
-        color: #d4d4d4;
-        /* background-color: #0d1117; */
-    }
+@media only screen and (max-width:800px) {
+	.navInformation {
+		display: inline-block;
+		color: #d4d4d4;
+		/* background-color: #0d1117; */
+	}
 }

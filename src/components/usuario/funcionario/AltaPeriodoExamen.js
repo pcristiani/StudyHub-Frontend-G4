@@ -95,9 +95,8 @@ export default function AltaPeriodoExamen() {
 							</Select>
 							<Input size="sm" type="date" id="fechaInicio" name="fechaInicio" required />
 							<Input size="sm" type="date" id="fechaFin" name="fechaFin" required />
-							{/* value={value2} onChange={(newValue2) => setValue2(newValue2)} /> */}
-							<Divider />
 
+							<Divider />
 						</FormControl>
 						<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
 							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
