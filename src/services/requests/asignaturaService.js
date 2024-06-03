@@ -126,6 +126,24 @@ export const registroHorarios = async (idDocente, anio, horarioData, idAsignatur
     }
 };
 
+///
+export const registroPreviaturas = async (idAsignatura, idPreviaturas, jwtLogin) => {
+
+    let response = await fetch(URL_BACK.registrarPreviaturas + idAsignatura, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        },
+        data: 1
+    });
+
+    if (!response.ok) {
+        throw { status: response.status };
+    }
+};
+
+
 
 ///
 

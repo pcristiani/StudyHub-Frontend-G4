@@ -29,7 +29,9 @@ body {
   margin: 0px;
 }
 
-
+Input[type="date"]::-webkit-calendar-picker-indicator {
+    color: red;
+}
 .logo-desktop {
   max-width: 40px;
   max-height: 40px;
@@ -67,7 +69,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
 
 /* SweetAlert */
 .swal-title {

@@ -15,7 +15,7 @@ import { Chip } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
-import { getAsignaturasDeCarrera } from '../../../services/requests/asignaturaService';
+import { getAsignaturasDeCarrera, registroPreviaturas } from '../../../services/requests/asignaturaService';
 
 
 export default function RegistrarPreviaturas() {
@@ -59,6 +59,7 @@ export default function RegistrarPreviaturas() {
 	async function getInfoCarrera(selectedCarrera) {
 		let result = await getAsignaturasDeCarrera(selectedCarrera, user.jwtLogin);
 		setAsignaturaData(result);
+		setPreviasData(result);
 	}
 
 	///
@@ -66,17 +67,17 @@ export default function RegistrarPreviaturas() {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 		let idAsignatura = data.get('idasignatura');
-		let idCarrera = data.get('idcarrera');
+		// let idCarrera = data.get('idcarrera');
 
 
-		let previaturas = data.get('idprevias') ? data.get('idprevias').split('').map(item => {
+		let idPreviaturas = data.get('idprevias') ? data.get('idprevias').split('').map(item => {
 			const num = parseInt(item.trim(), 10);
 			return isNaN(num) ? null : num;
 		}).filter(item => item !== null) : [];
-		console.log("Id previaturas: ", previaturas);
+		console.log("Id previaturas: ", idPreviaturas);
 
 		try {
-			//      await altaAsignatura(nombre, creditos, descripcion, departamento, previaturas, idCarrera, idDocente, user.jwtLogin);
+			await registroPreviaturas(idAsignatura, idPreviaturas, user.jwtLogin);
 			swal({
 				title: "Previatura asignada!\n\n",
 				text: "La previatura ha sido asignada con éxito.",
@@ -85,7 +86,7 @@ export default function RegistrarPreviaturas() {
 				position: "center",
 				timer: 4000
 			});
-			history('/Novedades');
+		//	history('/Novedades');
 		} catch (error) {
 			let errorMsg = 'Los datos ingresados no son correctos o ya existe una previa con ese nombre';
 			if (error.status === 401) {

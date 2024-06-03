@@ -23,7 +23,6 @@ export default function AltaPeriodoExamen() {
 	const history = useNavigate();
 	const [error, setError] = useState(null);
 
-
 	useEffect(() => {
 		const fetchCarreras = async () => {
 			try {
@@ -93,11 +92,13 @@ export default function AltaPeriodoExamen() {
 									<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 								))}
 							</Select>
+
 							<Input size="sm" type="date" id="fechaInicio" name="fechaInicio" required />
+
 							<Input size="sm" type="date" id="fechaFin" name="fechaFin" required />
 
 							<Divider />
-						</FormControl>
+											</FormControl>
 						<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
 							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
 							<Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
@@ -105,6 +106,7 @@ export default function AltaPeriodoExamen() {
 					</Stack>
 				</Card>
 			</Box>
+
 		</>
 	);
 };

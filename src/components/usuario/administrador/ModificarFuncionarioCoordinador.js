@@ -118,7 +118,7 @@ export default function ModificarFuncionarioCoordinador() {
                     <Input size="sm" id="fecha" name="fecha" type="date" placeholder="Fecha nacimientos:" defaultValue={userData.fechaNacimiento} />
                     <Divider />
                     <div marginTop={2}>
-                        <Select size="sm" id="rol" name="rol" defaultValue={userData.rol} required>
+                        <Select size="sm" id="rol" name="rol" defaultValue={userData.rol} >
                             {DatosRol.map((strRol, index) => (
                                 <Option key={index} value={strRol.cod}>{strRol.rol}</Option>
                             ))}

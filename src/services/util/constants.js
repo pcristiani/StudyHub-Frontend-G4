@@ -4,10 +4,14 @@ const PORT = {
 }
 
 //const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
-//const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
+
+// studyhub-backend-g4-production.up.railway.app
+const uriBaseFront = `https://frontstudyhub.vercel.app`
+
+//const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+//const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 // ? http://localhost:3000/
 const URI_FRONT = {
@@ -89,6 +93,7 @@ const URL_BACK = {
   getAsignaturasDeCarrera: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarrera/`, // GET
   courseRelations: `${uriBaseBack}/course-relations`, // GET
   getAsignaturasDeCarreraConExamen: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarreraConExamen/`, // GET
+  registrarPreviaturas: `${uriBaseBack}/api/asignatura/registrarPreviaturas/`, // POST
 
   ///
   // CARRERASERVICE
@@ -106,7 +111,8 @@ const URL_BACK = {
   getCarrerasConPeriodo: `${uriBaseBack}/api/carrera/getCarrerasConPeriodo`, // GET
   getPeriodosDeCarrera: `${uriBaseBack}/api/carrera/getPeriodosDeCarrera/`, // GET
 
-  //Examen
+  ///
+  // Examen
   registroAsignaturaAPeriodo: `${uriBaseBack}/api/examen/registroAsignaturaAPeriodo`, // POST
 
 
