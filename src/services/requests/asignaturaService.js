@@ -38,6 +38,23 @@ export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
     return data;
 }
 
+export const getAsignaturasDeCarreraConExamen = async (idCarrera, jwtLogin) => {
+    const url = URL_BACK.getAsignaturasDeCarreraConExamen;
+
+    let headersList = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtLogin}`
+    }
+
+    let response = await fetch(url + idCarrera, {
+        method: "GET",
+        headers: headersList
+    });
+
+    const data = await response.json();
+    return data;
+}
+
 
 ///
 export const altaAsignatura = async (nombre, creditos, descripcion, departamento, previaturas, idCarrera, idDocente, jwtLogin) => {
@@ -46,6 +63,7 @@ export const altaAsignatura = async (nombre, creditos, descripcion, departamento
         "creditos": creditos,
         "descripcion": descripcion,
         "departamento": departamento,
+        "tieneExamen": true,
         "activa": true,
         "previaturas": previaturas,
         "idCarrera": idCarrera,
@@ -88,18 +106,10 @@ export const getDocentesByAsignatura = async (idAsignatura, jwtLogin) => {
 
 ///
 export const registroHorarios = async (idDocente, anio, horarioData, idAsignatura, jwtLogin) => {
-
     let body = {
         "idDocente": idDocente,
         "anio": anio,
         "dtHorarioDias": horarioData
-        // [
-        //     {
-        //         "diaSemana": diaSemana,
-        //         "horaInicio": horaInicio,
-        //         "horaFin": horaFin
-        //     }
-        // ]
     };
 
     let response = await fetch(URL_BACK.registroHorarios + idAsignatura, {

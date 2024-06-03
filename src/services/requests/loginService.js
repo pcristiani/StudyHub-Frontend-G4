@@ -21,6 +21,7 @@ export const getToken = async (cedula, password) => {
             });
         }
     } catch (error) {
+        console.error('Error al realizar el POST:', error);
         swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
             timer: 3000
         });

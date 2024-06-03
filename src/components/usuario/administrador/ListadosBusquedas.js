@@ -22,7 +22,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { AdbOutlined, AddBox } from '@mui/icons-material';
 
 
@@ -59,27 +58,27 @@ function stableSort(array, comparator) {
 const headCells = [
   {
     id: 'nombre',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Nombre',
   },
   {
     id: 'cedula',
     numeric: true,
-    disablePadding: true,
+    disablePadding: false,
     label: 'Cédula',
   },
   {
     id: 'rol',
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: 'Rol',
   },
   {
     id: 'opciones',
     numeric: false,
     disablePadding: false,
-    label: '',
+    label: 'Estado',
   }
 ];
 
@@ -292,8 +291,7 @@ export default function TableSortAndSelection() {
           '--TableCell-headBackground': 'transparent',
           '--TableCell-selectedBackground': (theme) => theme.vars.palette.success.softBg,
           '& thead th:nth-child(1)': { width: '40px', },
-          '& thead th:nth-child(2)': { width: '30%', },
-          '& tr > *:nth-child(n+3)': { textAlign: 'right' },
+          '& thead th:nth-child(2)': { width: '35%', },        
         }}>
         <EnhancedTableHead
           numSelected={selected.length}
@@ -323,21 +321,12 @@ export default function TableSortAndSelection() {
                   </th>
                   <td>{row.cedula}</td>
                   <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : row.rol === "E" ? 'Estudiante' : row.rol === "A" ? 'Administrador' : ''}</td>
-                  <td>
-                    <Box sx={{ display: 'flex-end', gap: 0 }}>
-                      <Button size="small" variant="plain" color="primary">
-                        {/* </Button> 'onClick={() => handleModificar(row.idUsuario)}'> */}
-                        <Tooltip title="Ver más" variant="plain" color="primary">
-                          <OpenInNewIcon />
-                        </Tooltip>
-                      </Button>
-                    </Box>
-                  </td>
+                  <td>{row.activo ? 'Activo' : 'Inactivo'}</td>
                 </tr>
               );
             })}
           {emptyRows > 0 && (
-            <tr style={{ height: 53 * emptyRows }}>
+            <tr style={{ height: 63 * emptyRows }}>
               <td colSpan={5} />
             </tr>
           )}
@@ -345,7 +334,7 @@ export default function TableSortAndSelection() {
         <tfoot>
           <tr>
             <td colSpan={5}>
-              <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'flex', }}>
+              <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', }}>
                 <Autocomplete
                   sx={{ width: '100%' }}
                   placeholder="Filtrar por nombre"
@@ -368,7 +357,7 @@ export default function TableSortAndSelection() {
                     </AutocompleteOption>
                   )}
                 />
-                <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', gap: 1, justifyContent: 'flex-end', }}>
+                <Box sx={{ width: '20%', display: 'flex', alignItems: 'center', gap: 0.5, justifyContent: 'flex-end', }}>
                   <IconButton size="sm" color="neutral" variant="outlined" disabled={page === 0}
                     onClick={() => handleChangePage(page - 1)} sx={{ bgcolor: 'background.surface' }}>
                     <KeyboardArrowLeftIcon />
@@ -388,3 +377,14 @@ export default function TableSortAndSelection() {
     </Sheet>
   );
 }
+
+
+
+// {/* <Box sx={{ display: 'flex-end', gap: 0 }}>
+//                     <Button size="small" variant="plain" color="primary">
+//                       {/* </Button> 'onClick={() => handleModificar(row.idUsuario)}'> */}
+// < Tooltip title = "Ver más" variant = "plain" color = "primary" >
+//   <OpenInNewIcon />
+//                       </Tooltip >
+//                     </Button >
+//                   </Box >

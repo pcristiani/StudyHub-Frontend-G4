@@ -42,6 +42,7 @@ import TablaInscripcionesCarrera from '../components/usuario/funcionario/TablaIn
 import AltaPeriodoExamen from '../components/usuario/funcionario/AltaPeriodoExamen';
 import RegistrarPreviaturas from '../components/usuario/coordinador/RegistrarPreviaturas';
 import RegistrarHorarioAsignatura from '../components/usuario/funcionario/RegistrarHorarioAsignatura';
+import RegistrarAsignaturaPeriodoExamen from '../components/usuario/funcionario/RegistrarAsignaturaPeriodoExamen';
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -88,6 +89,7 @@ export const AppRouter = () => {
                     <Route path="/alta-periodo-examen" element={<AltaPeriodoExamen user={user.id} />} exact />
                     <Route path="/registrar-previaturas" element={<RegistrarPreviaturas user={user.id} />} exact />
                     <Route path="/registrar-horario-asignatura" element={<RegistrarHorarioAsignatura user={user.id} />} exact />
+                    <Route path="/registrar-asignatura-periodo-examen" element={<RegistrarAsignaturaPeriodoExamen user={user.id} />} exact />
 
 
 

@@ -31,7 +31,8 @@ body {
 
 .link-footer {
     text-decoration: none;
-    display: block;
+    display: flex;
+    font-size: 12px;
     color: #797979;
 }
 

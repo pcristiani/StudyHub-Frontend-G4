@@ -106,7 +106,7 @@ function Login() {
 							<Input name="password" label="Contraseña" type="password" id="password" autoComplete="current-password" required />
 							{/* <FormControlLabel control={<Checkbox value="remember" size='sm' />} sx={{ mt: 0.5, mx: 0.5 }}
                                 label="Recuerdame" /> */}
-						
+
 							{/* <Button type="submit" fullWidth sx={{ mt: 1, mb: 3 }}>Iniciar sesión</Button> */}
 							{/* <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.1 }} variant="soft"> */}
 							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
+import Box from '@mui/joy/Box';
+import List from '@mui/joy/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/joy/Checkbox';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/joy/Grid';
 import { getEstudiantesPendientes, acceptEstudiante } from '../../../services/requests/estudianteService';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import { AuthContext } from '../../../context/AuthContext';

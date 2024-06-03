@@ -272,7 +272,7 @@ export default function Header() {
                                     <Button variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sm">
                                        Período de examen
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.RegistrarAsignaturaPeriodoExamenUri} size="sm">
                                        Asignatura a período de examen
                                     </Button>
                                  </Menu>
@@ -280,14 +280,14 @@ export default function Header() {
                            </Dropdown>
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm" >Calificaciones
-                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap:0.8, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
+                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
                                     <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Registro calificaciones fin de curso
                                     </Button>
                                     <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Registro calificaciones examen
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    <Button variant="plain" color="neutral" component="a" href='/gestion' size="sm">
                                        Generación de actas
                                     </Button>
                                  </Menu>
@@ -296,10 +296,10 @@ export default function Header() {
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm" >Listados y búsquedas
                                  <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{  alignSelf: 'left' }}>
+                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
                                        Carreras
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{  alignSelf: 'left' }}>
+                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
                                        Asignaturas
                                     </Button>
                                  </Menu>

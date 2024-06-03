@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import TableAdministrador from './TableAdministrador';
 import TableAsignarCoordinadorCarrera from './TableAsignarCoordinadorCarrera';
-import Stack from '@mui/material/Stack';
+import Stack from '@mui/joy/Stack';
 import ListadosBusquedas from './ListadosBusquedas';
 
 

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { CssVarsProvider } from '@mui/joy/styles';
-import Typography from '@mui/material/Typography';
+import Typography from '@mui/joy/Typography';
 
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
+import Container from '@mui/joy/Container';
+import Box from '@mui/joy/Box';
 import { Graphviz } from 'graphviz-react';
 import { jsPDF } from "jspdf";
 import { getCourseRelations } from '../services/requests/asignaturaService';
@@ -13,7 +13,7 @@ const downloadPDF = (event) => {
     var doc = new jsPDF();
 
     doc.setTextColor(100);
-    doc.text(`StudyHub`, 20, 20);
+    doc.text(`gest`, 20, 20);
 
     doc.setTextColor(150);
     doc.text("StudyHub.", 20, 30);

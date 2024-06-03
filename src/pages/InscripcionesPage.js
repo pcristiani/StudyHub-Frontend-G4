@@ -4,10 +4,10 @@ import { AuthContext } from '../context/AuthContext';
 import { getUsuarios } from '../services/requests/usuarioService';
 import { getToken } from '../services/requests/loginService';
 
-import Typography from '@mui/material/Typography';
+import Typography from '@mui/joy/Typography';
 import { CssVarsProvider } from '@mui/joy/styles';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
+import Container from '@mui/joy/Container';
+import Box from '@mui/joy/Box';
 
 const InscripcionesPage = () => {
   const { user } = useContext(AuthContext); // Obtengo la informacion de logueo

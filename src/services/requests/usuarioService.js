@@ -194,9 +194,15 @@ export const bajaUsuario = async (idUsuario, jwtLogin) => {
          console.log("Usuario eliminado con éxito:", response);
       } else {
          const errorData = await response.json();
-         swal("¡Advertencia!", errorData.message || 'Los datos ingresados son incorrectos', "error", {
-            timer: 3000
-         });
+         if (errorData.status === 403) {
+            swal("¡Advertencia!", errorData.message || 'Usuario inactivo', "error", {
+               timer: 3000
+            });
+         } else {
+            swal("¡Advertencia!", errorData.message || 'Los datos ingresados son incorrectos', "error", {
+               timer: 3000
+            });
+         }
       }
    } catch (error) {
       console.error("Error al eliminar el usuario:", error);

@@ -3,9 +3,9 @@ import Button from '@mui/joy/Button';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Link from '@mui/material/Link';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import Box from '@mui/joy/Box';
+import Typography from '@mui/joy/Typography';
+import Container from '@mui/joy/Container';
 import swal from 'sweetalert';
 import { createTheme } from '@mui/material/styles';
 import { URL_BACK } from '../../services/util/constants'
@@ -76,7 +76,7 @@ function Register() {
                             <Input size="sm" id="fechaNacimiento" name="fechaNacimiento" fullWidth type='date' />
                             <Input size="sm" required id="cedula" name="cedula" fullWidth placeholder="Cédula" autoComplete="family-name" />
                             <Input size="sm" required name="password" type="password" id="password" fullWidth autoComplete="new-password" placeholder="Contraseña" />
-                                <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">
+                            <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">
                                 Registrarse</Button>
                             <Link href="/login" variant="body2">¿Ya tienes una cuenta? Iniciar sesión</Link>
                         </Stack>

@@ -185,3 +185,42 @@ export const altaPeriodoExamen = async (dtFechaInicio, dtFechaFin, idCarrera, jw
     }
 };
 
+
+
+///
+export const getCarrerasConPeriodoExamen = async (jwtLogin) => {
+    const url = URL_BACK.getCarrerasConPeriodo;
+    let headersList = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtLogin}`
+    }
+
+    let response = await fetch(url, {
+        method: "GET",
+        headers: headersList
+    });
+
+    let data = await response.json();
+    console.log("Data 109: ", data);
+    return data;
+}
+
+
+///
+
+export const getPeriodosDeCarrera = async (idCarrera, jwtLogin) => {
+    const url = URL_BACK.getPeriodosDeCarrera;
+    let headersList = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtLogin}`
+    }
+
+    let response = await fetch(url + idCarrera, {
+        method: "GET",
+        headers: headersList
+    });
+
+    let data = await response.json();
+    console.log("Data 109: ", data);
+    return data;
+}

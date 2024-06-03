@@ -43,6 +43,8 @@ const URI_FRONT = {
 
   //Uri Funcionario
   registrarHorarioAsignaturaUri: `/registrar-horario-asignatura`,
+  RegistrarAsignaturaPeriodoExamenUri: `/registrar-asignatura-periodo-examen`,
+
 }
 
 // ? http://localhost:8080/
@@ -86,6 +88,7 @@ const URL_BACK = {
   getAsignaturas: `${uriBaseBack}/api/asignatura/getAsignaturas`, // GET
   getAsignaturasDeCarrera: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarrera/`, // GET
   courseRelations: `${uriBaseBack}/course-relations`, // GET
+  getAsignaturasDeCarreraConExamen: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarreraConExamen/`, // GET
 
   ///
   // CARRERASERVICE
@@ -100,6 +103,12 @@ const URL_BACK = {
 
   getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`, // GET  // por parametros pasamos el id usuario y devuelve las carreras en las que esta inscripto
   getCarrerasInscripcionesPendientes: `${uriBaseBack}/api/carrera/getCarrerasInscripcionesPendientes`, // GET
+  getCarrerasConPeriodo: `${uriBaseBack}/api/carrera/getCarrerasConPeriodo`, // GET
+  getPeriodosDeCarrera: `${uriBaseBack}/api/carrera/getPeriodosDeCarrera/`, // GET
+
+  //Examen
+  registroAsignaturaAPeriodo: `${uriBaseBack}/api/examen/registroAsignaturaAPeriodo`, // POST
+
 
 }
 

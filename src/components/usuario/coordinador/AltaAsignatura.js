@@ -67,26 +67,6 @@ export default function AltaAsignatura() {
         }
     }, [docenteData]);
     ///
-    // useEffect(() => {
-    //     const fetchAsignaturas = async () => {
-    //         try {
-    //             // const results = await getAsignaturas(user.jwtLogin);
-    //             const results = await getAsignaturasDeCarrera(carreraData, user.jwtLogin);
-
-    //             setAsignaturaData(results);
-    //         } catch (error) {
-    //             setError(error.message);
-    //         }
-    //     };
-    //     fetchAsignaturas();
-    // }, [user]);
-
-    // useEffect(() => {
-    //     if (asignaturaData) {
-    //         console.log("Asignaturas: ", asignaturaData);
-    //     }
-    // }, [asignaturaData]);
-
     const handleChange = (event, newValue) => {
         console.log("Selected: ", newValue);
         setSelectedCarrera(newValue);

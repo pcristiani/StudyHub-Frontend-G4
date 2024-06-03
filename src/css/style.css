@@ -64,7 +64,7 @@
   white-space: normal;
   word-wrap: break-word; */
   /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */
-  z-index: 1000; 
+  
 }
 
 
@@ -74,7 +74,6 @@ body {
   place-content: center;
   -webkit-user-select: none;
   user-select: none;
-  z-index: 1000; 
   /* background: #080303; */
 }
 
@@ -87,8 +86,17 @@ body {
   border-radius: theme('borderRadius.lg');
   background-color: theme('colors.white');
   padding: theme('spacing.4');
-  z-index: 1000; 
+  z-index: 1100; 
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+
 }
+
+
 .logo-desktop {
   max-width: 40px;
   max-height: 40px;
@@ -123,23 +131,11 @@ body {
   pointer-events: none;
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  z-index: 1000; 
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-bottom{
-  z-index: 1000; 
-}
 
 /* ANIMATION */
 .scale-animation {
@@ -241,9 +237,7 @@ bottom{
   color: white;
 }
 
-.Stack{
-  z-index: 1000; 
-}
+
 .animate-bounce {
   animation-name: bounce;
   animation-duration: 1s;
@@ -365,7 +359,7 @@ bottom{
   animation-name: bounce;
   border-radius: 5px;
   flood-opacity: 100%;
-  z-index: 1000; 
+
 }
 
 
@@ -379,16 +373,16 @@ div {
   /* background: #ffffff; */
   position: absolute;
     bottom: 0;
-  width: 100%;
+  width: 90%;
   height: 110px;
   color: #868686;
-  font-weight: normal;
+  /* font-weight: normal; */
   padding-left: 14px;
   padding-right: 14px;
 
   justify-content: center;
   text-align: left;
-  font-size: 12px;
-  /* z-index: 1000;  */
+  font-size: 8px;
+  /* z-index: 100;  */
   /* // muestre por encima de los otros elementos. */
 }
