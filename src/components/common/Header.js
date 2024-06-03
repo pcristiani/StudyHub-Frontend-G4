@@ -19,7 +19,6 @@ import ModalClose from '@mui/joy/ModalClose';
 import DialogTitle from '@mui/joy/DialogTitle';
 import { CssVarsProvider } from '@mui/joy/styles';
 import ListItem from '@mui/joy/ListItem';
-
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
@@ -371,7 +370,7 @@ export default function Header() {
                </Drawer>
             </Box>
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center', }} >
+            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 0.8, alignItems: 'center', }} >
                <Input size="sm" variant="outlined" placeholder="Buscar…" startDecorator={<SearchRoundedIcon color="primary" />}
                   sx={{ alignSelf: 'center', display: { xs: 'none', sm: 'flex', }, }} />
                <ColorSchemeToggle />
@@ -426,27 +425,28 @@ export default function Header() {
                      </Stack>
 
                      <Stack direction="row" justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'flex', sm: 'none' } }}>
-                        <ListItem>
+                        {/* <ListItem>
                            <NavMenuButton
                               label="Personal"
                               open={menuIndex === 2}
                               onOpen={() => setMenuIndex(2)}
                               menu={
                                  <Menu onClose={() => setMenuIndex(null)}>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
-                                       Iniciar sesión
-                                    </Button>
                                  </Menu>
                               }>
-                              <Person />
-                           </NavMenuButton>
-                        </ListItem>
-                     </Stack>
+                              </NavMenuButton>
+                        </ListItem> */}
+                        {/* <Button variant="outlined" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
+                        </Button> */}
+                        <IconButton id="toggle-mode" size="sm" variant="outlined" color="primary" component="a" href={URI_FRONT.loginUri} sx={{ alignSelf: 'center' }}>
+                           <Person />
+                     </IconButton>
+                  </Stack>
 
-                  </>
+            </>
                }
-            </Box>
          </Box>
-      </CssVarsProvider>
+      </Box>
+      </CssVarsProvider >
    );
 }
