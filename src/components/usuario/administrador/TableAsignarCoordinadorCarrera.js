@@ -14,14 +14,14 @@ import { FormatCedula } from '../../../services/data/FormatCedula';
 function selectValidar(id, validado) {
   return { id, validado };
 }
-const dataSelect = [
-  selectValidar(true, "Validado"),
-  selectValidar(false, "No Validado"),
-];
+// const dataSelect = [
+//   selectValidar(true, "Validado"),
+//   selectValidar(false, "No Validado"),
+// ];
 
-function preventDefault(event) {
-  event.preventDefault();
-}
+// function preventDefault(event) {
+//   event.preventDefault();
+// }
 
 export default function TableAsignarCoordinadorCarrera() {
   const { user } = useContext(AuthContext);

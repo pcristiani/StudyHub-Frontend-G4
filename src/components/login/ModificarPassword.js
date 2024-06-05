@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import LinearProgress from '@mui/joy/LinearProgress';
+import { Divider } from '@mui/joy';
 
 
 export default function ModificarPassword() {
@@ -60,10 +61,11 @@ export default function ModificarPassword() {
 		<React.Fragment>
 			<Modal open={open} onClose={() => setOpen(false)}>
 				<ModalDialog>
-					<Typography level="title-md">Cambiar contraseña</Typography>
-					<form onSubmit={(event) => { event.preventDefault(); handleAsignar(event) && setOpen(false); }}>
+					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Cambiar contraseña</Typography>
+					<Divider />
 
-						<Stack spacing={1} sx={{ '--hue': Math.min(value.length * 10, 120), }}>
+					<form onSubmit={(event) => { event.preventDefault(); handleAsignar(event) && setOpen(false); }}>
+						<Stack spacing={0.8} sx={{ '--hue': Math.min(value.length * 10, 120), }}>
 							<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '260px' }, gap: 0.8 }}>
 
 								<Input size="sm" type="password" id="password" name="password" placeholder="Contraseña nueva"
@@ -83,15 +85,13 @@ export default function ModificarPassword() {
 										{value.length >= 6 && value.length < 10 && value2 === value && 'Fuerte'}
 										{value.length >= 10 && value2 === value && 'Muy fuerte'}
 									</Typography>
-
 									<Typography level="body-xs" sx={{ alignSelf: 'flex-end', color: 'red' }}>
 										{value2 !== value && 'Las contraseñas no coinciden'}
 									</Typography>
 								</FormControl>
 
 							</FormControl>
-							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">
-								Actualizar contraseña</Button>
+							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Actualizar contraseña</Button>
 						</Stack>
 
 					</form>

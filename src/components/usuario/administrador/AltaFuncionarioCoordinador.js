@@ -23,7 +23,7 @@ export default function AltaFuncionarioCoordinador() {
 
     const DatosRol = [
         { cod: 'C', rol: `Coordinador` },
-        { cod: 'F', rol: `Funcionario` }     
+        { cod: 'F', rol: `Funcionario` }
     ];
 
     const handleCancelar = () => {
@@ -63,10 +63,10 @@ export default function AltaFuncionarioCoordinador() {
     }
 
     return (
-        <Box component="form" sx={{ marginTop: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-                <Box sx={{ margin: 1, alignSelf: 'center' }}>
-                    <Typography level="title-lg">Funcionario / Coordinador</Typography>
+                <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+                    <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Funcionario / Coordinador</Typography>
                 </Box>
                 <Divider />
                 <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>

@@ -41,17 +41,29 @@ export default function Navigation() {
 								{(user.rol === TIPO_ROL.ADMIN) &&
 									<>
 										<Dropdown>
-											<MenuButton variant="plain" color="neutral" aria-pressed="true" component="a" size="sm">
-												Administración de usuarios
-												<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-													<Button variant="plain" color="neutral" component="a" href={`/alta-funcionario-coordinador`} size="sm">
-														Alta de usuario
-													</Button>
-													<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sm">
-														Modificar/Baja usuarios
-													</Button>
-												</Menu>
-											</MenuButton>
+											<ListItemButton>
+												<img className="logo-navbar-mobile" src={Logo} alt="ico" />
+											</ListItemButton>
+
+											<ListItemButton>
+												<MenuButton variant="plain" color="neutral" component="a" size="sw">
+													Administración de usuarios
+													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+														<ListItemButton>
+														<Button variant="plain" color="neutral" component="a" href={`/alta-funcionario-coordinador`} size="sw" sx={{ alignSelf: 'left' }}>
+																Alta de usuario
+															</Button>
+														</ListItemButton>
+
+														<ListItemButton>
+														<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sw" sx={{ alignSelf: 'left' }}>
+																Modificar/Baja usuarios
+															</Button>
+														</ListItemButton>
+													</Menu>
+												</MenuButton>
+											</ListItemButton>
+
 										</Dropdown>
 										<ListItemButton>
 											<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idA}`} size="sw" sx={{ alignSelf: 'left' }}>
@@ -74,9 +86,9 @@ export default function Navigation() {
 									<>
 										<ListItemButton>
 											<img className="logo-navbar-mobile" src={Logo} alt="ico" />
-											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
-											</Button>
 										</ListItemButton>
+										<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
+										</Button>
 										<ListItemButton>
 											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
 												Plan de Estudios
@@ -126,7 +138,6 @@ export default function Navigation() {
 									<>
 										<ListItemButton>
 											<img className="logo-navbar-mobile" src={Logo} alt="ico" />
-
 											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
 											</Button>
 										</ListItemButton>
@@ -234,18 +245,18 @@ export default function Navigation() {
 							:
 							<>
 								<ListItemButton>
-								<img className="logo-navbar-mobile" src={Logo} alt="ico" />
+									<img className="logo-navbar-mobile" src={Logo} alt="ico" />
 
-								<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
-								</Button>
-							</ListItemButton>
+									<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
+									</Button>
+								</ListItemButton>
 								<ListItemButton>
 									<Button variant="plain" color="neutral" component="a" href={URI_FRONT.novedadesUri} size="sw" sx={{ alignSelf: 'left' }}>
 										Novedades
 									</Button>
 								</ListItemButton>
 								{/* <ListItemButton> */}
-									{/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sw" sx={{ alignSelf: 'left' }}>
+								{/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sw" sx={{ alignSelf: 'left' }}>
                                         Preguntas frecuentas
                                     </Button> 
 								</ListItemButton>*/}
@@ -260,7 +271,7 @@ export default function Navigation() {
 
 					<Box sx={{ display: 'flex', flexDirection: 'row', gap: 1.5, alignItems: 'center', }} >
 						<Input size="sm" variant="outlined" placeholder="Buscar…" startDecorator={<SearchRoundedIcon color="primary" />}
-							sx={{ alignSelf: 'center', display: { xs: 'none', sm: 'flex', }, }} />
+							sx={{ alignSelf: 'center', display: { xs: 'none', sm: 'none', }, }} />
 					</Box>
 				</ListItem>
 			</List>

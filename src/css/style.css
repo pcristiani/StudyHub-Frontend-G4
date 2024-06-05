@@ -29,9 +29,18 @@ body {
   margin: 0px;
 }
 
-Input[type="date"]::-webkit-calendar-picker-indicator {
-    color: red;
+
+
+Input::-webkit-calendar-picker-indicator {
+    filter: invert(1)
+            brightness(70%)
+            sepia(100%)
+            saturate(10000%)
+            hue-rotate(180deg)
+            contrast(0.1);
+
 }
+
 .logo-desktop {
   max-width: 40px;
   max-height: 40px;
@@ -69,6 +78,7 @@ Input[type="date"]::-webkit-calendar-picker-indicator {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
 
 /* SweetAlert */
 .swal-title {

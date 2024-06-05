@@ -13,8 +13,8 @@ import Select from '@mui/joy/Select';
 
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
-import { getCarreras, getCarrerasInscripto } from '../../../services/requests/carreraService';
-import { getAsignaturasDeCarrera } from '../../../services/requests/asignaturaService';
+import { getCarrerasInscripto } from '../../../services/requests/carreraService';
+import { getAsignaturasDeCarrera, getHorarios } from '../../../services/requests/asignaturaService';
 
 
 export default function InscripcionAsignatura() {
@@ -24,6 +24,8 @@ export default function InscripcionAsignatura() {
     const [asignaturaData, setAsignaturaData] = useState([]);
     const [error, setError] = useState(null);
     const [selectedCarrera, setSelectedCarrera] = useState('');
+    const [selectedHorario, setSelectedHorario] = useState('');
+    const [horariosData, setHorariosData] = useState([]);
 
     useEffect(() => {
         const fetchCarreras = async () => {
@@ -60,11 +62,80 @@ export default function InscripcionAsignatura() {
         setAsignaturaData(result);
     }
 
+    const periodoExamen = [
+        { value: 'Febrero', label: 'Febrero' },
+        { value: 'Julio', label: 'Julio' },
+        { value: 'Diciembre', label: 'Diciembre' },
+    ];
+
+
+
+    const handleChangeAsignatura = async (event, newValue) => {
+        console.log("Selected: ", newValue);
+        getInfoHorario(newValue);
+        // console.log("Selected as: ", as);
+        // if (as !== null) {
+        //     console.log("as: ", as);
+        //     let horaInicio = as.horaFin;
+        //     let diaSemana = as.diaSemana;
+        //     let horaFin = as.horaInicio;
+        //     const nuevoHorario = {
+        //         idAsignatura: newValue,
+        //         diaSemana: diaSemana,
+        //         horaInicio: horaInicio,
+        //         horaFin: horaFin
+        //     };
+
+        //     // let horario = parseInt(selectedFin, 10);
+
+        //     setSelectedHorario(prev => [...prev, nuevoHorario]);
+        // }
+
+
+        // setSelectedHorario(newValue);
+        // if (selectedCarrera !== null) {
+        // console.log("Selected69: ", newValue);
+        // console.log("Selected70: ", selectedHorario);
+
+
+        // }
+    };
+
+    async function getInfoHorario(newValue) {
+        let result = await getHorarios(newValue, user.jwtLogin);
+        console.log("Selected getInfoHorario: ", result);
+        if (result !== null && result !== undefined) {
+
+            for (let i = 0; i < result.length; i++) {
+                console.log("Selected horario: ", result[0].dtHorarioDias[i].diaSemana);
+                console.log("Selected horario: ", result[0].dtHorarioDias[i].horaInicio);
+                console.log("Selected horario: ", result[0].dtHorarioDias[i].horaFin);
+                let horaInicio = result[0].dtHorarioDias[i].horaInicio;
+                let diaSemana = result[0].dtHorarioDias[i].diaSemana;
+                let horaFin = result[0].dtHorarioDias[i].horaFin;
+                const nuevoHorario = {
+                    diaSemana: diaSemana,
+                    horaInicio: horaInicio,
+                    horaFin: horaFin
+                };
+
+
+                setSelectedHorario(prev => [...prev, nuevoHorario]);
+            }
+            // result.map((horario) => {
+            //     i = i + 1
+            //     console.log("Selected horario: ", horario.dtHorarioDias[i].diaSemana);
+            //     return horario;
+            // });
+        }
+        // setHorariosData(result);
+    }
+
     return (
-        <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
+        <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-                <Box sx={{ margin: 1, alignSelf: 'center' }}>
-                    <Typography level="title-lg">Inscripción asignatura</Typography>
+                <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+                    <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Inscripción asignatura</Typography>
                 </Box>
                 <Divider />
                 <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
@@ -73,11 +144,26 @@ export default function InscripcionAsignatura() {
                             <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                         ))}
                     </Select>
-                    <Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" >
+                    <Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
                         {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
                             <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                         ))}
                     </Select>
+
+
+                    <Select size="sm" defaultValue="Seleccionar idhorario" placeholder="Seleccionar idhorario" id="idhorario" name="idhorario">
+                        {Array.isArray(selectedHorario) && selectedHorario.map((horario, index) => (
+                            <Option key={index} value={horario.index}>{horario.diaSemana}</Option>
+                        ))}
+                    </Select>
+
+                    {/* <Select size="sm" value={horariosData} placeholder="Dia de la semana" id="diasemana" name="diasemana">
+                        {horariosData.map((day) => (
+                            <Option key={day.diaSemana} value={day.horaFin}>
+                                {day.label}
+                            </Option>
+                        ))}
+                    </Select> */}
                 </FormControl>
 
                 <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>

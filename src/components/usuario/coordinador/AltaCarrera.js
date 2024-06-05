@@ -61,10 +61,10 @@ export default function AltaCarrera() {
     };
 
     return (
-        <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-                <Box sx={{ alignSelf: 'center' }}>
-                    <Typography level="title-lg">Alta carrera</Typography>
+                <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+                    <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Alta carrera</Typography>
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
@@ -77,7 +77,7 @@ export default function AltaCarrera() {
                     </FormControl>
                     <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
                         <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-                            <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
+                        <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>
                 </Stack>
             </Card>

@@ -21,8 +21,8 @@ export const getCarreras = async (jwtLogin) => {
     return data.body;
 }
 
-///
 
+///
 export const asignarCoordinadorCarrera = async (idUsuario, idCarrera, jwtLogin) => {
     try {
         let headersList = {
@@ -31,7 +31,7 @@ export const asignarCoordinadorCarrera = async (idUsuario, idCarrera, jwtLogin) 
         }
         let reqOptions = {
             url: URL_BACK.asignarCoordinadorCarrera + idUsuario,
-            method: "PUT",
+            method: 'PUT',
             headers: headersList,
             data: idCarrera.ida
         }
@@ -42,7 +42,7 @@ export const asignarCoordinadorCarrera = async (idUsuario, idCarrera, jwtLogin) 
             return response.data;
         } else {
             swal("¡Advertencia!", 'Error al modificar la contraseña', "error", {
-                timer: 4000
+                timer: 3000
             });
         }
     } catch (error) {
@@ -52,8 +52,8 @@ export const asignarCoordinadorCarrera = async (idUsuario, idCarrera, jwtLogin) 
     }
 }
 
-///
 
+///
 // Carreras Inscripciones Pendientes
 export const getCarrerasInscripcionesPendientes = async (jwtLogin) => {
     const url = URL_BACK.getCarrerasInscripcionesPendientes;
@@ -64,7 +64,7 @@ export const getCarrerasInscripcionesPendientes = async (jwtLogin) => {
     }
 
     const resp = await fetch(url, {
-        method: "GET",
+        method: 'GET',
         headers: headers
     });
 
@@ -105,37 +105,39 @@ export const getInscriptosPendientes = async (idCarrera, jwtLogin) => {
     }
 
     let response = await fetch(url + idCarrera, {
-        method: "GET",
+        method: 'GET',
         headers: headersList
     });
 
     let data = await response.json();
-    console.log("Data 109: ", data);
     return data;
 }
 
 
+///
 /// Aceptar estudiante Carrera
 export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin) => {
     try {
         let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
-        }
+        };
 
-        let body = JSON.stringify({
-            "idCarrera": idCarrera,
-            "idEstudiante": idEstudiante,
-            "validado": true
-        });
+        let body = {
+            idCarrera: idCarrera,
+            idEstudiante: idEstudiante,
+            validado: true
+        };
 
         let reqOptions = {
             url: URL_BACK.acceptEstudianteCarrera,
-            method: "PUT",
+            method: 'PUT',
             headers: headersList,
             data: body
-        }
+        };
+
         let response = await axios.request(reqOptions);
+
         if (response.status === 200) {
             swal({
                 title: "¡Inscripción validada!\n\n",
@@ -154,11 +156,12 @@ export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin)
     }
 }
 
-///
 
+///
 // Registro Periodos de Examen
-export const altaPeriodoExamen = async (dtFechaInicio, dtFechaFin, idCarrera, jwtLogin) => {
+export const altaPeriodoExamen = async (nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, jwtLogin) => {
     let bodyContent = JSON.stringify({
+        "nombre": nombrePeriodo,
         "inicio": {
             "anio": dtFechaInicio.getYear(),
             "mes": dtFechaInicio.getMonth(),
@@ -186,7 +189,6 @@ export const altaPeriodoExamen = async (dtFechaInicio, dtFechaFin, idCarrera, jw
 };
 
 
-
 ///
 export const getCarrerasConPeriodoExamen = async (jwtLogin) => {
     const url = URL_BACK.getCarrerasConPeriodo;
@@ -207,20 +209,19 @@ export const getCarrerasConPeriodoExamen = async (jwtLogin) => {
 
 
 ///
-
 export const getPeriodosDeCarrera = async (idCarrera, jwtLogin) => {
     const url = URL_BACK.getPeriodosDeCarrera;
+
     let headersList = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${jwtLogin}`
-    }
+    };
 
     let response = await fetch(url + idCarrera, {
-        method: "GET",
+        method: 'GET',
         headers: headersList
     });
 
     let data = await response.json();
-    console.log("Data 109: ", data);
     return data;
 }

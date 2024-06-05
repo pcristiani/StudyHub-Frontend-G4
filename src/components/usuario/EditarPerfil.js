@@ -93,8 +93,8 @@ export default function EditarPerfil() {
 	return (
 		<Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
-				<Box sx={{ alignSelf: 'center' }}>
-					<Typography level="title-md">Datos de usuario</Typography>
+				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Datos de usuario</Typography>
 				</Box>
 				<Divider />
 				<Box component="form" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', width: '100%' }} onSubmit={handleModificar}>

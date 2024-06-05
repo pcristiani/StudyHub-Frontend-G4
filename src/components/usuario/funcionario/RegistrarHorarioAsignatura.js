@@ -53,7 +53,7 @@ export default function RegistrarHorarioAsignatura() {
    const handleChange = (event, newValue) => {
       console.log("Selected: ", newValue);
       setSelectedCarrera(newValue);
-      if (selectedCarrera !== null) {
+      if (newValue !== null) {
          getInfoCarrera(newValue);
       }
    };
@@ -73,8 +73,10 @@ export default function RegistrarHorarioAsignatura() {
    }
 
    const handleChangeHorario = () => {
-      let horaInicio = parseInt(selectedInicio, 10);
-      let horaFin = parseInt(selectedFin, 10);
+      let horaInicio = selectedInicio;
+      let horaFin = selectedFin;
+
+      // let horaFin = parseInt(selectedFin, 10);
       const nuevoHorario = {
          diaSemana: selectedDay,
          horaInicio: horaInicio,
@@ -143,10 +145,10 @@ export default function RegistrarHorarioAsignatura() {
    ];
 
    return (
-      <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
+      <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
          <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-            <Box sx={{ margin: 1, alignSelf: 'center' }}>
-               <Typography level="title-lg">Registrar horario asignatura</Typography>
+            <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+               <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registrar horario asignatura</Typography>
             </Box>
             <Divider />
             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
@@ -173,9 +175,7 @@ export default function RegistrarHorarioAsignatura() {
 
                   <Select size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo">
                      {years.map((year) => (
-                        <Option key={year} value={year}>
-                           {year}
-                        </Option>
+                        <Option key={year} value={year}>{year}</Option>
                      ))}
                   </Select>
 
@@ -208,12 +208,12 @@ export default function RegistrarHorarioAsignatura() {
                      </Box>)}
                      slotProps={{ listbox: { sx: { width: '100%', }, }, }}>
                      {Array.isArray(horarioData) && horarioData.map((horario, index) => (
-                        <Option key={index} value={horario.diaSemana}> {horario.diaSemana} DE {horario.horaInicio} A {horario.horaFin} HS</Option>
+                        <Option key={index} value={horario.diaSemana}> {horario.diaSemana} de {horario.horaInicio} a {horario.horaFin} hs</Option>
                      ))}
                   </Select>
                </FormControl>
 
-               <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
+               <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
                   <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
                   <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                </Stack>
@@ -226,6 +226,6 @@ export default function RegistrarHorarioAsignatura() {
 const timeSlots = Array.from(new Array(24 * 1)).map(
    (_, index) =>
       `${index < 20 ? '' : ''}${Math.floor(index / 1)
-      } hs`,
+      }:00`,
 );
 

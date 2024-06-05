@@ -33,7 +33,7 @@ const ContactoPage = () => {
               <Textarea minRows={3} size="sm" id="mensaje" name="mensaje" placeholder="Mensaje" required />
             </FormControl>
             <Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
-              <Button type="submit" fullWidth size="md" variant="solid">Guardar</Button>
+              <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
               <Button size="md" fullWidth variant="outlined" color="neutral" href='/'>Cancelar</Button>
             </Stack>
           </Stack>

@@ -440,13 +440,13 @@ export default function Header() {
                         </Button> */}
                         <IconButton id="toggle-mode" size="sm" variant="outlined" color="primary" component="a" href={URI_FRONT.loginUri} sx={{ alignSelf: 'center' }}>
                            <Person />
-                     </IconButton>
-                  </Stack>
+                        </IconButton>
+                     </Stack>
 
-            </>
+                  </>
                }
+            </Box>
          </Box>
-      </Box>
       </CssVarsProvider >
    );
 }

@@ -16,14 +16,14 @@ import Divider from '@mui/joy/Divider';
 function selectValidar(id, validado) {
   return { id, validado };
 }
-const dataSelect = [
-  selectValidar(true, "Validado"),
-  selectValidar(false, "No Validado"),
-];
+// const dataSelect = [
+//   selectValidar(true, "Validado"),
+//   selectValidar(false, "No Validado"),
+// ];
 
-function preventDefault(event) {
-  event.preventDefault();
-}
+// function preventDefault(event) {
+//   event.preventDefault();
+// }
 
 ///
 
@@ -64,10 +64,10 @@ export default function ValidarInscripcionesCarrera() {
   ///
   return (
     <>
-      <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
+      <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
         <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-          <Box sx={{ margin: 1, alignSelf: 'center' }}>
-            <Typography level="title-lg">Validar inscripcion carrera</Typography>
+          <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+            <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Validar inscripcion carrera</Typography>
           </Box>
           <Divider />
           <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>

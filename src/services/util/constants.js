@@ -5,13 +5,13 @@ const PORT = {
 
 //const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
 
-const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
+//const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
 
 // studyhub-backend-g4-production.up.railway.app
-const uriBaseFront = `https://frontstudyhub.vercel.app`
+//const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-//const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-//const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 // ? http://localhost:3000/
 const URI_FRONT = {
@@ -81,7 +81,7 @@ const URL_BACK = {
   deleteDocente: `${uriBaseBack}/api/docente/bajaDocente/`,          // DELETE
 
   getDocentes: `${uriBaseBack}/api/usuario/getDocentes`,                             // GET
-  getDocentesByAsignatura: `${uriBaseBack}/api/usuario/getDocentesByAsignaturaId/`,  // GET
+  getDocentesByAsignatura: `${uriBaseBack}/api/docente/getDocentesByAsignaturaId/`,  // GET
 
   ///
   // ASIGNATURASERVICE
@@ -106,7 +106,7 @@ const URL_BACK = {
   getInscriptosPendientes: `${uriBaseBack}/api/carrera/getInscriptosPendientes/`, // GET
   getCarreras: `${uriBaseBack}/api/carrera/getCarreras`, // GET
 
-  getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`, // GET  // por parametros pasamos el id usuario y devuelve las carreras en las que esta inscripto
+  getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`, // GET 
   getCarrerasInscripcionesPendientes: `${uriBaseBack}/api/carrera/getCarrerasInscripcionesPendientes`, // GET
   getCarrerasConPeriodo: `${uriBaseBack}/api/carrera/getCarrerasConPeriodo`, // GET
   getPeriodosDeCarrera: `${uriBaseBack}/api/carrera/getPeriodosDeCarrera/`, // GET

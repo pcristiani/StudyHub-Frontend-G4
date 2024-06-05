@@ -19,7 +19,6 @@ import { getUsuario } from '../../services/requests/usuarioService';
 import { decodificaJwt } from '../../services/util/conversionBase64';
 import { Sheet } from '@mui/joy';
 
-
 const defaultTheme = createTheme();
 
 ///

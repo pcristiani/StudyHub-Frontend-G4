@@ -35,9 +35,11 @@ export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
     });
 
     const data = await response.json();
-    return data;
+    return data.body;
 }
 
+
+///
 export const getAsignaturasDeCarreraConExamen = async (idCarrera, jwtLogin) => {
     const url = URL_BACK.getAsignaturasDeCarreraConExamen;
 
@@ -52,7 +54,7 @@ export const getAsignaturasDeCarreraConExamen = async (idCarrera, jwtLogin) => {
     });
 
     const data = await response.json();
-    return data;
+    return data.body;
 }
 
 
@@ -126,16 +128,62 @@ export const registroHorarios = async (idDocente, anio, horarioData, idAsignatur
     }
 };
 
+
+///
+export const getHorarios = async (idAsignatura, jwtLogin) => {
+    const url = URL_BACK.getHorarios;
+
+    let headersList = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtLogin}`
+    }
+
+    let response = await fetch(url + idAsignatura, {
+        method: "POST",
+        headers: headersList
+    });
+
+    const data = await response.json();
+    console.log("Horariossss: ", data.dtHorarioDias);
+    return data;
+}
+
+
+
 ///
 export const registroPreviaturas = async (idAsignatura, idPreviaturas, jwtLogin) => {
-
+    let bodyContent = JSON.stringify(idPreviaturas);
     let response = await fetch(URL_BACK.registrarPreviaturas + idAsignatura, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
         },
-        data: 1
+        body: bodyContent
+    });
+    let data = await response.text();
+    console.log(data);
+    if (!response.ok) {
+        throw { status: response.status };
+    }
+};
+
+
+///
+export const inscripcionAsignatura = async (idEstudiante, idAsignatura, idHorario, jwtLogin) => {
+    let body = {
+        "idEstudiante": idEstudiante,
+        "idAsignatura": idAsignatura,
+        "idHorario": idHorario
+    };
+
+    let response = await fetch(URL_BACK.inscripcionAsignatura, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        },
+        body: JSON.stringify(body)
     });
 
     if (!response.ok) {
@@ -144,9 +192,7 @@ export const registroPreviaturas = async (idAsignatura, idPreviaturas, jwtLogin)
 };
 
 
-
 ///
-
 export const getCourseRelations = async (jwtLogin) => {
     const url = URL_BACK.courseRelations;
 

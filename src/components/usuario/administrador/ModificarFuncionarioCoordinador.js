@@ -106,8 +106,8 @@ export default function ModificarFuncionarioCoordinador() {
     return (
         <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleModificar}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-                <Box sx={{ margin: 1, alignSelf: 'center' }}>
-                    <Typography level="title-lg">Modificar Funcionario - Coordinador</Typography>
+                <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+                    <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Modificar Funcionario - Coordinador</Typography>
                 </Box>
                 <Divider />
                 <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 1 }}>
@@ -126,8 +126,7 @@ export default function ModificarFuncionarioCoordinador() {
                     </div>
                 </FormControl>
                 <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
-                    <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">
-                        Guardar</Button>
+                    <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">                        Guardar</Button>
                     <Button size="sm" fullWidth variant="outlined" color="neutral" onClick={() => handleCancelar()}>
                         Cancelar
                     </Button>

@@ -1,8 +1,8 @@
 import { URL_BACK } from '../util/constants'
 import axios from 'axios';
 
-///
 
+///
 /// Estudiantes sin validar
 export const getEstudiantesPendientes = async (jwtLogin) => {
     const url = URL_BACK.getEstudiantesPendientes;
@@ -22,7 +22,6 @@ export const getEstudiantesPendientes = async (jwtLogin) => {
 
 
 ///
-
 /// Validar estudiantes
 export const acceptEstudiante = async (idUsuario, jwtLogin) => {
     try {
@@ -46,8 +45,8 @@ export const acceptEstudiante = async (idUsuario, jwtLogin) => {
     }
 }
 
-///
 
+///
 // Inscripcion a carrera
 export const inscripcionCarrera = async (idUsuario, idCarrera, jwtLogin) => {
     let url = URL_BACK.inscripcionCarrera;

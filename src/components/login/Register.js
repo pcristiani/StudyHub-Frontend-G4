@@ -7,14 +7,11 @@ import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
 import Container from '@mui/joy/Container';
 import swal from 'sweetalert';
-import { createTheme } from '@mui/material/styles';
 import { URL_BACK } from '../../services/util/constants'
 import { AuthContext } from '../../context/AuthContext';
 import { Sheet } from '@mui/joy';
 
 import logo from '../../img/logo.png';
-
-const defaultTheme = createTheme();
 
 // debugger;
 function Register() {
@@ -69,8 +66,8 @@ function Register() {
                     <h2 component="h1" variant="h4" style={{ textAlign: 'center' }}>Registrarse</h2>
                     <Typography level="body-sm" sx={{ textAlign: 'center' }}>Ingresa la información de tu cuenta</Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px', spacing: 4 }}>
-                        <Stack spacing={0.8}>
-                            <Input size="sm" autoComplete="given-name" name="nombre" required fullWidth id="nombre" placeholder="Nombre" autoFocus />
+                        <Stack spacing={0.7}>
+                            <Input size="sm" autoComplete="given-name" name="nombre" fullWidth id="nombre" placeholder="Nombre" autoFocus required />
                             <Input size="sm" required id="apellido" name="apellido" fullWidth placeholder="Apellido" autoComplete="family-name" />
                             <Input size="sm" required id="email" name="email" fullWidth placeholder="Email" autoComplete="email" />
                             <Input size="sm" id="fechaNacimiento" name="fechaNacimiento" fullWidth type='date' />

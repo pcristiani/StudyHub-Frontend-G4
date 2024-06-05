@@ -37,9 +37,6 @@ export default function RegistrarAsignaturaPeriodoExamen() {
    const [selectedInicio, setSelectedInicio] = useState('');
    const [selectedFin, setSelectedFin] = useState('');
 
-
-
-   const [isClicked, setIsClicked] = React.useState(false);
    useEffect(() => {
       const fetchCarreras = async () => {
          try {
@@ -61,7 +58,7 @@ export default function RegistrarAsignaturaPeriodoExamen() {
    const handleChange = (event, newValue) => {
       console.log("Selected: ", newValue);
       setSelectedCarrera(newValue);
-      if (selectedCarrera !== null) {
+      if (newValue !== null) {
          getInfoCarrera(newValue);
       }
    };
@@ -71,8 +68,8 @@ export default function RegistrarAsignaturaPeriodoExamen() {
       let resultPeriodo = await getPeriodosDeCarrera(selectedCarrera, user.jwtLogin);
       console.log("resultPeriodo: ", resultPeriodo);
       console.log("getInfoCarrera: ", result);
-      setPeriodoData(resultPeriodo);
       setAsignaturaData(result);
+      setPeriodoData(resultPeriodo);
    }
 
    const handleChangeAsignatura = (event, idAsignatura) => {
@@ -81,12 +78,12 @@ export default function RegistrarAsignaturaPeriodoExamen() {
 
    async function getInfoDocentesDeAsignatura(idAsignatura) {
       let result = await getDocentesByAsignatura(idAsignatura, user.jwtLogin);
+      console.log("getInfoDocentesDeAsignatura: ", result);
       setDocenteData(result);
    }
 
    const handleChangeFecha = (event, idPeriodoExamen) => {
       if (idPeriodoExamen !== null && idPeriodoExamen !== undefined) {
-
          console.log("fechaInicio: ", idPeriodoExamen.fechaInicio);
          console.log("fechaFin: ", idPeriodoExamen.fechaFin);
          setIdPeriodo(idPeriodoExamen.idPeriodoExamen);
@@ -96,25 +93,16 @@ export default function RegistrarAsignaturaPeriodoExamen() {
    };
 
 
-
    const handleSubmit = async (event) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
-      // let idAsignatura = data.get('idasignatura');
-      // let idPeriodo = data.get('idperiodo');
       let idAsignatura = parseInt(data.get('idasignatura'));
 
       let idsDocentes = data.get('iddocente') ? data.get('iddocente').split('').map(item => {
          const nums = parseInt(item.trim(), 10);
          return isNaN(nums) ? null : nums;
       }).filter(item => item !== null) : [];
-
       let fechaHora = data.get('fechaHora');
-
-      console.log("Id docente: ", idsDocentes);
-      console.log("fechaHora: ", fechaHora);
-      console.log("idAsignatura: ", idAsignatura);
-      console.log("idPeriodo: ", idPeriodo);
 
       // if (horaInicio > horaFin) {
       //    swal("Error", "La hora de inicio debe ser menor a la hora de fin.", "error", {
@@ -131,7 +119,7 @@ export default function RegistrarAsignaturaPeriodoExamen() {
             position: "center",
             timer: 4000
          });
-         //     history('/Novedades');
+         history('/Novedades');
       } catch (error) {
          let errorMsg = 'Los datos ingresados no son correctos o ya existe horario para la asignatura';
          if (error.status === 401) {
@@ -142,16 +130,15 @@ export default function RegistrarAsignaturaPeriodoExamen() {
          swal("Error", errorMsg, "error", {
             timer: 3000
          });
-
       }
    };
 
 
    return (
-      <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
+      <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
          <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-            <Box sx={{ margin: 1, alignSelf: 'center' }}>
-               <Typography level="title-lg">Registrar asignatura a periodo de examen</Typography>
+            <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+               <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registrar asignatura a periodo de examen</Typography>
             </Box>
             <Divider />
             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
@@ -173,11 +160,9 @@ export default function RegistrarAsignaturaPeriodoExamen() {
 
                   <Select size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha}>
                      {Array.isArray(periodoData) && periodoData.map((periodo, index) => (
-                        <Option key={index} value={periodo}>{periodo.idPeriodoExamen}</Option>
+                        <Option key={index} value={periodo}>{periodo.nombre}</Option>
                      ))}
                   </Select>
-
-
                   <Divider />
 
                   <Select size="sm" placeholder="Seleccionar docente" multiple renderValue={(selecteds) => (
@@ -200,7 +185,6 @@ export default function RegistrarAsignaturaPeriodoExamen() {
                   {(selectedInicio !== null && selectedFin !== null && selectedInicio !== undefined && selectedFin !== undefined) &&
                      <Input type="datetime-local" size='sm' slotProps={{ input: { min: selectedInicio, max: selectedFin, }, }} id="fechaHora" name="fechaHora" />
                   }
-
                </FormControl>
 
                <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>

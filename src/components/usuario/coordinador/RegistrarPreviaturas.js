@@ -11,7 +11,6 @@ import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
 import { Chip } from '@mui/joy';
-
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
@@ -49,7 +48,7 @@ export default function RegistrarPreviaturas() {
 	const handleChange = (event, newValue) => {
 		console.log("Selected: ", newValue);
 		setSelectedCarrera(newValue);
-		if (selectedCarrera !== null) {
+		if (newValue !== null) {
 			getInfoCarrera(newValue);
 		}
 	};
@@ -67,8 +66,6 @@ export default function RegistrarPreviaturas() {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 		let idAsignatura = data.get('idasignatura');
-		// let idCarrera = data.get('idcarrera');
-
 
 		let idPreviaturas = data.get('idprevias') ? data.get('idprevias').split('').map(item => {
 			const num = parseInt(item.trim(), 10);
@@ -86,7 +83,7 @@ export default function RegistrarPreviaturas() {
 				position: "center",
 				timer: 4000
 			});
-		//	history('/Novedades');
+			history('/Novedades');
 		} catch (error) {
 			let errorMsg = 'Los datos ingresados no son correctos o ya existe una previa con ese nombre';
 			if (error.status === 401) {
@@ -104,8 +101,8 @@ export default function RegistrarPreviaturas() {
 	return (
 		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
-				<Box sx={{ margin: 1, alignSelf: 'center' }}>
-					<Typography level="title-lg">Registrar previaturas</Typography>
+				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registrar previaturas</Typography>
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
@@ -123,7 +120,7 @@ export default function RegistrarPreviaturas() {
 						</Select>
 
 						<Divider />
-						<Select size="sm" placeholder="Seleccionar previas" multiple renderValue={(selected) => (
+						<Select multiple size="sm" placeholder="Seleccionar previas" renderValue={(selected) => (
 							<Box sx={{ display: 'flex', gap: '0.25rem' }}>
 								{selected.map((selectedOption) => (
 									<Chip variant="soft" color="primary">

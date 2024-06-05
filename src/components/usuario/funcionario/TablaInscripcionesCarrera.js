@@ -10,41 +10,21 @@ import { TablePagination, tablePaginationClasses as classes, } from '@mui/base/T
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { FormatCedula } from '../../../services/data/FormatCedula';
-import Card from '@mui/joy/Card';
 import Button from '@mui/joy/Button';
-import Tooltip from '@mui/joy/Tooltip';
-import swal from 'sweetalert';
+
 import { getInscriptosPendientes, acceptEstudianteCarrera } from '../../../services/requests/carreraService';
 
-
-function selectValidar(id, validado) {
-  return { id, validado };
-}
-const dataSelect = [
-  selectValidar(true, "Validado"),
-  selectValidar(false, "No Validado"),
-];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 export default function TablaInscripcionesCarrera() {
   const { user } = useContext(AuthContext);
   const history = useNavigate();
   const [error, setError] = useState(null);
-  const [coordinadorData, setCoordinadorData] = useState([]);
-  const [carreraData, setCarreraData] = useState([]);
-  const [asignaturaData, setAsignaturaData] = useState([]);
+  const [estudianteData, setEstudianteData] = useState([]);
 
   const location = useLocation();
-  const [id, setId] = useState(null);
-
 
   const queryParams = new URLSearchParams(location.search);
   const idCarrera = queryParams.get('id');
-
-  console.log('id en Tabla: ', idCarrera);
 
 
   useEffect(() => {
@@ -59,30 +39,16 @@ export default function TablaInscripcionesCarrera() {
       if (result.length === 0) {
         history('/validar-inscripciones-carrera');
       }
-      setCoordinadorData(result);
+      setEstudianteData(result);
 
     } catch (error) {
       setError(error.message);
     }
   }
 
-
   const handleValidar = async (idEstudiante) => {
-
-    await acceptEstudianteCarrera(idEstudiante, idCarrera, user.jwtLogin);
+    const res = await acceptEstudianteCarrera(idEstudiante, idCarrera, user.jwtLogin);
     fetchInscriptosPendientes();
-    // if (result.status === 200) {
-    //   swal({
-    //     title: "¡Inscripción validada!\n\n",
-    //     text: "Inscripción a carrera validada.",
-    //     icon: "success",
-    //     dangerMode: false,
-    //     position: "center",
-    //     timer: 3000
-    //   });
-
-    // }
-
   };
 
 
@@ -97,26 +63,14 @@ export default function TablaInscripcionesCarrera() {
 
                 <Box sx={{ minHeight: '20vh', maxWidth: '500px' }}>
                   <Typography level="body-sm" color='neutral' textAlign="center" sx={{ pb: 1 }}>
-                    ← Asignar Coordinador a carrera →
+                    ← Validar inscripción a carrera →
                   </Typography>
-
                   <Sheet
                     variant="outlined"
                     sx={{
-                      '--TableCell-height': '30px',
-                      '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-                      '--Table-firstColumnWidth': '140px', '--Table-lastColumnWidth': '90px', '--Table-buttonColumnWidth': '70px',
+                      '--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))', '--Table-firstColumnWidth': '140px', '--Table-lastColumnWidth': '90px', '--Table-buttonColumnWidth': '70px',
                       '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
-                      borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
-                      background: (theme) =>
-                        `linear-gradient(to right, ${theme.vars.palette.background.surface} 30%, rgba(255, 255, 255, 0)),
-        linear-gradient(to right, rgba(255, 255, 255, 0), ${theme.vars.palette.background.surface} 90%) 0 100%`,
-                      backgroundSize:
-                        '40px calc(100% - var(--TableCell-height)), 40px calc(100% - var(--TableCell-height)), 14px calc(100% - var(--TableCell-height)), 14px calc(100% - var(--TableCell-height))', backgroundRepeat: 'no-repeat',
-                      backgroundAttachment: 'local, local, scroll, scroll',
-                      backgroundPosition:
-                        'var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height), var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height)',
-                      backgroundColor: 'background.surface',
+                      borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', backgroundSize: '40px calc(100% - var(--TableCell-height)), 40px calc(100% - var(--TableCell-height)), 14px calc(100% - var(--TableCell-height)), 14px calc(100% - var(--TableCell-height))', backgroundRepeat: 'no-repeat', backgroundAttachment: 'local, local, scroll, scroll', backgroundColor: 'background.surface'
                     }}>
 
                     <Table hoverRow>
@@ -128,19 +82,19 @@ export default function TablaInscripcionesCarrera() {
                         </tr>
                       </thead>
                       <tbody>
-                        {coordinadorData.map((row) => (
-                          row.rol === 'E' && (
-                            <tr key={row.idUsuario}>
-                              <td>{row.nombre} {row.apellido}</td>
-                              <td>{FormatCedula(row.cedula)}</td>
-                              <td>
-                                <Button size="sm" variant="outlined" color="primary" onClick={() => handleValidar(row.idUsuario)}>
-                                  Validar
-                                </Button>
-                              </td>
-                            </tr>
-                          )
-                        ))}
+                        {estudianteData.map((estudiante) => (
+
+                          <tr key={estudiante.idUsuario}>
+                            <td>{estudiante.nombre} {estudiante.apellido}</td>
+                            <td>{FormatCedula(estudiante.cedula)}</td>
+                            <td>
+                              <Button size="sm" variant="outlined" color="primary" onClick={() => handleValidar(estudiante.idUsuario)}>
+                                Validar
+                              </Button>
+                            </td>
+                          </tr>
+                        )
+                        )}
                       </tbody>
                     </Table>
                   </Sheet>

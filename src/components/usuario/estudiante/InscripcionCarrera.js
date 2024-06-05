@@ -98,10 +98,10 @@ export default function InscripcionCarrera() {
     };
 
     return (
-        <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-                <Box sx={{ margin: 1, alignSelf: 'center' }}>
-                    <Typography level="title-lg">Inscripcion Carrera</Typography>
+                <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+                    <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Inscripcion Carrera</Typography>
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
