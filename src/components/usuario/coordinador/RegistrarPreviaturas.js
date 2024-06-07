@@ -14,7 +14,7 @@ import { Chip } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
-import { getAsignaturasDeCarrera, registroPreviaturas } from '../../../services/requests/asignaturaService';
+import { getAsignaturasDeCarrera, getPreviasAsignatura, registroPreviaturas } from '../../../services/requests/asignaturaService';
 
 
 export default function RegistrarPreviaturas() {
@@ -25,7 +25,7 @@ export default function RegistrarPreviaturas() {
 	const [previasData, setPreviasData] = useState([]);
 	const [error, setError] = useState(null);
 	const [selectedCarrera, setSelectedCarrera] = useState('');
-
+	const [selectedPrevias, setSelectedPrevias] = useState('');
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
@@ -54,12 +54,40 @@ export default function RegistrarPreviaturas() {
 	};
 	console.log("Selected carrera: ", selectedCarrera);
 
-
 	async function getInfoCarrera(selectedCarrera) {
 		let result = await getAsignaturasDeCarrera(selectedCarrera, user.jwtLogin);
 		setAsignaturaData(result);
-		setPreviasData(result);
 	}
+
+
+	///
+	const handleAsignatura = (event, newValue) => {
+		console.log("handleAsignatura: ", newValue);
+		// setSelectedPrevias(newValue);
+		if (newValue !== null) {
+			getInfoPrevias(newValue);
+		}
+	};
+	console.log("Selected previas72 : ", selectedPrevias);
+
+	async function getInfoPrevias(selectedPrevias) {
+		let resul = await getPreviasAsignatura(selectedPrevias, user.jwtLogin);
+		let tamNuevaPrevia = asignaturaData.length - resul.length;
+		let aux = [];
+		for (let i = 0; i < asignaturaData.length; i++) {
+			if (asignaturaData[i].idAsignatura !== null && asignaturaData[i].idAsignatura !== undefined) {
+				for (let j = 0; j < resul.length; j++) {
+					if ((resul[j].idAsignatura !== asignaturaData[i].idAsignatura) && (tamNuevaPrevia > aux.length) && selectedPrevias !== asignaturaData[i].idAsignatura) {
+						let idasignatura = asignaturaData[i].idAsignatura;
+						let name = asignaturaData[i].nombre;
+						aux.push(name);
+					}
+				}
+			}
+		}
+		setPreviasData(aux);
+	}
+
 
 	///
 	const handleSubmit = async (event) => {
@@ -113,7 +141,7 @@ export default function RegistrarPreviaturas() {
 							))}
 						</Select>
 
-						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" >
+						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleAsignatura}>
 							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
@@ -132,7 +160,7 @@ export default function RegistrarPreviaturas() {
 							slotProps={{ listbox: { sx: { width: '100%', }, }, }}
 							id="idprevias" name="idprevias">
 							{Array.isArray(previasData) && previasData.map((previas, index) => (
-								<Option key={index} value={previas.idAsignatura}>{previas.nombre}</Option>
+								<Option key={index} value={previas}>{previas}</Option>
 							))}
 						</Select>
 						<Divider />

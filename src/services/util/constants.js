@@ -1,17 +1,19 @@
+import { getPreviasAsignatura } from "../requests/asignaturaService"
+
 const PORT = {
   back: 8080,   // Puerto backend
   front: 3000,  // Puerto frontend
 }
 
-//const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
+const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
 
 //const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
 
 // studyhub-backend-g4-production.up.railway.app
-//const uriBaseFront = `https://frontstudyhub.vercel.app`
+const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+//const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+//const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 // ? http://localhost:3000/
 const URI_FRONT = {
@@ -94,6 +96,7 @@ const URL_BACK = {
   courseRelations: `${uriBaseBack}/course-relations`, // GET
   getAsignaturasDeCarreraConExamen: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarreraConExamen/`, // GET
   registrarPreviaturas: `${uriBaseBack}/api/asignatura/registrarPreviaturas/`, // POST
+  getPreviasAsignatura: `${uriBaseBack}/api/asignatura/getPreviasAsignatura/`, // GET
 
   ///
   // CARRERASERVICE

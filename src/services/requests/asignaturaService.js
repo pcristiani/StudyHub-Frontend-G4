@@ -169,6 +169,27 @@ export const registroPreviaturas = async (idAsignatura, idPreviaturas, jwtLogin)
 };
 
 
+
+
+///
+export const getPreviasAsignatura= async (idAsignatura, jwtLogin) => {
+    const url = URL_BACK.getPreviasAsignatura;
+
+    let headersList = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtLogin}`
+    }
+
+    let response = await fetch(url + idAsignatura, {
+        method: "GET",
+        headers: headersList
+    });
+
+    const data = await response.json();
+    return data;
+}
+
+
 ///
 export const inscripcionAsignatura = async (idEstudiante, idAsignatura, idHorario, jwtLogin) => {
     let body = {
