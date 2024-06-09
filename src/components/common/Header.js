@@ -18,7 +18,7 @@ import Drawer from '@mui/joy/Drawer';
 import ModalClose from '@mui/joy/ModalClose';
 import DialogTitle from '@mui/joy/DialogTitle';
 import { CssVarsProvider } from '@mui/joy/styles';
-import ListItem from '@mui/joy/ListItem';
+// import ListItem from '@mui/joy/ListItem';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
@@ -36,7 +36,8 @@ import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
 import { cerrarSesion } from '../../services/requests/loginService';
 
-import { URI_FRONT, TIPO_ROL } from '../../services/util/constants'
+// import { T_ROL } from '../services/data/TipoRol';
+import { URI_FRONT, T_ROL } from '../../services/util/constants';
 import { Key } from '@mui/icons-material';
 import swal from 'sweetalert';
 
@@ -160,6 +161,7 @@ export default function Header() {
    return (
       <CssVarsProvider disableTransitionOnChange>
          <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', }}>
+            {/* <Stack direction="row" width={'100%'} justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'none', sm: 'flex', md: 'flex' } }}> */}
             <Stack direction="row" justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'none', sm: 'flex' } }}>
                <IconButton size="md" sx={{ display: { xs: 'none', sm: 'flex' }, }}>
                   <img className="logo-navbar mx-1" src={Logo} alt="ico" />
@@ -169,11 +171,11 @@ export default function Header() {
                </IconButton>
                {(user.logged) && (user.rol) ?
                   <>
-                     {(user.rol === TIPO_ROL.ADMIN) &&
+                     {(user.rol === T_ROL.ADMIN) &&
                         <>
                            <Dropdown>
                               <Tooltip title="Funcionarios/Coordinadores" variant="plain" color="neutral">
-                                 <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">
+                                 <MenuButton variant="plain" color="neutral" component="a" size="sm">
                                     Administración de usuarios
                                  </MenuButton>
                               </Tooltip>
@@ -196,13 +198,16 @@ export default function Header() {
                                  Listados y búsquedas
                               </Button>
                            </Tooltip>
-                           <Button variant="plain" color="neutral" component="a" href={URI_FRONT.resumenActividadUri} size="sm">
-                              Resumen de actividad
-                           </Button>
+                           <Tooltip title="Resumen de actividad de usuarios" variant="plain" color="neutral">
+                              <Button variant="plain" color="neutral" component="a" href={URI_FRONT.resumenActividadUri} size="sm">
+                                 Resumen de actividad
+                              </Button>
+                           </Tooltip>
+
                         </>
                      }
                      {
-                        (user.rol === TIPO_ROL.ESTUDIANTE) &&
+                        ((user.rol === T_ROL.ESTUDIANTE) || (user.rol === T_ROL.ADMIN)) &&
                         <>
                            <Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sm" sx={{ alignSelf: 'center' }}>
                               Plan de estudios
@@ -217,7 +222,7 @@ export default function Header() {
                                     <Button variant="plain" color="neutral" component="a" href='/inscripcion-asignatura' size="sm">
                                        Asignatura
                                     </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.inscripcionExamenUri} size="sm">
                                        Examen
                                     </Button>
                                  </Menu>
@@ -242,7 +247,7 @@ export default function Header() {
                         </>
                      }
                      {
-                        (user.rol === TIPO_ROL.FUNCIONARIO) &&
+                        ((user.rol === T_ROL.FUNCIONARIO) || (user.rol === T_ROL.ADMIN)) &&
                         <>
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
@@ -270,7 +275,7 @@ export default function Header() {
                                        Período de examen
                                     </Button>
                                     <Button variant="plain" color="neutral" component="a" href={URI_FRONT.RegistrarAsignaturaPeriodoExamenUri} size="sm">
-                                       Asignatura a período de examen
+                                       Fecha de examen
                                     </Button>
                                  </Menu>
                               </MenuButton>
@@ -305,7 +310,7 @@ export default function Header() {
                         </>
                      }
                      {
-                        (user.rol === TIPO_ROL.COORDINADOR) &&
+                        (user.rol === T_ROL.COORDINADOR) &&
                         <>
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Gestión

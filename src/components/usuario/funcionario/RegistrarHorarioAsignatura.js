@@ -17,6 +17,7 @@ import { getCarreras } from '../../../services/requests/carreraService';
 import { getAsignaturasDeCarrera, getDocentesByAsignatura, registroHorarios } from '../../../services/requests/asignaturaService';
 import Autocomplete from '@mui/joy/Autocomplete';
 import ControlPointIcon from '@mui/icons-material/DataSaverOn';
+import { errors } from '../../../services/util/errors';
 
 
 export default function RegistrarHorarioAsignatura() {
@@ -46,7 +47,7 @@ export default function RegistrarHorarioAsignatura() {
 
    useEffect(() => {
       if (carreraData) {
-         console.log("Carreras: ", carreraData);
+         // console.log("Carreras: ", carreraData);
       }
    }, [carreraData]);
 
@@ -94,34 +95,20 @@ export default function RegistrarHorarioAsignatura() {
       let anioLectivo = parseInt(data.get('aniolectivo'), 10);
       let horaInicio = parseInt(data.get('inicioclase'), 10);
       let horaFin = parseInt(data.get('finclase'), 10);
-      console.log("horarioData: ", horarioData);
 
       if (horaInicio > horaFin) {
          swal("Error", "La hora de inicio debe ser menor a la hora de fin.", "error", {
             timer: 3000
          });
       } else {
-         try {
-            await registroHorarios(idDocente, anioLectivo, horarioData, idAsignatura, user.jwtLogin);
-            swal({
-               title: "¡Horario registado!\n\n",
-               text: "Horario asignatura ha sido creada con éxito.",
-               icon: "success",
-               dangerMode: false,
-               position: "center",
-               timer: 4000
-            });
-            history('/Novedades');
-         } catch (error) {
-            let errorMsg = 'Los datos ingresados no son correctos o ya existe horario para la asignatura';
-            if (error.status === 401) {
-               errorMsg = 'No autorizado. Verifica tu token de autenticación.';
-            } else if (error.status === 500) {
-               errorMsg = 'Error interno del servidor. Inténtalo más tarde.';
-            }
-            swal("Error", errorMsg, "error", {
-               timer: 3000
-            });
+         const response = await registroHorarios(idDocente, anioLectivo, horarioData, idAsignatura, user.jwtLogin);
+
+         if (response.statusCodeValue === 200) {
+            let title = "¡Horario registado!\n\n";
+            errors(title, response.body, response.statusCodeValue);
+            history('/novedades');
+         } else {
+            errors(response.body, response.body, response.statusCodeValue);
          }
       }
    };
@@ -152,34 +139,34 @@ export default function RegistrarHorarioAsignatura() {
             </Box>
             <Divider />
             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-               <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+               <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
-                  <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
+                  <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} >
                      {carreraData.map((carrera, index) => (
                         <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                      ))}
                   </Select>
 
-                  <Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
+                  <Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required>
                      {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
                         <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                      ))}
                   </Select>
 
-                  <Select size="sm" defaultValue="Seleccionar docente" placeholder="Seleccionar docente" id="iddocente" name="iddocente">
+                  <Select size="sm" defaultValue="Seleccionar docente" placeholder="Seleccionar docente" id="iddocente" name="iddocente" required>
                      {Array.isArray(docenteData) && docenteData.map((docente, index) => (
                         <Option key={index} value={docente.idDocente}>{docente.nombre}</Option>
                      ))}
                   </Select>
                   <Divider />
 
-                  <Select size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo">
+                  <Select size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
                      {years.map((year) => (
-                        <Option key={year} value={year}>{year}</Option>
+                        <Option key={year} value={year} >{year}</Option>
                      ))}
                   </Select>
 
-                  <Select size="sm" value={selectedDay} onChange={(event, newValue) => setSelectedDay(newValue)} placeholder="Dia de la semana" id="diasemana" name="diasemana">
+                  <Select size="sm" value={selectedDay} onChange={(event, newValue) => setSelectedDay(newValue)} placeholder="Dia de la semana" id="diasemana" name="diasemana" required>
                      {diasSemana.map((day) => (
                         <Option key={day.value} value={day.value}>
                            {day.label}
@@ -201,12 +188,12 @@ export default function RegistrarHorarioAsignatura() {
                   <Select size="sm" placeholder="Horario de clase" multiple renderValue={(selected) => (
                      <Box sx={{ display: 'flex', gap: '0.25rem' }}>
                         {selected.map((selectedOption) => (
-                           <Chip key={selectedOption.value} variant="soft" color="primary">
+                           <Chip key={selectedOption.value} variant="soft" color="primary" >
                               {selectedOption.label} {selectedOption.horario}
                            </Chip>
                         ))}
                      </Box>)}
-                     slotProps={{ listbox: { sx: { width: '100%', }, }, }}>
+                     slotProps={{ listbox: { sx: { width: '100%', }, }, }} required>
                      {Array.isArray(horarioData) && horarioData.map((horario, index) => (
                         <Option key={index} value={horario.diaSemana}> {horario.diaSemana} de {horario.horaInicio} a {horario.horaFin} hs</Option>
                      ))}

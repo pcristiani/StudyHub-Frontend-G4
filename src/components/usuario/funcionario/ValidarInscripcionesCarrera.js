@@ -71,7 +71,7 @@ export default function ValidarInscripcionesCarrera() {
           </Box>
           <Divider />
           <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '310px' }, gap: 0.8 }}>
               <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
                 {carreraData.map((carrera, index) => (
                   <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
@@ -79,7 +79,8 @@ export default function ValidarInscripcionesCarrera() {
               </Select>
               <Divider />
             </FormControl>
-            <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
+
+            <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
               <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Continuar</Button>
             </Stack>
           </Stack>

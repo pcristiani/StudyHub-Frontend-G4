@@ -39,7 +39,7 @@ body {
 .link-footer:hover {
 	/* font-weight: bold; */
 	display: block;
-	color: rgb(163, 163, 163);
+	color: #096e72;
 }
 
 .link-style {
@@ -48,7 +48,8 @@ body {
 	text-decoration: none;
 	display: block;
 	cursor: pointer;
-	color: #094872;
+	color: rgb(51, 160, 223);
+
 }
 
 .link-style:hover {
@@ -73,8 +74,8 @@ body {
 .navbar a {
 	float: left;
 	display: block;
-	color: #d4d4d4;
-	text-align: center;
+	/* color: #d4d4d4; */
+	text-align: left;
 	/* padding: 15px; */
 	text-decoration: none;
 	font-size: 17px;

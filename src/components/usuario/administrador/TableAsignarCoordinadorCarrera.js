@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getUsuarios } from '../../../services/requests/usuarioService';
 import { ModalSelect } from './ModalSelect';
-import { FormatCedula } from '../../../services/data/FormatCedula';
+import { formatoCi } from '../../../services/util/formatoCi';
 
 
 function selectValidar(id, validado) {
@@ -57,9 +57,8 @@ export default function TableAsignarCoordinadorCarrera() {
       <Sheet
         variant="outlined"
         sx={{
-          '--TableCell-height': '30px',
-          '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-          '--Table-firstColumnWidth': '140px', '--Table-lastColumnWidth': '90px', '--Table-buttonColumnWidth': '80px',
+          '--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
+          '--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '70px',
           '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
           borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
           background: (theme) =>
@@ -77,9 +76,9 @@ export default function TableAsignarCoordinadorCarrera() {
           <thead>
             <tr>
               <th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
-              <th style={{ width: 'var(--Table-lastColumnWidth)' }}>Cédula</th>
+              {/* <th style={{ width: 'var(--Table-lastColumnWidth)' }}>Cédula</th> */}
               <th style={{ width: 'var(--Table-lastColumnWidth)' }}>Rol</th>
-              <th style={{ width: 'var(--Table-lastColumnWidth)' }}>Estado</th>
+              <th style={{ width: 'var(--Table-lastColumnWidth2)' }}>Estado</th>
               <th aria-label="last" style={{ width: 'var(--Table-buttonColumnWidth)' }} />
             </tr>
           </thead>
@@ -88,7 +87,7 @@ export default function TableAsignarCoordinadorCarrera() {
               row.rol === 'C' && (
                 <tr key={row.idUsuario}>
                   <td>{row.nombre} {row.apellido}</td>
-                  <td>{FormatCedula(row.cedula)}</td>
+                  {/* <td>{formatoCi(row.cedula)}</td> */}
                   <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : ''}</td>
                   <td>{row.activo ? 'Activo' : 'Inactivo'}</td>
                   <td>

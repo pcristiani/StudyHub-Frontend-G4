@@ -12,6 +12,7 @@ import { URL_BACK } from '../../../services/util/constants';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function AltaDocente() {
 	const { user } = useContext(AuthContext);
 	console.log(user.jwtLogin);
@@ -30,7 +31,6 @@ export default function AltaDocente() {
 		})
 
 		if (response.ok) {
-			console.log("response: ", response);
 			swal({
 				title: "¡Docente creado!\n\n",
 				text: "El docente ha sido creado con éxito.",
@@ -39,6 +39,7 @@ export default function AltaDocente() {
 				position: "center",
 				timer: 4000
 			});
+		history('/novedades');
 		} else {
 			let errorMsg = 'Los datos ingresados no son correctos o ya existe un docente con ese nombre';
 			if (response.status === 401) {
@@ -58,7 +59,6 @@ export default function AltaDocente() {
 		let codigoDocente = data.get('codigoDocente');
 		let nombre = data.get('nombre');
 		altaDocente(codigoDocente, nombre);
-		history('/Novedades');
 	};
 
 
@@ -70,7 +70,7 @@ export default function AltaDocente() {
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 						<Input size="sm" id="codigoDocente" name="codigoDocente" placeholder="Código" required />
 						<Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
 						<Divider />

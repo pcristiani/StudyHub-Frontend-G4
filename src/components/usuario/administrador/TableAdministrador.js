@@ -4,7 +4,7 @@ import Button from '@mui/joy/Button';
 import Table from '@mui/joy/Table';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import { FormatCedula, DeleteFormatCedula } from '../../../services/data/FormatCedula';
+import { formatoCi, borrarFormatoCi } from '../../../services/util/formatoCi';
 
 import { TablePagination, tablePaginationClasses as classes, } from '@mui/base/TablePagination';
 
@@ -101,9 +101,8 @@ export default function TableAdministrador() {
       <Sheet
         variant="outlined"
         sx={{
-          '--TableCell-height': '30px',
-          '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-          '--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '80px', '--Table-buttonColumnWidth': '75px',
+          '--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
+          '--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px',
           '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
           borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
           background: (theme) =>
@@ -122,7 +121,7 @@ export default function TableAdministrador() {
           <thead>
             <tr>
               <th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
-              <th style={{ width: 'var(--Table-lastColumnWidth2)' }}>Cédula</th>
+              {/* <th style={{ width: 'var(--Table-lastColumnWidth2)' }}>Cédula</th> */}
               <th style={{ width: 'var(--Table-lastColumnWidth)' }}>Rol</th>
               <th style={{ width: 'var(--Table-lastColumnWidth2)' }}>Estado</th>
               <th aria-label="last" style={{ width: 'var(--Table-buttonColumnWidth)' }} />
@@ -133,7 +132,7 @@ export default function TableAdministrador() {
               row.rol !== 'E' && row.rol !== 'A' && (
                 <tr key={row.idUsuario}>
                   <td>{row.nombre} {row.apellido}</td>
-                  <td>{FormatCedula(row.cedula)}</td>
+                  {/* <td>{formatoCi(row.cedula)}</td> */}
                   <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : ''}</td>
                   <td>{row.activo ? 'Activo' : 'Inactivo'}</td>
                   <td>

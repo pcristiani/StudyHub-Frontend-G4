@@ -62,7 +62,7 @@ export default function ValidarEstudiantes() {
     return (
         <Sheet>
             <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <h3 sx={{ marginButtom: 6, mt: 4, mb: 2 }} variant="h5">
+                <h3 sx={{ marginButtom: 6, mt: 2, mb: 2 }} variant="h5">
                     Validación de estudiantes
                 </h3>
                 <FormGroup row>
@@ -78,7 +78,7 @@ export default function ValidarEstudiantes() {
                         } sx={{ gap: 2 }} label="Más información" onChange={(event) => setSecondary(event.target.checked)} />
                 </FormGroup>
 
-                <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ minHeight: '20vh', maxWidth: '120vh' }}>
+                <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ minHeight: '30vh', minWidth: '60vh',maxWidth: '300vh' }}>
                     <Grid item xs={12} md={6}>
                         <List dense={dense}>
                             {primeraMitad.map(usuario => (

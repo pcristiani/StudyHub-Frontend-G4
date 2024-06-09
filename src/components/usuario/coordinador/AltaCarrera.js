@@ -19,8 +19,8 @@ export default function AltaCarrera() {
     console.log(user.jwtLogin);
     const history = useNavigate();
 
-    async function altaCarrera(nombre, descripcion, requisitos, duracion) {
-        let body = { "nombre": nombre, "descripcion": descripcion, "requisitos": requisitos, "duracion": duracion };
+    async function altaCarrera(nombre, descripcion, requisitos, duracion, idcoordinador) {
+        let body = { "nombre": nombre, "descripcion": descripcion, "requisitos": requisitos, "duracion": duracion, "idCoordinador": idcoordinador };
         let response = await fetch(URL_BACK.altaCarrera, {
             method: 'POST',
             headers: {
@@ -53,11 +53,12 @@ export default function AltaCarrera() {
         let nombre = data.get('nombre');
         let descripcion = data.get('descripcion');
         let requisitos = data.get('requisitos');
-        let duracion = data.get('duracion');
+        let duracion = parseInt(data.get('duracion'), 10);
+        let idcoordinador = user.id;
 
-        console.log(nombre, descripcion, requisitos, duracion);
-        altaCarrera(nombre, descripcion, requisitos, duracion);
-        history('/Novedades');
+        console.log(nombre, descripcion, requisitos, duracion, idcoordinador);
+        altaCarrera(nombre, descripcion, requisitos, duracion, idcoordinador);
+        history('/novedades');
     };
 
     return (
@@ -68,14 +69,14 @@ export default function AltaCarrera() {
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
                         <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
                         <Textarea minRows={3} size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
                         <Textarea minRows={3} size="sm" id="requisitos" name="requisitos" placeholder="Requisitos" required />
                         <Input size="sm" type="number" id="duracion" name="duracion" placeholder="Duración" required />
                         <Divider />
                     </FormControl>
-                    <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
+                    <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
                         <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
                         <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>

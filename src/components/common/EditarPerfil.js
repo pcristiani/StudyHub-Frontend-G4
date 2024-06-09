@@ -14,21 +14,22 @@ import { getUsuario, modificarPerfilUsuario } from "../../services/requests/usua
 import { types } from '../../context/types';
 
 
+const DatosRol = [
+	{ cod: `A`, rol: `Administrador` },
+	{ cod: `C`, rol: `Coordinador` },
+	{ cod: `E`, rol: `Estudiante` },
+	{ cod: `F`, rol: `Funcionario` },
+	{ cod: `I`, rol: `Invitado` }
+];
+
+
 export default function EditarPerfil() {
 	const { user } = useContext(AuthContext);
 	const [userData, setUserData] = useState(null);
-	const [userRol, setRolData] = useState(null);
-
+	const [userRol, setRolData] = useState('');
 	const [error, setError] = useState(null);
 	const context = useContext(AuthContext);
 
-	const DatosRol = [
-		{ cod: 'A', rol: `Administrador` },
-		{ cod: 'E', rol: `Estudiante` },
-		{ cod: 'C', rol: `Coordinador` },
-		{ cod: 'I', rol: `Invitado` },
-		{ cod: 'F', rol: `Funcionario` }
-	];
 
 	useEffect(() => {
 		const fetchUser = async () => {
@@ -73,6 +74,7 @@ export default function EditarPerfil() {
 		context.dispatch(action);
 	}
 
+
 	const handleModificar = (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
@@ -90,6 +92,7 @@ export default function EditarPerfil() {
 		});
 	}
 
+
 	return (
 		<Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
@@ -100,7 +103,7 @@ export default function EditarPerfil() {
 				<Box component="form" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', width: '100%' }} onSubmit={handleModificar}>
 					<Stack>
 						<Stack spacing={1}>
-							<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.6 }}>
+							<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
 								<Input size="sm" id="nombre" name="nombre" defaultValue={userData.nombre} />
 								<Input size="sm" id="apellido" name="apellido" sx={{}} defaultValue={userData.apellido} />
 								<Input size="sm" id="cedula" name="cedula" defaultValue={userData.cedula} readOnly />
@@ -116,7 +119,7 @@ export default function EditarPerfil() {
 							</FormControl>
 						</Stack>
 					</Stack>
-					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
+					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 						<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
 						<Button size="sm" fullWidth variant="outlined" color="neutral" component="a" href='/'>
 							Cancelar

@@ -1,5 +1,6 @@
 /* eslint-disable no-throw-literal */
 import { URL_BACK } from '../util/constants'
+import axios from 'axios';
 
 // Función para obtener las asignaturas
 export const getAsignaturas = async (jwtLogin) => {
@@ -108,23 +109,27 @@ export const getDocentesByAsignatura = async (idAsignatura, jwtLogin) => {
 
 ///
 export const registroHorarios = async (idDocente, anio, horarioData, idAsignatura, jwtLogin) => {
-    let body = {
-        "idDocente": idDocente,
-        "anio": anio,
-        "dtHorarioDias": horarioData
-    };
-
-    let response = await fetch(URL_BACK.registroHorarios + idAsignatura, {
-        method: 'POST',
-        headers: {
+    try {
+        let body = {
+            "idDocente": idDocente,
+            "anio": anio,
+            "dtHorarioDias": horarioData
+        };
+        let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
-        },
-        body: JSON.stringify(body)
-    });
+        }
+        let reqOptions = {
+            url: URL_BACK.registroHorarios + idAsignatura,
+            method: "POST",
+            headers: headersList,
+            data: body
+        }
 
-    if (!response.ok) {
-        throw { status: response.status };
+        let response = await axios.request(reqOptions);
+        return response.data;
+    } catch (error) {
+        return error.response;
     }
 };
 
@@ -139,40 +144,44 @@ export const getHorarios = async (idAsignatura, jwtLogin) => {
     }
 
     let response = await fetch(url + idAsignatura, {
-        method: "POST",
+        method: "GET",
         headers: headersList
     });
 
     const data = await response.json();
-    console.log("Horariossss: ", data.dtHorarioDias);
+    console.log("Horariossss: ", data);
     return data;
 }
 
 
-
+// ?
 ///
 export const registroPreviaturas = async (idAsignatura, idPreviaturas, jwtLogin) => {
-    let bodyContent = JSON.stringify(idPreviaturas);
-    let response = await fetch(URL_BACK.registrarPreviaturas + idAsignatura, {
-        method: 'POST',
-        headers: {
+    try {
+        let body = JSON.stringify(idPreviaturas);
+
+        let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
-        },
-        body: bodyContent
-    });
-    let data = await response.text();
-    console.log(data);
-    if (!response.ok) {
-        throw { status: response.status };
+        }
+        let reqOptions = {
+            url: URL_BACK.registrarPreviaturas + idAsignatura,
+            method: "POST",
+            headers: headersList,
+            data: body
+        }
+
+        let response = await axios.request(reqOptions);
+        return response.data;
+    } catch (error) {
+        return error.response;
     }
 };
 
 
 
-
 ///
-export const getPreviasAsignatura= async (idAsignatura, jwtLogin) => {
+export const getPreviasAsignatura = async (idAsignatura, jwtLogin) => {
     const url = URL_BACK.getPreviasAsignatura;
 
     let headersList = {
@@ -186,6 +195,26 @@ export const getPreviasAsignatura= async (idAsignatura, jwtLogin) => {
     });
 
     const data = await response.json();
+    return data;
+}
+
+
+
+///
+export const getNoPreviasAsignatura = async (idAsignatura, jwtLogin) => {
+    const url = URL_BACK.getNoPreviasAsignatura;
+    let headersList = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtLogin}`
+    }
+
+    let response = await fetch(url + idAsignatura, {
+        method: "GET",
+        headers: headersList
+    });
+
+    const data = await response.json();
+    // console.log("No previas: ", data);
     return data;
 }
 
@@ -206,7 +235,6 @@ export const inscripcionAsignatura = async (idEstudiante, idAsignatura, idHorari
         },
         body: JSON.stringify(body)
     });
-
     if (!response.ok) {
         throw { status: response.status };
     }
@@ -214,15 +242,15 @@ export const inscripcionAsignatura = async (idEstudiante, idAsignatura, idHorari
 
 
 ///
-export const getCourseRelations = async (jwtLogin) => {
-    const url = URL_BACK.courseRelations;
+export const getCourseRelations = async (idCarrera, jwtLogin) => {
+    const url = URL_BACK.getPreviaturasGrafo;
 
     let headersList = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${jwtLogin} `,
     }
 
-    let response = await fetch(url, {
+    let response = await fetch(url + idCarrera, {
         method: "GET",
         headers: headersList
     });

@@ -15,13 +15,12 @@ import Select from '@mui/joy/Select';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 import DtFecha from '../../../services/data/DtFecha';
-import { TextField } from '@mui/material';
 
 
 export default function AltaPeriodoExamen() {
 	const { user } = useContext(AuthContext);
-	const [carreraData, setCarreraData] = useState([]);
 	const history = useNavigate();
+	const [carreraData, setCarreraData] = useState([]);
 	const [error, setError] = useState(null);
 	const [selectedPeriodo, setSelectedPeriodo] = useState('');
 
@@ -72,8 +71,7 @@ export default function AltaPeriodoExamen() {
 				position: "center",
 				timer: 3000
 			});
-			history('/Novedades');
-
+			history('/novedades');
 		} catch (error) {
 			let errorMsg = error.status === 400 ? "El período ingresado se superpone con un período existente" : "La fecha de fin no puede ser anterior a la fecha de inicio";
 			if (error.status === 401) {
@@ -98,7 +96,7 @@ export default function AltaPeriodoExamen() {
 					</Box>
 					<Divider />
 					<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-						<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+						<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 							<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
 								{carreraData.map((carrera, index) => (
 									<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
@@ -118,7 +116,7 @@ export default function AltaPeriodoExamen() {
 							<Divider />
 
 						</FormControl>
-						<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
+						<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
 							<Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
 						</Stack>

@@ -10,39 +10,42 @@ import SolicitudesPage from '../pages/SolicitudesPage';
 import GestionPage from '../pages/GestionPage';
 import Novedades from '../pages/Novedades';
 import Page404 from '../pages/Page404';
-import AltaCarrera from '../components/usuario/coordinador/AltaCarrera'
-import AltaAsignatura from '../components/usuario/coordinador/AltaAsignatura'
+import ContactoPage from '../pages/ContactoPage';
 
 import Login from '../components/login/Login';
 import Register from '../components/login/Register';
 import ForgotPassword from "../components/login/ForgotPassword";
 import RecuperarPassword from "../components/login/RecuperarPassword";
+import ModificarPassword from '../components/login/ModificarPassword';
 
 import Footer from '../components/common/Footer';
 import NuestroEquipo from "../components/common/NuestroEquipo";
 import Header from '../components/common/Header';
 import Layout from '../components/common/Layout';
+import EditarPerfil from "../components/common/EditarPerfil";
 // import Demo from '../pages/Demo';
 
-import EditarPerfil from "../components/usuario/EditarPerfil";
+import AltaCarrera from '../components/usuario/coordinador/AltaCarrera'
+import AltaAsignatura from '../components/usuario/coordinador/AltaAsignatura'
+import RegistrarPreviaturas from '../components/usuario/coordinador/RegistrarPreviaturas';
 
-import ValidarEstudiantes from "../components/usuario/funcionario/ValidarEstudiantes";
 import DashboardAdmin from '../components/usuario/administrador/DashboardAdmin';
-import ModificarPassword from '../components/login/ModificarPassword';
-import AltaDocente from '../components/usuario/funcionario/AltaDocente';
 import AltaFuncionarioCoordinador from '../components/usuario/administrador/AltaFuncionarioCoordinador';
-import ContactoPage from '../pages/ContactoPage';
 import ModificarFuncionarioCoordinador from '../components/usuario/administrador/ModificarFuncionarioCoordinador';
 import ListadosBusquedas from '../components/usuario/administrador/ListadosBusquedas';
 import { ResumenActividad } from '../components/usuario/administrador/ResumenActividad';
+
 import InscripcionCarrera from '../components/usuario/estudiante/InscripcionCarrera';
 import InscripcionAsignatura from '../components/usuario/estudiante/InscripcionAsignatura';
+
+import AltaDocente from '../components/usuario/funcionario/AltaDocente';
+import ValidarEstudiantes from "../components/usuario/funcionario/ValidarEstudiantes";
 import ValidarInscripcionesCarrera from '../components/usuario/funcionario/ValidarInscripcionesCarrera';
+import RegistrarAsignaturaPeriodoExamen from '../components/usuario/funcionario/RegistrarAsignaturaPeriodoExamen';
 import TablaInscripcionesCarrera from '../components/usuario/funcionario/TablaInscripcionesCarrera';
 import AltaPeriodoExamen from '../components/usuario/funcionario/AltaPeriodoExamen';
-import RegistrarPreviaturas from '../components/usuario/coordinador/RegistrarPreviaturas';
 import RegistrarHorarioAsignatura from '../components/usuario/funcionario/RegistrarHorarioAsignatura';
-import RegistrarAsignaturaPeriodoExamen from '../components/usuario/funcionario/RegistrarAsignaturaPeriodoExamen';
+import InscripcionExamen from '../components/usuario/estudiante/InscripcionExamen';
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -52,8 +55,8 @@ export const AppRouter = () => {
             <Layout.Header>
                 <Header />
             </Layout.Header>
-
             <Layout.Main>
+
                 <Routes>
                     <Route path="/" element={<Novedades />} exact />
                     <Route path="/plan-estudios" element={<PlanEstudiosPage user={user.id} />} exact />
@@ -81,17 +84,20 @@ export const AppRouter = () => {
                     <Route path="/listados-busquedas" element={<ListadosBusquedas user={user.id} />} exact />
                     <Route path="/resumen-actividad" element={<ResumenActividad user={user.id} />} exact />
                     <Route path="/contacto" element={<ContactoPage user={user.id} />} exact />
+
                     <Route path="/inscripcion-carrera" element={<InscripcionCarrera user={user.id} />} exact />
                     <Route path="/inscripcion-asignatura" element={<InscripcionAsignatura />} exact />
-                    <Route path="/validar-inscripciones-carrera" element={<ValidarInscripcionesCarrera user={user.id} />} exact />
+                    <Route path="/inscripcion-examen" element={<InscripcionExamen />} exact />
 
+                    <Route path="/validar-inscripciones-carrera" element={<ValidarInscripcionesCarrera user={user.id} />} exact />
                     <Route path="/tabla-inscripciones-carrera" element={<TablaInscripcionesCarrera user={user.id} />} exact />
                     <Route path="/alta-periodo-examen" element={<AltaPeriodoExamen user={user.id} />} exact />
+
                     <Route path="/registrar-previaturas" element={<RegistrarPreviaturas user={user.id} />} exact />
                     <Route path="/registrar-horario-asignatura" element={<RegistrarHorarioAsignatura user={user.id} />} exact />
                     <Route path="/registrar-asignatura-periodo-examen" element={<RegistrarAsignaturaPeriodoExamen user={user.id} />} exact />
 
-
+                    <Route path='/incripcion-examen' element={<InscripcionExamen user={user.id} />} exact />
 
                     <Route path='/login' element={
                         <PublicRoute>

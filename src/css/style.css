@@ -243,7 +243,7 @@ code {
 
 
 /* Pantallas de tamaño 600px o menos (celulares) */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) {
 
   .animate-bounce {
     animation-name: bounce;
@@ -265,7 +265,7 @@ code {
       transform: translateY(0);
     }
 
-    50% {
+    0% {
       transform: translateY(-6px);
     }
 

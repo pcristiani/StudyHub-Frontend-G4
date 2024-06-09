@@ -7,7 +7,7 @@ function Root(props) {
         <Box
             {...props}
             sx={[{
-                bgcolor: 'background.appBody',
+                bgcolor: 'background.surface',
                 display: 'grid',
                 gridTemplateColumns: {
                     xs: '1fr',
@@ -31,7 +31,7 @@ function Header(props) {
             {...props}
             sx={[
                 {
-                    p: 0.6,
+                    p: 0.5,
                     gap: 2,
                     bgcolor: 'background.surface',
                     display: 'flex',
@@ -39,11 +39,11 @@ function Header(props) {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     gridColumn: '1 / -1',
-                    borderBottom: '1px solid',
+                    borderBottom: '1.5px solid',
                     borderColor: 'divider',
                     position: 'sticky',
                     top: 0,
-                    zIndex: 1100,
+                    zIndex: 1100,                    
                 },
                 ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
             ]}
@@ -86,7 +86,7 @@ function SidePane(props) {
                     borderRight: '1px solid',
                     borderColor: 'divider',
                     display: {
-                        xs: 'none',
+                        xs: 'flex',
                         md: 'initial',
                     },
                 },
@@ -109,7 +109,7 @@ function Main(props) {
                     // bgcolor: '#0d1117',
                     // color:'text-primary',
                     bgcolor: 'background.surface',
-                    //  flexDirection: 'row',
+                    // flexDirection: 'column',
                     // justifyContent: 'space-between',
                     // alignItems: 'center',
                     //  gridColumn: '1 / -1',
@@ -119,7 +119,8 @@ function Main(props) {
                     //     md: 'absolute',
 
                     // },
-                    //  position: 'flex',
+                    // margin: 0,
+                    // display: 'relative',
                     // top: 0,
                     // bottom: 0,
                     //   minHeight: '768px',

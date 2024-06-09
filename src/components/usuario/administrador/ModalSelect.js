@@ -71,7 +71,7 @@ export function ModalSelect(ida) {
                     position: "center",
                     timer: 5000
                 });
-                //    history('/Novedades');
+                //    history('/novedades');
             } catch (error) {
                 let errorMsg = 'Los datos ingresados no son correctos o ya existe una asignatura con ese nombre';
                 if (error.status === 401) {

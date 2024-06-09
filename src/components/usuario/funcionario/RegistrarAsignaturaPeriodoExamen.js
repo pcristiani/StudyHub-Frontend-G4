@@ -104,11 +104,6 @@ export default function RegistrarAsignaturaPeriodoExamen() {
       }).filter(item => item !== null) : [];
       let fechaHora = data.get('fechaHora');
 
-      // if (horaInicio > horaFin) {
-      //    swal("Error", "La hora de inicio debe ser menor a la hora de fin.", "error", {
-      //       timer: 3000
-      //    });
-      // } else {
       try {
          await registroAsignaturaAPeriodo(idAsignatura, idPeriodo, idsDocentes, fechaHora, user.jwtLogin);
          swal({
@@ -119,7 +114,7 @@ export default function RegistrarAsignaturaPeriodoExamen() {
             position: "center",
             timer: 4000
          });
-         history('/Novedades');
+         history('/novedades');
       } catch (error) {
          let errorMsg = 'Los datos ingresados no son correctos o ya existe horario para la asignatura';
          if (error.status === 401) {
@@ -138,11 +133,11 @@ export default function RegistrarAsignaturaPeriodoExamen() {
       <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
          <Card sx={{ display: 'flex', alignSelf: 'center', }}>
             <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
-               <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registrar asignatura a periodo de examen</Typography>
+               <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registrar fecha de examen</Typography>
             </Box>
             <Divider />
             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-               <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+               <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
                   <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
                      {carreraData.map((carrera, index) => (

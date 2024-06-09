@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { CssVarsProvider } from '@mui/joy/styles';
 import Typography from '@mui/joy/Typography';
 
@@ -7,7 +6,10 @@ import Box from '@mui/joy/Box';
 import { Graphviz } from 'graphviz-react';
 import { jsPDF } from "jspdf";
 import { getCourseRelations } from '../services/requests/asignaturaService';
+import { AuthContext } from '../context/AuthContext';
+import Sheet from '@mui/joy/Sheet';
 
+import React, { useContext, useEffect, useState } from 'react';
 
 const downloadPDF = (event) => {
     var doc = new jsPDF();
@@ -32,10 +34,12 @@ const downloadPDF = (event) => {
 }
 
 const GestionPage = () => {
+    const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
+
     const [strJwt, setStrJwt] = useState(null);
 
     async function mostrarUsuario() {
-        const result = await getCourseRelations();
+        const result = await getCourseRelations(1, user.jwtLogin);
         setStrJwt(result);
     }
     mostrarUsuario();
@@ -43,17 +47,22 @@ const GestionPage = () => {
 
     return (
         <>
-            <CssVarsProvider>
-                <Container component="main" maxWidth="xs">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginBottom: '80px' }}>
-                        <Typography className="text-dark focus-ring-primary" component="h1" >
-                            Gestion
-                        </Typography>
-                        <a className="link-style" onClick={downloadPDF}>Descargar previaturas</a>
-                        <Graphviz dot={strJwt} options={{ width: 800, height: 500 }} />
-                    </Box>
-                </Container>
-            </CssVarsProvider>
+            <Sheet>
+
+
+                {/* <CssVarsProvider> */}
+                    {/* <Container component="main" maxWidth="xs"> */}
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginBottom: '80px' }}>
+                            <Typography className="text-dark focus-ring-primary" component="h1" >
+                                Gestion
+                            </Typography>
+                            <a className="link-style" onClick={downloadPDF}>Descargar previaturas</a>
+                            <Graphviz dot={strJwt} options={{ width: 800, height: 500 }} />
+                        </Box>
+                    {/* </Container> */}
+                {/* </CssVarsProvider> */}
+            </Sheet>
+
         </>
     );
 }

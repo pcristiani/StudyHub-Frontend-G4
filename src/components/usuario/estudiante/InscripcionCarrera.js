@@ -1,124 +1,86 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import swal from 'sweetalert';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
-import { Chip } from '@mui/joy';
 
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
-import { getAsignaturas, altaAsignatura } from '../../../services/requests/asignaturaService';
 import { inscripcionCarrera } from '../../../services/requests/estudianteService';
-
+import { errors } from '../../../services/util/errors';
 
 export default function InscripcionCarrera() {
-    const { user } = useContext(AuthContext);
-    const history = useNavigate();
-    const [carreraData, setCarreraData] = useState([]);
-    const [asignaturaData, setAsignaturaData] = useState([]);
-    const [error, setError] = useState(null);
+	const { user } = useContext(AuthContext);
+	const history = useNavigate();
+	const [carreraData, setCarreraData] = useState([]);
+	const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchCarreras = async () => {
-            try {
-                const result = await getCarreras(user.jwtLogin);
-                setCarreraData(result);
-            } catch (error) {
-                setError(error.message);
-            }
-        };
-        fetchCarreras();
-    }, [user]);
+	useEffect(() => {
+		const fetchCarreras = async () => {
+			try {
+				const result = await getCarreras(user.jwtLogin);
+				setCarreraData(result);
+			} catch (error) {
+				setError(error.message);
+			}
+		};
+		fetchCarreras();
+	}, [user]);
 
-    useEffect(() => {
-        if (carreraData) {
-            console.log("Carreras: ", carreraData);
-        }
-    }, [carreraData]);
+	useEffect(() => {
+		if (carreraData) {
+			console.log("Carreras: ", carreraData);
+		}
+	}, [carreraData]);
 
-    ///
-    // useEffect(() => {
-    //     const fetchAsignaturas = async () => {
-    //         try {
-    //             const results = await getAsignaturas(user.jwtLogin);
-    //             setAsignaturaData(results);
-    //         } catch (error) {
-    //             setError(error.message);
-    //         }
-    //     };
-    //     fetchAsignaturas();
-    // }, [user]);
 
-    // useEffect(() => {
-    //     if (asignaturaData) {
-    //         console.log("Asignaturas: ", asignaturaData);
-    //     }
-    // }, [asignaturaData]);
+	///
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		const data = new FormData(event.currentTarget);
+		let idCarrera = data.get('idcarrera');
+		let idCarreraInt = parseInt(idCarrera, 10);
 
-    ///
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        let idCarrera = data.get('idcarrera');
-        let idCarreraInt = parseInt(idCarrera, 10);
-        console.log(`IDcarrera: ${idCarreraInt}`);
-        console.log("IDcarreraInt: ", typeof idCarreraInt);
-        // let intValue = convertObjectToInt(ida);
-        try {
-            await inscripcionCarrera(user.id, idCarreraInt, user.jwtLogin);
-            swal({
-                title: "Carrera asignada!\n\n",
-                text: "La carrera ha sido creada con éxito.",
-                icon: "success",
-                dangerMode: false,
-                position: "center",
-                timer: 4000
-            });
-            // history('/Novedades');
-        } catch (error) {
-            let errorMsg = 'Los datos ingresados no son correctos o ya existe una asignatura con ese nombre';
-            if (error.status === 401) {
-                errorMsg = 'No autorizado. Verifica tu token de autenticación.';
-            } else if (error.status === 500) {
-                errorMsg = 'Error interno del servidor. Inténtalo más tarde.';
-            }
-            swal("Error", errorMsg, "error", {
-                timer: 3000
-            });
-        }
-    };
+		const response = await inscripcionCarrera(user.id, idCarreraInt, user.jwtLogin);
+		console.log('response: ', response);
+		if (response.status === 200) {
+			let title = "¡Inscripto a carrera!\n\n";
+			errors(title, response.data, response.status);
+			history('/novedades');
+		} else {
+			errors(response.data, response.data, response.status);
+		}
+	};
 
-    return (
-        <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
-            <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-                <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
-                    <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Inscripcion Carrera</Typography>
-                </Box>
-                <Divider />
-                <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
-                        <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
-                            {carreraData.map((carrera, index) => (
-                                <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
-                            ))}
-                        </Select>
-                        <Divider />
-                    </FormControl>
-                    <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
-                        <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-                        <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
-                    </Stack>
-                </Stack>
-            </Card>
-        </Box>
-    );
+	return (
+		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
+			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
+				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Inscripcion Carrera</Typography>
+				</Box>
+				<Divider />
+				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
+						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
+							{carreraData.map((carrera, index) => (
+								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
+							))}
+						</Select>
+						<Divider />
+					</FormControl>
+					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
+						<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
+						<Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
+					</Stack>
+				</Stack>
+			</Card>
+		</Box>
+	);
 };

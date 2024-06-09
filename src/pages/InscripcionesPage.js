@@ -2,7 +2,6 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getUsuarios } from '../services/requests/usuarioService';
-import { getToken } from '../services/requests/loginService';
 
 import Typography from '@mui/joy/Typography';
 import { CssVarsProvider } from '@mui/joy/styles';
@@ -19,11 +18,11 @@ const InscripcionesPage = () => {
     });
   }, []);
 
-  useEffect(() => {
-    getToken('11', '123').then(result => {
-      // console.log("JWT: ", result);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getToken('11', '123').then(result => {
+  //     // console.log("JWT: ", result);
+  //   });
+  // }, []);
 
   return (
     <CssVarsProvider>

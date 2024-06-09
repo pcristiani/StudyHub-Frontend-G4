@@ -26,7 +26,7 @@ const ContactoPage = () => {
           <h3 style={{ margin: 0.5, textAlign: 'center' }}>Comunícate con Nosotros</h3>
           <Typography level="body-sm" sx={{ textAlign: 'center' }}>Envíanos tus comentarios, preguntas o inquietudes</Typography>
           <Stack direction="column" sx={{ marginTop: 2, display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+            <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
               <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
               <Input size="sm" id="telefono" name="telefono" placeholder="Telefono" required />
               <Input size="sm" id="email" name="email" placeholder="Email" required />

@@ -67,14 +67,12 @@ export default function AltaAsignatura() {
     }, [docenteData]);
     ///
     const handleChange = (event, newValue) => {
-        console.log("Selected: ", newValue);
         setSelectedCarrera(newValue);
 
         if (newValue !== null) {
             getInfoCarrera(newValue);
         }
     };
-    console.log("Selected carrera: ", selectedCarrera);
 
 
     async function getInfoCarrera(selectedCarrera) {
@@ -115,7 +113,7 @@ export default function AltaAsignatura() {
                 position: "center",
                 timer: 4000
             });
-            history('/Novedades');
+            history('/novedades');
         } catch (error) {
             let errorMsg = 'Los datos ingresados no son correctos o ya existe una asignatura con ese nombre';
             if (error.status === 401) {
@@ -138,7 +136,7 @@ export default function AltaAsignatura() {
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '310px' }, gap: 0.8 }}>
                         <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
                             {carreraData.map((carrera, index) => (
                                 <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
@@ -177,15 +175,14 @@ export default function AltaAsignatura() {
                                 ))}
                             </Box>
                         )}
-                            slotProps={{ listbox: { sx: { width: '100%', }, }, }}
-                            id="idprevias" name="idprevias">
+                            slotProps={{ listbox: { sx: { width: '100%', }, }, }} id="idprevias" name="idprevias">
                             {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
                                 <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                             ))}
                         </Select>
                         <Divider />
                     </FormControl>
-                    <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
+                    <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
                         <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
                         <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
                     </Stack>

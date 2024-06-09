@@ -7,8 +7,6 @@ import Grid from '@mui/joy/Grid';
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
 import Container from '@mui/joy/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import swal from 'sweetalert';
 
 import logo from '../../img/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -18,8 +16,8 @@ import { getToken } from '../../services/requests/loginService';
 import { getUsuario } from '../../services/requests/usuarioService';
 import { decodificaJwt } from '../../services/util/conversionBase64';
 import { Sheet } from '@mui/joy';
+import { errors } from '../../services/util/errors';
 
-const defaultTheme = createTheme();
 
 ///
 
@@ -46,7 +44,6 @@ function Login() {
 
 	async function getInfoUsuario(payload, jwtLogin) {
 		let user = await getUsuario(payload.id, jwtLogin);
-		console.log("re", user);
 		autentication(user.idUsuario, user.cedula, user.nombre, user.apellido, user.rol, user.email, jwtLogin);
 		let rol = `Estudiante`;
 		if (user.rol === 'A') rol = `Administrador`;
@@ -54,14 +51,9 @@ function Login() {
 		if (user.rol === 'I') rol = `Invitado`;
 		if (user.rol === 'F') rol = `Funcionario`;
 
-		swal({
-			title: "Acceso correcto\n\n",
-			text: "Nombre: " + user.nombre + " " + user.apellido + "\nCedula: " + user.cedula + "\nRol: " + rol,
-			icon: "success",
-			dangerMode: false,
-			position: "center",
-			timer: 4000
-		});
+		let title = "Acceso correcto";
+		let text = "Nombre: " + user.nombre + " " + user.apellido + "\nCedula: " + user.cedula + "\nRol: " + rol;
+		errors(title, text, 200);
 	}
 
 	const handleSubmit = (event) => {
@@ -71,17 +63,15 @@ function Login() {
 		let password = data.get('password');
 
 		async function validarLogin() {
-			const token = await getToken(cedula, password);
+			const response = await getToken(cedula, password);
 			let payload = null;
-			if (token !== null && token !== undefined) {
-				payload = decodificaJwt(token);
-				getInfoUsuario(payload, token).then(() => {
-					history('/Novedades');
+			if (response.status === 200) {
+				payload = decodificaJwt(response.data);
+				getInfoUsuario(payload, response.data).then(() => {
+					history('/novedades');
 				});
 			} else {
-				swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
-					timer: 3000
-				});
+				errors(response.data, response.data, response.status);
 			}
 		}
 		validarLogin();
@@ -101,10 +91,10 @@ function Login() {
 					</Typography>
 					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px' }}>
 						<Stack spacing={0.8}>
-							<Input id="cedula" label="Cédula" name="cedula" autoComplete="text" autoFocus required />
-							<Input name="password" label="Contraseña" type="password" id="password" autoComplete="current-password" required />
 
-							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">
+							<Input size="md" id="cedula" label="Cédula" name="cedula" autoComplete="text" placeholder="Cédula" autoFocus required />
+							<Input size="md" name="password" label="Contraseña" type="password" id="password" placeholder="Contraseña" autoComplete="current-password" required />
+							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d', zIndex: '1000' }} variant="soft">
 								Iniciar sesión</Button>
 
 							<Grid container spacing={1}>

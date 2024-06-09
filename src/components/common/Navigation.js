@@ -7,7 +7,9 @@ import { AuthContext } from '../../context/AuthContext';
 import Dropdown from '@mui/joy/Dropdown';
 import Menu from '@mui/joy/Menu';
 import MenuButton from '@mui/joy/MenuButton';
-import { URI_FRONT, TIPO_ROL } from '../../services/util/constants'
+import { URI_FRONT, T_ROL } from '../../services/util/constants'
+// import { URI_FRONT, T_ROL } from '../../services/util/constants';
+
 import Box from '@mui/joy/Box';
 import Logo from '../../img/logo-text.png';
 import Input from '@mui/joy/Input';
@@ -33,12 +35,12 @@ export default function Navigation() {
 
 	return (
 		<>
-			<List size="sm" sx={{ '--ListItem-radius': '8px', '--List-gap': '2px' }}>
+			<List size="sm" sx={{ '--ListItem-radius': '8px', '--List-gap': '0px' }}>
 				<ListItem nested>
 					<List aria-labelledby="nav-list-browse">
 						{(user.logged) && (user.rol) ?
 							<>
-								{(user.rol === TIPO_ROL.ADMIN) &&
+								{(user.rol === T_ROL.ADMIN) &&
 									<>
 										<Dropdown>
 											<ListItemButton>
@@ -50,13 +52,13 @@ export default function Navigation() {
 													Administración de usuarios
 													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
 														<ListItemButton>
-														<Button variant="plain" color="neutral" component="a" href={`/alta-funcionario-coordinador`} size="sw" sx={{ alignSelf: 'left' }}>
+															<Button variant="plain" color="neutral" component="a" href={`/alta-funcionario-coordinador`} size="sw" sx={{ alignSelf: 'left' }}>
 																Alta de usuario
 															</Button>
 														</ListItemButton>
 
 														<ListItemButton>
-														<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sw" sx={{ alignSelf: 'left' }}>
+															<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sw" sx={{ alignSelf: 'left' }}>
 																Modificar/Baja usuarios
 															</Button>
 														</ListItemButton>
@@ -82,7 +84,7 @@ export default function Navigation() {
 										</ListItemButton>
 									</>
 								}{
-									(user.rol === TIPO_ROL.ESTUDIANTE) &&
+									(user.rol === T_ROL.ESTUDIANTE) &&
 									<>
 										<ListItemButton>
 											<img className="logo-navbar-mobile" src={Logo} alt="ico" />
@@ -134,7 +136,7 @@ export default function Navigation() {
 										</ListItemButton>
 									</>
 								}{
-									(user.rol === TIPO_ROL.FUNCIONARIO) &&
+									(user.rol === T_ROL.FUNCIONARIO) &&
 									<>
 										<ListItemButton>
 											<img className="logo-navbar-mobile" src={Logo} alt="ico" />
@@ -186,7 +188,7 @@ export default function Navigation() {
 
 														<ListItemButton>
 															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.RegistrarAsignaturaPeriodoExamenUri} size="sw" sx={{ alignSelf: 'left' }}>
-																Asignatura a período de examen
+																Fecha de examen
 															</Button>
 														</ListItemButton>
 													</Menu>

@@ -49,24 +49,52 @@ export const acceptEstudiante = async (idUsuario, jwtLogin) => {
 ///
 // Inscripcion a carrera
 export const inscripcionCarrera = async (idUsuario, idCarrera, jwtLogin) => {
-    let url = URL_BACK.inscripcionCarrera;
-    let headersList = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${jwtLogin}`,
+
+    try {
+        let body = JSON.stringify({
+            "idCarrera": idCarrera,
+            "idEstudiante": idUsuario,
+            "validado": false
+        });
+
+        let headersList = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        }
+        let reqOptions = {
+            url: URL_BACK.inscripcionCarrera,
+            method: "POST",
+            headers: headersList,
+            data: body
+        }
+
+        let response = await axios.request(reqOptions);
+      //  console.log(response);
+
+        return response;
+    } catch (error) {
+        return error.response;
     }
 
-    let bodyContent = JSON.stringify({
-        "idCarrera": idCarrera,
-        "idEstudiante": idUsuario,
-        "validado": false
-    });
 
-    let response = await fetch(url, {
-        method: "POST",
-        body: bodyContent,
-        headers: headersList
-    });
+    // let url = URL_BACK.inscripcionCarrera;
+    // let headersList = {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': `Bearer ${jwtLogin}`,
+    // }
 
-    let data = await response.text();
-    console.log(data);
+    // let bodyContent = JSON.stringify({
+    //     "idCarrera": idCarrera,
+    //     "idEstudiante": idUsuario,
+    //     "validado": false
+    // });
+
+    // let response = await fetch(url, {
+    //     method: "POST",
+    //     body: bodyContent,
+    //     headers: headersList
+    // });
+
+    // let data = await response.text();
+    // console.log(response);
 }

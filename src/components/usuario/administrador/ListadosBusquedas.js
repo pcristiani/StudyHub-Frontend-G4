@@ -280,7 +280,7 @@ export default function TableSortAndSelection() {
 
 
   return (
-    <Sheet variant="outlined" sx={{ width: '100%', boxShadow: 'sm', borderRadius: 'sm', minHeight: '20vh', maxWidth: '600px' }}>
+    <Sheet variant="outlined" sx={{ marginTop: 6, boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '600px' }}>
       <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} />
       <Table aria-labelledby="tableTitle" hoverRow
         sx={{
@@ -307,10 +307,7 @@ export default function TableSortAndSelection() {
                 <tr onClick={(event) => handleClick(event, row.idUsuario)} role="checkbox"
                   aria-checked={isItemSelected} tabIndex={-1} key={row.idUsuario} selected={isItemSelected}>
                   <th scope="row">
-                    <Checkbox
-                      checked={isItemSelected}
-                      slotProps={{ input: { 'aria-labelledby': labelId, }, }}
-                      sx={{ verticalAlign: 'top' }} />
+                    <Checkbox checked={isItemSelected} slotProps={{ input: { 'aria-labelledby': labelId, }, }} sx={{ verticalAlign: 'top' }} />
                   </th>
                   <th id={labelId} scope="row">
                     {row.nombre} {row.apellido}
@@ -332,13 +329,8 @@ export default function TableSortAndSelection() {
             <td colSpan={5}>
               <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', }}>
                 <Autocomplete
-                  sx={{ width: '100%' }}
-                  placeholder="Filtrar por nombre"
-                  options={filteredUsers}
-                  getOptionLabel={(option) => option.nombre}
-                  onChange={handleAutocompleteChange}
-                  value={value}
-                  filterOptions={(options, params) => {
+                  sx={{ width: '100%' }} placeholder="Filtrar por nombre" options={filteredUsers} getOptionLabel={(option) => option.nombre}
+                  onChange={handleAutocompleteChange} value={value} filterOptions={(options, params) => {
                     const filtered = filters(options, params);
                     const { inputValue } = params;
                     const isExisting = options.some((option) => inputValue === option.nombre);
@@ -351,8 +343,7 @@ export default function TableSortAndSelection() {
                     <AutocompleteOption {...props} key={option.nombre}>
                       {option.nombre} {option.apellido}
                     </AutocompleteOption>
-                  )}
-                />
+                  )} />
                 <Box sx={{ width: '20%', display: 'flex', alignItems: 'center', gap: 0.5, justifyContent: 'flex-end', }}>
                   <IconButton size="sm" color="neutral" variant="outlined" disabled={page === 0}
                     onClick={() => handleChangePage(page - 1)} sx={{ bgcolor: 'background.surface' }}>
@@ -360,8 +351,7 @@ export default function TableSortAndSelection() {
                   </IconButton>
                   <IconButton size="sm" color="neutral" variant="outlined"
                     disabled={asignaturasCarreraData.length !== -1 ? page >= Math.ceil(asignaturasCarreraData.length / rowsPerPage) - 1 : false}
-                    onClick={() => handleChangePage(page + 1)}
-                    sx={{ bgcolor: 'background.surface' }}>
+                    onClick={() => handleChangePage(page + 1)} sx={{ bgcolor: 'background.surface' }}>
                     <KeyboardArrowRightIcon />
                   </IconButton>
                 </Box>

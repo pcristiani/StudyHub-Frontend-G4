@@ -1,6 +1,6 @@
 import { URL_BACK } from '../util/constants'
-import axios from 'axios';
 import swal from 'sweetalert';
+import axios from 'axios';
 
 // debugger;/
 // Devuelve el token de autenticacion
@@ -13,18 +13,11 @@ export const getToken = async (cedula, password) => {
 
         if (response.status === 200) {
             //   let objUser = decodificaJwt(response.data);
-            console.log("Usuario autenticado correctamente: ", response.data);
-            return response.data;
-        } else {
-            swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
-                timer: 4000
-            });
+            // console.log("Usuario autenticado correctamente: ", response.data);
+            return response;
         }
     } catch (error) {
-        console.error('Error al realizar el POST:', error);
-        swal("¡Advertencia!", 'Usuario y/o contraseña incorrecta', "error", {
-            timer: 3000
-        });
+        return error.response;
     }
 }
 
@@ -33,12 +26,8 @@ export const cerrarSesion = async (jwtLogin) => {
     try {
         let response = await axios.post(URL_BACK.cerrarSesion, jwtLogin);
         if (response.status === 200) {
-            console.log("Cerrar sesion: ", response.data);
+            console.log(response.data);
             return response.data;
-        } else {
-            swal("¡Advertencia!", 'Un error inesperado ocurrio', "error", {
-                timer: 4000
-            });
         }
     } catch (error) {
         swal("¡Advertencia!", 'Un error inesperado ocurrio', "error", {

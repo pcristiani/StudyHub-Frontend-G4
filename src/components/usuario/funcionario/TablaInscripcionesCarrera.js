@@ -9,9 +9,8 @@ import Stack from '@mui/joy/Stack';
 import { TablePagination, tablePaginationClasses as classes, } from '@mui/base/TablePagination';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
-import { FormatCedula } from '../../../services/data/FormatCedula';
+import { formatoCi } from '../../../services/util/formatoCi';
 import Button from '@mui/joy/Button';
-
 import { getInscriptosPendientes, acceptEstudianteCarrera } from '../../../services/requests/carreraService';
 
 
@@ -86,7 +85,7 @@ export default function TablaInscripcionesCarrera() {
 
                           <tr key={estudiante.idUsuario}>
                             <td>{estudiante.nombre} {estudiante.apellido}</td>
-                            <td>{FormatCedula(estudiante.cedula)}</td>
+                            <td>{formatoCi(estudiante.cedula)}</td>
                             <td>
                               <Button size="sm" variant="outlined" color="primary" onClick={() => handleValidar(estudiante.idUsuario)}>
                                 Validar

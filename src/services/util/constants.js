@@ -1,19 +1,16 @@
-import { getPreviasAsignatura } from "../requests/asignaturaService"
+import { getPreviasAsignatura, inscripcionAsignatura } from "../requests/asignaturaService"
 
 const PORT = {
   back: 8080,   // Puerto backend
   front: 3000,  // Puerto frontend
 }
+// http://localhost:3000/  Encoder
+// http://localhost:3000/  Url encode
+// const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
+// const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
-
-//const uriBaseBack = `https://studyhub-backend-g4-production.up.railway.app`
-
-// studyhub-backend-g4-production.up.railway.app
-const uriBaseFront = `https://frontstudyhub.vercel.app`
-
-//const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-//const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 // ? http://localhost:3000/
 const URI_FRONT = {
@@ -50,6 +47,7 @@ const URI_FRONT = {
   //Uri Funcionario
   registrarHorarioAsignaturaUri: `/registrar-horario-asignatura`,
   RegistrarAsignaturaPeriodoExamenUri: `/registrar-asignatura-periodo-examen`,
+  inscripcionExamenUri: `/inscripcion-examen`,
 
 }
 
@@ -76,6 +74,7 @@ const URL_BACK = {
   acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,                // PUT
   getEstudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`, // GET
 
+
   ///
   // DOCENTESERVICE
   altaDocente: `${uriBaseBack}/api/docente/altaDocente`,             // POST
@@ -85,18 +84,20 @@ const URL_BACK = {
   getDocentes: `${uriBaseBack}/api/usuario/getDocentes`,                             // GET
   getDocentesByAsignatura: `${uriBaseBack}/api/docente/getDocentesByAsignaturaId/`,  // GET
 
+
   ///
   // ASIGNATURASERVICE
   registroHorarios: `${uriBaseBack}/api/asignatura/registroHorarios/`,          // POST
   inscripcionAsignatura: `${uriBaseBack}/api/asignatura/inscripcionAsignatura`, // POST
-  getHorarios: `${uriBaseBack}/api/asignatura/getHorarios/`,     // POST // ! VER
   altaAsignatura: `${uriBaseBack}/api/asignatura/altaAsignatura`, // POST
+  getHorarios: `${uriBaseBack}/api/asignatura/getHorarios/`,     // GET
   getAsignaturas: `${uriBaseBack}/api/asignatura/getAsignaturas`, // GET
   getAsignaturasDeCarrera: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarrera/`, // GET
-  courseRelations: `${uriBaseBack}/course-relations`, // GET
   getAsignaturasDeCarreraConExamen: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarreraConExamen/`, // GET
   registrarPreviaturas: `${uriBaseBack}/api/asignatura/registrarPreviaturas/`, // POST
   getPreviasAsignatura: `${uriBaseBack}/api/asignatura/getPreviasAsignatura/`, // GET
+  getNoPreviasAsignatura: `${uriBaseBack}/api/asignatura/getNoPreviasAsignatura/`, // GET
+
 
   ///
   // CARRERASERVICE
@@ -108,18 +109,30 @@ const URL_BACK = {
   altaCarrera: `${uriBaseBack}/api/carrera/altaCarrera`,                  // POST
   getInscriptosPendientes: `${uriBaseBack}/api/carrera/getInscriptosPendientes/`, // GET
   getCarreras: `${uriBaseBack}/api/carrera/getCarreras`, // GET
+  courseRelations: `${uriBaseBack}/course-relations`, // GET
 
   getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`, // GET 
   getCarrerasInscripcionesPendientes: `${uriBaseBack}/api/carrera/getCarrerasInscripcionesPendientes`, // GET
   getCarrerasConPeriodo: `${uriBaseBack}/api/carrera/getCarrerasConPeriodo`, // GET
   getPeriodosDeCarrera: `${uriBaseBack}/api/carrera/getPeriodosDeCarrera/`, // GET
+  getPreviaturasGrafo: `${uriBaseBack}/api/carrera/getPreviaturasGrafo/`, // GET
+
 
   ///
   // Examen
   registroAsignaturaAPeriodo: `${uriBaseBack}/api/examen/registroAsignaturaAPeriodo`, // POST
-
+  getExamenesAsignatura: `${uriBaseBack}/api/examen/getExamenesAsignatura/`, // GET
 
 }
+
+const T_ROL = {
+  ADMIN: `A`,
+  ESTUDIANTE: `E`,
+  COORDINADOR: `C`,
+  DOCENTE: `D`,
+  FUNCIONARIO: `F`,
+  INVITADO: `I`,
+};
 
 const PARAMETERS = {
   redirecturi: `redirectUri`,
@@ -129,18 +142,10 @@ const PARAMETERS = {
   // accessToken: ``,
 };
 
-const TIPO_ROL = {
-  ADMIN: `A`,
-  ESTUDIANTE: `E`,
-  COORDINADOR: `C`,
-  DOCENTE: `D`,
-  FUNCIONARIO: `F`,
-  INVITADO: `I`,
-};
 
 const redirigir = (url) => {
   window.location.href = url;
 };
 
 
-export { TIPO_ROL, URI_FRONT, URL_BACK, PARAMETERS, redirigir, uriBaseFront };
+export { URI_FRONT, URL_BACK, T_ROL, PARAMETERS, redirigir, uriBaseFront };

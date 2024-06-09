@@ -1,10 +1,7 @@
 /* eslint-disable no-throw-literal */
 import { URL_BACK } from '../util/constants'
 
-// "idAsignatura": 0,
-//     "idPeriodo": 0,
-//         "idsDocentes": lisdoce,
-//             "fechaHora": "2024-06-03T02:52:04.065Z"
+
 ///
 export const registroAsignaturaAPeriodo = async (idAsignatura, idPeriodo, idsDocentes, fechaHora, jwtLogin) => {
     let body = {
@@ -28,3 +25,21 @@ export const registroAsignaturaAPeriodo = async (idAsignatura, idPeriodo, idsDoc
     }
 };
 
+
+///
+
+export const getExamenesAsignatura = async (idAsignatura, jwtLogin) => {
+    let response = await fetch(URL_BACK.getExamenesAsignatura + idAsignatura, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        }
+    });
+
+    if (!response.ok) {
+        throw { status: response.status };
+    }
+
+    return await response.json();
+};
