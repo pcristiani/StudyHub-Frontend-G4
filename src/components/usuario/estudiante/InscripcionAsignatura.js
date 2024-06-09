@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import swal from 'sweetalert';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
@@ -17,14 +16,10 @@ import { getCarrerasInscripto } from '../../../services/requests/carreraService'
 import { getAsignaturasDeCarrera, getHorarios } from '../../../services/requests/asignaturaService';
 
 
-
 export default function InscripcionAsignatura() {
 	const { user } = useContext(AuthContext);
 	const history = useNavigate();
 	const [error, setError] = useState(null);
-
-	// const [selectedCarrera, setSelectedCarrera] = useState([]);
-
 	const [carreraData, setCarreraData] = useState([]);
 	const [asignaturaData, setAsignaturaData] = useState([]);
 	const [horarioData, setHorarioData] = useState([]);
@@ -61,17 +56,13 @@ export default function InscripcionAsignatura() {
 		}
 	}
 
-
 	const handleChangeAsignatura = (event, newValue) => {
 		if (newValue !== null) {
 			getInfoHorario(newValue);
 		}
 	};
 
-
-
 	async function getInfoHorario(newValue) {
-
 		if (newValue !== null) {
 			let result = await getHorarios(newValue, user.jwtLogin);
 
@@ -81,37 +72,39 @@ export default function InscripcionAsignatura() {
 			result.forEach(item => {
 				if (item !== null && item !== undefined) {
 					setHorarioData(prev => [...prev, item]);
-					// if (item.dtHorarioDias.length > 1) {
-					// 	for (let i = 0; i < item.dtHorarioDias.length; i++) {
-					// 		setHorarioData(prev => [...prev, item.dtHorarioDias[i]]);
-					// 	}
-					// } else {
-					// }
 				}
 			});
 		}
 	}
 
-	// const handleValidateClick = (event) => {
-	const handleValidateClick = (event, newValue) => {
+	const consolidarHorarios = (horarios) => {
+		if (horarios === null || horarios === undefined) {
+			return [];
+		} else {
+			return horarios.map(horario => {
+				const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana}: ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
+				return {
+					...horario,
+					diasConsolidados: dias
+				};
+			});
+		}
+	};
 
-		console.log("Selasdas", newValue);
-		// event.preventDefault();
-		// const data = new FormData(event.currentTarget);
-		// let idhorario = data.get('idhorario');
-		// console.log("Selected s: ", idhorario);
+	const horariosConsolidados = consolidarHorarios(horarioData);
+	const handleValidateClick = (event, newValue) => {
+		console.log("ID HORARIO ", newValue);
 	};
 
 
 	///
 	const handleSubmit = async (event) => {
-
 		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		let idhorario = data.get('idhorario');
-		console.log("Sesss: ", idhorario);
-
+		// const data = new FormData(event.currentTarget);
+		// let idhorario = data.get('idhorario');
+		// console.log("Sesss: ", idhorario);
 	};
+
 
 	const [small, setSmall] = React.useState(false);
 	return (
@@ -122,7 +115,7 @@ export default function InscripcionAsignatura() {
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '380px' }, gap: 0.8 }}>
 						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
@@ -135,36 +128,13 @@ export default function InscripcionAsignatura() {
 						</Select>
 						<Divider />
 
-						{/* <Select size="sm" defaultValue="Seleccionar idhorario" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick}>
-							{Array.isArray(horarioData) && horarioData.map((horario, index) => (
-								<Option key={index} value={horario.idHorarioAsignatura}>{horario.dtHorarioDias[0].diaSemana}</Option>
-							))}
-						</Select> */}
-						{/* <Select size="sm" defaultValue="" placeholder="Seleccionar horario" id="idhorario" name="idhorario" width="150px">
-							{Array.isArray(horarioData) && horarioData.map((horario, index) => (
-								horario.dtHorarioDias.map((dia, diaIndex) => (
-									<option key={`${index}-${diaIndex}`} value={horario.idHorarioAsignatura}>
-										{`Asignatura ${horario.idAsignatura} - ${dia.diaSemana} ${dia.horaInicio} - ${dia.horaFin}`}
-									</option>
-								))
-							))}
-						</Select> */}
-						{/* <Divider /> */}
-
-						<Select size="sm" defaultValue="Seleccionar horario" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick}>
-							{/* <List sx={{ fontSize: 16 }} id="idhorario" name="idhorario" > */}
-							{Array.isArray(horarioData) && horarioData.map((horario, index) => (
-
-								<Option key={index} value={horario.idHorarioAsignatura} >
-									{horario.dtHorarioDias[0].diaSemana}: {horario.dtHorarioDias[0].horaInicio} a {horario.dtHorarioDias[0].horaFin}
+						<Select size="sm" defaultValue="Seleccionar horario" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick} width="150px">
+							{Array.isArray(horarioData) && horariosConsolidados.map((horario, index) => (
+								<Option key={index} value={horario.idHorarioAsignatura}>
+									{`${horario.idHorarioAsignatura} - ${horario.diasConsolidados}`}
 								</Option>
-
 							))}
-							{/* </List> */}
-
 						</Select>
-
-
 					</FormControl>
 
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>

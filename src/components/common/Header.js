@@ -36,7 +36,6 @@ import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
 import { cerrarSesion } from '../../services/requests/loginService';
 
-// import { T_ROL } from '../services/data/TipoRol';
 import { URI_FRONT, T_ROL } from '../../services/util/constants';
 import { Key } from '@mui/icons-material';
 import swal from 'sweetalert';
@@ -98,7 +97,7 @@ function NavMenuButton({ children, menu, open, onOpen, onLeaveMenu, label, ...pr
          <MenuButton
             {...props}
             slots={{ root: IconButton }}
-            slotProps={{ root: { variant: 'plain', color: 'neutral' } }}
+            slotProps={{ root: { variant: 'outlined', color: 'neutral' } }}
             onMouseDown={() => { internalOpen.current = open; }}
             onClick={() => {
                if (!internalOpen.current) { onOpen(); }
@@ -174,19 +173,20 @@ export default function Header() {
                      {(user.rol === T_ROL.ADMIN) &&
                         <>
                            <Dropdown>
-                              <Tooltip title="Funcionarios/Coordinadores" variant="plain" color="neutral">
-                                 <MenuButton variant="plain" color="neutral" component="a" size="sm">
-                                    Administración de usuarios
-                                 </MenuButton>
-                              </Tooltip>
-                              <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0.5, '--ListItem-radius': 'var(--joy-radius-sm)' }}>
-                                 <Button variant="plain" color="neutral" component="a" href={`/alta-funcionario-coordinador`} size="sm">
-                                    Alta de usuario
-                                 </Button>
-                                 <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sm">
-                                    Modificar/Baja usuarios
-                                 </Button>
-                              </Menu>
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
+                                 Administración de usuarios
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={`/alta-funcionario-coordinador`} size="sm">
+                                       Alta de usuario
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sm">
+                                       Alta docente
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sm">
+                                       Modificar/Baja usuarios
+                                    </MenuItem>
+                                 </Menu>
+                              </MenuButton>
                            </Dropdown>
                            <Tooltip title="Asignar coordinador a carrera" variant="plain" color="neutral">
                               <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idA}`} size="sm">
@@ -203,107 +203,121 @@ export default function Header() {
                                  Resumen de actividad
                               </Button>
                            </Tooltip>
-
                         </>
                      }
                      {
-                        ((user.rol === T_ROL.ESTUDIANTE) || (user.rol === T_ROL.ADMIN)) &&
+                        (user.rol === T_ROL.ESTUDIANTE) &&
                         <>
                            <Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sm" sx={{ alignSelf: 'center' }}>
                               Plan de estudios
                            </Button>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
                                  Inscripciones
-                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0., '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href='./inscripcion-carrera' size="sm">
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='./inscripcion-carrera' size="sm">
                                        Carrera
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/inscripcion-asignatura' size="sm">
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/inscripcion-asignatura' size="sm">
                                        Asignatura
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.inscripcionExamenUri} size="sm">
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.inscripcionExamenUri} size="sm">
                                        Examen
-                                    </Button>
+                                    </MenuItem>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
                                  Listados y búsquedas
-                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Asignaturas aprobadas
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Asignaturas pendientes de aprobación
-                                    </Button>
+                                    </MenuItem>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
-                           <Button variant="plain" color="neutral" component="a" href='' size="sm" sx={{ alignSelf: 'center' }}>
+                           <Button variant="plain" color="neutral" component="a" href='/gestion' size="sm" sx={{ alignSelf: 'center' }}>
                               Solicitar escolaridad
                            </Button>
                         </>
                      }
                      {
-                        ((user.rol === T_ROL.FUNCIONARIO) || (user.rol === T_ROL.ADMIN)) &&
+                        (user.rol === T_ROL.FUNCIONARIO) &&
                         <>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Administración de usuarios
-                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sm">
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
+                                 Gestion de usuario
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sm">
                                        Alta docente
-                                    </Button>
-
-                                    <Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm">
+                                    </MenuItem>
+                                    <ListDivider />
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm">
                                        Validar estudiante
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/validar-inscripciones-carrera' size="sm">
-                                       Validar inscripciónes a carrera
-                                    </Button>
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/validar-inscripciones-carrera' size="sm">
+                                       Validar inscripción carrera
+                                    </MenuItem>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Registros
-                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.registrarHorarioAsignaturaUri} size="sm">
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
+                                 Asignaturas
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.registrarHorarioAsignaturaUri} size="sm">
                                        Horario de asignatura
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sm">
-                                       Período de examen
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href={URI_FRONT.RegistrarAsignaturaPeriodoExamenUri} size="sm">
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Buscar asignaturas
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.RegistrarAsignaturaPeriodoExamenUri} size="sm">
                                        Fecha de examen
-                                    </Button>
+                                    </MenuItem>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm" >Calificaciones
-                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
-                                       Registro calificaciones fin de curso
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm">
-                                       Registro calificaciones examen
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/gestion' size="sm">
-                                       Generación de actas
-                                    </Button>
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
+                                 Carreras
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Período de examen
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Buscar carreras
+                                    </MenuItem>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm" >Listados y búsquedas
-                                 <Menu placement="bottom-start" size="sw" sx={{ zIndex: '99999', gap: 0.8, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
-                                       Carreras
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
-                                       Asignaturas
-                                    </Button>
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
+                                 Registro de calificaciones
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                       Calificaciones fin de curso
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Calificaciones examen
+                                    </MenuItem>
+                                 </Menu>
+                              </MenuButton>
+                           </Dropdown>
+                           <Dropdown>
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
+                                 Generación de actas
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
+
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/gestion' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Acta fin de curso
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/gestion' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Acta examen
+                                    </MenuItem>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
@@ -313,29 +327,31 @@ export default function Header() {
                         (user.rol === T_ROL.COORDINADOR) &&
                         <>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Gestión
-                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href='/nueva-carrera' size="sm">
-                                       Alta carrera
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/nueva-asignatura' size="sm">
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
+                                 Asignaturas
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/nueva-asignatura' size="sm" sx={{ alignSelf: 'left' }}>
                                        Alta asignatura
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='/registrar-previaturas' size="sm">
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Buscar asignaturas
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/registrar-previaturas' size="sm" sx={{ alignSelf: 'left' }}>
                                        Registrar previas
-                                    </Button>
+                                    </MenuItem>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
                            <Dropdown>
-                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">Listados y búsquedas
-                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <Button variant="plain" color="neutral" component="a" href='' size="sm">
-                                       Carreras
-                                    </Button>
-                                    <Button variant="plain" color="neutral" component="a" href='' size="sm">
-                                       Asignaturas
-                                    </Button>
+                              <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a" size="sm">
+                                 Carreras
+                                 <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/nueva-carrera' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Alta carrera
+                                    </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Buscar carreras
+                                    </MenuItem>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
@@ -367,8 +383,6 @@ export default function Header() {
                </IconButton>
                <Drawer sx={{ display: { xs: 'inline-flex', sm: 'none' } }} open={open} onClose={() => setOpen(false)}>
                   <ModalClose />
-
-
                   <Box sx={{ px: 0.5 }}>
                      <Navigation />
                   </Box>
@@ -452,6 +466,6 @@ export default function Header() {
                }
             </Box>
          </Box>
-      </CssVarsProvider >
+      </CssVarsProvider>
    );
 }
