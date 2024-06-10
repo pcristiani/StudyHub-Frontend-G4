@@ -12,13 +12,9 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
 import { getAsignaturasDeCarrera, cursadasPendientes, cambiarResultadoCursada } from '../../../services/requests/asignaturaService';
-// import { errors } from '../../../services/util/errors';
-// import TablaCalificaciones from './TablaCalificaciones';
+
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
-// import { getUsuarios, bajaUsuario, getUsuario, modificarDatosUsuario } from '../../../services/requests/usuarioService';
-import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
-// import ControlPointIcon from '@mui/icons-material/DataSaverOn';
 
 export default function CalificacionesFinCurso() {
 	const { user } = useContext(AuthContext);
@@ -30,9 +26,6 @@ export default function CalificacionesFinCurso() {
 	const [selectedCarrera, setSelectedCarrera] = useState('');
 	// const [horarioData, setHorarioData] = useState([]);
 	const [resultadoData, setResultado] = useState('');
-	// const [selectedInicio, setSelectedInicio] = useState('');
-	// const [selectedFin, setSelectedFin] = useState('');
-	// const [dataBaja, setDataBaja] = useState([]);
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
@@ -83,32 +76,9 @@ export default function CalificacionesFinCurso() {
 
 	// const handleModificar = (id) => {
 	const handleModificar = async (id) => {
-		// let horaInicio = selectedInicio;
-		// let horaFin = selectedFin;
 		console.log("104CURSADAS adasdas	: ", id.idCursada, resultadoData);
-
 		await cambiarResultadoCursada(id.idCursada, resultadoData);
-		// // let horaFin = parseInt(selectedFin, 10);
-		// const nuevoHorario = {
-		//    diaSemana: selectedDay,
-		//    horaInicio: horaInicio,
-		//    horaFin: horaFin
-		// };
-		// setHorarioData(prev => [...prev, nuevoHorario]);
 	};
-
-	// const fetchCursadasPendientes = async () => {
-	//    try {
-	//       // let result = await cursadasPendientes(idCarrera, user.jwtLogin);
-	//       // console.log('id en Tablaaasde: ', result.length);
-	//       if (result.length === 0) {
-	//          history('/validar-inscripciones-carrera');
-	//       }
-	//       setCursadasData(result);
-	//    } catch (error) {
-	//       setError(error.message);
-	//    }
-	// }
 
 
 	const handleSubmit = async (event) => {
