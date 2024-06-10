@@ -76,25 +76,4 @@ export const inscripcionCarrera = async (idUsuario, idCarrera, jwtLogin) => {
         return error.response;
     }
 
-
-    // let url = URL_BACK.inscripcionCarrera;
-    // let headersList = {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${jwtLogin}`,
-    // }
-
-    // let bodyContent = JSON.stringify({
-    //     "idCarrera": idCarrera,
-    //     "idEstudiante": idUsuario,
-    //     "validado": false
-    // });
-
-    // let response = await fetch(url, {
-    //     method: "POST",
-    //     body: bodyContent,
-    //     headers: headersList
-    // });
-
-    // let data = await response.text();
-    // console.log(response);
 }

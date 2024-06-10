@@ -13,7 +13,8 @@ import Select from '@mui/joy/Select';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarrerasInscripto } from '../../../services/requests/carreraService';
-import { getAsignaturasDeCarrera, getHorarios } from '../../../services/requests/asignaturaService';
+import { getAsignaturasDeCarrera, getHorarios, inscripcionAsignatura } from '../../../services/requests/asignaturaService';
+import { errors } from '../../../services/util/errors';
 
 
 export default function InscripcionAsignatura() {
@@ -93,6 +94,7 @@ export default function InscripcionAsignatura() {
 
 	const horariosConsolidados = consolidarHorarios(horarioData);
 	const handleValidateClick = (event, newValue) => {
+
 		console.log("ID HORARIO ", newValue);
 	};
 
@@ -100,9 +102,19 @@ export default function InscripcionAsignatura() {
 	///
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		// const data = new FormData(event.currentTarget);
-		// let idhorario = data.get('idhorario');
-		// console.log("Sesss: ", idhorario);
+
+		const data = new FormData(event.currentTarget);
+		let idasignatura = data.get('idasignatura');
+		let idhorario = data.get('idhorario');
+
+		const response = await inscripcionAsignatura(user.id, idasignatura, idhorario, user.jwtLogin)
+		if (response.status === 200) {
+			let title = "Inscripcion realizada!\n\n";
+			errors(title, response.body, response.status);
+			history('/novedades');
+		} else {
+			errors(response.data, response.data, response.status);
+		}
 	};
 
 

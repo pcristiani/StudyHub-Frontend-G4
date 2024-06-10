@@ -221,22 +221,29 @@ export const getNoPreviasAsignatura = async (idAsignatura, jwtLogin) => {
 
 ///
 export const inscripcionAsignatura = async (idEstudiante, idAsignatura, idHorario, jwtLogin) => {
-    let body = {
-        "idEstudiante": idEstudiante,
-        "idAsignatura": idAsignatura,
-        "idHorario": idHorario
-    };
+    try {
+        let body = {
+            "idEstudiante": idEstudiante,
+            "idAsignatura": idAsignatura,
+            "idHorario": idHorario
+        };
 
-    let response = await fetch(URL_BACK.inscripcionAsignatura, {
-        method: 'POST',
-        headers: {
+
+        let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
-        },
-        body: JSON.stringify(body)
-    });
-    if (!response.ok) {
-        throw { status: response.status };
+        }
+        let reqOptions = {
+            url: URL_BACK.inscripcionAsignatura,
+            method: "POST",
+            headers: headersList,
+            data: body
+        }
+
+        let response = await axios.request(reqOptions);
+        return response;
+    } catch (error) {
+        return error.response;
     }
 };
 
@@ -258,3 +265,46 @@ export const getCourseRelations = async (idCarrera, jwtLogin) => {
     let result = await response.text();
     return result;
 }
+
+
+export const cursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
+    try {
+        let headersList = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        }
+
+        let reqOptions = {
+            url: `${URL_BACK.cursadasPendientes}?anio=${anio}&idAsignatura=${idAsignatura}`,
+            method: "GET",
+            headers: headersList,
+        };
+
+        let response = await axios.request(reqOptions);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+
+///
+export const cambiarResultadoCursada = async (idCursada, resultado, jwtLogin) => {
+    try {
+          let headersList = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        }
+        let reqOptions = {
+            url: `${URL_BACK.cambiarResultadoCursada}${idCursada}?nuevoResultadoStr=${resultado}`,
+            method: "POST",
+            headers: headersList,
+            // data: body
+        }
+
+        let response = await axios.request(reqOptions);
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+};

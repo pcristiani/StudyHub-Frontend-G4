@@ -97,6 +97,8 @@ const URL_BACK = {
   registrarPreviaturas: `${uriBaseBack}/api/asignatura/registrarPreviaturas/`, // POST
   getPreviasAsignatura: `${uriBaseBack}/api/asignatura/getPreviasAsignatura/`, // GET
   getNoPreviasAsignatura: `${uriBaseBack}/api/asignatura/getNoPreviasAsignatura/`, // GET
+  cursadasPendientes: `${uriBaseBack}/api/asignatura/cursadasPendientes`, // GET
+  cambiarResultadoCursada: `${uriBaseBack}/api/asignatura/cambiarResultadoCursada/`, // GET
 
 
   ///
@@ -116,7 +118,6 @@ const URL_BACK = {
   getCarrerasConPeriodo: `${uriBaseBack}/api/carrera/getCarrerasConPeriodo`, // GET
   getPeriodosDeCarrera: `${uriBaseBack}/api/carrera/getPeriodosDeCarrera/`, // GET
   getPreviaturasGrafo: `${uriBaseBack}/api/carrera/getPreviaturasGrafo/`, // GET
-
 
   ///
   // Examen
