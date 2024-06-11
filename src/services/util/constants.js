@@ -94,6 +94,8 @@ const URL_BACK = {
   getAsignaturas: `${uriBaseBack}/api/asignatura/getAsignaturas`, // GET
   getAsignaturasDeCarrera: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarrera/`, // GET
   getAsignaturasDeCarreraConExamen: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarreraConExamen/`, // GET
+  getAsignaturasDeEstudiante: `${uriBaseBack}/api/asignatura/getAsignaturasDeEstudiante/`, // GET
+  getAsignaturasNoAprobadas: `${uriBaseBack}/api/asignatura/getAsignaturasNoAprobadas/`, // GET
   registrarPreviaturas: `${uriBaseBack}/api/asignatura/registrarPreviaturas/`, // POST
   getPreviasAsignatura: `${uriBaseBack}/api/asignatura/getPreviasAsignatura/`, // GET
   getNoPreviasAsignatura: `${uriBaseBack}/api/asignatura/getNoPreviasAsignatura/`, // GET
@@ -124,6 +126,7 @@ const URL_BACK = {
   registroAsignaturaAPeriodo: `${uriBaseBack}/api/examen/registroAsignaturaAPeriodo`, // POST
   getExamenesAsignatura: `${uriBaseBack}/api/examen/getExamenesAsignatura/`, // GET
 
+  inscripcionExamen: `${uriBaseBack}/api/examen/inscripcionExamen`, // POST
 }
 
 const T_ROL = {

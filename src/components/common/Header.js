@@ -312,10 +312,10 @@ export default function Header() {
                                  Generación de actas
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
 
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/gestion' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
                                        Acta fin de curso
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/gestion' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
                                        Acta examen
                                     </MenuItem>
                                  </Menu>

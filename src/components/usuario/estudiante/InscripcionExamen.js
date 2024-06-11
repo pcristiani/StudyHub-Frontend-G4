@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import swal from 'sweetalert';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
@@ -14,31 +13,23 @@ import Select from '@mui/joy/Select';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarrerasInscripto } from '../../../services/requests/carreraService';
-import { getAsignaturasDeCarrera } from '../../../services/requests/asignaturaService';
-import IconButton from '@mui/joy/IconButton';
-import ListItemDecorator from '@mui/joy/ListItemDecorator';
-import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import TodayRoundedIcon from '@mui/icons-material/TodayRounded';
-import { getExamenesAsignatura } from '../../../services/requests/examenService';
-
+import { getAsignaturasNoAprobadas } from '../../../services/requests/asignaturaService';
+import { getExamenesAsignatura, inscripcionExamen } from '../../../services/requests/examenService';
 
 export default function InscripcionExamen() {
 	const { user } = useContext(AuthContext);
 	const history = useNavigate();
 	const [error, setError] = useState(null);
-	// const [horariosData, setHorariosData] = useState([]);
-	// const [selectedCarrera, setSelectedCarrera] = useState([]);
+	const [fechaData, setFechaData] = useState([]);
 
 	const [carreraData, setCarreraData] = useState([]);
-	const [asignaturaData, setAsignaturaData] = useState([]);
-	// const [horarioData, setHorarioData] = useState([]);
+	const [asignaturaNoAprobadaData, setAsignaturaNoAprobadasData] = useState([]);
+
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
 			try {
 				const result = await getCarrerasInscripto(user.id, user.jwtLogin);
-				// const result = await getExamenesAsignatura(user.id, user.jwtLogin);
 				setCarreraData(result);
 			} catch (error) {
 				setError(error.message);
@@ -56,31 +47,36 @@ export default function InscripcionExamen() {
 
 	///
 	const handleChange = (event, newValue) => {
-		// setSelectedCarrera(newValue);
-		getInfoAsignaturasDeCarrera(newValue);
+		getInfoAsignaturasDeEstudiante(newValue);
 	};
 
-	async function getInfoAsignaturasDeCarrera(idCarreraAsignatura) {
-		console.log(" idAsignaturaCarrera: ", idCarreraAsignatura);
-		// let result = await getExamenesAsignatura(idAsignaturaCarrera, user.jwtLogin);
-		let result = await getAsignaturasDeCarrera(idCarreraAsignatura, user.jwtLogin);
-
-		console.log(" getExamenesAsignatura: ", result);
-		setAsignaturaData(result);
+	async function getInfoAsignaturasDeEstudiante(idEstudiante) {
+		let result = await getAsignaturasNoAprobadas(user.id, user.jwtLogin);
+		setAsignaturaNoAprobadasData(result);
 	}
 
-
 	const handleChangeAsignatura = async (event, newValue) => {
-		// getInfoHorario(newValue);
-
-		// setHorarioData('');
-
+		if (newValue !== null && newValue !== undefined && newValue !== "") {
+			let result = await getExamenesAsignatura(newValue, user.jwtLogin);
+			getInfoExamenDate(result);
+		}
 	};
 
+	async function getInfoExamenDate(fechaExamen) {
+		setFechaData(fechaExamen);
+	}
 
-	// const [small, setSmall] = React.useState(false);
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		const data = new FormData(event.currentTarget);
+		let idExamen = data.get('idexamen');
+		let intIdExamen = parseInt(idExamen, 10);
+
+		let result = await inscripcionExamen(user.id, intIdExamen, user.jwtLogin);
+	};
+
 	return (
-		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Inscripción examen</Typography>
@@ -94,19 +90,22 @@ export default function InscripcionExamen() {
 							))}
 						</Select>
 
-
-
 						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
-							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
+							{Array.isArray(asignaturaNoAprobadaData) && asignaturaNoAprobadaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
 						</Select>
 						<Divider />
 
+						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idexamen" name="idexamen" >
+							{Array.isArray(fechaData) && fechaData.map((f, index) => (
+								<Option key={index} value={f.idExamen}>{f.idExamen}</Option>
+							))}
+						</Select>
 
 
-						<ListItem nested>
-						</ListItem>
+						{/* <ListItem nested>
+						</ListItem> */}
 						{/* {Array.isArray(horarioData) && horarioData.map((horario, index) => (
 
 							<List sx={{ fontSize: 16 }}>

@@ -24,7 +24,6 @@ export default function CalificacionesFinCurso() {
 	const [asignaturaData, setAsignaturaData] = useState([]);
 	const [error, setError] = useState(null);
 	const [selectedCarrera, setSelectedCarrera] = useState('');
-	// const [horarioData, setHorarioData] = useState([]);
 	const [resultadoData, setResultado] = useState('');
 
 	useEffect(() => {
@@ -62,10 +61,8 @@ export default function CalificacionesFinCurso() {
 		getInfoCursadasPendientes(idAsignatura);
 	};
 
-
 	async function getInfoCursadasPendientes(idAsignatura) {
 		// let result = await cursadasPendientes(user.jwtLogin);
-		// console.log("CURSADAS PENDIENTES: ", result);
 		// setCursadasData(result[0].idCursada);
 	}
 
@@ -74,10 +71,8 @@ export default function CalificacionesFinCurso() {
 		setResultado(newValue);
 	};
 
-	// const handleModificar = (id) => {
 	const handleModificar = async (id) => {
-		console.log("104CURSADAS adasdas	: ", id.idCursada, resultadoData);
-		await cambiarResultadoCursada(id.idCursada, resultadoData);
+		await cambiarResultadoCursada(id.idCursada, resultadoData, user.jwtLogin);
 	};
 
 
@@ -86,22 +81,8 @@ export default function CalificacionesFinCurso() {
 		const data = new FormData(event.currentTarget);
 		let idAsignatura = data.get('idasignatura');
 		let anioLectivo = parseInt(data.get('aniolectivo'), 10);
-
 		let result = await cursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
 		setCursadasData(result);
-		// fetchCursadasPendientes();
-
-		// console.log("104CURSADAS PENDIENTES: ", result);
-
-		//const response = await registroHorarios(idDocente, anioLectivo, horarioData, idAsignatura, user.jwtLogin);
-		// if (response.statusCodeValue === 200) {
-		//    let title = "¡Horario registado!\n\n";
-		//    errors(title, response.body, response.statusCodeValue);
-		//    history('/novedades');
-		// } else {
-		//    errors(response.body, response.body, response.statusCodeValue);
-		// }
-		// }
 	};
 
 	const [year, setYear] = useState(new Date().getFullYear());
@@ -139,17 +120,15 @@ export default function CalificacionesFinCurso() {
 							))}
 						</Select>
 
-						<Select size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
-							{years.map((year) => (
-								<Option key={year} value={year} >{year}</Option>
-							))}
+						<Select size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>{years.map((year) => (
+							<Option key={year} value={year} >{year}</Option>
+						))}
 						</Select>
 
 						<Button type="submit" fullWidth sx={{ mt: 1, mb: 2, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
 						<section className="text-black body-font">
 							<div>
-								<Sheet
-									variant="outlined"
+								<Sheet variant="outlined"
 									sx={{
 										'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
 										'--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px',
@@ -170,7 +149,7 @@ export default function CalificacionesFinCurso() {
 										<thead>
 											<tr>
 												<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
-												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>idCursada</th>
+												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Id Cursada</th>
 												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Resultado</th>
 												<th aria-label="last" style={{ width: 'var(--Table-buttonColumnWidth)' }} />
 											</tr>
@@ -181,23 +160,15 @@ export default function CalificacionesFinCurso() {
 													<tr key={row.idCursada}>
 														<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
 														<td>{row.idCursada}</td>
-
 														<td>
-															<Select size="sm" defaultValue="Pendiente" placeholder="Pendiente" id="idresultado" name="idresultado" onChange={handleChangeResultado} >
+															<Select size="sm" defaultValue="Pendiente" placeholder="Pendiente" id="idresultado" name="idresultado" onChange={handleChangeResultado}>
 																{diasSemana.map((resultado, index) => (
 																	<Option key={index} value={resultado.value}>{resultado.label}</Option>
 																))}
 															</Select>
 														</td>
-
 														<td>
-															{/* <Button size="small" variant="plain" color="primary" onClick={() => handleModificar(row.idUsuario)}>
-                                                   <DriveFileRenameOutlineOutlinedIcon />
-                                                   </Button> */}
-															<Button type="submit" size="sm" sx={{ mt: 0.1, mb: 0.1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft" onClick={() => handleModificar(row)}>Buscar</Button>
-
-															{/* <Box sx={{ display: 'flex', gap: 0 }}>
-                                             </Box> */}
+															<Button size="sm" sx={{ mt: 0, mb: 0, border: 0, borderColor: '#3d3d3d' }} variant="soft" onClick={() => handleModificar(row)}>Guardar</Button>
 														</td>
 													</tr>
 												)
