@@ -73,14 +73,14 @@ function Register() {
                             <Input size="sm" id="fechaNacimiento" name="fechaNacimiento" fullWidth type='date' />
                             <Input size="sm" required id="cedula" name="cedula" fullWidth placeholder="Cédula" autoComplete="family-name" />
                             <Input size="sm" required name="password" type="password" id="password" fullWidth autoComplete="new-password" placeholder="Contraseña" />
-                            <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">
+                            <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d', zIndex: '1000' }} variant="soft" >
                                 Registrarse</Button>
                             <Link href="/login" variant="body2">¿Ya tienes una cuenta? Iniciar sesión</Link>
                         </Stack>
                     </Box>
                 </Box>
             </Container>
-        </Sheet>
+        </Sheet >
     );
 }
 

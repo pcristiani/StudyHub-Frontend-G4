@@ -47,6 +47,7 @@ import AltaPeriodoExamen from '../components/usuario/funcionario/AltaPeriodoExam
 import RegistrarHorarioAsignatura from '../components/usuario/funcionario/RegistrarHorarioAsignatura';
 import InscripcionExamen from '../components/usuario/estudiante/InscripcionExamen';
 import CalificacionesFinCurso from '../components/usuario/funcionario/CalificacionesFinCurso';
+import CalificacionesExamen from '../components/usuario/funcionario/CalificacionesExamen';
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -100,6 +101,8 @@ export const AppRouter = () => {
 
                     <Route path='/incripcion-examen' element={<InscripcionExamen user={user.id} />} exact />
                     <Route path='/calificaciones-fin-curso' element={<CalificacionesFinCurso user={user.id} />} exact />
+                    <Route path='/calificaciones-examen' element={<CalificacionesExamen user={user.id} />} exact />
+
 
                     <Route path='/login' element={
                         <PublicRoute>

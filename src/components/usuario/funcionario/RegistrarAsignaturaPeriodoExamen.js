@@ -92,6 +92,10 @@ export default function RegistrarAsignaturaPeriodoExamen() {
       }
    };
 
+   const slotProps = {
+      listbox: { sx: { width: '100%' }, },
+   };
+
 
    const handleSubmit = async (event) => {
       event.preventDefault();
@@ -139,23 +143,23 @@ export default function RegistrarAsignaturaPeriodoExamen() {
             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
-                  <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
+                  <Select slotProps={slotProps} size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} >
                      {carreraData.map((carrera, index) => (
                         <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                      ))}
                   </Select>
                   <Divider />
 
-                  <Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
+                  <Select size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} slotProps={{ listbox: { sx: { width: '100%', }, }, }}>
                      {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
                         <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                      ))}
                   </Select>
                   <Divider />
 
-                  <Select size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha}>
+                  <Select size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha} slotProps={{ listbox: { sx: { width: '100%', }, }, }}>
                      {Array.isArray(periodoData) && periodoData.map((periodo, index) => (
-                        <Option key={index} value={periodo}>{periodo.nombre}</Option>
+                        <Option key={index} value={periodo} >{periodo.nombre}</Option>
                      ))}
                   </Select>
                   <Divider />

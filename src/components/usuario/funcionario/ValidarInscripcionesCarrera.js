@@ -3,7 +3,6 @@ import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
 import Button from '@mui/joy/Button';
 import Stack from '@mui/joy/Stack';
-import { TablePagination, tablePaginationClasses as classes } from '@mui/base/TablePagination';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import Option from '@mui/joy/Option';
@@ -12,18 +11,7 @@ import Card from '@mui/joy/Card';
 import { getCarrerasInscripcionesPendientes } from '../../../services/requests/carreraService';
 import FormControl from '@mui/joy/FormControl';
 import Divider from '@mui/joy/Divider';
-
-function selectValidar(id, validado) {
-  return { id, validado };
-}
-// const dataSelect = [
-//   selectValidar(true, "Validado"),
-//   selectValidar(false, "No Validado"),
-// ];
-
-// function preventDefault(event) {
-//   event.preventDefault();
-// }
+import swal from 'sweetalert';
 
 ///
 
@@ -38,15 +26,27 @@ export default function ValidarInscripcionesCarrera() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let idCarrera = data.get('idcarrera');
-    let idCarreraInt = parseInt(idCarrera, 10);
-    console.log(`IDcarrera: ${idCarreraInt}`);
-    history(`/tabla-inscripciones-carrera?id=${idCarreraInt}`);
+    if (idCarrera !== "Seleccionar carrera" && idCarrera !== "" && idCarrera !== null && idCarrera !== undefined) {
+      let idCarreraInt = parseInt(idCarrera, 10);
+      console.log(`IDcarrera: ${idCarreraInt}`);
+      history(`/tabla-inscripciones-carrera?id=${idCarreraInt}`);
+    } else {
+      swal("Información!", 'No hay carreras sin validar', "info", {
+        timer: 3000
+      });
+    }
   }
 
   useEffect(() => {
     const fetchCarreras = async () => {
       try {
         const result = await getCarrerasInscripcionesPendientes(user.jwtLogin);
+        if (result.length === 1) {
+          swal("Información!", 'No hay carreras sin validar', "info", {
+            timer: 3000
+          });
+          history('/');
+        }
         setCarreraData(result);
       } catch (error) {
         setError(error.message);

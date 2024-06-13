@@ -94,7 +94,7 @@ export default function RegistrarPreviaturas() {
 		const response = await registroPreviaturas(idAsignatura, idPrev, user.jwtLogin);
 
 		if (response.statusCodeValue === 200) {
-			let title = "¡Horario registado!\n\n";
+			let title = "¡Previatura registada!\n\n";
 			errors(title, response.body, response.statusCodeValue);
 			history('/novedades');
 		} else {
@@ -111,6 +111,7 @@ export default function RegistrarPreviaturas() {
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+
 					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
 							{carreraData.map((carrera, index) => (

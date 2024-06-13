@@ -19,13 +19,43 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
 import { Menu, MenuItem } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { formatoCi } from '../../../services/util/formatoCi';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
-import { AdbOutlined, AddBox } from '@mui/icons-material';
+import { Delete, AddBox } from '@mui/icons-material';
 
 
-const filters = createFilterOptions();
+// const filters = createFilterOptions();
+// import React, { useState, useEffect, useContext } from 'react';
+// import PropTypes from 'prop-types';
+// import {
+//   Box,
+//   Table,
+//   Typography,
+//   Checkbox,
+//   IconButton,
+//   Tooltip,
+//   Button,
+//   Link,
+//   Menu,
+//   MenuItem,
+//   Autocomplete,
+//   Sheet,
+//   AutocompleteOption,
+//   createFilterOptions
+// } from '@mui/joy';
+// import {
+
+//   AddBox,
+
+// } from '@mui/icons-material';
+// import { visuallyHidden } from '@mui/utils';
+// import { AuthContext } from '../../../context/AuthContext';
+// import { getUsuarios } from '../../../services/requests/usuarioService';
+// import { formatoCi } from '../../../services/util/formatoCi';
+
+const filters = createFilterOptions
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -74,17 +104,16 @@ const headCells = [
     disablePadding: false,
     label: 'Rol',
   },
-  {
-    id: 'opciones',
-    numeric: false,
-    disablePadding: false,
-    label: 'Estado',
-  }
+  // {
+  //   id: 'opciones',
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: 'Estado',
+  // }
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -97,7 +126,7 @@ function EnhancedTableHead(props) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            slotProps={{ input: { 'aria-label': 'select all desserts', }, }}
+            slotProps={{ input: { 'aria-label': 'select all desserts' } }}
             sx={{ verticalAlign: 'sub' }}
           />
         </th>
@@ -105,8 +134,13 @@ function EnhancedTableHead(props) {
           const active = orderBy === headCell.id;
           return (
             <th key={headCell.id} aria-sort={active ? { asc: 'ascending', desc: 'descending' }[order] : undefined}>
-              <Link underline="none" color="neutral" textColor={active ? 'primary.plainColor' : undefined}
-                component="button" onClick={createSortHandler(headCell.id)} fontWeight="lg"
+              <Link
+                underline="none"
+                color="neutral"
+                textColor={active ? 'primary.plainColor' : undefined}
+                component="button"
+                onClick={createSortHandler(headCell.id)}
+                fontWeight="lg"
                 startDecorator={
                   headCell.numeric ? (
                     <ArrowDownwardIcon sx={{ opacity: active ? 1 : 0 }} />
@@ -119,10 +153,8 @@ function EnhancedTableHead(props) {
                 }
                 sx={{
                   '& svg': {
-                    transition: '0.2s',
-                    transform: active && order === 'desc' ? 'rotate(0deg)' : 'rotate(180deg)',
-                  },
-                  '&:hover': { '& svg': { opacity: 1 } },
+                    transition: '0.2s', transform: active && order === 'desc' ? 'rotate(0deg)' : 'rotate(180deg)',
+                  }, '&:hover': { '& svg': { opacity: 1 } },
                 }}>
                 {headCell.label}
                 {active ? (
@@ -148,17 +180,15 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
+const handleAdd = (idUsuario) => {
+  console.log('Agregar usuario con ID:', idUsuario);
+};
 
 function EnhancedTableToolbar(props) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { numSelected, onFilter } = props;
+  const { numSelected, onFilter, selected } = props;
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
-
-  const handleAdd = () => {
-    console.log('Agregar');
-  }
-
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', py: 1, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.level1' : 'transparent', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }}>
@@ -170,15 +200,13 @@ function EnhancedTableToolbar(props) {
       {numSelected > 0 ? (
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.6 }}>
-
             <Tooltip title="Delete">
-              <IconButton size="sm" color="danger" variant="solid" onClick={handleAdd}>
+              <IconButton size="sm" color="danger" variant="soft" onClick={() => handleAdd(selected[0])}>
                 <AddBox />
               </IconButton>
             </Tooltip>
-
             <Tooltip title="Add">
-              <IconButton size="sm" color="primary" variant="solid">
+              <IconButton size="sm" color="primary" variant="soft">
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
@@ -202,14 +230,13 @@ function EnhancedTableToolbar(props) {
   );
 }
 
-
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onFilter: PropTypes.func.isRequired,
+  selected: PropTypes.array.isRequired,
 };
 
-
-export default function TableSortAndSelection() {
+export default function ListadosBusquedas() {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('nombre');
   const [selected, setSelected] = useState([]);
@@ -219,7 +246,7 @@ export default function TableSortAndSelection() {
 
   const [asignaturasCarreraData, setAsignaturasCarreraData] = useState([]);
   const { user } = useContext(AuthContext);
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = useState(null);
 
   useEffect(() => {
     const fetchCarreras = async () => {
@@ -264,11 +291,11 @@ export default function TableSortAndSelection() {
       );
     }
     setSelected(newSelected);
+    console.log("newSelected: ", newSelected);
   };
 
-
   const handleChangePage = (newPage) => setPage(newPage);
-  const isSelected = (nombre) => selected.indexOf(nombre) !== -1;
+  const isSelected = (idUsuario) => selected.indexOf(idUsuario) !== -1;
   const handleFilter = (nombre) => setFilter(nombre);
   const filteredUsers = filter ? asignaturasCarreraData.filter((user) => user.nombre === filter) : asignaturasCarreraData;
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredUsers.length) : 0;
@@ -278,16 +305,13 @@ export default function TableSortAndSelection() {
     setFilter(newValue ? newValue.nombre : '');
   };
 
-
   return (
     <Sheet variant="outlined" sx={{ marginTop: 6, boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '600px' }}>
-      <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} />
+      <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
       <Table aria-labelledby="tableTitle" hoverRow
         sx={{
-          '--TableCell-headBackground': 'transparent',
-          '--TableCell-selectedBackground': (theme) => theme.vars.palette.success.softBg,
-          '& thead th:nth-child(1)': { width: '40px', },
-          '& thead th:nth-child(2)': { width: '35%', },
+          '--TableCell-headBackground': 'transparent', '--TableCell-selectedBackground': (theme) => theme.vars.palette.success.softBg,
+          '& thead th:nth-child(1)': { width: '40px' }, '& thead th:nth-child(2)': { width: '35%' },
         }}>
         <EnhancedTableHead
           numSelected={selected.length}
@@ -295,7 +319,8 @@ export default function TableSortAndSelection() {
           orderBy={orderBy}
           onSelectAllClick={handleSelectAllClick}
           onRequestSort={handleRequestSort}
-          rowCount={asignaturasCarreraData.length} />
+          rowCount={asignaturasCarreraData.length}
+        />
         <tbody>
           {stableSort(filteredUsers, getComparator(order, orderBy))
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -304,33 +329,48 @@ export default function TableSortAndSelection() {
               const labelId = `enhanced-table-checkbox-${index}`;
 
               return (
-                <tr onClick={(event) => handleClick(event, row.idUsuario)} role="checkbox"
-                  aria-checked={isItemSelected} tabIndex={-1} key={row.idUsuario} selected={isItemSelected}>
+                <tr
+                  onClick={(event) => handleClick(event, row.idUsuario)}
+                  role="checkbox"
+                  aria-checked={isItemSelected}
+                  tabIndex={-1}
+                  key={row.idUsuario}
+                  selected={isItemSelected}
+                >
                   <th scope="row">
-                    <Checkbox checked={isItemSelected} slotProps={{ input: { 'aria-labelledby': labelId, }, }} sx={{ verticalAlign: 'top' }} />
+                    <Checkbox
+                      checked={isItemSelected}
+                      slotProps={{ input: { 'aria-labelledby': labelId } }}
+                      sx={{ verticalAlign: 'top' }}
+                    />
                   </th>
                   <th id={labelId} scope="row">
                     {row.nombre} {row.apellido}
                   </th>
-                  <td>{row.cedula}</td>
+                  <td>{formatoCi(row.cedula)}</td>
                   <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : row.rol === "E" ? 'Estudiante' : row.rol === "A" ? 'Administrador' : ''}</td>
-                  <td>{row.activo ? 'Activo' : 'Inactivo'}</td>
+                  {/* <td>{row.activo ? 'Activo' : 'Inactivo'}</td> */}
                 </tr>
               );
             })}
           {emptyRows > 0 && (
             <tr style={{ height: 63 * emptyRows }}>
-              <td colSpan={5} />
+              <td colSpan={4} />
             </tr>
           )}
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={5}>
-              <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', }}>
+            <td colSpan={4}>
+              <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                 <Autocomplete
-                  sx={{ width: '100%' }} placeholder="Filtrar por nombre" options={filteredUsers} getOptionLabel={(option) => option.nombre}
-                  onChange={handleAutocompleteChange} value={value} filterOptions={(options, params) => {
+                  sx={{ width: '100%' }}
+                  placeholder="Filtrar por nombre"
+                  options={filteredUsers}
+                  getOptionLabel={(option) => option.nombre}
+                  onChange={handleAutocompleteChange}
+                  value={value}
+                  filterOptions={(options, params) => {
                     const filtered = filters(options, params);
                     const { inputValue } = params;
                     const isExisting = options.some((option) => inputValue === option.nombre);
@@ -343,15 +383,19 @@ export default function TableSortAndSelection() {
                     <AutocompleteOption {...props} key={option.nombre}>
                       {option.nombre} {option.apellido}
                     </AutocompleteOption>
-                  )} />
-                <Box sx={{ width: '20%', display: 'flex', alignItems: 'center', gap: 0.5, justifyContent: 'flex-end', }}>
-                  <IconButton size="sm" color="neutral" variant="outlined" disabled={page === 0}
-                    onClick={() => handleChangePage(page - 1)} sx={{ bgcolor: 'background.surface' }}>
+                  )}
+                />
+                <Box sx={{ width: '20%', display: 'flex', alignItems: 'center', gap: 0.5, justifyContent: 'flex-end' }}>
+                  <IconButton size="sm" color="neutral"
+                    variant="outlined" disabled={page === 0}
+                    onClick={() => handleChangePage(page - 1)}
+                    sx={{ bgcolor: 'background.surface' }}>
                     <KeyboardArrowLeftIcon />
                   </IconButton>
                   <IconButton size="sm" color="neutral" variant="outlined"
                     disabled={asignaturasCarreraData.length !== -1 ? page >= Math.ceil(asignaturasCarreraData.length / rowsPerPage) - 1 : false}
-                    onClick={() => handleChangePage(page + 1)} sx={{ bgcolor: 'background.surface' }}>
+                    onClick={() => handleChangePage(page + 1)}
+                    sx={{ bgcolor: 'background.surface' }}>
                     <KeyboardArrowRightIcon />
                   </IconButton>
                 </Box>

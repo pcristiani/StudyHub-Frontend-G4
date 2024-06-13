@@ -15,13 +15,13 @@ import { AuthContext } from '../../../context/AuthContext';
 import { getCarrerasInscripto } from '../../../services/requests/carreraService';
 import { getAsignaturasNoAprobadas } from '../../../services/requests/asignaturaService';
 import { getExamenesAsignatura, inscripcionExamen } from '../../../services/requests/examenService';
+import { errors } from '../../../services/util/errors';
 
 export default function InscripcionExamen() {
 	const { user } = useContext(AuthContext);
 	const history = useNavigate();
 	const [error, setError] = useState(null);
 	const [fechaData, setFechaData] = useState([]);
-
 	const [carreraData, setCarreraData] = useState([]);
 	const [asignaturaNoAprobadaData, setAsignaturaNoAprobadasData] = useState([]);
 
@@ -47,6 +47,7 @@ export default function InscripcionExamen() {
 
 	///
 	const handleChange = (event, newValue) => {
+		console.log("Carrera seleccionada: ", newValue);
 		getInfoAsignaturasDeEstudiante(newValue);
 	};
 
@@ -73,6 +74,15 @@ export default function InscripcionExamen() {
 		let intIdExamen = parseInt(idExamen, 10);
 
 		let result = await inscripcionExamen(user.id, intIdExamen, user.jwtLogin);
+
+		// console.log("resuñltado examen: ", result);
+		if (result.status === 200) {
+			let title = "¡Inscripto a carrera!\n\n";
+			errors(title, result.data, result.status);
+			history('/novedades');
+		} else {
+			errors(result.data, result.data, result.status);
+		}
 	};
 
 	return (
@@ -99,15 +109,11 @@ export default function InscripcionExamen() {
 
 						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idexamen" name="idexamen" >
 							{Array.isArray(fechaData) && fechaData.map((f, index) => (
-								<Option key={index} value={f.idExamen}>{f.idExamen}</Option>
+								<Option key={index} value={f.idExamen}>{f.periodoExamen} | {f.fechaHora}</Option>
 							))}
 						</Select>
 
-
-						{/* <ListItem nested>
-						</ListItem> */}
 						{/* {Array.isArray(horarioData) && horarioData.map((horario, index) => (
-
 							<List sx={{ fontSize: 16 }}>
 								<IconButton aria-label="save" size="sm" key={index} value={horario.value}>
 									<TodayRoundedIcon sx={{ fontSize: 20 }} />

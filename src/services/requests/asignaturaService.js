@@ -60,7 +60,7 @@ export const getAsignaturasDeCarreraConExamen = async (idCarrera, jwtLogin) => {
 
 
 ///
-export const getAsignaturasNoAprobadas= async (idEstudiante, jwtLogin) => {
+export const getAsignaturasNoAprobadas = async (idEstudiante, jwtLogin) => {
 	const url = URL_BACK.getAsignaturasNoAprobadas;
 
 	let headersList = {
@@ -311,9 +311,9 @@ export const cursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
 
 
 ///
-export const cambiarResultadoCursada = async (idCursada, resultado, jwtLogin) => {
+export const cambiarResultadoCursada = async (idCursada, calificacion, jwtLogin) => {
 
-	console.log("ID CURSADA2094  : ", idCursada, resultado, jwtLogin);
+	console.log("ID CURSADA2094  : ", idCursada, calificacion, jwtLogin);
 	try {
 		let headersList = {
 			'Content-Type': 'application/json',
@@ -321,7 +321,7 @@ export const cambiarResultadoCursada = async (idCursada, resultado, jwtLogin) =>
 		}
 
 		let reqOptions = {
-			url: `${URL_BACK.cambiarResultadoCursada}${idCursada}?nuevoResultadoStr=${resultado}`,
+			url: `${URL_BACK.cambiarResultadoCursada}${idCursada}?calificacion=${calificacion}`,
 			method: "POST",
 			headers: headersList,
 		}

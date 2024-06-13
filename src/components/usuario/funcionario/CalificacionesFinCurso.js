@@ -15,6 +15,7 @@ import { getAsignaturasDeCarrera, cursadasPendientes, cambiarResultadoCursada } 
 
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
+import { Input } from '@mui/joy';
 
 export default function CalificacionesFinCurso() {
 	const { user } = useContext(AuthContext);
@@ -44,7 +45,7 @@ export default function CalificacionesFinCurso() {
 		}
 	}, [carreraData]);
 
-	const handleChange = (event, newValue) => {
+	const handleChangeCarrera = (event, newValue) => {
 		console.log("Selected: ", newValue);
 		setSelectedCarrera(newValue);
 		if (newValue !== null) {
@@ -57,33 +58,71 @@ export default function CalificacionesFinCurso() {
 		setAsignaturaData(result);
 	}
 
-	const handleChangeAsignatura = (event, idAsignatura) => {
-		getInfoCursadasPendientes(idAsignatura);
-	};
+	// const handleChangeAsignatura = (event, idAsignatura) => {
+	// 	// selectedCarrera
+	// 	// setAsignaturaData(idAsignatura);
+	// };
 
-	async function getInfoCursadasPendientes(idAsignatura) {
-		// let result = await cursadasPendientes(user.jwtLogin);
-		// setCursadasData(result[0].idCursada);
-	}
+	// async function getInfoCursadasPendientes(idAsignatura) {
+	// 	// let result = await cursadasPendientes(user.jwtLogin);
+	// 	// setCursadasData(result[0].idCursada);
+	// }
 
-	const handleChangeResultado = (event, newValue) => {
-		console.log("Selected: ", newValue);
-		setResultado(newValue);
-	};
-
-	const handleModificar = async (id) => {
-		await cambiarResultadoCursada(id.idCursada, resultadoData, user.jwtLogin);
-	};
-
+	// const [cursadasData, setCursadasData] = useState(null);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 		let idAsignatura = data.get('idasignatura');
 		let anioLectivo = parseInt(data.get('aniolectivo'), 10);
-		let result = await cursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
-		setCursadasData(result);
+		console.log("IdAsignatura: ", idAsignatura, "AnioLectivo: ", anioLectivo);
+		// let result2 = null; 
+		const result2 = await cursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
+		console.log("CursadasPendientes: ", result2);
+
+		console.log("cursadasData: ", cursadasData);
+
+		// if (result2 && result2.length > 0) {
+		setCursadasData(result2);
+		// } else {
+		// 		setCursadasData(null);
+		// }
 	};
+
+
+	// const handleChangeResultado = (event, newValue) => {
+	// 	console.log("Selected: ", newValue);
+	// 	// setResultado(newValue);
+	// };
+
+	const handleModificar = async (idCursada) => {
+		// event.preventDefault();
+		// const data = new FormData(event.currentTarget);
+		// // let idAsignatura = data.get('idasignatura');
+		// let idResultado = parseInt(data.get('idresultado'), 10);
+
+		// console.log("IdAsignatura: ", id, "idResultado: ", idResultado);
+		console.log("Id: ", idCursada, resultadoData,);
+		const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
+		console.log("CursadasPendientes: ", result);
+	};
+
+
+	// const handleSubmit = async (event) => {
+	// 	event.preventDefault();
+	// 	const data = new FormData(event.currentTarget);
+	// 	let idAsignatura = data.get('idasignatura');
+	// 	let anioLectivo = parseInt(data.get('aniolectivo'), 10);
+	// 	let result = await cursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
+	// 	console.log("CursadasPendientes: ", result);
+	// 	// setCursadasData(null);
+	// 	if (cursadasData > 0) {
+	// 		// setCursadasData(null);
+	// 	} else {
+	// 		setCursadasData(result);
+	// 	}
+
+	// };
 
 	const [year, setYear] = useState(new Date().getFullYear());
 	const startYear = 2023;
@@ -93,56 +132,60 @@ export default function CalificacionesFinCurso() {
 		years.push(i);
 	}
 
+	// const [year, setYear] = useState(new Date().getFullYear());
+	// const startYear = 2023;
+	// const endYear = 12;//new Date().getFullYear() + 1;
+	// const [year, setYear] = useState(new Date().getFullYear());
+	const notas = [];
+	for (let i = 1; i <= 12; i++) {
+		notas.push(i);
+	}
+
 	const diasSemana = [
-		{ value: 'EXONERADO', label: 'Exonerado' },
-		{ value: 'EXAMEN', label: 'Examen' },
-		{ value: 'RECURSA', label: 'Recursa' },
+		{ value: 1, label: '1' },
+		{ value: 2, label: '2' },
+		{ value: 3, label: '3' },
 	];
 
 	return (
-		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
+		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registro de calificaciones de fin de curso</Typography>
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '620px' }, gap: 0.8 }}>
-						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} >
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '820px' }, gap: 0.8 }}>
+						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
 						</Select>
-
-						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required>
+						{/* onChange={handleChangeAsignatura} */}
+						<Select size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" required>
 							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
 						</Select>
 
-						<Select size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>{years.map((year) => (
-							<Option key={year} value={year} >{year}</Option>
-						))}
-						</Select>
+						<Stack direction="row" spacing={0.8} sx={{ justifyContent: 'right', zIndex: '1000' }}>
+							<Select size="sm" sx={{ width: "600px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
+								placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
+								{years.map((year) => (
+									<Option key={year} value={year} >{year}</Option>
+								))}
+							</Select>
+							<Button fullWidth size="sm" type="submit" sx={{ mt: 1, mb: 2, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
 
-						<Button type="submit" fullWidth sx={{ mt: 1, mb: 2, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
+						</Stack>
+						<Divider sx={{ marginBottom: 1.5, marginTop: 1 }} />
 						<section className="text-black body-font">
 							<div>
 								<Sheet variant="outlined"
 									sx={{
 										'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-										'--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px',
-										'--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
-										borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
-										background: (theme) =>
-											`linear-gradient(to right, ${theme.vars.palette.background.surface} 30%, rgba(255, 255, 255, 0)),
-        linear-gradient(to right, rgba(255, 255, 255, 0), ${theme.vars.palette.background.surface} 90%) 0 100%`,
-										backgroundSize:
-											'40px calc(100% - var(--TableCell-height)), 40px calc(100% - var(--TableCell-height)), 14px calc(100% - var(--TableCell-height)), 14px calc(100% - var(--TableCell-height))', backgroundRepeat: 'no-repeat',
-										backgroundAttachment: 'local, local, scroll, scroll',
-										backgroundPosition:
-											'var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height), var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height)',
-										backgroundColor: 'background.surface',
+										'--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
+										borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
 									}}>
 
 									<Table hoverRow>
@@ -150,8 +193,8 @@ export default function CalificacionesFinCurso() {
 											<tr>
 												<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
 												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Id Cursada</th>
-												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Resultado</th>
-												<th aria-label="last" style={{ width: 'var(--Table-buttonColumnWidth)' }} />
+												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Calificacion</th>
+												<th style={{ width: 'var(--Table-lastColumnWidth)' }}></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -160,16 +203,22 @@ export default function CalificacionesFinCurso() {
 													<tr key={row.idCursada}>
 														<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
 														<td>{row.idCursada}</td>
-														<td>
-															<Select size="sm" defaultValue="Pendiente" placeholder="Pendiente" id="idresultado" name="idresultado" onChange={handleChangeResultado}>
+														{/* <td>
+															<Select size="sm" placeholder="Pendiente" id="idresultado" name="idresultado" onChange={handleChangeResultado}>
 																{diasSemana.map((resultado, index) => (
-																	<Option key={index} value={resultado.value}>{resultado.label}</Option>
+																	<Input key={index} value={resultado.value}>{resultado.label}</Input>
 																))}
 															</Select>
-														</td>
+														</td> */}
 														<td>
-															<Button size="sm" sx={{ mt: 0, mb: 0, border: 0, borderColor: '#3d3d3d' }} variant="soft" onClick={() => handleModificar(row)}>Guardar</Button>
+															<Select size="sm" onChange={(event, newValue) => setResultado(newValue)} placeholder="Calificación" id="idresultado" name="idresultado">{notas.map((nota) => (
+																<Option key={notas} value={nota}>{nota}</Option>
+															))}
+															</Select>
 														</td>
+														<td>	<Button size="sm" sx={{ mt: 0, mb: 0, border: 0.1, borderColor: '#3d3d3d', alignSelf: 'center' }} variant="outlined"
+															onClick={() => handleModificar(row.idCursada)}
+														>Guardar</Button>	</td>
 													</tr>
 												)
 											))}

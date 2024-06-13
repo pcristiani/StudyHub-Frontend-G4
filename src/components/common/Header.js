@@ -18,7 +18,6 @@ import Drawer from '@mui/joy/Drawer';
 import ModalClose from '@mui/joy/ModalClose';
 import DialogTitle from '@mui/joy/DialogTitle';
 import { CssVarsProvider } from '@mui/joy/styles';
-// import ListItem from '@mui/joy/ListItem';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
@@ -130,7 +129,6 @@ export default function Header() {
    const [open, setOpen] = React.useState(false);
    const { user, dispatch } = useContext(AuthContext);
    const navigate = useNavigate();
-   const [menuIndex, setMenuIndex] = React.useState(null);
    const idA = 'a';
    const idM = 'm';
    const idL = 'l';
@@ -235,7 +233,7 @@ export default function Header() {
                                        Asignaturas aprobadas
                                     </MenuItem>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm">
-                                       Asignaturas pendientes de aprobación
+                                       Pendientes de Aprobación
                                     </MenuItem>
                                  </Menu>
                               </MenuButton>
@@ -253,11 +251,11 @@ export default function Header() {
                                  Gestion de usuario
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sm">
-                                       Alta docente
+                                       Alta de docente
                                     </MenuItem>
                                     <ListDivider />
                                     <MenuItem variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sm">
-                                       Validar estudiante
+                                       Validar acceso estudiante
                                     </MenuItem>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/validar-inscripciones-carrera' size="sm">
                                        Validar inscripción carrera
@@ -272,11 +270,12 @@ export default function Header() {
                                     <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.registrarHorarioAsignaturaUri} size="sm">
                                        Horario de asignatura
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
-                                       Buscar asignaturas
-                                    </MenuItem>
                                     <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.RegistrarAsignaturaPeriodoExamenUri} size="sm">
                                        Fecha de examen
+                                    </MenuItem>
+                                    <ListDivider />
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Buscar asignaturas
                                     </MenuItem>
                                  </Menu>
                               </MenuButton>
@@ -286,7 +285,7 @@ export default function Header() {
                                  Carreras
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sm" sx={{ alignSelf: 'left' }}>
-                                       Período de examen
+                                       Alta período de examen
                                     </MenuItem>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar carreras
@@ -296,27 +295,26 @@ export default function Header() {
                            </Dropdown>
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
-                                 Registro de calificaciones
+                                 Calificaciones
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/calificaciones-fin-curso' size="sm">
-                                       Calificaciones fin de curso
+                                       Notas fin de curso
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
-                                       Calificaciones examen
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/calificaciones-examen' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Notas de examen
                                     </MenuItem>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
-                                 Generación de actas
+                                 Actas de asignatura
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
-
                                     <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
                                        Acta fin de curso
                                     </MenuItem>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
-                                       Acta examen
+                                       Acta de examen
                                     </MenuItem>
                                  </Menu>
                               </MenuButton>
@@ -331,13 +329,14 @@ export default function Header() {
                                  Asignaturas
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/nueva-asignatura' size="sm" sx={{ alignSelf: 'left' }}>
-                                       Alta asignatura
-                                    </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
-                                       Buscar asignaturas
+                                       Alta de asignatura
                                     </MenuItem>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/registrar-previaturas' size="sm" sx={{ alignSelf: 'left' }}>
                                        Registrar previas
+                                    </MenuItem>
+                                    <ListDivider />
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Buscar asignaturas
                                     </MenuItem>
                                  </Menu>
                               </MenuButton>
@@ -347,7 +346,7 @@ export default function Header() {
                                  Carreras
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/nueva-carrera' size="sm" sx={{ alignSelf: 'left' }}>
-                                       Alta carrera
+                                       Alta de carrera
                                     </MenuItem>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar carreras
@@ -376,7 +375,6 @@ export default function Header() {
                   <MenuRoundedIcon />
                   <Stack direction="row" justifyContent="center" alignItems="center" textAlign="center" sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
                      <IconButton size="sm" justifyContent="center" alignItems="center" textAlign="center" sx={{ m: 0.2, display: { xs: 'inline-flex', sm: 'none' }, }}>
-
                         <DialogTitle>StudyHub</DialogTitle>
                      </IconButton>
                   </Stack>

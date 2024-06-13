@@ -43,7 +43,7 @@ function Header(props) {
                     borderColor: 'divider',
                     position: 'sticky',
                     top: 0,
-                    zIndex: 1100,                    
+                    zIndex: 1100,
                 },
                 ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
             ]}
@@ -96,6 +96,8 @@ function SidePane(props) {
     );
 }
 
+
+
 function Main(props) {
     return (
         <Box
@@ -105,22 +107,27 @@ function Main(props) {
             {...props}
             sx={[
                 {
-                    position: 'fixed', zIndex: 1200, width: '100%', height: '100%',
+                    position: 'fixed',
+                    // zIndex: 1200,
+                    width: '100%',
+                    height: '100%',
                     // bgcolor: '#0d1117',
                     // color:'text-primary',
                     bgcolor: 'background.surface',
-                    // flexDirection: 'column',
-                    // justifyContent: 'space-between',
-                    // alignItems: 'center',
-                    //  gridColumn: '1 / -1',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gridColumn: '1 / -1',
                     // borderBottom: '1px solid',
+                    // position: 'sticky',
                     // display: {
-                    //     xs: 'absolute',
-                    //     md: 'absolute',
-
+                    //     xs: 'foxed',
+                    //     sm: 'flex',
+                    //     md: 'flex',
+                    //     xl: 'fixed',
                     // },
                     // margin: 0,
-                    // display: 'relative',
+                    display: 'relative',
                     // top: 0,
                     // bottom: 0,
                     //   minHeight: '768px',
@@ -153,7 +160,7 @@ function SideDrawer(
                     inset: 0,
                     bgcolor: (theme) =>
                         `rgba(${theme.vars.palette.neutral.darkChannel} / 0.8)`,
-                    bgcolor: '#0d1117',
+                    // bgcolor: '#0d1117',
 
                 }}
             />

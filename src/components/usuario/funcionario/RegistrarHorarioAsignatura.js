@@ -114,8 +114,8 @@ export default function RegistrarHorarioAsignatura() {
    };
 
    const [year, setYear] = useState(new Date().getFullYear());
-   const startYear = 2020;
-   const endYear = new Date().getFullYear() + 5;
+   const startYear = 2023;
+   const endYear = new Date().getFullYear() + 2;
    const years = [];
    for (let i = startYear; i <= endYear; i++) {
       years.push(i);
@@ -131,6 +131,11 @@ export default function RegistrarHorarioAsignatura() {
       { value: 'DOMINGO', label: 'Domingo' },
    ];
 
+   const slotProps = {
+      listbox: { sx: { width: '100%' }, },
+   };
+
+
    return (
       <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
          <Card sx={{ display: 'flex', alignSelf: 'center', }}>
@@ -138,29 +143,29 @@ export default function RegistrarHorarioAsignatura() {
                <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registrar horario asignatura</Typography>
             </Box>
             <Divider />
-            <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+            <Stack slotProps={slotProps} direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
-                  <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} >
+                  <Select size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
                      {carreraData.map((carrera, index) => (
                         <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                      ))}
                   </Select>
 
-                  <Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required>
+                  <Select slotProps={slotProps} size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required>
                      {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
                         <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                      ))}
                   </Select>
 
-                  <Select size="sm" defaultValue="Seleccionar docente" placeholder="Seleccionar docente" id="iddocente" name="iddocente" required>
+                  <Select slotProps={slotProps} size="sm" placeholder="Seleccionar docente" id="iddocente" name="iddocente" required>
                      {Array.isArray(docenteData) && docenteData.map((docente, index) => (
                         <Option key={index} value={docente.idDocente}>{docente.nombre}</Option>
                      ))}
                   </Select>
                   <Divider />
 
-                  <Select size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
+                  <Select slotProps={slotProps} size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
                      {years.map((year) => (
                         <Option key={year} value={year} >{year}</Option>
                      ))}
@@ -168,18 +173,20 @@ export default function RegistrarHorarioAsignatura() {
 
                   <Select size="sm" value={selectedDay} onChange={(event, newValue) => setSelectedDay(newValue)} placeholder="Dia de la semana" id="diasemana" name="diasemana" required>
                      {diasSemana.map((day) => (
-                        <Option key={day.value} value={day.value}>
-                           {day.label}
-                        </Option>
+                        <Box sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
+                           <Option key={day.value} value={day.value}>
+                              {day.label}
+                           </Option>
+                        </Box>
                      ))}
                   </Select>
 
                   <Stack direction="row" spacing={0.6} sx={{ justifyContent: 'right' }}>
-                     <Autocomplete size="sm" id="inicioclase" name="inicioclase" options={timeSlots} placeholder="Inicia la clase" onChange={(event, newValue) => setSelectedInicio(newValue)} />
-                     <Autocomplete size="sm" id="finclase" name="finclase" options={timeSlots} placeholder="Finaliza la clase" onChange={(event, newValue) => setSelectedFin(newValue)} />
+                     <Autocomplete size="sm" id="inicioclase" name="inicioclase" options={timeSlots} placeholder="Inicia" onChange={(event, newValue) => setSelectedInicio(newValue)} />
+                     <Autocomplete size="sm" id="finclase" name="finclase" options={timeSlots} placeholder="Finaliza" onChange={(event, newValue) => setSelectedFin(newValue)} />
                      <Tooltip title="Agregar a horario de clase" variant="plain" color="primary">
-                        <Button size="sm" variant="none" color="neutral" onClick={handleChangeHorario}>
-                           <ControlPointIcon variant="outlined" color="primary" />
+                        <Button size="sm" variant="outlined" color="neutral" onClick={handleChangeHorario}>
+                           <ControlPointIcon variant="plain" color="primary" />
                         </Button>
                      </Tooltip>
                   </Stack>
@@ -199,6 +206,7 @@ export default function RegistrarHorarioAsignatura() {
                      ))}
                   </Select>
                </FormControl>
+               <Divider />
 
                <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
                   <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>

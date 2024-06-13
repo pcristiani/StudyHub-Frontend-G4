@@ -1,5 +1,3 @@
-import { getPreviasAsignatura, inscripcionAsignatura } from "../requests/asignaturaService"
-
 const PORT = {
   back: 8080,   // Puerto backend
   front: 3000,  // Puerto frontend
@@ -7,7 +5,7 @@ const PORT = {
 // http://localhost:3000/  Encoder
 // http://localhost:3000/  Url encode
 // const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
-// const uriBaseFront = `https://frontstudyhub.vercel.app`
+//const uriBaseFront = `https://frontstudyhub.vercel.app`
 
 const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
 const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
@@ -80,7 +78,6 @@ const URL_BACK = {
   altaDocente: `${uriBaseBack}/api/docente/altaDocente`,             // POST
   modificarDocente: `${uriBaseBack}/api/docente/modificarDocente/`,  // PUT
   deleteDocente: `${uriBaseBack}/api/docente/bajaDocente/`,          // DELETE
-
   getDocentes: `${uriBaseBack}/api/usuario/getDocentes`,                             // GET
   getDocentesByAsignatura: `${uriBaseBack}/api/docente/getDocentesByAsignaturaId/`,  // GET
 
@@ -125,8 +122,11 @@ const URL_BACK = {
   // Examen
   registroAsignaturaAPeriodo: `${uriBaseBack}/api/examen/registroAsignaturaAPeriodo`, // POST
   getExamenesAsignatura: `${uriBaseBack}/api/examen/getExamenesAsignatura/`, // GET
-
   inscripcionExamen: `${uriBaseBack}/api/examen/inscripcionExamen`, // POST
+  cambiarResultadoExamen: `${uriBaseBack}/api/asignatura/cambiarResultadoExamen/`, // GET
+  calificacionesExamen: `${uriBaseBack}/api/examen/getCalificacionesExamen/`, // GET
+  getCursadasExamenPendientes: `${uriBaseBack}/api/examen/getCursadasExamenPendientes`, // GET
+
 }
 
 const T_ROL = {

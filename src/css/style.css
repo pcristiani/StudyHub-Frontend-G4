@@ -32,12 +32,7 @@ body {
 
 
 Input::-webkit-calendar-picker-indicator {
-    filter: invert(1)
-            brightness(70%)
-            sepia(100%)
-            saturate(10000%)
-            hue-rotate(180deg)
-            contrast(0.1);
+  filter: invert(1) brightness(70%) sepia(100%) saturate(10000%) hue-rotate(180deg) contrast(0.1);
 
 }
 
@@ -177,6 +172,21 @@ code {
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+
+.list-item-text {
+  color: #76a778;
+  margin: 10px 0px;
+  font-size: 14px;
+  /* text-shadow: 2px 0px 2px rgba(0, 0, 0, 0.4); */
+}
+
+.list-item-sub {
+  color: #bbbbbb;
+  font-size: 10px;
+  margin: 1px 0px;
+}
+
 
 
 .animate-bounce {
@@ -321,4 +331,24 @@ div {
   justify-content: center;
   text-align: left;
   font-size: 8px;
+}
+
+.options-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+.options-list.show {
+  display: block;
+}
+
+.option-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.option-item:hover {
+  background-color: #f0f0f0;
 }

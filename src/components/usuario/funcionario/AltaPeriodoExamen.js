@@ -85,6 +85,9 @@ export default function AltaPeriodoExamen() {
 		}
 	};
 
+	const slotProps = {
+		listbox: { sx: { width: '100%' }, },
+	};
 
 
 	return (
@@ -103,7 +106,7 @@ export default function AltaPeriodoExamen() {
 								))}
 							</Select>
 
-							<Select size="sm" value={selectedPeriodo} onChange={(event, newValue) => setSelectedPeriodo(newValue)} placeholder="Seleccionar periodo examen" id="periodo" name="periodo">
+							<Select slotProps={slotProps} size="sm" value={selectedPeriodo} onChange={(event, newValue) => setSelectedPeriodo(newValue)} placeholder="Seleccionar periodo examen" id="periodo" name="periodo">
 								{periodoExamen.map((periodo) => (
 									<Option key={periodo.value} value={periodo.value}>
 										{periodo.label}
