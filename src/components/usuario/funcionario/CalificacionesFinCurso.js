@@ -15,6 +15,7 @@ import { getAsignaturasDeCarrera, getCursadasPendientes, cambiarResultadoCursada
 import Save from '@mui/icons-material/Save';
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
+import { errors } from '../../../services/util/errors';
 
 
 export default function CalificacionesFinCurso() {
@@ -46,7 +47,6 @@ export default function CalificacionesFinCurso() {
 	}, [carreraData]);
 
 	const handleChangeCarrera = (event, newValue) => {
-		// console.log("Selected: ", newValue);
 		setSelectedCarrera(newValue);
 		if (newValue !== null) {
 			getInfoCarrera(newValue);
@@ -58,11 +58,19 @@ export default function CalificacionesFinCurso() {
 		setAsignaturaData(result);
 	}
 
-
 	const handleModificar = async (idCursada) => {
-		// console.log("Id: ", idCursada, resultadoData,);
-		const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
-		// console.log("CursadasPendientes: ", result);
+
+		if (idCursada !== null && idCursada !== undefined && resultadoData !== null && resultadoData !== undefined) {
+			const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
+
+			if (result.statusCodeValue === 200) {
+				let title = "¡Calificación exitosa!\n\n";
+				errors(title, result.body, result.statusCodeValue);
+				// history('/novedades');
+			} else {
+				errors(result.body, result.body, result.statusCodeValue);
+			}
+		}
 	};
 
 	const handleSubmit = async (event) => {

@@ -4,11 +4,11 @@ const PORT = {
 }
 // http://localhost:3000/  Encoder
 // http://localhost:3000/  Url encode
-// const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
-//const uriBaseFront = `https://frontstudyhub.vercel.app`
+const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
+const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+// const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+// const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 // ? http://localhost:3000/
 const URI_FRONT = {
@@ -171,7 +171,7 @@ const redirigir = (url) => {
 };
 const COURSE = {
 
-graph: `graph {
+  graph: `graph {
   bgcolor = transparent;shape = rectangle; style = "rounded";
   node[shape = rectangle, style = "rounded,filled", fillcolor = "#d7f8fd", color = "#2596be", fontcolor = black, fontsize = 12, fontname = "Arial"];
   edge[color = "#2596be"];

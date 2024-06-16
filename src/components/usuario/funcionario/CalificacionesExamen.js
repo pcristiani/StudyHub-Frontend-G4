@@ -7,9 +7,7 @@ import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
-
 import Select from '@mui/joy/Select';
-import Input from '@mui/joy/Input';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
@@ -21,6 +19,7 @@ import { errors } from '../../../services/util/errors';
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
 import { Save } from '@mui/icons-material';
+
 
 export default function CalificacionesExamen() {
 	const { user } = useContext(AuthContext);
@@ -68,23 +67,20 @@ export default function CalificacionesExamen() {
 	}
 
 
-
 	///
-	const handleChangeAsignatura = (event, idAsignatura) => {
-		if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '') {
-			getInfoCursadasPendientes(idAsignatura);
-		}
-	};
 
-	async function getInfoCursadasPendientes(idAsignatura) {
-		if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '') {
-			let result = await getExamenesAsignaturaPorAnio(idAsignatura, 2024, user.jwtLogin);
-			console.log("getExamenesAsignaturaPorAnio: ", result);
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		const data = new FormData(event.currentTarget);
+		let idAsignatura = data.get('idasignatura');
+		let anioLectivo = parseInt(data.get('aniolectivo'), 10);
+
+		if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '' && anioLectivo !== null && anioLectivo !== undefined && anioLectivo !== '') {
+			let result = await getExamenesAsignaturaPorAnio(idAsignatura, anioLectivo, user.jwtLogin);
+			setUsuarioData([]);
 			setCursadasData(result);
 		}
-	}
-
-
+	};
 
 
 	///
@@ -98,24 +94,19 @@ export default function CalificacionesExamen() {
 	async function getInfoUsuarios(idExamen) {
 		if (idExamen !== null && idExamen !== undefined && idExamen !== '') {
 			let result = await getCursadasExamen(idExamen, user.jwtLogin);
-			console.log("Usuario: ", result);
 			setUsuarioData(result);
 		}
 	}
 
 
-
 	///
 	const handleModificar = async (id) => {
-		console.log("ID: ", id, "Resultado: ", resultadoData);
 		if (id !== null && id !== undefined && resultadoData !== null && resultadoData !== undefined) {
 			let result = await cambiarResultadoExamen(id, resultadoData, user.jwtLogin);
-			console.log("re", result);
-
 			if (result.statusCodeValue === 200) {
 				let title = "¡Calificación exitosa!\n\n";
 				errors(title, result.body, result.statusCodeValue);
-				history('/novedades');
+			//	history('/novedades');
 			} else {
 				errors(result.body, result.body, result.statusCodeValue);
 			}
@@ -154,7 +145,7 @@ export default function CalificacionesExamen() {
 	}
 
 	return (
-		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} >
+		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registro de calificaciones examen</Typography>
@@ -168,11 +159,22 @@ export default function CalificacionesExamen() {
 							))}
 						</Select>
 
-						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
+						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" >
 							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
 						</Select>
+						{/* onChange={handleChangeAsignatura} */}
+						<Stack direction="row" spacing={0.8} sx={{ justifyContent: 'right', zIndex: '1000' }}>
+							<Select size="sm" sx={{ width: "500px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
+								placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
+								{years.map((year) => (
+									<Option key={year} value={year} >{year}</Option>
+								))}
+							</Select>
+							<Button fullWidth size="sm" type="submit" sx={{ mt: 1, mb: 1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar períodos</Button>
+
+						</Stack>
 
 						<Select size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangePeriodo}>
 							{Array.isArray(cursadasData) && cursadasData.map((cursada, index) => (
@@ -249,45 +251,20 @@ const timeSlots = Array.from(new Array(24 * 1)).map(
 
 
 
-{/* <Select size="sm" defaultValue="Pendiente" placeholder="Pendiente" id="idresultado" name="idresultado" >
-															{cursadasData.map((resultado, index) => (
-																<Option key={index} value={resultado.idExamen}>{resultado.periodoExamen}</Option>
-															))}
-														</Select> */}
 
 
-{/* <Select size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo">
-							{cursadasData.map((resultado, index) => (
-								<Option key={index} value={resultado.idExamen}>{resultado.periodoExamen}</Option>
-							))}
-						</Select> */}
 
-
-// {/* <tbody>
-
-
-// const handleChangeResultado = async (event, newValue) => {
-// const data = new FormData(event.currentTarget);
-// let idAsignatura = data.get('idasignatura');
-// let anioLectivo = parseInt(data.get('aniolectivo'), 10);
-// let idPeriodo = data.get('idperiodo');
-// if (newValue !== null && newValue !== undefined) {
-// 	let result = await getCursadasExamen(newValue, user.jwtLogin);
-// 	setResultadoData(result);
-// }
+// const handleChangeAsignatura = (event, idAsignatura) => {
+// 	if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '') {
+// 		getInfoCursadasPendientes(idAsignatura);
+// 	}
 // };
+// async function getInfoCursadasPendientes(idAsignatura) {
+// 	if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '') {
+// 		let result = await getExamenesAsignaturaPorAnio(idAsignatura, 2024, user.jwtLogin);
+// 		console.log("getExamenesAsignaturaPorAnio: ", result);
+// 		setCursadasData(result);
+// 	}
+// }
 
-{/* 
-						<Select size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>{years.map((year) => (
-							<Option key={year} value={year}>{year}</Option>
-						))}
-						</Select> */}
 
-
-{/* <Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idexamen" name="idexamen">
-							{Array.isArray(fechaData) && fechaData.map((f, index) => (
-								<Option key={index} value={f.idExamen}>{f.periodoExamen} - {formatFecha(f.fechaHora)}</Option>
-							))}
-						</Select> */}
-{/* <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button> */ }
-{/* <Button type="submit" fullWidth sx={{ mt: 1, mb: 2, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button> */ }
