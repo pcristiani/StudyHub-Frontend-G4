@@ -14,3 +14,14 @@ root.render(
 );
 
 reportWebVitals();
+
+/*
+ <header>
+        <SearchBar onSearch={handleSearch} />
+      </header>
+      <main>
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          {/* Define rutas para otras páginas según tu aplicación 
+        </Switch >
+*/

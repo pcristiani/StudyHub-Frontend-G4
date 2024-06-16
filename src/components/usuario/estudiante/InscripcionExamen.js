@@ -14,8 +14,10 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarrerasInscripto } from '../../../services/requests/carreraService';
 import { getAsignaturasNoAprobadas } from '../../../services/requests/asignaturaService';
-import { getExamenesAsignatura, inscripcionExamen } from '../../../services/requests/examenService';
+import { getAsignaturasConExamenPendiente, getExamenesAsignatura, inscripcionExamen } from '../../../services/requests/examenService';
 import { errors } from '../../../services/util/errors';
+import DtFecha from '../../../services/util/formatoFecha';
+
 
 export default function InscripcionExamen() {
 	const { user } = useContext(AuthContext);
@@ -51,9 +53,12 @@ export default function InscripcionExamen() {
 		getInfoAsignaturasDeEstudiante(newValue);
 	};
 
-	async function getInfoAsignaturasDeEstudiante(idEstudiante) {
-		let result = await getAsignaturasNoAprobadas(user.id, user.jwtLogin);
-		setAsignaturaNoAprobadasData(result);
+	async function getInfoAsignaturasDeEstudiante(idCarrera) {
+		if (idCarrera !== null && idCarrera !== undefined) {
+
+			let result = await getAsignaturasConExamenPendiente(user.id, idCarrera, user.jwtLogin);
+			setAsignaturaNoAprobadasData(result);
+		}
 	}
 
 	const handleChangeAsignatura = async (event, newValue) => {
@@ -64,8 +69,16 @@ export default function InscripcionExamen() {
 	};
 
 	async function getInfoExamenDate(fechaExamen) {
+	
+		const date = new Date('2024-06-13T01:50:21.000Z');
+		const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+		date.toLocaleDateString('es-UY', options);
+
+		console.log('Fecha: ', date.getDate());
+		console.log('Fecha: ', formatFecha(fechaExamen));
 		setFechaData(fechaExamen);
 	}
+
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -75,15 +88,26 @@ export default function InscripcionExamen() {
 
 		let result = await inscripcionExamen(user.id, intIdExamen, user.jwtLogin);
 
-		// console.log("resuñltado examen: ", result);
 		if (result.status === 200) {
-			let title = "¡Inscripto a carrera!\n\n";
+			let title = "¡Inscripto a examen!\n\n";
 			errors(title, result.data, result.status);
 			history('/novedades');
 		} else {
 			errors(result.data, result.data, result.status);
 		}
 	};
+
+
+	function formatFecha(data) {
+		let fechaExamen = new Date(data);
+		const year = fechaExamen.getFullYear();
+		const month = String(fechaExamen.getMonth() + 1).padStart(2, '0'); // Los meses empiezan en 0
+		const day = String(fechaExamen.getDate()).padStart(2, '0');
+		const hours = String(fechaExamen.getHours()).padStart(2, '0');
+		const minutes = String(fechaExamen.getMinutes()).padStart(2, '0');
+		const seconds = String(fechaExamen.getSeconds()).padStart(2, '0');
+		return `${day}/${month}/${year} - ${hours}:${minutes} hs`;
+	}
 
 	return (
 		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
@@ -107,24 +131,11 @@ export default function InscripcionExamen() {
 						</Select>
 						<Divider />
 
-						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idexamen" name="idexamen" >
+						<Select size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idexamen" name="idexamen">
 							{Array.isArray(fechaData) && fechaData.map((f, index) => (
-								<Option key={index} value={f.idExamen}>{f.periodoExamen} | {f.fechaHora}</Option>
+								<Option key={index} value={f.idExamen}>{f.periodoExamen} - {formatFecha(f.fechaHora)}</Option>
 							))}
 						</Select>
-
-						{/* {Array.isArray(horarioData) && horarioData.map((horario, index) => (
-							<List sx={{ fontSize: 16 }}>
-								<IconButton aria-label="save" size="sm" key={index} value={horario.value}>
-									<TodayRoundedIcon sx={{ fontSize: 20 }} />
-									<ListItemDecorator>
-										{horario.diaSem} {horario.horaInicio} a {horario.horaFin}  y {horario.diaSem2} {horario.horaInicio2} a {horario.horaFin2}
-									</ListItemDecorator>
-								</IconButton>
-							</List>
-
-						))} */}
-
 					</FormControl>
 
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>

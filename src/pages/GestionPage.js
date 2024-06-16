@@ -7,7 +7,7 @@ import { jsPDF } from "jspdf";
 import { getCourseRelations } from '../services/requests/asignaturaService';
 import { AuthContext } from '../context/AuthContext';
 import Sheet from '@mui/joy/Sheet';
-// import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import mermaid from 'mermaid';
 import { Base91, Zstd } from "@hpcc-js/wasm";
@@ -65,7 +65,7 @@ const GestionPage = () => {
 
 
     // Base91 + Zstd ---
-    const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.";
+    const text = "Lorem ipsum dolor sit amet, consectetur adipiscing el mi.";
     const data = new TextEncoder().encode(text);
 
     async function compressDecompress() {

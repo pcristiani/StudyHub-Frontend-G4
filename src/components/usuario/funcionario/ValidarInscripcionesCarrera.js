@@ -41,7 +41,7 @@ export default function ValidarInscripcionesCarrera() {
     const fetchCarreras = async () => {
       try {
         const result = await getCarrerasInscripcionesPendientes(user.jwtLogin);
-        if (result.length === 1) {
+        if (result.length === 0) {
           swal("Información!", 'No hay carreras sin validar', "info", {
             timer: 3000
           });

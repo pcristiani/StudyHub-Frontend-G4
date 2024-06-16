@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useColorScheme } from '@mui/joy/styles';
 import Nav from 'react-bootstrap/Nav';
 import Box from '@mui/joy/Box';
@@ -27,7 +27,6 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import Person from '@mui/icons-material/Person';
 import PropTypes from 'prop-types';
-
 import Navigation from './Navigation';
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../img/logo.png';
@@ -43,7 +42,7 @@ import swal from 'sweetalert';
 function ColorSchemeToggle() {
    const { mode, setMode } = useColorScheme();
    const [mounted, setMounted] = React.useState(false);
-
+   const setMenuIndex = React.useState(null);
    React.useEffect(() => {
       setMounted(true);
    }, []);
@@ -146,6 +145,7 @@ export default function Header() {
          });
       }
    }
+
 
    const handleLogout = () => {
       cerrarSesionUsuario(user.jwtLogin);
@@ -287,7 +287,7 @@ export default function Header() {
                                     <MenuItem variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sm" sx={{ alignSelf: 'left' }}>
                                        Alta período de examen
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/listado-carrera' size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar carreras
                                     </MenuItem>
                                  </Menu>
@@ -320,8 +320,7 @@ export default function Header() {
                               </MenuButton>
                            </Dropdown>
                         </>
-                     }
-                     {
+                     }                     {
                         (user.rol === T_ROL.COORDINADOR) &&
                         <>
                            <Dropdown>
@@ -348,7 +347,7 @@ export default function Header() {
                                     <MenuItem variant="plain" color="neutral" component="a" href='/nueva-carrera' size="sm" sx={{ alignSelf: 'left' }}>
                                        Alta de carrera
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/listado-carrera' size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar carreras
                                     </MenuItem>
                                  </Menu>
@@ -364,6 +363,17 @@ export default function Header() {
                      </Button>
 
                      <Button variant="plain" color="neutral" component="a" href={URI_FRONT.contactoUri} size="sm" sx={{ alignSelf: 'center' }}>
+                        {/* <ListItem>
+                           <NavMenuButton
+                              label="Personal"
+                              open={menuIndex === 2}
+                              onOpen={() => setMenuIndex(2)}
+                              menu={
+                                 <Menu onClose={() => setMenuIndex(null)}>
+                                 </Menu>
+                              }>
+                           </NavMenuButton>
+                        </ListItem> */}
                         Contacto
                      </Button>
                   </>
@@ -432,6 +442,7 @@ export default function Header() {
                            </MenuItem>
                         </Menu>
                      </Dropdown>
+
                   </>
                   :
                   <>
@@ -442,17 +453,6 @@ export default function Header() {
                      </Stack>
 
                      <Stack direction="row" justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'flex', sm: 'none' } }}>
-                        {/* <ListItem>
-                           <NavMenuButton
-                              label="Personal"
-                              open={menuIndex === 2}
-                              onOpen={() => setMenuIndex(2)}
-                              menu={
-                                 <Menu onClose={() => setMenuIndex(null)}>
-                                 </Menu>
-                              }>
-                              </NavMenuButton>
-                        </ListItem> */}
                         {/* <Button variant="outlined" color="neutral" component="a" href={URI_FRONT.loginUri} size="sm">
                         </Button> */}
                         <IconButton id="toggle-mode" size="sm" variant="outlined" color="primary" component="a" href={URI_FRONT.loginUri} sx={{ alignSelf: 'center' }}>
@@ -464,6 +464,6 @@ export default function Header() {
                }
             </Box>
          </Box>
-      </CssVarsProvider>
+      </CssVarsProvider >
    );
 }

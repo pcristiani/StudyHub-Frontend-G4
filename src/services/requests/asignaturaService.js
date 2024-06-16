@@ -171,7 +171,6 @@ export const getHorarios = async (idAsignatura, jwtLogin) => {
 	});
 
 	const data = await response.json();
-	console.log("Horariossss: ", data);
 	return data;
 }
 
@@ -221,7 +220,6 @@ export const getPreviasAsignatura = async (idAsignatura, jwtLogin) => {
 }
 
 
-
 ///
 export const getNoPreviasAsignatura = async (idAsignatura, jwtLogin) => {
 	const url = URL_BACK.getNoPreviasAsignatura;
@@ -249,7 +247,6 @@ export const inscripcionAsignatura = async (idEstudiante, idAsignatura, idHorari
 			"idAsignatura": idAsignatura,
 			"idHorario": idHorario
 		};
-
 
 		let headersList = {
 			'Content-Type': 'application/json',
@@ -289,6 +286,7 @@ export const getCourseRelations = async (idCarrera, jwtLogin) => {
 }
 
 
+///
 export const cursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
 	try {
 		let headersList = {
@@ -312,8 +310,7 @@ export const cursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
 
 ///
 export const cambiarResultadoCursada = async (idCursada, calificacion, jwtLogin) => {
-
-	console.log("ID CURSADA2094  : ", idCursada, calificacion, jwtLogin);
+	// console.log("ID CURSADA2094  : ", idCursada, calificacion, jwtLogin);
 	try {
 		let headersList = {
 			'Content-Type': 'application/json',
@@ -333,6 +330,4 @@ export const cambiarResultadoCursada = async (idCursada, calificacion, jwtLogin)
 		return error.response;
 	}
 };
-
-
 

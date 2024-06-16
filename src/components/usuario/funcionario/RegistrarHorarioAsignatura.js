@@ -106,7 +106,7 @@ export default function RegistrarHorarioAsignatura() {
          if (response.statusCodeValue === 200) {
             let title = "¡Horario registado!\n\n";
             errors(title, response.body, response.statusCodeValue);
-            history('/novedades');
+            // history('/novedades');
          } else {
             errors(response.body, response.body, response.statusCodeValue);
          }
@@ -173,7 +173,7 @@ export default function RegistrarHorarioAsignatura() {
 
                   <Select size="sm" value={selectedDay} onChange={(event, newValue) => setSelectedDay(newValue)} placeholder="Dia de la semana" id="diasemana" name="diasemana" required>
                      {diasSemana.map((day) => (
-                        <Box sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
+                        <Box >
                            <Option key={day.value} value={day.value}>
                               {day.label}
                            </Option>

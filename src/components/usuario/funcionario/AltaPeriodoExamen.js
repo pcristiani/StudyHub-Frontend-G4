@@ -9,12 +9,12 @@ import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import { AuthContext } from '../../../context/AuthContext';
-import { getCarreras, altaPeriodoExamen } from '../../../services/requests/carreraService';
+import { getCarreras, altaPeriodoDeExamen } from '../../../services/requests/carreraService';
 import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
-import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 import DtFecha from '../../../services/data/DtFecha';
+import { errors } from '../../../services/util/errors';
 
 
 export default function AltaPeriodoExamen() {
@@ -61,27 +61,14 @@ export default function AltaPeriodoExamen() {
 		const dtFechaInicio = new DtFecha(fechaInicio);
 		const dtFechaFin = new DtFecha(fechaFin);
 
-		try {
-			await altaPeriodoExamen(nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, user.jwtLogin);
-			swal({
-				title: "¡Periodo examen creado!\n\n",
-				text: "El periodo examen para la carrera ha sido creada con éxito.",//+ carreraData.nombre[idCarrera],
-				icon: "success",
-				dangerMode: false,
-				position: "center",
-				timer: 3000
-			});
+		const response = await altaPeriodoDeExamen(nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, user.jwtLogin);
+		console.log("Response: ", response.status);
+		if (response.status === 200) {
+			let title = "¡Periodo examen creado!\n\n";
+			errors(title, response.data, response.status);
 			history('/novedades');
-		} catch (error) {
-			let errorMsg = error.status === 400 ? "El período ingresado se superpone con un período existente" : "La fecha de fin no puede ser anterior a la fecha de inicio";
-			if (error.status === 401) {
-				errorMsg = 'No autorizado. Verifica tu token de autenticación.';
-			} else if (error.status === 500) {
-				errorMsg = 'Error interno del servidor. Inténtalo más tarde.';
-			}
-			swal("Error", errorMsg, "error", {
-				timer: 3000
-			});
+		} else {
+			errors(response.data, response.data, response.status);
 		}
 	};
 

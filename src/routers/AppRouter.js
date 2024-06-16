@@ -28,6 +28,7 @@ import EditarPerfil from "../components/common/EditarPerfil";
 import AltaCarrera from '../components/usuario/coordinador/AltaCarrera'
 import AltaAsignatura from '../components/usuario/coordinador/AltaAsignatura'
 import RegistrarPreviaturas from '../components/usuario/coordinador/RegistrarPreviaturas';
+import ListadoCarreras from '../components/usuario/coordinador/ListadoCarreras';
 
 import DashboardAdmin from '../components/usuario/administrador/DashboardAdmin';
 import AltaFuncionarioCoordinador from '../components/usuario/administrador/AltaFuncionarioCoordinador';
@@ -48,6 +49,7 @@ import RegistrarHorarioAsignatura from '../components/usuario/funcionario/Regist
 import InscripcionExamen from '../components/usuario/estudiante/InscripcionExamen';
 import CalificacionesFinCurso from '../components/usuario/funcionario/CalificacionesFinCurso';
 import CalificacionesExamen from '../components/usuario/funcionario/CalificacionesExamen';
+
 
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
@@ -102,6 +104,7 @@ export const AppRouter = () => {
                     <Route path='/incripcion-examen' element={<InscripcionExamen user={user.id} />} exact />
                     <Route path='/calificaciones-fin-curso' element={<CalificacionesFinCurso user={user.id} />} exact />
                     <Route path='/calificaciones-examen' element={<CalificacionesExamen user={user.id} />} exact />
+                    <Route path='/listado-carrera' element={<ListadoCarreras user={user.id} />} exact />
 
 
                     <Route path='/login' element={

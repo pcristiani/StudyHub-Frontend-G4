@@ -159,33 +159,81 @@ export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin)
 
 ///
 // Registro Periodos de Examen
-export const altaPeriodoExamen = async (nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, jwtLogin) => {
-    let bodyContent = JSON.stringify({
-        "nombre": nombrePeriodo,
-        "inicio": {
-            "anio": dtFechaInicio.getYear(),
-            "mes": dtFechaInicio.getMonth(),
-            "dia": dtFechaInicio.getDay()
-        },
-        "fin": {
-            "anio": dtFechaFin.getYear(),
-            "mes": dtFechaFin.getMonth(),
-            "dia": dtFechaFin.getDay()
-        }
-    });
+// export const altaPeriodoExamen = async (nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, jwtLogin) => {
+//     let bodyContent = JSON.stringify({
+//         "nombre": nombrePeriodo,
+//         "inicio": {
+//             "anio": dtFechaInicio.getYear(),
+//             "mes": dtFechaInicio.getMonth(),
+//             "dia": dtFechaInicio.getDay()
+//         },
+//         "fin": {
+//             "anio": dtFechaFin.getYear(),
+//             "mes": dtFechaFin.getMonth(),
+//             "dia": dtFechaFin.getDay()
+//         }
+//     });
 
-    let response = await fetch(URL_BACK.altaPeriodoDeExamen + idCarrera, {
-        method: 'POST',
-        headers: {
+//     let response = await fetch(URL_BACK.altaPeriodoDeExamen + idCarrera, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${jwtLogin}`,
+//         },
+//         body: bodyContent,
+//     });
+
+//     if (!response.ok) {
+//         throw { status: response.status };
+//     }
+// };
+// Registro Periodos de Examen
+export const altaPeriodoDeExamen = async (nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, jwtLogin) => {
+    try {
+        let body = JSON.stringify({
+            "nombre": nombrePeriodo,
+            "inicio": {
+                "anio": dtFechaInicio.getYear(),
+                "mes": dtFechaInicio.getMonth(),
+                "dia": dtFechaInicio.getDay()
+            },
+            "fin": {
+                "anio": dtFechaFin.getYear(),
+                "mes": dtFechaFin.getMonth(),
+                "dia": dtFechaFin.getDay()
+            }
+        });
+
+        let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
-        },
-        body: bodyContent,
-    });
+        }
+        
+        let reqOptions = {
+            url: URL_BACK.altaPeriodoDeExamen + idCarrera,
+            method: "POST",
+            headers: headersList,
+            data: body
+        }
 
-    if (!response.ok) {
-        throw { status: response.status };
+        let response = await axios.request(reqOptions);
+        return response.data;
+    } catch (error) {
+        return error.response;
     }
+
+    // let response = await fetch(URL_BACK.altaPeriodoDeExamen + idCarrera, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${jwtLogin}`,
+    //     },
+    //     body: bodyContent,
+    // });
+
+    // if (!response.ok) {
+    //     throw { status: response.status };
+    // }
 };
 
 

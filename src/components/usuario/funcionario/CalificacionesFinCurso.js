@@ -12,10 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
 import { getAsignaturasDeCarrera, cursadasPendientes, cambiarResultadoCursada } from '../../../services/requests/asignaturaService';
-
+import Save from '@mui/icons-material/Save';
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
-import { Input } from '@mui/joy';
+
 
 export default function CalificacionesFinCurso() {
 	const { user } = useContext(AuthContext);
@@ -46,7 +46,7 @@ export default function CalificacionesFinCurso() {
 	}, [carreraData]);
 
 	const handleChangeCarrera = (event, newValue) => {
-		console.log("Selected: ", newValue);
+		// console.log("Selected: ", newValue);
 		setSelectedCarrera(newValue);
 		if (newValue !== null) {
 			getInfoCarrera(newValue);
@@ -58,71 +58,22 @@ export default function CalificacionesFinCurso() {
 		setAsignaturaData(result);
 	}
 
-	// const handleChangeAsignatura = (event, idAsignatura) => {
-	// 	// selectedCarrera
-	// 	// setAsignaturaData(idAsignatura);
-	// };
 
-	// async function getInfoCursadasPendientes(idAsignatura) {
-	// 	// let result = await cursadasPendientes(user.jwtLogin);
-	// 	// setCursadasData(result[0].idCursada);
-	// }
-
-	// const [cursadasData, setCursadasData] = useState(null);
+	const handleModificar = async (idCursada) => {
+		// console.log("Id: ", idCursada, resultadoData,);
+		const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
+		// console.log("CursadasPendientes: ", result);
+	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 		let idAsignatura = data.get('idasignatura');
 		let anioLectivo = parseInt(data.get('aniolectivo'), 10);
-		console.log("IdAsignatura: ", idAsignatura, "AnioLectivo: ", anioLectivo);
-		// let result2 = null; 
-		const result2 = await cursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
-		console.log("CursadasPendientes: ", result2);
 
-		console.log("cursadasData: ", cursadasData);
-
-		// if (result2 && result2.length > 0) {
-		setCursadasData(result2);
-		// } else {
-		// 		setCursadasData(null);
-		// }
+		const resp = await cursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
+		setCursadasData(resp);
 	};
-
-
-	// const handleChangeResultado = (event, newValue) => {
-	// 	console.log("Selected: ", newValue);
-	// 	// setResultado(newValue);
-	// };
-
-	const handleModificar = async (idCursada) => {
-		// event.preventDefault();
-		// const data = new FormData(event.currentTarget);
-		// // let idAsignatura = data.get('idasignatura');
-		// let idResultado = parseInt(data.get('idresultado'), 10);
-
-		// console.log("IdAsignatura: ", id, "idResultado: ", idResultado);
-		console.log("Id: ", idCursada, resultadoData,);
-		const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
-		console.log("CursadasPendientes: ", result);
-	};
-
-
-	// const handleSubmit = async (event) => {
-	// 	event.preventDefault();
-	// 	const data = new FormData(event.currentTarget);
-	// 	let idAsignatura = data.get('idasignatura');
-	// 	let anioLectivo = parseInt(data.get('aniolectivo'), 10);
-	// 	let result = await cursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
-	// 	console.log("CursadasPendientes: ", result);
-	// 	// setCursadasData(null);
-	// 	if (cursadasData > 0) {
-	// 		// setCursadasData(null);
-	// 	} else {
-	// 		setCursadasData(result);
-	// 	}
-
-	// };
 
 	const [year, setYear] = useState(new Date().getFullYear());
 	const startYear = 2023;
@@ -132,10 +83,6 @@ export default function CalificacionesFinCurso() {
 		years.push(i);
 	}
 
-	// const [year, setYear] = useState(new Date().getFullYear());
-	// const startYear = 2023;
-	// const endYear = 12;//new Date().getFullYear() + 1;
-	// const [year, setYear] = useState(new Date().getFullYear());
 	const notas = [];
 	for (let i = 1; i <= 12; i++) {
 		notas.push(i);
@@ -155,7 +102,7 @@ export default function CalificacionesFinCurso() {
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '820px' }, gap: 0.8 }}>
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '420px' }, gap: 0.8 }}>
 						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
@@ -169,13 +116,13 @@ export default function CalificacionesFinCurso() {
 						</Select>
 
 						<Stack direction="row" spacing={0.8} sx={{ justifyContent: 'right', zIndex: '1000' }}>
-							<Select size="sm" sx={{ width: "600px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
+							<Select size="sm" sx={{ width: "500px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
 								placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
 								{years.map((year) => (
 									<Option key={year} value={year} >{year}</Option>
 								))}
 							</Select>
-							<Button fullWidth size="sm" type="submit" sx={{ mt: 1, mb: 2, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
+							<Button fullWidth size="sm" type="submit" sx={{ mt: 1, mb: 1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
 
 						</Stack>
 						<Divider sx={{ marginBottom: 1.5, marginTop: 1 }} />
@@ -184,7 +131,7 @@ export default function CalificacionesFinCurso() {
 								<Sheet variant="outlined"
 									sx={{
 										'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-										'--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
+										'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
 										borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
 									}}>
 
@@ -192,9 +139,9 @@ export default function CalificacionesFinCurso() {
 										<thead>
 											<tr>
 												<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
-												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Id Cursada</th>
+												{/* <th style={{ width: 'var(--Table-lastColumnWidth)' }}>Cédula</th> */}
 												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Calificacion</th>
-												<th style={{ width: 'var(--Table-lastColumnWidth)' }}></th>
+												<th style={{ width: 'var(--Table-buttonColumnWidth)' }}></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -202,7 +149,7 @@ export default function CalificacionesFinCurso() {
 												row.rol !== 'E' && (
 													<tr key={row.idCursada}>
 														<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
-														<td>{row.idCursada}</td>
+														{/* <td>{row.cedula}</td> */}
 														{/* <td>
 															<Select size="sm" placeholder="Pendiente" id="idresultado" name="idresultado" onChange={handleChangeResultado}>
 																{diasSemana.map((resultado, index) => (
@@ -211,14 +158,18 @@ export default function CalificacionesFinCurso() {
 															</Select>
 														</td> */}
 														<td>
-															<Select size="sm" onChange={(event, newValue) => setResultado(newValue)} placeholder="Calificación" id="idresultado" name="idresultado">{notas.map((nota) => (
-																<Option key={notas} value={nota}>{nota}</Option>
-															))}
+															<Select size="sm" placeholder="0" onChange={(event, newValue) => setResultado(newValue)}
+																id="idresultado" name="idresultado">{notas.map((nota) => (
+																	<Option key={notas} value={nota}>{nota}</Option>
+																))}
 															</Select>
 														</td>
-														<td>	<Button size="sm" sx={{ mt: 0, mb: 0, border: 0.1, borderColor: '#3d3d3d', alignSelf: 'center' }} variant="outlined"
-															onClick={() => handleModificar(row.idCursada)}
-														>Guardar</Button>	</td>
+														<td>
+															<Button size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color='neutral'
+																onClick={() => handleModificar(row.idCursada)} >
+																<Save size="sw">	</Save>
+															</Button>
+														</td>
 													</tr>
 												)
 											))}

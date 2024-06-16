@@ -94,7 +94,6 @@ export default function InscripcionAsignatura() {
 
 	const horariosConsolidados = consolidarHorarios(horarioData);
 	const handleValidateClick = (event, newValue) => {
-
 		console.log("ID HORARIO ", newValue);
 	};
 
@@ -102,15 +101,17 @@ export default function InscripcionAsignatura() {
 	///
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
 		const data = new FormData(event.currentTarget);
-		let idasignatura = data.get('idasignatura');
-		let idhorario = data.get('idhorario');
+		// let idasignatura = data.get('idasignatura');
+		// let idhorario = data.get('idhorario');
+		let idhorario = parseInt(data.get('idhorario'), 10);
+		let idasignatura = parseInt(data.get('idasignatura'), 10);
 
 		const response = await inscripcionAsignatura(user.id, idasignatura, idhorario, user.jwtLogin)
+		console.log("Response: ", response);
 		if (response.status === 200) {
 			let title = "Inscripcion realizada!\n\n";
-			errors(title, response.body, response.status);
+			errors(title, response.data, response.status);
 			history('/novedades');
 		} else {
 			errors(response.data, response.data, response.status);

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import swal from 'sweetalert';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
@@ -18,7 +17,6 @@ import { getAsignaturasDeCarrera, getNoPreviasAsignatura, registroPreviaturas } 
 import { errors } from '../../../services/util/errors';
 
 
-
 export default function RegistrarPreviaturas() {
 	const { user } = useContext(AuthContext);
 	const history = useNavigate();
@@ -29,7 +27,6 @@ export default function RegistrarPreviaturas() {
 
 	const [selectedCarrera, setSelectedCarrera] = useState('');
 	const [selectedPrevias, setSelectedPrevias] = useState('');
-
 
 
 	useEffect(() => {
@@ -46,7 +43,7 @@ export default function RegistrarPreviaturas() {
 
 	useEffect(() => {
 		if (carreraData) {
-			//	console.log("Carreras: ", carreraData);
+			console.log("IF Carreras: ", carreraData);
 		}
 	}, [carreraData]);
 
@@ -66,7 +63,6 @@ export default function RegistrarPreviaturas() {
 	///
 	const handleAsignatura = (event, newVa) => {
 		if (newVa !== null) {
-			console.log("handleAsignatura: ", newVa);
 			setSelectedPrevias(newVa);
 			getInfoPrevias(newVa);
 		}
@@ -79,7 +75,6 @@ export default function RegistrarPreviaturas() {
 
 
 	///
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);

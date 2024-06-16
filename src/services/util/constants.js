@@ -87,18 +87,19 @@ const URL_BACK = {
   registroHorarios: `${uriBaseBack}/api/asignatura/registroHorarios/`,          // POST
   inscripcionAsignatura: `${uriBaseBack}/api/asignatura/inscripcionAsignatura`, // POST
   altaAsignatura: `${uriBaseBack}/api/asignatura/altaAsignatura`, // POST
+  registrarPreviaturas: `${uriBaseBack}/api/asignatura/registrarPreviaturas/`, // POST
+
   getHorarios: `${uriBaseBack}/api/asignatura/getHorarios/`,     // GET
   getAsignaturas: `${uriBaseBack}/api/asignatura/getAsignaturas`, // GET
   getAsignaturasDeCarrera: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarrera/`, // GET
   getAsignaturasDeCarreraConExamen: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarreraConExamen/`, // GET
   getAsignaturasDeEstudiante: `${uriBaseBack}/api/asignatura/getAsignaturasDeEstudiante/`, // GET
   getAsignaturasNoAprobadas: `${uriBaseBack}/api/asignatura/getAsignaturasNoAprobadas/`, // GET
-  registrarPreviaturas: `${uriBaseBack}/api/asignatura/registrarPreviaturas/`, // POST
   getPreviasAsignatura: `${uriBaseBack}/api/asignatura/getPreviasAsignatura/`, // GET
   getNoPreviasAsignatura: `${uriBaseBack}/api/asignatura/getNoPreviasAsignatura/`, // GET
   cursadasPendientes: `${uriBaseBack}/api/asignatura/cursadasPendientes`, // GET
   cambiarResultadoCursada: `${uriBaseBack}/api/asignatura/cambiarResultadoCursada/`, // GET
-
+  getAsignaturasConExamenPendiente: `${uriBaseBack}/api/asignatura/getAsignaturasConExamenPendiente/`, // GET
 
   ///
   // CARRERASERVICE
@@ -120,14 +121,17 @@ const URL_BACK = {
 
   ///
   // Examen
-  registroAsignaturaAPeriodo: `${uriBaseBack}/api/examen/registroAsignaturaAPeriodo`, // POST
-  getExamenesAsignatura: `${uriBaseBack}/api/examen/getExamenesAsignatura/`, // GET
   inscripcionExamen: `${uriBaseBack}/api/examen/inscripcionExamen`, // POST
-  cambiarResultadoExamen: `${uriBaseBack}/api/asignatura/cambiarResultadoExamen/`, // GET
-  calificacionesExamen: `${uriBaseBack}/api/examen/getCalificacionesExamen/`, // GET
-  getCursadasExamenPendientes: `${uriBaseBack}/api/examen/getCursadasExamenPendientes`, // GET
+  registroAsignaturaAPeriodo: `${uriBaseBack}/api/examen/registroAsignaturaAPeriodo`, // POST
 
+  getExamenesAsignatura: `${uriBaseBack}/api/examen/getExamenesAsignatura/`, // GET
+  cambiarResultadoExamen: `${uriBaseBack}/api/examen/cambiarResultadoExamen/`, // GET
+  calificacionesExamen: `${uriBaseBack}/api/examen/getCalificacionesExamen/`, // GET
+  getCursadasExamen: `${uriBaseBack}/api/examen/getCursadasExamen/`, // GET
+  getCursadasExamenPendientes: `${uriBaseBack}/api/examen/getCursadasExamenPendientes`, // GET
+  getExamenesAsignaturaPorAnio: `${uriBaseBack}/api/examen/getExamenesAsignaturaPorAnio/`, // GET
 }
+
 
 const T_ROL = {
   ADMIN: `A`,
