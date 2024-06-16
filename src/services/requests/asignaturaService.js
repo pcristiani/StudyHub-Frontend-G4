@@ -287,7 +287,7 @@ export const getPreviaturasGrafo = async (idCarrera, jwtLogin) => {
 
 
 ///
-export const cursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
+export const getCursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
 	try {
 		let headersList = {
 			'Content-Type': 'application/json',
@@ -295,7 +295,7 @@ export const cursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
 		}
 
 		let reqOptions = {
-			url: `${URL_BACK.cursadasPendientes}?anio=${anio}&idAsignatura=${idAsignatura}`,
+			url: `${URL_BACK.getCursadasPendientes}?anio=${anio}&idAsignatura=${idAsignatura}`,
 			method: "GET",
 			headers: headersList,
 		};

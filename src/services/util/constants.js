@@ -63,76 +63,81 @@ const URL_BACK = {
   registerUsr: `${uriBaseBack}/registerUsuario`,         // POST
   recuperarPassword: `${uriBaseBack}/recuperarPassword`, // POST
   forgotPassword: `${uriBaseBack}/forgotPassword`,       // POST
-
   getUsuarios: `${uriBaseBack}/api/usuario/getUsuarios`, // GET
   getUsuario: `${uriBaseBack}/api/usuario/getUsuario/`,  // GET
-
+  getEstudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`, // GET
+  getResumenActividad: `${uriBaseBack}/api/usuario/getResumenActividad/`, // GET
+  acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,   // PUT
   modificarUsuario: `${uriBaseBack}/api/usuario/modificarUsuario/`,   // PUT
   modificarPerfil: `${uriBaseBack}/api/usuario/modificarPerfil/`,     // PUT
   modificarPassword: `${uriBaseBack}/api/usuario/modificarPassword/`, // PUT
   deleteUsuario: `${uriBaseBack}/api/usuario/bajaUsuario/`,           // DELETE
 
-  acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,                // PUT
-  getEstudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`, // GET
+  // ESTUDIANTESERVICE
+  getCalificacionesExamenes: `${uriBaseBack}/api/estudiante/getCalificacionesExamenes/`,       // GET
+  getCalificacionesAsignaturas: `${uriBaseBack}/api/estudiante/getCalificacionesAsignaturas/`, // GET
 
-
-  ///
   // DOCENTESERVICE
+  getDocentes: `${uriBaseBack}/api/usuario/getDocentes`,            //GET
+  getDocentesByAsignatura: `${uriBaseBack}/api/docente/getDocentesByAsignaturaId/`,  // GET
   altaDocente: `${uriBaseBack}/api/docente/altaDocente`,             // POST
   modificarDocente: `${uriBaseBack}/api/docente/modificarDocente/`,  // PUT
   deleteDocente: `${uriBaseBack}/api/docente/bajaDocente/`,          // DELETE
-  getDocentes: `${uriBaseBack}/api/usuario/getDocentes`,                             // GET
-  getDocentesByAsignatura: `${uriBaseBack}/api/docente/getDocentesByAsignaturaId/`,  // GET
 
 
   ///
   // ASIGNATURASERVICE
-  registroHorarios: `${uriBaseBack}/api/asignatura/registroHorarios/`,          // POST
-  inscripcionAsignatura: `${uriBaseBack}/api/asignatura/inscripcionAsignatura`, // POST
   altaAsignatura: `${uriBaseBack}/api/asignatura/altaAsignatura`, // POST
-  registrarPreviaturas: `${uriBaseBack}/api/asignatura/registrarPreviaturas/`, // POST
-
-  getHorarios: `${uriBaseBack}/api/asignatura/getHorarios/`,     // GET
+  registroHorarios: `${uriBaseBack}/api/asignatura/registroHorarios/`,               // POST
+  inscripcionAsignatura: `${uriBaseBack}/api/asignatura/inscripcionAsignatura`,      // POST
+  registrarPreviaturas: `${uriBaseBack}/api/asignatura/registrarPreviaturas/`,       // POST
+  cambiarResultadoCursada: `${uriBaseBack}/api/asignatura/cambiarResultadoCursada/`, // POST
   getAsignaturas: `${uriBaseBack}/api/asignatura/getAsignaturas`, // GET
-  getAsignaturasDeCarrera: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarrera/`, // GET
-  getAsignaturasDeCarreraConExamen: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarreraConExamen/`, // GET
+  getAsignaturasDeCarrera: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarrera/`,       // GET
   getAsignaturasDeEstudiante: `${uriBaseBack}/api/asignatura/getAsignaturasDeEstudiante/`, // GET
+  getAsignaturasDeCarreraConExamen: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarreraConExamen/`, // GET
+  getAsignaturasAprobadas: `${uriBaseBack}/api/asignatura/getAsignaturasAprobadas/`,     // GET
   getAsignaturasNoAprobadas: `${uriBaseBack}/api/asignatura/getAsignaturasNoAprobadas/`, // GET
-  getPreviasAsignatura: `${uriBaseBack}/api/asignatura/getPreviasAsignatura/`, // GET
-  getNoPreviasAsignatura: `${uriBaseBack}/api/asignatura/getNoPreviasAsignatura/`, // GET
-  cursadasPendientes: `${uriBaseBack}/api/asignatura/cursadasPendientes`, // GET
-  cambiarResultadoCursada: `${uriBaseBack}/api/asignatura/cambiarResultadoCursada/`, // GET
   getAsignaturasConExamenPendiente: `${uriBaseBack}/api/asignatura/getAsignaturasConExamenPendiente/`, // GET
+  getHorarios: `${uriBaseBack}/api/asignatura/getHorarios/`,     // GET
+  getCursadasPendientes: `${uriBaseBack}/api/asignatura/cursadasPendientes`,       // GET
+  getPreviasAsignatura: `${uriBaseBack}/api/asignatura/getPreviasAsignatura/`,     // GET
+  getNoPreviasAsignatura: `${uriBaseBack}/api/asignatura/getNoPreviasAsignatura/`, // GET
+  getActaAsignatura: `${uriBaseBack}/api/asignatura/getActa/`, // GET
+
 
   ///
+
   // CARRERASERVICE
-  modificarCarrera: `${uriBaseBack}/api/carrera/modificarCarrera/`, // PUT
-  asignarCoordinadorCarrera: `${uriBaseBack}/api/carrera/asignarCoordinadorCarrera/`, // PUT
-  acceptEstudianteCarrera: `${uriBaseBack}/api/carrera/acceptEstudianteCarrera`,      // PUT
-  inscripcionCarrera: `${uriBaseBack}/api/carrera/inscripcionCarrera`,    // POST
-  altaPeriodoDeExamen: `${uriBaseBack}/api/carrera/altaPeriodoDeExamen/`, // POST
   altaCarrera: `${uriBaseBack}/api/carrera/altaCarrera`,                  // POST
-  getInscriptosPendientes: `${uriBaseBack}/api/carrera/getInscriptosPendientes/`, // GET
-  getCarreras: `${uriBaseBack}/api/carrera/getCarreras`, // GET
-  courseRelations: `${uriBaseBack}/course-relations`, // GET
+  altaPeriodoDeExamen: `${uriBaseBack}/api/carrera/altaPeriodoDeExamen/`, // POST
+  modificarCarrera: `${uriBaseBack}/api/carrera/modificarCarrera/`, // PUT
+  inscripcionCarrera: `${uriBaseBack}/api/carrera/inscripcionCarrera`,    // POST
+  acceptEstudianteCarrera: `${uriBaseBack}/api/carrera/acceptEstudianteCarrera`,      // PUT
+  asignarCoordinadorCarrera: `${uriBaseBack}/api/carrera/asignarCoordinadorCarrera/`, // PUT
 
-  getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`, // GET 
+  getCarreras: `${uriBaseBack}/api/carrera/getCarreras`,  // GET
   getCarrerasInscripcionesPendientes: `${uriBaseBack}/api/carrera/getCarrerasInscripcionesPendientes`, // GET
-  getCarrerasConPeriodo: `${uriBaseBack}/api/carrera/getCarrerasConPeriodo`, // GET
-  getPeriodosDeCarrera: `${uriBaseBack}/api/carrera/getPeriodosDeCarrera/`, // GET
-  getPreviaturasGrafo: `${uriBaseBack}/api/carrera/getPreviaturasGrafo/`, // GET
+  getCarrerasInscripto: `${uriBaseBack}/api/carrera/getCarrerasInscripto/`,       // GET
+  getCarrerasCoordinador: `${uriBaseBack}/api/carrera/getCarrerasCoordinador/`,   // GET
+  getInscriptosPendientes: `${uriBaseBack}/api/carrera/getInscriptosPendientes/`, // GET
+  getCarrerasConPeriodo: `${uriBaseBack}/api/carrera/getCarrerasConPeriodo`,      // GET
+  getPeriodosDeCarrera: `${uriBaseBack}/api/carrera/getPeriodosDeCarrera/`,       // GET
+  getPreviaturasGrafo: `${uriBaseBack}/api/carrera/getPreviaturasGrafo/`,         // GET
+
 
   ///
-  // Examen
-  inscripcionExamen: `${uriBaseBack}/api/examen/inscripcionExamen`, // POST
-  registroAsignaturaAPeriodo: `${uriBaseBack}/api/examen/registroAsignaturaAPeriodo`, // POST
 
+  // EXAMENSERVICE
+  getExamenes: `${uriBaseBack}/api/examen/getExamenes/`, // GET
   getExamenesAsignatura: `${uriBaseBack}/api/examen/getExamenesAsignatura/`, // GET
-  cambiarResultadoExamen: `${uriBaseBack}/api/examen/cambiarResultadoExamen/`, // GET
-  calificacionesExamen: `${uriBaseBack}/api/examen/getCalificacionesExamen/`, // GET
-  getCursadasExamen: `${uriBaseBack}/api/examen/getCursadasExamen/`, // GET
-  getCursadasExamenPendientes: `${uriBaseBack}/api/examen/getCursadasExamenPendientes`, // GET
+  getExamenesPeriodo: `${uriBaseBack}/api/examen/getExamenesPeriodo/`,       // GET
+  getCursadasExamen: `${uriBaseBack}/api/examen/getCursadasExamen/`,         // GET
+  getActaExamen: `${uriBaseBack}/api/examen/getActa/`, // GET
   getExamenesAsignaturaPorAnio: `${uriBaseBack}/api/examen/getExamenesAsignaturaPorAnio/`, // GET
+  registroAsignaturaAPeriodo: `${uriBaseBack}/api/examen/registroAsignaturaAPeriodo`,      // POST
+  inscripcionExamen: `${uriBaseBack}/api/examen/inscripcionExamen`, // POST
+  cambiarResultadoExamen: `${uriBaseBack}/api/examen/cambiarResultadoExamen/`, // POST
 }
 
 
@@ -160,7 +165,7 @@ const redirigir = (url) => {
 };
 
 const COURSE = {
-  graph : `graph {
+  graph: `graph {
       node [shape=rectangle, style=filled, color=lightblue];
         bgcolor=transparent;    node [shape=rectangle, style=border, color=grey, color="#ED96AC", fontcolor=grey, fontsize=12, fontname="Arial", height=0.2, width=0.4,spacing=0.1,margin=0.1,showboxes=1,border=2,bordercolor=green];  
         rankdir=TB;   `

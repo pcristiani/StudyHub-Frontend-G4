@@ -76,24 +76,24 @@ export const getExamenesAsignatura = async (idAsignatura, jwtLogin) => {
 
 
 
-export const getCursadasExamenPendientes = async (idAsignatura, anio, jwtLogin) => {
-    let url = `${URL_BACK.getCursadasExamenPendientes}?anio=${anio}&idAsignatura=${idAsignatura}`;
-    //s?anio=11&idAsignatura=22
+// export const getCursadasExamenPendientes = async (idAsignatura, anio, jwtLogin) => {
+//     let url = `${URL_BACK.getCursadasExamenPendientes}?anio=${anio}&idAsignatura=${idAsignatura}`;
+//     //s?anio=11&idAsignatura=22
 
-    let response = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${jwtLogin}`,
-        }
-    });
+//     let response = await fetch(url, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${jwtLogin}`,
+//         }
+//     });
 
-    if (!response.ok) {
-        throw { status: response.status };
-    }
+//     if (!response.ok) {
+//         throw { status: response.status };
+//     }
 
-    return await response.json();
-};
+//     return await response.json();
+// };
 
 
 export const getCursadasExamen = async (idExamen, jwtLogin) => {

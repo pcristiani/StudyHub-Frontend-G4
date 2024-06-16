@@ -71,7 +71,7 @@ export default function CalificacionesExamen() {
 	};
 
 	async function getInfoCursadasPendientes(idAsignatura) {
-		// let result = await cursadasPendientes(user.jwtLogin);
+		// let result = await getCursadasPendientes(user.jwtLogin);
 		let result = await getExamenesAsignaturaPorAnio(idAsignatura, 2024, user.jwtLogin);
 		setCursadasData(result);
 	}

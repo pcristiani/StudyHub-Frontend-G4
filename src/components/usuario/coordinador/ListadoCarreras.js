@@ -10,7 +10,7 @@ import Card from '@mui/joy/Card';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
-import { getAsignaturasDeCarrera, cursadasPendientes, cambiarResultadoCursada } from '../../../services/requests/asignaturaService';
+import { getAsignaturasDeCarrera, getCursadasPendientes, cambiarResultadoCursada } from '../../../services/requests/asignaturaService';
 import Save from '@mui/icons-material/Save';
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
@@ -73,7 +73,7 @@ export default function ListadoCarreras() {
     let idAsignatura = data.get('idasignatura');
     let anioLectivo = parseInt(data.get('aniolectivo'), 10);
 
-    const resp = await cursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
+    const resp = await getCursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
     setCursadasData(resp);
   };
 
