@@ -235,6 +235,9 @@ export default function Header() {
                                     <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm">
                                        Pendientes de Aprobación
                                     </MenuItem>
+                                    <MenuItem variant="plain" color="neutral" component="a" href='/listado-carrera' size="sm" sx={{ alignSelf: 'left' }}>
+                                       Buscar carreras
+                                    </MenuItem>
                                  </Menu>
                               </MenuButton>
                            </Dropdown>

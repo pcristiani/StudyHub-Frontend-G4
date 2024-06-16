@@ -28,7 +28,7 @@ import EditarPerfil from "../components/common/EditarPerfil";
 import AltaCarrera from '../components/usuario/coordinador/AltaCarrera'
 import AltaAsignatura from '../components/usuario/coordinador/AltaAsignatura'
 import RegistrarPreviaturas from '../components/usuario/coordinador/RegistrarPreviaturas';
-import ListadoCarreras from '../components/usuario/coordinador/ListadoCarreras';
+import ListadoCarreras from '../components/busqueda/ListadoCarreras';
 
 import DashboardAdmin from '../components/usuario/administrador/DashboardAdmin';
 import AltaFuncionarioCoordinador from '../components/usuario/administrador/AltaFuncionarioCoordinador';

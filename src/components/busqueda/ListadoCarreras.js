@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { AuthContext } from '../../../context/AuthContext';
-import { getUsuarios } from '../../../services/requests/usuarioService';
+import { AuthContext } from '../../context/AuthContext';
+import { getCarreras } from '../../services/requests/carreraService';
 import PropTypes from 'prop-types';
 import Box from '@mui/joy/Box';
 import Table from '@mui/joy/Table';
@@ -17,12 +17,12 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
 import { Menu, MenuItem } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { formatoCi } from '../../../services/util/formatoCi';
+import { formatoCi } from '../../services/util/formatoCi';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
 import { AddBox } from '@mui/icons-material';
-import { URI_FRONT, redirigir } from '../../../services/util/constants';
+import { URI_FRONT, redirigir } from '../../services/util/constants';
 import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
 import ToggleOnOutlinedIcon from '@mui/icons-material/ToggleOnOutlined';
 import Button from '@mui/joy/Button';
@@ -66,17 +66,12 @@ const headCells = [
     label: 'Nombre',
   },
   {
-    id: 'cedula',
+    id: 'descripcion',
     numeric: true,
     disablePadding: false,
-    label: 'Cédula',
+    label: 'Desripción',
   },
-  {
-    id: 'rol',
-    numeric: false,
-    disablePadding: false,
-    label: 'Rol',
-  },
+
 ];
 
 function EnhancedTableHead(props) {
@@ -138,12 +133,12 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const handleAdd = (idUsuario) => {
-  console.log('Agregar usuario con ID:', idUsuario);
+const handleAdd = (idCarrera) => {
+  console.log('Agregar carrera con ID:', idCarrera);
 };
 
-const handleModificar = (idUsuario) => {
-  redirigir(URI_FRONT.modificarFuncionarioUri + `?id=${idUsuario}`);
+const handleModificar = (idCarrera) => {
+  redirigir(URI_FRONT.modificarFuncionarioUri + `?id=${idCarrera}`);
 }
 
 const handleAlta = () => {
@@ -161,7 +156,7 @@ function EnhancedTableToolbar(props) {
       {numSelected > 0 ? (
         <Typography sx={{ flex: '1 1 100%' }} component="div">{numSelected} seleccionado</Typography>
       ) : (
-        <Typography level="body-lg" sx={{ flex: '1 1 100%' }} id="tableTitle" component="div">Usuarios</Typography>
+        <Typography level="body-lg" sx={{ flex: '1 1 100%' }} id="tableTitle" component="div">Carreras</Typography>
       )}
       {numSelected > 0 ? (
         <>
@@ -191,11 +186,10 @@ function EnhancedTableToolbar(props) {
             <FilterListIcon />
           </IconButton>
           <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem onClick={() => onFilter('C')}>Coordinador</MenuItem>
-            <MenuItem onClick={() => onFilter('F')}>Funcionario</MenuItem>
-            <MenuItem onClick={() => onFilter('A')}>Administrador</MenuItem>
-            <MenuItem onClick={() => onFilter('E')}>Estudiante</MenuItem>
-            <MenuItem onClick={() => onFilter('')}>Todos</MenuItem>
+            <MenuItem onClick={() => onFilter('La duración de la carrera será de 2 años')}>2 años de duración</MenuItem>
+            <MenuItem onClick={() => onFilter('La duración de la carrera será de 3 años')}>3 años de duración</MenuItem>
+            <MenuItem onClick={() => onFilter('La duración de la carrera será de 4 años')}>4 años de duración</MenuItem>
+            <MenuItem onClick={() => onFilter('')}>Todas las carreras</MenuItem>
           </Menu>
         </>
       )}
@@ -209,7 +203,7 @@ EnhancedTableToolbar.propTypes = {
   selected: PropTypes.array.isRequired,
 };
 
-export default function ListadosBusquedas() {
+export default function ListadoCarreras() {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('nombre');
   const [selected, setSelected] = useState([]);
@@ -217,15 +211,15 @@ export default function ListadosBusquedas() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filter, setFilter] = useState('');
 
-  const [asignaturasCarreraData, setAsignaturasCarreraData] = useState([]);
+  const [carrerasData, setCarrerasData] = useState([]);
   const { user } = useContext(AuthContext);
   const [value, setValue] = useState(null);
 
   useEffect(() => {
     const fetchCarreras = async () => {
       try {
-        const result = await getUsuarios(user.jwtLogin);
-        setAsignaturasCarreraData(result);
+        const result = await getCarreras(user.jwtLogin);
+        setCarrerasData(result);
       } catch (error) {
         console.error(error);
       }
@@ -241,18 +235,18 @@ export default function ListadosBusquedas() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = asignaturasCarreraData.map((n) => n.idUsuario);
+      const newSelected = carrerasData.map((n) => n.idCarrera);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, idUsuario) => {
-    const selectedIndex = selected.indexOf(idUsuario);
+  const handleClick = (event, idCarrera) => {
+    const selectedIndex = selected.indexOf(idCarrera);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, idUsuario);
+      newSelected = newSelected.concat(selected, idCarrera);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -268,14 +262,14 @@ export default function ListadosBusquedas() {
   };
 
   const handleChangePage = (newPage) => setPage(newPage);
-  const isSelected = (idUsuario) => selected.indexOf(idUsuario) !== -1;
-  const handleFilter = (nombre) => setFilter(nombre);
-  const filteredUsers = filter ? asignaturasCarreraData.filter((user) => user.nombre === filter) : asignaturasCarreraData;
+  const isSelected = (idCarrera) => selected.indexOf(idCarrera) !== -1;
+  const handleFilter = (descripcion) => setFilter(descripcion);
+  const filteredUsers = filter ? carrerasData.filter((user) => user.descripcion === filter) : carrerasData;
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredUsers.length) : 0;
 
   const handleAutocompleteChange = (event, newValue) => {
     setValue(newValue);
-    setFilter(newValue ? newValue.nombre : '');
+    setFilter(newValue ? newValue.descripcion : '');
   };
 
   return (
@@ -292,22 +286,22 @@ export default function ListadosBusquedas() {
           orderBy={orderBy}
           onSelectAllClick={handleSelectAllClick}
           onRequestSort={handleRequestSort}
-          rowCount={asignaturasCarreraData.length}
+          rowCount={carrerasData.length}
         />
         <tbody>
           {stableSort(filteredUsers, getComparator(order, orderBy))
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row, index) => {
-              const isItemSelected = isSelected(row.idUsuario);
+              const isItemSelected = isSelected(row.idCarrera);
               const labelId = `enhanced-table-checkbox-${index}`;
 
               return (
                 <tr
-                  onClick={(event) => handleClick(event, row.idUsuario)}
+                  onClick={(event) => handleClick(event, row.idCarrera)}
                   role="checkbox"
                   aria-checked={isItemSelected}
                   tabIndex={-1}
-                  key={row.idUsuario}
+                  key={row.idCarrera}
                   selected={isItemSelected}
                 >
                   <th scope="row">
@@ -318,22 +312,21 @@ export default function ListadosBusquedas() {
                     />
                   </th>
                   <th id={labelId} scope="row">
-                    {row.nombre} {row.apellido}
+                    {row.nombre}
                   </th>
-                  <td>{formatoCi(row.cedula)}</td>
-                  <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : row.rol === "E" ? 'Estudiante' : row.rol === "A" ? 'Administrador' : ''}</td>
+                  <td>{row.descripcion}</td>
                 </tr>
               );
             })}
           {emptyRows > 0 && (
             <tr style={{ height: 63 * emptyRows }}>
-              <td colSpan={4} />
+              <td colSpan={3} />
             </tr>
           )}
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={4}>
+            <td colSpan={3}>
               <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
                 <Autocomplete
                   sx={{ width: '100%' }}
@@ -353,7 +346,7 @@ export default function ListadosBusquedas() {
                   }}
                   renderOption={(props, option) => (
                     <AutocompleteOption {...props} key={option.nombre}>
-                      {option.nombre} {option.apellido}
+                      {option.nombre}
                     </AutocompleteOption>
                   )}
                 />
@@ -365,7 +358,7 @@ export default function ListadosBusquedas() {
                     <KeyboardArrowLeftIcon />
                   </IconButton>
                   <IconButton size="sm" color="neutral" variant="outlined"
-                    disabled={asignaturasCarreraData.length !== -1 ? page >= Math.ceil(asignaturasCarreraData.length / rowsPerPage) - 1 : false}
+                    disabled={carrerasData.length !== -1 ? page >= Math.ceil(carrerasData.length / rowsPerPage) - 1 : false}
                     onClick={() => handleChangePage(page + 1)}
                     sx={{ bgcolor: 'background.surface' }}>
                     <KeyboardArrowRightIcon />
@@ -379,3 +372,208 @@ export default function ListadosBusquedas() {
     </Sheet>
   );
 }
+
+
+// import React, { useState, useEffect, useContext } from 'react';
+// import Box from '@mui/joy/Box';
+// import Button from '@mui/joy/Button';
+// import Divider from '@mui/joy/Divider';
+// import FormControl from '@mui/joy/FormControl';
+// import Stack from '@mui/joy/Stack';
+// import Typography from '@mui/joy/Typography';
+// import Card from '@mui/joy/Card';
+
+// import { useNavigate } from 'react-router-dom';
+// import { AuthContext } from '../../context/AuthContext';
+// import { getCarreras } from '../../services/requests/carreraService';
+// import { getAsignaturasDeCarrera, getCursadasPendientes, cambiarResultadoCursada } from '../../services/requests/asignaturaService';
+// import Save from '@mui/icons-material/Save';
+// import Sheet from '@mui/joy/Sheet';
+// import Table from '@mui/joy/Table';
+// import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
+// import AutocompleteOption from '@mui/joy/AutocompleteOption';
+// const filters = createFilterOptions
+
+// export default function ListadoCarreras() {
+//   const { user } = useContext(AuthContext);
+//   const [carreraData, setCarreraData] = useState([]);
+//   const [value, setValue] = useState(null);
+//   const [filter, setFilter] = useState('');
+//   const history = useNavigate();
+//   const [error, setError] = useState(null);
+//   const [cursadasData, setCursadasData] = useState([]);
+//   const [asignaturaData, setAsignaturaData] = useState([]);
+//   const [selectedCarrera, setSelectedCarrera] = useState('');
+//   const [resultadoData, setResultado] = useState('');
+
+//   useEffect(() => {
+//     const fetchCarreras = async () => {
+//       try {
+//         const result = await getCarreras(user.jwtLogin);
+//         setCarreraData(result);
+//       } catch (error) {
+//         setError(error.message);
+//       }
+//     };
+//     fetchCarreras();
+//   }, [user]);
+
+//   useEffect(() => {
+//     if (carreraData) {
+//       // console.log("Carreras: ", carreraData);
+//     }
+//   }, [carreraData]);
+
+//   const handleChangeCarrera = (event, newValue) => {
+//     // console.log("Selected: ", newValue);
+//     setSelectedCarrera(newValue);
+//     if (newValue !== null) {
+//       getInfoCarrera(newValue);
+//     }
+//   };
+
+//   async function getInfoCarrera(selectedCarrera) {
+//     let result = await getAsignaturasDeCarrera(selectedCarrera, user.jwtLogin);
+//     setAsignaturaData(result);
+//   }
+
+//   const handleModificar = async (idCursada) => {
+//     // console.log("Id: ", idCursada, resultadoData,);
+//     // const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
+//     // console.log("CursadasPendientes: ", result);
+//   };
+
+//   const handleSubmit = async (event) => {
+//     event.preventDefault();
+//     const data = new FormData(event.currentTarget);
+//     let idAsignatura = data.get('idasignatura');
+//     let anioLectivo = parseInt(data.get('aniolectivo'), 10);
+
+//     const resp = await getCursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
+//     setCursadasData(resp);
+//   };
+
+//   const handleFilter = (nombre) => setFilter(nombre);
+//   const filteredUsers = filter ? carreraData.filter((user) => user.nombre === filter) : carreraData;
+
+//   const handleAutocompleteChange = (event, newValue) => {
+//     setValue(newValue);
+//     setFilter(newValue ? newValue.nombre : '');
+//   };
+
+//   return (
+//     <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
+//       <Card sx={{ display: 'flex', alignSelf: 'center', }}>
+//         <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+//           <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Listado Carreras</Typography>
+//         </Box>
+//         <Divider />
+//         <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+//           <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '540px' }, gap: 0.3 }}>
+//             {/* <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
+//               {carreraData.map((carrera, index) => (
+//                 <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
+//               ))}
+//             </Select> */}
+
+//             <Autocomplete
+//               sx={{ width: '100%' }}
+//               placeholder="Filtrar por nombre"
+//               options={carreraData}
+//               getOptionLabel={(option) => option.nombre}
+//               onChange={handleAutocompleteChange}
+//               value={value}
+//             // filterOptions={(options, params) => {
+//             //   const filtered = filters(options, params);
+//             //   const { inputValue } = params;
+//             //   const isExisting = options.some((option) => inputValue === option.nombre);
+//             //   if (inputValue !== '' && !isExisting) {
+//             //     filtered.push({ nombre: inputValue });
+//             //   }
+//             //   return filtered;
+//             // }}
+//             // renderOption={(props, option) => (
+//             //   <AutocompleteOption {...props} key={option.nombre}>
+//             //     {/* {option.nombre} */}
+//             //   </AutocompleteOption>
+//             // )}
+//             />
+
+//             {/* onChange={handleChangeAsignatura} */}
+//             {/* <Select size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" required>
+//               {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
+//                 <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
+//               ))}
+//             </Select> */}
+//             <Divider sx={{ marginBottom: 1.5, marginTop: 1 }} />
+//             <section className="text-black body-font">
+//               <div>
+//                 <Sheet variant="outlined"
+//                   sx={{
+//                     '--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
+//                     '--Table-firstColumnWidth': '190px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '65px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
+//                     borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
+//                   }}>
+
+//                   <Table hoverRow>
+//                     <thead>
+//                       <tr>
+//                         <th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
+//                         {/* <th style={{ width: 'var(--Table-lastColumnWidth)' }}>Cédula</th> */}
+//                         <th style={{ width: 'var(--Table-buttonColumnWidth)' }}></th>
+//                         <th style={{ width: 'var(--Table-buttonColumnWidth)' }}></th>
+//                       </tr>
+//                     </thead>
+//                     <tbody>
+//                       {carreraData.map((row) => (
+//                         (
+//                           <tr key={row.idCarrera}>
+//                             <td>{row.nombre}</td>
+//                             {/* <td>{row.cedula}</td> */}
+//                             {/* <td>
+// 															<Select size="sm" placeholder="Pendiente" id="idresultado" name="idresultado" onChange={handleChangeResultado}>
+// 																{diasSemana.map((resultado, index) => (
+// 																	<Input key={index} value={resultado.value}>{resultado.label}</Input>
+// 																))}
+// 															</Select>
+// 														</td> */}
+//                             {/* <td>
+//                               <Select size="sm" placeholder="0" onChange={(event, newValue) => setResultado(newValue)}
+//                                 id="idresultado" name="idresultado">{notas.map((nota) => (
+//                                   <Option key={notas} value={nota}>{nota}</Option>
+//                                 ))}
+//                               </Select>
+//                             </td> */}
+//                             <td>
+//                               <Button size="sm" sx={{ border: 0.1, borderColor: '#3d3d3d', alignItems: 'right' }} variant="outlined" color='primary'
+//                                 onClick={() => handleModificar(row.idCursada)} >
+//                                 Asignaturas
+//                               </Button>
+//                             </td>
+//                             <td>
+//                               <Button size="sm" sx={{ border: 0.1, borderColor: '#3d3d3d', alignItems: 'right' }} variant="outlined" color='primary'
+//                                 onClick={() => handleModificar(row.idCursada)} >
+//                                 Info
+//                               </Button>
+//                             </td>
+//                           </tr>
+//                         )
+//                       ))}
+//                     </tbody>
+//                   </Table>
+//                 </Sheet>
+//               </div>
+//             </section>
+//           </FormControl>
+//         </Stack>
+//       </Card>
+//     </Box>
+//   );
+// };
+
+// const timeSlots = Array.from(new Array(24 * 1)).map(
+//   (_, index) =>
+//     `${index < 20 ? '' : ''}${Math.floor(index / 1)
+//     }:00`,
+// );
+

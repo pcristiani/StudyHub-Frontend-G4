@@ -38,6 +38,7 @@ const URI_FRONT = {
 
   //Uri Administrador
   validarEstudiantesUri: `/validar-estudiantes`,
+  altaFuncionarioCoordinadorUri: `/alta-funcionario-coordinador`,
   modificarFuncionarioUri: `/modificar-funcionario-coordinador`,
   listadosBusquedasUri: `/listados-busquedas`,
   resumenActividadUri: `/resumen-actividad`,
