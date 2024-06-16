@@ -15,14 +15,12 @@ import Link from '@mui/joy/Link';
 import Tooltip from '@mui/joy/Tooltip';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
-
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
-import { AddBox } from '@mui/icons-material';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
@@ -173,7 +171,7 @@ function EnhancedTableToolbar(props) {
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
             <Tooltip title="Ver asignaturas">
               <IconButton size="sm" variant="outlined" color="success" onClick={() => handleAlta()}>
-                <AddBox />
+                <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
 
@@ -189,7 +187,7 @@ function EnhancedTableToolbar(props) {
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
             <Tooltip title="Ver asignaturas">
               <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta()} disabled>
-                <AddBox />
+                <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
 

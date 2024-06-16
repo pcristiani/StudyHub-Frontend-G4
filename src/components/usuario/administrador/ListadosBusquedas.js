@@ -7,25 +7,22 @@ import Box from '@mui/joy/Box';
 import Table from '@mui/joy/Table';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import Checkbox from '@mui/joy/Checkbox';
+import Stack from '@mui/joy/Stack';
 import IconButton from '@mui/joy/IconButton';
 import Link from '@mui/joy/Link';
 import Tooltip from '@mui/joy/Tooltip';
+import AccountCircleOutlined from '@mui/icons-material/AccountCircleOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
-import { Menu, MenuItem } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { formatoCi } from '../../../services/util/formatoCi';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
-import { AddBox } from '@mui/icons-material';
 import { URI_FRONT, redirigir } from '../../../services/util/constants';
-import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
-import ToggleOnOutlinedIcon from '@mui/icons-material/ToggleOnOutlined';
-import Button from '@mui/joy/Button';
+import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
 const filters = createFilterOptions();
@@ -67,7 +64,7 @@ const headCells = [
   },
   {
     id: 'cedula',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Cédula',
   },
@@ -77,6 +74,12 @@ const headCells = [
     disablePadding: false,
     label: 'Rol',
   },
+  {
+    id: 'usuario',
+    numeric: false,
+    disablePadding: false,
+    label: '',
+  }
 ];
 
 function EnhancedTableHead(props) {
@@ -88,13 +91,6 @@ function EnhancedTableHead(props) {
   return (
     <thead>
       <tr>
-        <th>
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount} onChange={onSelectAllClick}
-            slotProps={{ input: { 'aria-label': 'select all desserts' } }} sx={{ verticalAlign: 'sub' }}
-          />
-        </th>
         {headCells.map((headCell) => {
           const active = orderBy === headCell.id;
           return (
@@ -138,6 +134,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
+
 const handleAdd = (idUsuario) => {
   console.log('Agregar usuario con ID:', idUsuario);
 };
@@ -155,48 +152,75 @@ function EnhancedTableToolbar(props) {
   const { numSelected, onFilter, selected } = props;
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
-  console.log("s: ", anchorEl);
+
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', py: 0.8, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.level1' : 'transparent', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }}>
-      {numSelected > 0 ? (
-        <Typography sx={{ flex: '1 1 100%' }} component="div">{numSelected} seleccionado</Typography>
-      ) : (
-        <Typography level="body-lg" sx={{ flex: '1 1 100%' }} id="tableTitle" component="div">Usuarios</Typography>
-      )}
-      {numSelected > 0 ? (
+    <Box sx={{ display: 'flex', alignItems: 'center', py: 0.8, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.body' : 'background.body', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }} >
+
+      <Box sx={{ alignSelf: 'center' }}>
+        {numSelected === 1 ? (
+          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="success" noWrap>Opciones habilitadas</Typography>
+        ) : ''}
+        {numSelected === 0 ? (
+          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="neutral" noWrap>Seleccionar usuario</Typography>
+        ) : ''}
+        {numSelected > 1 ? (
+          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="danger" noWrap>Selecionar una usuario</Typography>
+        ) : ''}
+      </Box>
+
+      {numSelected === 1 ? (
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
+
             <Tooltip title="Alta funcionario/coordinador">
-              <IconButton size="sm" color="neutral" variant="outlined" onClick={() => handleAlta()}>
-                <AddBox />
+              <IconButton size="sm" variant="outlined" color="success" onClick={handleAlta}>
+                <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
 
-            <Tooltip title="Modificar">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleModificar(selected[0])}>
+            <Tooltip title="Ver inscrpciones">
+              <IconButton size="sm" variant="outlined" color="success" onClick={handleAlta}>
+                <PostAddOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Información">
+              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleModificar(selected[0])}>
                 <DriveFileRenameOutlineOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-
-            <Tooltip title="Borrar">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAdd(selected[0])}>
-                <DeleteIcon />
               </IconButton>
             </Tooltip>
           </Box>
         </>
       ) : (
         <>
-          <IconButton size="sm" variant="outlined" color="neutral" onClick={handleClick}>
+          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
+            <Tooltip title="Alta funcionario/coordinador">
+              <IconButton size="sm" variant="outlined" color="neutral" onClick={handleAlta} disabled>
+                <AddBoxOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Ver inscrpciones">
+              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta()} disabled>
+                <PostAddOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Información">
+              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleModificar(selected[0])} disabled>
+                <DriveFileRenameOutlineOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
+          {/* <IconButton size="sm" variant="outlined" color="neutral" onClick={handleClick}>
             <FilterListIcon />
           </IconButton>
           <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem onClick={() => onFilter('C')}>Coordinador</MenuItem>
-            <MenuItem onClick={() => onFilter('F')}>Funcionario</MenuItem>
-            <MenuItem onClick={() => onFilter('A')}>Administrador</MenuItem>
-            <MenuItem onClick={() => onFilter('E')}>Estudiante</MenuItem>
-            <MenuItem onClick={() => onFilter('')}>Todos</MenuItem>
-          </Menu>
+            <MenuItem onClick={() => onFilter('La duración de la carrera será de 2 años')}>2 años de duración</MenuItem>
+            <MenuItem onClick={() => onFilter('La duración de la carrera será de 3 años')}>3 años de duración</MenuItem>
+            <MenuItem onClick={() => onFilter('La duración de la carrera será de 4 años')}>4 años de duración</MenuItem>
+            <MenuItem onClick={() => onFilter('')}>Todas las carreras</MenuItem>
+          </Menu> */}
         </>
       )}
     </Box>
@@ -211,27 +235,25 @@ EnhancedTableToolbar.propTypes = {
 
 export default function ListadosBusquedas() {
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('nombre');
+  const [orderBy, setOrderBy] = useState('idCarrera');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filter, setFilter] = useState('');
 
-  const [asignaturasCarreraData, setAsignaturasCarreraData] = useState([]);
+  const [carrerasData, setCarrerasData] = useState([]);
   const { user } = useContext(AuthContext);
   const [value, setValue] = useState(null);
 
   useEffect(() => {
-    const fetchCarreras = async () => {
-      try {
-        const result = await getUsuarios(user.jwtLogin);
-        setAsignaturasCarreraData(result);
-      } catch (error) {
-        console.error(error);
+    async function fetchCarreras() {
+      const carreras = await getUsuarios(user.jwtLogin);
+      if (carreras !== undefined) {
+        setCarrerasData(carreras);
       }
-    };
+    }
     fetchCarreras();
-  }, [user]);
+  }, []);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -241,7 +263,7 @@ export default function ListadosBusquedas() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = asignaturasCarreraData.map((n) => n.idUsuario);
+      const newSelected = carrerasData.map((n) => n.idUsuario);
       setSelected(newSelected);
       return;
     }
@@ -251,6 +273,7 @@ export default function ListadosBusquedas() {
   const handleClick = (event, idUsuario) => {
     const selectedIndex = selected.indexOf(idUsuario);
     let newSelected = [];
+
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, idUsuario);
     } else if (selectedIndex === 0) {
@@ -260,122 +283,142 @@ export default function ListadosBusquedas() {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
+        selected.slice(selectedIndex + 1));
     }
     setSelected(newSelected);
-    console.log("newSelected: ", newSelected);
   };
+
 
   const handleChangePage = (newPage) => setPage(newPage);
   const isSelected = (idUsuario) => selected.indexOf(idUsuario) !== -1;
   const handleFilter = (nombre) => setFilter(nombre);
-  const filteredUsers = filter ? asignaturasCarreraData.filter((user) => user.nombre === filter) : asignaturasCarreraData;
+  const filteredUsers = filter ? carrerasData.filter((user) => user.nombre === filter) : carrerasData;
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredUsers.length) : 0;
 
   const handleAutocompleteChange = (event, newValue) => {
     setValue(newValue);
     setFilter(newValue ? newValue.nombre : '');
   };
-
+  const [open, setOpen] = React.useState(false);
+  const [options, setOptions] = React.useState([]);
+  const loading = open && options.length === 0;
   return (
-    <Sheet variant="outlined" sx={{ marginTop: 6, boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '600px' }}>
-      <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
-      <Table aria-labelledby="tableTitle" hoverRow
-        sx={{
-          '--TableCell-headBackground': 'transparent', '--TableCell-selectedBackground': (theme) => theme.vars.palette.success.softBg,
-          '& thead th:nth-child(1)': { width: '40px' }, '& thead th:nth-child(2)': { width: '35%' },
-        }}>
-        <EnhancedTableHead
-          numSelected={selected.length}
-          order={order}
-          orderBy={orderBy}
-          onSelectAllClick={handleSelectAllClick}
-          onRequestSort={handleRequestSort}
-          rowCount={asignaturasCarreraData.length}
-        />
-        <tbody>
-          {stableSort(filteredUsers, getComparator(order, orderBy))
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row, index) => {
-              const isItemSelected = isSelected(row.idUsuario);
-              const labelId = `enhanced-table-checkbox-${index}`;
-
-              return (
-                <tr
-                  onClick={(event) => handleClick(event, row.idUsuario)}
-                  role="checkbox"
-                  aria-checked={isItemSelected}
-                  tabIndex={-1}
-                  key={row.idUsuario}
-                  selected={isItemSelected}
-                >
-                  <th scope="row">
-                    <Checkbox
-                      checked={isItemSelected}
-                      slotProps={{ input: { 'aria-labelledby': labelId } }}
-                      sx={{ verticalAlign: 'top' }}
-                    />
-                  </th>
-                  <th id={labelId} scope="row">
-                    {row.nombre} {row.apellido}
-                  </th>
-                  <td>{formatoCi(row.cedula)}</td>
-                  <td>{row.rol === "F" ? 'Funcionario' : row.rol === "C" ? 'Coordinador' : row.rol === "E" ? 'Estudiante' : row.rol === "A" ? 'Administrador' : ''}</td>
-                </tr>
-              );
-            })}
-          {emptyRows > 0 && (
-            <tr style={{ height: 63 * emptyRows }}>
-              <td colSpan={4} />
-            </tr>
+    <>
+      <Stack sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', minHeight: '6vh', width: '100%', alignItems: 'center', }}>
+        <Autocomplete
+          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '600px' }}
+          placeholder="Filtrar por usuario"
+          autoSelect={true}
+          autoHighlight={true}
+          getOptionLabel={(option) => option.nombre}
+          options={filteredUsers}
+          onChange={handleAutocompleteChange}
+          value={value}
+          filterOptions={(options, params) => {
+            const filtered = filters(options, params);
+            const { inputValue } = params;
+            const isExisting = options.some((option) => inputValue === option.nombre);
+            if (inputValue !== '' && !isExisting) {
+              filtered.push({ nombre: inputValue });
+            }
+            return filtered;
+          }}
+          renderOption={(props, option) => (
+            <AutocompleteOption {...props} key={option.nombre}>
+              {option.nombre}
+            </AutocompleteOption>
           )}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colSpan={4}>
-              <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                <Autocomplete
-                  sx={{ width: '100%' }}
-                  placeholder="Filtrar por nombre"
-                  options={filteredUsers}
-                  getOptionLabel={(option) => option.nombre}
-                  onChange={handleAutocompleteChange}
-                  value={value}
-                  filterOptions={(options, params) => {
-                    const filtered = filters(options, params);
-                    const { inputValue } = params;
-                    const isExisting = options.some((option) => inputValue === option.nombre);
-                    if (inputValue !== '' && !isExisting) {
-                      filtered.push({ nombre: inputValue });
-                    }
-                    return filtered;
-                  }}
-                  renderOption={(props, option) => (
-                    <AutocompleteOption {...props} key={option.nombre}>
-                      {option.nombre} {option.apellido}
-                    </AutocompleteOption>
-                  )}
-                />
-                <Box sx={{ width: '20%', display: 'flex', alignItems: 'center', gap: 0.5, justifyContent: 'flex-end' }}>
-                  <IconButton size="sm" color="neutral"
-                    variant="outlined" disabled={page === 0}
-                    onClick={() => handleChangePage(page - 1)}
-                    sx={{ bgcolor: 'background.surface' }}>
-                    <KeyboardArrowLeftIcon />
-                  </IconButton>
-                  <IconButton size="sm" color="neutral" variant="outlined"
-                    disabled={asignaturasCarreraData.length !== -1 ? page >= Math.ceil(asignaturasCarreraData.length / rowsPerPage) - 1 : false}
-                    onClick={() => handleChangePage(page + 1)}
-                    sx={{ bgcolor: 'background.surface' }}>
-                    <KeyboardArrowRightIcon />
-                  </IconButton>
-                </Box>
-              </Box>
-            </td>
-          </tr>
-        </tfoot>
-      </Table>
-    </Sheet>
+        />
+      </Stack>
+      <Stack direction="row" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '650px' }}>
+          <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
+
+          <Table aria-labelledby="tableTitle" hoverRow
+            sx={{
+              '--TableCell-headBackground': 'transparent',
+              '--TableCell-selectedBackground': (theme) =>
+                theme.vars.palette.success.softBg,
+              '& thead th:nth-child(1)': { width: '40%', },
+              '& thead th:nth-child(2)': { width: '30%', },
+              '& tr > *:nth-child(n+3)': { width: '15%', textAlign: 'center' },
+            }}>
+            <EnhancedTableHead
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={carrerasData.length}
+            />
+            <tbody>
+              {stableSort(filteredUsers, getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((usuario, index) => {
+                  const isItemSelected = isSelected(usuario.idUsuario);
+                  const labelId = `enhanced-table-checkbox-${index}`;
+
+                  return (
+                    <tr
+                      onClick={(event) => handleClick(event, usuario.idUsuario)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={usuario.idUsuario}
+                      selected={isItemSelected}
+                      style={
+                        isItemSelected
+                          ? { '--TableCell-dataBackground': 'var(--TableCell-selectedBackground)', '--TableCell-headBackground': 'var(--TableCell-selectedBackground)', 'cursor': 'pointer' }
+                          : { 'cursor': 'pointer' }
+                      }
+                    >
+                      <th id={labelId} scope="row">
+                        {usuario.nombre} {usuario.apellido}
+                      </th>
+                      <td>{formatoCi(usuario.cedula)}</td>
+                      <td>{usuario.rol === "F" ? 'Funcionario' : usuario.rol === "C" ? 'Coordinador' : usuario.rol === "E" ? 'Estudiante' : usuario.rol === "A" ? 'Administrador' : ''}
+                      </td>
+                      <td>
+                        <Tooltip title="Información usuario">
+                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(usuario.idUsuario)}>
+                            <AccountCircleOutlined />
+                          </IconButton>
+                        </Tooltip></td>
+                    </tr>
+                  );
+                })}
+              {emptyRows > 0 && (
+                <tr style={{ height: 63 * emptyRows }}>
+                  <td colSpan={5} />
+                </tr>
+              )}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={5}>
+                  <Box sx={{ width: '100%', display: 'flex', alignItems: 'right', justifyContent: 'flex-end' }}>
+                    <Box sx={{ width: '20%', display: 'flex', gap: 0.5, justifyContent: 'flex-end' }}>
+                      <IconButton size="sm" color="neutral"
+                        variant="outlined" disabled={page === 0}
+                        onClick={() => handleChangePage(page - 1)}
+                        sx={{ bgcolor: 'background.surface' }}>
+                        <KeyboardArrowLeftIcon />
+                      </IconButton>
+                      <IconButton size="sm" color="neutral" variant="outlined"
+                        disabled={carrerasData.length !== -1 ? page >= Math.ceil(carrerasData.length / rowsPerPage) - 1 : false}
+                        onClick={() => handleChangePage(page + 1)}
+                        sx={{ bgcolor: 'background.surface' }}>
+                        <KeyboardArrowRightIcon />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                </td>
+              </tr>
+            </tfoot>
+          </Table>
+        </Sheet>
+      </Stack>
+    </>
+
   );
 }

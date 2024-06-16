@@ -18,6 +18,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 import { visuallyHidden } from '@mui/utils';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
@@ -174,7 +175,7 @@ function EnhancedTableToolbar(props) {
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
             <Tooltip title="Ver asignaturas">
               <IconButton size="sm" variant="outlined" color="success" onClick={() => handleAlta()}>
-                <AddBox />
+                <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
 
@@ -190,7 +191,7 @@ function EnhancedTableToolbar(props) {
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
             <Tooltip title="Ver asignaturas">
               <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta()} disabled>
-                <AddBox />
+                  <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
 

@@ -235,6 +235,7 @@ export default function Header() {
                                     <MenuItem variant="plain" color="neutral" component="a"  href={URI_FRONT.listadoAsignaturasNoAprobadasUri} size="sm">
                                        Pendientes de Aprobación
                                     </MenuItem>
+                                    <ListDivider />
                                     <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar carreras
                                     </MenuItem>
@@ -290,6 +291,7 @@ export default function Header() {
                                     <MenuItem variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sm" sx={{ alignSelf: 'left' }}>
                                        Alta período de examen
                                     </MenuItem>
+                                    <ListDivider />
                                     <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar carreras
                                     </MenuItem>
@@ -350,6 +352,7 @@ export default function Header() {
                                     <MenuItem variant="plain" color="neutral" component="a" href='/nueva-carrera' size="sm" sx={{ alignSelf: 'left' }}>
                                        Alta de carrera
                                     </MenuItem>
+                                    <ListDivider />
                                     <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar carreras
                                     </MenuItem>
