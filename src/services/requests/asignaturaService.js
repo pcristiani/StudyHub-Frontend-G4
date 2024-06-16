@@ -36,6 +36,7 @@ export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
 	});
 
 	const data = await response.json();
+	console.log("Asignaturas de carrera: ", data);
 	return data.body;
 }
 
@@ -79,7 +80,24 @@ export const getAsignaturasNoAprobadas = async (idEstudiante, jwtLogin) => {
 	return data;
 }
 
+export const getAsignaturasAprobadas = async (idEstudiante, jwtLogin) => {
+	const url = URL_BACK.getAsignaturasAprobadas;
 
+	let headersList = {
+		'Content-Type': 'application/json',
+		'Authorization': `Bearer ${jwtLogin}`
+	}
+
+	let response = await fetch(url + idEstudiante, {
+		method: "GET",
+		headers: headersList
+	});
+
+	const data = await response.json();
+
+	console.log("Asignaturas aprobadas: ", data);
+	return data;
+}
 
 ///
 export const altaAsignatura = async (nombre, creditos, descripcion, departamento, previaturas, idCarrera, idDocente, jwtLogin) => {

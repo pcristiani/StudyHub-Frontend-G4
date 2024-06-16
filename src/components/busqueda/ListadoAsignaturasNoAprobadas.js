@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import { AuthContext } from '../../context/AuthContext';
+import { getAsignaturasNoAprobadas } from '../../services/requests/asignaturaService';
 import { getCarreras } from '../../services/requests/carreraService';
+
 import PropTypes from 'prop-types';
 import Box from '@mui/joy/Box';
 import Table from '@mui/joy/Table';
@@ -14,7 +16,7 @@ import Link from '@mui/joy/Link';
 import Tooltip from '@mui/joy/Tooltip';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
+import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
@@ -22,6 +24,7 @@ import AutocompleteOption from '@mui/joy/AutocompleteOption';
 import { AddBox } from '@mui/icons-material';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
+
 const filters = createFilterOptions();
 
 function descendingComparator(a, b, orderBy) {
@@ -60,13 +63,19 @@ const headCells = [
     label: 'Nombre',
   },
   {
-    id: 'descripcion',
+    id: 'departamento',
     numeric: false,
     disablePadding: false,
-    label: 'Desripción',
+    label: 'Departamento',
   },
   {
-    id: 'asignaturas',
+    id: 'creditos',
+    numeric: false,
+    disablePadding: false,
+    label: 'Creditos',
+  },
+  {
+    id: 'asignatura',
     numeric: false,
     disablePadding: false,
     label: '',
@@ -126,17 +135,17 @@ EnhancedTableHead.propTypes = {
 };
 
 const handleAdd = (idCarrera) => {
-  console.log('Agregar carrera con ID:', idCarrera);
+  // console.log('Agregar carrera con ID:', idCarrera);
 };
 
 const handleModificar = (idCarrera) => {
-  redirigir(URI_FRONT.listadoAsignaturasUri + `?id=${idCarrera}`);
+  // redirigir(URI_FRONT.listadoAsignaturasUri + `?id=${idCarrera}`);
   // redirigir(URI_FRONT.listadoAsignaturasUri);
 
 }
 
 const handleAlta = () => {
-  redirigir(URI_FRONT.altaFuncionarioCoordinadorUri);
+  // redirigir(URI_FRONT.altaFuncionarioCoordinadorUri);
 }
 
 function EnhancedTableToolbar(props) {
@@ -153,10 +162,10 @@ function EnhancedTableToolbar(props) {
           <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="success" noWrap>Opciones habilitadas</Typography>
         ) : ''}
         {numSelected === 0 ? (
-          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="neutral" noWrap>Seleccionar carrera</Typography>
+          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="neutral" noWrap>Pendientes de aprobación</Typography>
         ) : ''}
         {numSelected > 1 ? (
-          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="danger" noWrap>Selecionar una carrera</Typography>
+          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="danger" noWrap>Asignatura</Typography>
         ) : ''}
       </Box>
 
@@ -191,15 +200,6 @@ function EnhancedTableToolbar(props) {
               </IconButton>
             </Tooltip>
           </Box>
-          {/* <IconButton size="sm" variant="outlined" color="neutral" onClick={handleClick}>
-            <FilterListIcon />
-          </IconButton>
-          <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem onClick={() => onFilter('La duración de la carrera será de 2 años')}>2 años de duración</MenuItem>
-            <MenuItem onClick={() => onFilter('La duración de la carrera será de 3 años')}>3 años de duración</MenuItem>
-            <MenuItem onClick={() => onFilter('La duración de la carrera será de 4 años')}>4 años de duración</MenuItem>
-            <MenuItem onClick={() => onFilter('')}>Todas las carreras</MenuItem>
-          </Menu> */}
         </>
       )}
     </Box>
@@ -212,7 +212,7 @@ EnhancedTableToolbar.propTypes = {
   selected: PropTypes.array.isRequired,
 };
 
-export default function ListadoCarreras() {
+export default function ListadoAsignaturasNoAprobadas() {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('idCarrera');
   const [selected, setSelected] = useState([]);
@@ -220,19 +220,20 @@ export default function ListadoCarreras() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filter, setFilter] = useState('');
 
-  const [carrerasData, setCarrerasData] = useState([]);
+  const [asignaturaData, setAsignaturaData] = useState([]);
   const { user } = useContext(AuthContext);
   const [value, setValue] = useState(null);
 
   useEffect(() => {
-    async function fetchCarreras() {
-      const carreras = await getCarreras(user.jwtLogin);
-      if (carreras !== undefined) {
-        setCarrerasData(carreras);
+    async function fetchAsignaturas() {
+      const asignatura = await getAsignaturasNoAprobadas(user.id, user.jwtLogin);
+      if (asignatura !== undefined) {
+        setAsignaturaData(asignatura);
       }
     }
-    fetchCarreras();
+    fetchAsignaturas();
   }, []);
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -242,19 +243,19 @@ export default function ListadoCarreras() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = carrerasData.map((n) => n.idCarrera);
+      const newSelected = asignaturaData.map((n) => n.idAsignatura);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, idCarrera) => {
-    const selectedIndex = selected.indexOf(idCarrera);
+  const handleClick = (event, idAsignatura) => {
+    const selectedIndex = selected.indexOf(idAsignatura);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, idCarrera);
+      newSelected = newSelected.concat(selected, idAsignatura);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -271,7 +272,7 @@ export default function ListadoCarreras() {
   const handleChangePage = (newPage) => setPage(newPage);
   const isSelected = (idUsuario) => selected.indexOf(idUsuario) !== -1;
   const handleFilter = (nombre) => setFilter(nombre);
-  const filteredUsers = filter ? carrerasData.filter((user) => user.nombre === filter) : carrerasData;
+  const filteredUsers = filter ? asignaturaData.filter((user) => user.nombre === filter) : asignaturaData;
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredUsers.length) : 0;
 
   const handleAutocompleteChange = (event, newValue) => {
@@ -286,7 +287,7 @@ export default function ListadoCarreras() {
       <Stack sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', minHeight: '6vh', width: '100%', alignItems: 'center', }}>
         <Autocomplete
           sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '600px' }}
-          placeholder="Filtrar por carrera"
+          placeholder="Filtrar por asignatura"
           autoSelect={true}
           autoHighlight={true}
           getOptionLabel={(option) => option.nombre}
@@ -310,7 +311,7 @@ export default function ListadoCarreras() {
         />
       </Stack>
       <Stack direction="row" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
-        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '650px' }}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '620px' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
 
           <Table aria-labelledby="tableTitle" hoverRow
@@ -318,9 +319,9 @@ export default function ListadoCarreras() {
               '--TableCell-headBackground': 'transparent',
               '--TableCell-selectedBackground': (theme) =>
                 theme.vars.palette.success.softBg,
-              '& thead th:nth-child(1)': { width: '40%', },
-              '& thead th:nth-child(2)': { width: '50%', },
-              '& tr > *:nth-child(n+3)': { width: '11%', textAlign: 'center' },
+              '& thead th:nth-child(1)': { width: '30%', },
+              '& thead th:nth-child(2)': { width: '58%', },
+              '& tr > *:nth-child(n+3)': { width: '12%', textAlign: 'center' },
             }}>
             <EnhancedTableHead
               numSelected={selected.length}
@@ -328,22 +329,22 @@ export default function ListadoCarreras() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={carrerasData.length}
+              rowCount={asignaturaData.length}
             />
             <tbody>
               {stableSort(filteredUsers, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((carrera, index) => {
-                  const isItemSelected = isSelected(carrera.idCarrera);
+                .map((asignatura, index) => {
+                  const isItemSelected = isSelected(asignatura.idAsignatura);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <tr
-                      onClick={(event) => handleClick(event, carrera.idCarrera)}
+                      onClick={(event) => handleClick(event, asignatura.idAsignatura)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={carrera.idCarrera}
+                      key={asignatura.idAsignatura}
                       selected={isItemSelected}
                       style={
                         isItemSelected
@@ -352,13 +353,14 @@ export default function ListadoCarreras() {
                       }
                     >
                       <th id={labelId} scope="row">
-                        {carrera.nombre}
+                        {asignatura.nombre}
                       </th>
-                      <td>{carrera.descripcion}</td>
+                      <td>{asignatura.descripcion}</td>
+                      <td>{asignatura.creditos}</td>
                       <td>
-                        <Tooltip title="Ver asignaturas">
-                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(carrera.idCarrera)}>
-                            <LaunchRoundedIcon />
+                        <Tooltip title="Ver asignatura">
+                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(selected[0])}>
+                            <PostAddOutlinedIcon />
                           </IconButton>
                         </Tooltip></td>
                     </tr>
@@ -382,7 +384,7 @@ export default function ListadoCarreras() {
                         <KeyboardArrowLeftIcon />
                       </IconButton>
                       <IconButton size="sm" color="neutral" variant="outlined"
-                        disabled={carrerasData.length !== -1 ? page >= Math.ceil(carrerasData.length / rowsPerPage) - 1 : false}
+                        disabled={asignaturaData.length !== -1 ? page >= Math.ceil(asignaturaData.length / rowsPerPage) - 1 : false}
                         onClick={() => handleChangePage(page + 1)}
                         sx={{ bgcolor: 'background.surface' }}>
                         <KeyboardArrowRightIcon />

@@ -48,6 +48,11 @@ const URI_FRONT = {
   RegistrarAsignaturaPeriodoExamenUri: `/registrar-asignatura-periodo-examen`,
   inscripcionExamenUri: `/inscripcion-examen`,
 
+  listadoCarrerasUri: `/listado-carreras`,
+  listadoAsignaturasUri: `/listado-asignaturas`,
+  listadoAsignaturasAprobadasUri: `/listado-asignaturas-aprobadas`,
+  listadoAsignaturasNoAprobadasUri: `/listado-asignaturas-no-aprobadas`,
+
 }
 
 

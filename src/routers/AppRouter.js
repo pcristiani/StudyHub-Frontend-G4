@@ -28,7 +28,6 @@ import EditarPerfil from "../components/common/EditarPerfil";
 import AltaCarrera from '../components/usuario/coordinador/AltaCarrera'
 import AltaAsignatura from '../components/usuario/coordinador/AltaAsignatura'
 import RegistrarPreviaturas from '../components/usuario/coordinador/RegistrarPreviaturas';
-import ListadoCarreras from '../components/busqueda/ListadoCarreras';
 
 import DashboardAdmin from '../components/usuario/administrador/DashboardAdmin';
 import AltaFuncionarioCoordinador from '../components/usuario/administrador/AltaFuncionarioCoordinador';
@@ -38,17 +37,23 @@ import { ResumenActividad } from '../components/usuario/administrador/ResumenAct
 
 import InscripcionCarrera from '../components/usuario/estudiante/InscripcionCarrera';
 import InscripcionAsignatura from '../components/usuario/estudiante/InscripcionAsignatura';
+import InscripcionExamen from '../components/usuario/estudiante/InscripcionExamen';
 
 import AltaDocente from '../components/usuario/funcionario/AltaDocente';
 import ValidarEstudiantes from "../components/usuario/funcionario/ValidarEstudiantes";
 import ValidarInscripcionesCarrera from '../components/usuario/funcionario/ValidarInscripcionesCarrera';
 import RegistrarAsignaturaPeriodoExamen from '../components/usuario/funcionario/RegistrarAsignaturaPeriodoExamen';
 import TablaInscripcionesCarrera from '../components/usuario/funcionario/TablaInscripcionesCarrera';
-import AltaPeriodoExamen from '../components/usuario/funcionario/AltaPeriodoExamen';
 import RegistrarHorarioAsignatura from '../components/usuario/funcionario/RegistrarHorarioAsignatura';
-import InscripcionExamen from '../components/usuario/estudiante/InscripcionExamen';
 import CalificacionesFinCurso from '../components/usuario/funcionario/CalificacionesFinCurso';
 import CalificacionesExamen from '../components/usuario/funcionario/CalificacionesExamen';
+import AltaPeriodoExamen from '../components/usuario/funcionario/AltaPeriodoExamen';
+
+import ListadoCarreras from '../components/busqueda/ListadoCarreras';
+import ListadoAsignaturas from '../components/busqueda/ListadoAsignaturas.js';
+import ListadoAsignaturasAprobadas from '../components/busqueda/ListadoAsignaturasAprobadas';
+import ListadoAsignaturasNoAprobadas from '../components/busqueda/ListadoAsignaturasNoAprobadas';
+
 
 
 export const AppRouter = () => {
@@ -104,7 +109,12 @@ export const AppRouter = () => {
                     <Route path='/incripcion-examen' element={<InscripcionExamen user={user.id} />} exact />
                     <Route path='/calificaciones-fin-curso' element={<CalificacionesFinCurso user={user.id} />} exact />
                     <Route path='/calificaciones-examen' element={<CalificacionesExamen user={user.id} />} exact />
-                    <Route path='/listado-carrera' element={<ListadoCarreras user={user.id} />} exact />
+
+                    <Route path='/listado-carreras' element={<ListadoCarreras user={user.id} />} exact />
+                    <Route path='/listado-asignaturas' element={<ListadoAsignaturas user={user.id} />} exact />
+                    <Route path='/listado-asignaturas-aprobadas' element={<ListadoAsignaturasAprobadas user={user.id} />} exact />
+                    <Route path='/listado-asignaturas-no-aprobadas' element={<ListadoAsignaturasNoAprobadas user={user.id} />} exact />
+
 
 
                     <Route path='/login' element={

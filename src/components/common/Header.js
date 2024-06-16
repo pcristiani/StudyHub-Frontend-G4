@@ -229,13 +229,13 @@ export default function Header() {
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
                                  Listados y búsquedas
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoAsignaturasAprobadasUri} size="sm">
                                        Asignaturas aprobadas
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm">
+                                    <MenuItem variant="plain" color="neutral" component="a"  href={URI_FRONT.listadoAsignaturasNoAprobadasUri} size="sm">
                                        Pendientes de Aprobación
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/listado-carrera' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar carreras
                                     </MenuItem>
                                  </Menu>
@@ -290,7 +290,7 @@ export default function Header() {
                                     <MenuItem variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sm" sx={{ alignSelf: 'left' }}>
                                        Alta período de examen
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/listado-carrera' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar carreras
                                     </MenuItem>
                                  </Menu>
@@ -350,7 +350,7 @@ export default function Header() {
                                     <MenuItem variant="plain" color="neutral" component="a" href='/nueva-carrera' size="sm" sx={{ alignSelf: 'left' }}>
                                        Alta de carrera
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/listado-carrera' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar carreras
                                     </MenuItem>
                                  </Menu>
