@@ -17,18 +17,14 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
 import { Menu, MenuItem } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { formatoCi } from '../../services/util/formatoCi';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
 import { AddBox } from '@mui/icons-material';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
-import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
-import ToggleOnOutlinedIcon from '@mui/icons-material/ToggleOnOutlined';
-import Button from '@mui/joy/Button';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
-const filters = createFilterOptions
+const filters = createFilterOptions();
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -86,8 +82,10 @@ function EnhancedTableHead(props) {
         <th>
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount} onChange={onSelectAllClick}
-            slotProps={{ input: { 'aria-label': 'select all desserts' } }} sx={{ verticalAlign: 'sub' }}
+            checked={rowCount > 0 && numSelected === rowCount}
+            onChange={onSelectAllClick}
+            slotProps={{ input: { 'aria-label': 'select all desserts' } }}
+            sx={{ verticalAlign: 'sub' }}
           />
         </th>
         {headCells.map((headCell) => {
@@ -150,7 +148,7 @@ function EnhancedTableToolbar(props) {
   const { numSelected, onFilter, selected } = props;
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
-  console.log("s: ", anchorEl);
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', py: 0.8, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.level1' : 'transparent', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }}>
       {numSelected > 0 ? (
@@ -216,16 +214,14 @@ export default function ListadoCarreras() {
   const [value, setValue] = useState(null);
 
   useEffect(() => {
-    const fetchCarreras = async () => {
-      try {
-        const result = await getCarreras(user.jwtLogin);
-        setCarrerasData(result);
-      } catch (error) {
-        console.error(error);
+    async function fetchCarreras() {
+      const carreras = await getCarreras(user.jwtLogin);
+      if (carreras !== undefined) {
+        setCarrerasData(carreras);
       }
-    };
+    }
     fetchCarreras();
-  }, [user]);
+  }, []);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -245,6 +241,7 @@ export default function ListadoCarreras() {
   const handleClick = (event, idCarrera) => {
     const selectedIndex = selected.indexOf(idCarrera);
     let newSelected = [];
+
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, idCarrera);
     } else if (selectedIndex === 0) {
@@ -252,25 +249,51 @@ export default function ListadoCarreras() {
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
+      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
     }
+
     setSelected(newSelected);
-    console.log("newSelected: ", newSelected);
   };
+
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
+
+  // const handleChangeRowsPerPage = (event) => {
+  //   setRowsPerPage(parseInt(event.target.value, 10));
+  //   setPage(0);
+  // };
+
+  // const handleFilter = (filterValue) => {
+  //   setFilter(filterValue);
+  // };
+
+  // const filteredData = carrerasData.filter((carrera) => carrera.descripcion.includes(filter));
+
+  // const emptyRows = rowsPerPage - Math.min(rowsPerPage, filteredData.length - page * rowsPerPage);
 
   const handleChangePage = (newPage) => setPage(newPage);
   const isSelected = (idCarrera) => selected.indexOf(idCarrera) !== -1;
-  const handleFilter = (descripcion) => setFilter(descripcion);
-  const filteredUsers = filter ? carrerasData.filter((user) => user.descripcion === filter) : carrerasData;
+  const handleFilter = (nombre) => setFilter(nombre);
+  const filteredUsers = filter ? carrerasData.filter((user) => user.nombre === filter) : carrerasData;
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredUsers.length) : 0;
-
   const handleAutocompleteChange = (event, newValue) => {
     setValue(newValue);
-    setFilter(newValue ? newValue.descripcion : '');
+    setFilter(newValue ? newValue.nombre : '');
   };
+  // const isSelected = (idCarrera) => selected.indexOf(idCarrera) !== -1;
+
+  // const handleFilter = (descripcion) => setFilter(descripcion);
+
+  // const filteredUsers = filter ? carrerasData.filter((user) => user.descripcion === filter) : carrerasData;
+  // const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredUsers.length) : 0;
+
+  // const handleAutocompleteChange = (event, newValue) => {
+  //   setValue(newValue);
+  //   setFilter(newValue ? newValue.descripcion : '');
+  // };
+
+  // const groupedOptions = filteredData.length ? filteredData : [];
 
   return (
     <Sheet variant="outlined" sx={{ marginTop: 6, boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '600px' }}>
@@ -291,17 +314,19 @@ export default function ListadoCarreras() {
         <tbody>
           {stableSort(filteredUsers, getComparator(order, orderBy))
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row, index) => {
-              const isItemSelected = isSelected(row.idCarrera);
+            .map((carrera, index) => {
+              // const isItemSelected = selected.indexOf(carrera.idCarrera) !== -1;
+              // const labelId = `enhanced-table-checkbox-${index}`;
+              const isItemSelected = isSelected(carrera.idCarrera);
               const labelId = `enhanced-table-checkbox-${index}`;
 
               return (
                 <tr
-                  onClick={(event) => handleClick(event, row.idCarrera)}
+                  onClick={(event) => handleClick(event, carrera.idCarrera)}
                   role="checkbox"
                   aria-checked={isItemSelected}
                   tabIndex={-1}
-                  key={row.idCarrera}
+                  key={carrera.idCarrera}
                   selected={isItemSelected}
                 >
                   <th scope="row">
@@ -312,9 +337,9 @@ export default function ListadoCarreras() {
                     />
                   </th>
                   <th id={labelId} scope="row">
-                    {row.nombre}
+                    {carrera.nombre}
                   </th>
-                  <td>{row.descripcion}</td>
+                  <td>{carrera.descripcion}</td>
                 </tr>
               );
             })}
@@ -328,6 +353,23 @@ export default function ListadoCarreras() {
           <tr>
             <td colSpan={3}>
               <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+                {/* <Autocomplete
+                  placeholder="Buscar carrera"
+                  options={carrerasData.map((carrera) => carrera.nombre)}
+                  sx={{ width: '50%' }}
+                  filterOptions={(options, state) => filters(options, state)}
+                  onChange={(event, newValue) => {
+                    const selectedCarrera = carrerasData.find((carrera) => carrera.nombre === newValue);
+                    if (selectedCarrera) {
+                      handleClick(event, selectedCarrera.id);
+                    }
+                  }}
+                  renderOption={(props, option) => (
+                    <AutocompleteOption {...props} key={option}>
+                      {option}
+                    </AutocompleteOption>
+                  )}
+                /> */}
                 <Autocomplete
                   sx={{ width: '100%' }}
                   placeholder="Filtrar por nombre"
