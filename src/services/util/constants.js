@@ -49,6 +49,9 @@ const URI_FRONT = {
 
 }
 
+
+///
+
 // ? http://localhost:8080/
 const URL_BACK = {
   // LOGINSERVICE
@@ -133,6 +136,8 @@ const URL_BACK = {
 }
 
 
+///
+
 const T_ROL = {
   ADMIN: `A`,
   ESTUDIANTE: `E`,
@@ -146,14 +151,19 @@ const PARAMETERS = {
   redirecturi: `redirectUri`,
   clientid: `clientId`,
   code: `code`,
-  clientsecret: `emrYoruZKktTVfw5`,
+  clientsecret: ``,
   // accessToken: ``,
 };
-
 
 const redirigir = (url) => {
   window.location.href = url;
 };
 
+const COURSE = {
+  graph : `graph {
+      node [shape=rectangle, style=filled, color=lightblue];
+        bgcolor=transparent;    node [shape=rectangle, style=border, color=grey, color="#ED96AC", fontcolor=grey, fontsize=12, fontname="Arial", height=0.2, width=0.4,spacing=0.1,margin=0.1,showboxes=1,border=2,bordercolor=green];  
+        rankdir=TB;   `
+};
 
-export { URI_FRONT, URL_BACK, T_ROL, PARAMETERS, redirigir, uriBaseFront };
+export { URI_FRONT, URL_BACK, T_ROL, PARAMETERS, redirigir, uriBaseFront, COURSE };

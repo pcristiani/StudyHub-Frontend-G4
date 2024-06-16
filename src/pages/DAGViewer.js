@@ -8,7 +8,7 @@ export default ({ dot, width, height }) => {
         width: width || "100%",
         height: height || "100%"
     };
-    
+
     const graphvizRoot = useRef(null);
 
     // update style in Graphviz div
@@ -22,21 +22,16 @@ export default ({ dot, width, height }) => {
             }
             graphviz(`#${id}`);
         }
-    }, [graphvizRoot]);
-    const reset = useCallback(() => {
-        if (graphvizRoot.current) {
-            const { id } = graphvizRoot.current;
-            graphviz(`#${id}`).resetZoom();
-        }
-    }, [graphvizRoot]);
+    }, [graphvizRoot, style]);
     return (
         <div
             style={{
                 ...style,
                 position: "relative",
                 overflow: "hidden",
-                width: "1300px"
-                
+                width: "1200px",
+                height: "1200px"
+
 
                 //backgroundColor: "red
             }}

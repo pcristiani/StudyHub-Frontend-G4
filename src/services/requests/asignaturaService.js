@@ -268,7 +268,7 @@ export const inscripcionAsignatura = async (idEstudiante, idAsignatura, idHorari
 
 
 ///
-export const getCourseRelations = async (idCarrera, jwtLogin) => {
+export const getPreviaturasGrafo = async (idCarrera, jwtLogin) => {
 	const url = URL_BACK.getPreviaturasGrafo;
 
 	let headersList = {
@@ -310,7 +310,6 @@ export const cursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
 
 ///
 export const cambiarResultadoCursada = async (idCursada, calificacion, jwtLogin) => {
-	// console.log("ID CURSADA2094  : ", idCursada, calificacion, jwtLogin);
 	try {
 		let headersList = {
 			'Content-Type': 'application/json',

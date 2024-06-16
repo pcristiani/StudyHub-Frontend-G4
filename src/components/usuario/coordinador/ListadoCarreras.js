@@ -6,8 +6,7 @@ import FormControl from '@mui/joy/FormControl';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
-import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
+
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
