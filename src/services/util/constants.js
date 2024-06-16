@@ -169,12 +169,22 @@ const PARAMETERS = {
 const redirigir = (url) => {
   window.location.href = url;
 };
-
 const COURSE = {
-  graph: `graph {
-      node [shape=rectangle, style=filled, color=lightblue];
-        bgcolor=transparent;    node [shape=rectangle, style=border, color=grey, color="#ED96AC", fontcolor=grey, fontsize=12, fontname="Arial", height=0.2, width=0.4,spacing=0.1,margin=0.1,showboxes=1,border=2,bordercolor=green];  
-        rankdir=TB;   `
+
+graph: `graph {
+  bgcolor = transparent;shape = rectangle; style = "rounded";
+  node[shape = rectangle, style = "rounded,filled", fillcolor = "#d7f8fd", color = "#2596be", fontcolor = black, fontsize = 12, fontname = "Arial"];
+  edge[color = "#2596be"];
+  rankdir = TB;`
+
 };
+
+// const COURSE = {
+//   graph: `graph {
+//       node [shape=rectangle, style=filled, color=lightblue];
+//       bgcolor=transparent;
+//          node [shape=rectangle, style=filled, color=lightblue, fontcolor=grey, fontsize=12, fontname="Arial", height=0.2, width=0.4, margin="0.1,0.1"];
+//         rankdir=TB;   `
+// };
 
 export { URI_FRONT, URL_BACK, T_ROL, PARAMETERS, redirigir, uriBaseFront, COURSE };

@@ -23,7 +23,6 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { visuallyHidden } from '@mui/utils';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
-import { AddBox } from '@mui/icons-material';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 const filters = createFilterOptions();

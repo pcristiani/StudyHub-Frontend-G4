@@ -7,13 +7,15 @@ import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
+
 import Select from '@mui/joy/Select';
+import Input from '@mui/joy/Input';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
 import { cambiarResultadoExamen, getExamenesAsignaturaPorAnio, getCursadasExamen } from '../../../services/requests/examenService';
-import Input from '@mui/joy/Input';
-
+import IconButton from '@mui/joy/IconButton';
+import Tooltip from '@mui/joy/Tooltip';
 import { getAsignaturasDeCarrera } from '../../../services/requests/asignaturaService';
 import { errors } from '../../../services/util/errors';
 import Sheet from '@mui/joy/Sheet';
@@ -26,6 +28,7 @@ export default function CalificacionesExamen() {
 	const [carreraData, setCarreraData] = useState([]);
 	const [cursadasData, setCursadasData] = useState([]);
 	const [asignaturaData, setAsignaturaData] = useState([]);
+	const [usuarioData, setUsuarioData] = useState([]);
 	const [error, setError] = useState(null);
 
 	const [selectedCarrera, setSelectedCarrera] = useState('');
@@ -51,61 +54,74 @@ export default function CalificacionesExamen() {
 	}, [carreraData]);
 
 	const handleChange = (event, newValue) => {
-		console.log("Selected: ", newValue);
-		setSelectedCarrera(newValue);
-		if (newValue !== null) {
+		if (newValue !== null && newValue !== undefined && newValue !== '') {
+			setSelectedCarrera(newValue);
 			getInfoCarrera(newValue);
 		}
 	};
 
 	async function getInfoCarrera(selectedCarrera) {
-		let result = await getAsignaturasDeCarrera(selectedCarrera, user.jwtLogin);
-		setAsignaturaData(result);
+		if (selectedCarrera !== null && selectedCarrera !== undefined && selectedCarrera !== '') {
+			let result = await getAsignaturasDeCarrera(selectedCarrera, user.jwtLogin);
+			setAsignaturaData(result);
+		}
 	}
 
 
+
+	///
 	const handleChangeAsignatura = (event, idAsignatura) => {
-		if (idAsignatura !== null && idAsignatura !== undefined) {
+		if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '') {
 			getInfoCursadasPendientes(idAsignatura);
 		}
 	};
 
 	async function getInfoCursadasPendientes(idAsignatura) {
-		// let result = await getCursadasPendientes(user.jwtLogin);
-		let result = await getExamenesAsignaturaPorAnio(idAsignatura, 2024, user.jwtLogin);
-		setCursadasData(result);
+		if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '') {
+			let result = await getExamenesAsignaturaPorAnio(idAsignatura, 2024, user.jwtLogin);
+			console.log("getExamenesAsignaturaPorAnio: ", result);
+			setCursadasData(result);
+		}
 	}
 
 
+
+
+	///
+	const handleChangePeriodo = (event, idExamen) => {
+		if (idExamen !== null && idExamen !== undefined && idExamen !== '') {
+			setUsuarioData([]);
+			getInfoUsuarios(idExamen);
+		}
+	};
+
+	async function getInfoUsuarios(idExamen) {
+		if (idExamen !== null && idExamen !== undefined && idExamen !== '') {
+			let result = await getCursadasExamen(idExamen, user.jwtLogin);
+			console.log("Usuario: ", result);
+			setUsuarioData(result);
+		}
+	}
+
+
+
+	///
 	const handleModificar = async (id) => {
 		console.log("ID: ", id, "Resultado: ", resultadoData);
-		let result = await cambiarResultadoExamen(id.idCursada, resultadoData, user.jwtLogin);
-		if (result.status === 200) {
-			let title = "¡Inscripto a examen!\n\n";
-			errors(title, result.data, result.status);
-			history('/novedades');
-		} else {
-			errors(result.data, result.data, result.status);
+		if (id !== null && id !== undefined && resultadoData !== null && resultadoData !== undefined) {
+			let result = await cambiarResultadoExamen(id, resultadoData, user.jwtLogin);
+			console.log("re", result);
+
+			if (result.statusCodeValue === 200) {
+				let title = "¡Calificación exitosa!\n\n";
+				errors(title, result.body, result.statusCodeValue);
+				history('/novedades');
+			} else {
+				errors(result.body, result.body, result.statusCodeValue);
+			}
 		}
 	};
 
-
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		let idAsignatura = data.get('idasignatura');
-		let anioLectivo = 2024;
-		let idPeriodo = data.get('idperiodo');
-		// let anioLectivo = parseInt(data.get('aniolectivo'), 10);
-
-		let result = await getExamenesAsignaturaPorAnio(idAsignatura, anioLectivo, user.jwtLogin);
-		setResultadoData(result);
-		if (cursadasData.idExamen !== null && cursadasData.idExamen !== undefined) {
-			let result = await getCursadasExamen(cursadasData.idExamen, user.jwtLogin);
-			// setCursadasData(result);
-			console.log("idAsignatura: ", idAsignatura, "anioLectivo: ", cursadasData, "idPeriodo: ", resultadoData);
-		}
-	};
 
 	const [year, setYear] = useState(new Date().getFullYear());
 	const startYear = 2023;
@@ -132,9 +148,13 @@ export default function CalificacionesExamen() {
 		return `${day}/${month}/${year} - ${hours}:${minutes} hs`;
 	}
 
+	const notas = [];
+	for (let i = 1; i <= 12; i++) {
+		notas.push(i);
+	}
 
 	return (
-		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
+		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} >
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registro de calificaciones examen</Typography>
@@ -154,9 +174,15 @@ export default function CalificacionesExamen() {
 							))}
 						</Select>
 
-						<Stack direction="row" spacing={0.8} sx={{ marginBottom: 0.6, justifyContent: 'right', zIndex: '1000' }}>
+						<Select size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangePeriodo}>
+							{Array.isArray(cursadasData) && cursadasData.map((cursada, index) => (
+								<Option key={index} value={cursada.idExamen}>{cursada.periodoExamen}</Option>
+							))}
+						</Select>
+
+						{/* <Stack direction="row" spacing={0.8} sx={{ marginBottom: 0.6, justifyContent: 'right', zIndex: '1000' }}>
 							<Button type="submit" fullWidth sx={{ mt: 1, mb: 1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
-						</Stack>
+						</Stack> */}
 						<Divider />
 
 						<section className="text-black body-font">
@@ -164,51 +190,54 @@ export default function CalificacionesExamen() {
 								<Sheet variant="outlined"
 									sx={{
 										'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-										'--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '120px', '--Table-lastColumnWidth2': '50px', '--Table-buttonColumnWidth': '70px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
-										borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
+										'--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '120px', '--Table-lastColumnWidth2': '50px', '--Table-buttonColumnWidth': '70px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)', borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer'
 									}}>
 
-									<Table hoverRow>
+									<Table aria-labelledby="tableTitle" hoverRow
+										sx={{
+											'& thead th:nth-child(1)': { width: '40%', },
+											'& thead th:nth-child(2)': { width: '65%', },
+											'& tr > *:nth-child(n+3)': { width: '12%', textAlign: 'center' },
+										}}>
+
 										<thead>
 											<tr>
 												<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
-												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Id Cursada</th>
-												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Resultado</th>
+												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Cédula</th>
+												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Calificación</th>
 												<th aria-label="last" style={{ width: 'var(--Table-buttonColumnWidth)' }} />
 											</tr>
 										</thead>
 
 										<tbody>
-											{resultadoData.map((row) => (
+											{usuarioData.map((row) => (
 												<tr key={row.idExamen}>
-													<td>{row.nombre} {row.apellidoEstudiante}</td>
-													<td>{row.asignatura}</td>
+													<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
+													<td>{row.cedulaEstudiante}</td>
 													<td>
-														<Input size="sm" type="number" id="calificacion" name="calificacion" placeholder="0" />
+														<Select size="sm" placeholder="0" onChange={(event, newValue) => setResultadoData(newValue)} id="idresultado" name="idresultado">{notas.map((nota) => (
+															<Option key={notas} value={nota}>{nota}</Option>
+														))}
+														</Select>
 													</td>
-													{/* <td>
-														<Button size="sm" sx={{ mt: 0, mb: 0, border: 0.1, borderColor: '#3d3d3d' }} variant="soft" onClick={() => ('row')}>Guardar</Button>
-													</td> */}
 													<td>
-														<Button size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color='neutral'
-															onClick={() => handleModificar(row.idCursada)} >
-															<Save size="sw">	</Save>
-														</Button>
+														<Tooltip title="Guardar calificación">
+															<IconButton size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color="primary" onClick={() => handleModificar(row.idCursada)}>
+																<Save size="sw"></Save>
+															</IconButton>
+														</Tooltip>
 													</td>
 												</tr>
-											)
-											)}
+											))}
 										</tbody>
 									</Table>
-									{/* onClick={() => handleModificar(row)		*/}
 								</Sheet>
 							</div>
 						</section>
 					</FormControl>
-
 				</Stack>
 			</Card>
-		</Box >
+		</Box>
 	);
 };
 

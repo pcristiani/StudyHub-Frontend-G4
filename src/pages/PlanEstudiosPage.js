@@ -71,8 +71,8 @@ const PlanEstudiosPage = () => {
           </Select>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '3%' }}>
-          <DAGViewer dot={mostrarGrafo} options={{ width: 1200, height: 500 }} />
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1%', height: '70%', border:"0.5px solid #2596be",borderRadius:"20px" }}>
+          <DAGViewer dot={mostrarGrafo} options={{ }} />
         </Box>
       </CssVarsProvider>
     </>

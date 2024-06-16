@@ -29,8 +29,8 @@ export default ({ dot, width, height }) => {
                 ...style,
                 position: "relative",
                 overflow: "hidden",
-                width: "1200px",
-                height: "1200px"
+                // width: "1200px",
+                // height: "1200px"
 
 
                 //backgroundColor: "red
