@@ -72,7 +72,7 @@ const headCells = [
     id: 'creditos',
     numeric: false,
     disablePadding: false,
-    label: 'Creditos',
+    label: 'Créditos',
   },
   {
     id: 'asignatura',

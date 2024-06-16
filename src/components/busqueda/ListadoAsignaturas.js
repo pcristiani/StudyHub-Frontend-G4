@@ -16,7 +16,8 @@ import Tooltip from '@mui/joy/Tooltip';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
+
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
@@ -69,7 +70,13 @@ const headCells = [
     label: 'Desripción',
   },
   {
-    id: 'asignaturas',
+    id: 'creditos',
+    numeric: false,
+    disablePadding: false,
+    label: 'Créditos',
+  },
+  {
+    id: 'asignatura',
     numeric: false,
     disablePadding: false,
     label: '',
@@ -129,15 +136,15 @@ EnhancedTableHead.propTypes = {
 };
 
 const handleAdd = (idAsignatura) => {
-  console.log('Agregar carrera con ID:', idAsignatura);
+  // console.log('Agregar carrera con ID:', idAsignatura);
 };
 
 const handleModificar = (idAsignatura) => {
-  redirigir(URI_FRONT.modificarFuncionarioUri + `?id=${idAsignatura}`);
+  // redirigir(URI_FRONT.modificarFuncionarioUri + `?id=${idAsignatura}`);
 }
 
 const handleAlta = () => {
-  redirigir(URI_FRONT.altaFuncionarioCoordinadorUri);
+  // redirigir(URI_FRONT.altaFuncionarioCoordinadorUri);
 }
 
 function EnhancedTableToolbar(props) {
@@ -317,9 +324,9 @@ export default function ListadoAsignaturas() {
               '--TableCell-headBackground': 'transparent',
               '--TableCell-selectedBackground': (theme) =>
                 theme.vars.palette.success.softBg,
-              '& thead th:nth-child(1)': { width: '40%', },
-              '& thead th:nth-child(2)': { width: '50%', },
-              '& tr > *:nth-child(n+3)': { width: '10%', textAlign: 'center' },
+              '& thead th:nth-child(1)': { width: '30%', },
+              '& thead th:nth-child(2)': { width: '58%', },
+              '& tr > *:nth-child(n+3)': { width: '12%', textAlign: 'center' },
             }}>
             <EnhancedTableHead
               numSelected={selected.length}
@@ -332,16 +339,16 @@ export default function ListadoAsignaturas() {
             <tbody>
               {stableSort(filteredUsers, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((carrera, index) => {
-                  const isItemSelected = isSelected(carrera.idAsignatura);
+                .map((asignatura, index) => {
+                  const isItemSelected = isSelected(asignatura.idAsignatura);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <tr
-                      onClick={(event) => handleClick(event, carrera.idAsignatura)}
+                      onClick={(event) => handleClick(event, asignatura.idAsignatura)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={carrera.idAsignatura}
+                      key={asignatura.idAsignatura}
                       selected={isItemSelected}
                       style={
                         isItemSelected
@@ -350,13 +357,15 @@ export default function ListadoAsignaturas() {
                       }
                     >
                       <th id={labelId} scope="row">
-                        {carrera.nombre}
+                        {asignatura.nombre}
                       </th>
-                      <td>{carrera.descripcion}</td>
+                      <td>{asignatura.descripcion}</td>
+                      <td>{asignatura.creditos}</td>
+
                       <td>
                         <Tooltip title="Ver asignaturas">
                           <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(selected[0])}>
-                            <InfoOutlinedIcon />
+                            <PostAddOutlinedIcon />
                           </IconButton>
                         </Tooltip></td>
                     </tr>
