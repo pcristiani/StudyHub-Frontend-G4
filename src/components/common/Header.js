@@ -278,7 +278,7 @@ export default function Header() {
                                        Fecha de examen
                                     </MenuItem>
                                     <ListDivider />
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar asignaturas
                                     </MenuItem>
                                  </Menu>
@@ -339,7 +339,7 @@ export default function Header() {
                                        Registrar previas
                                     </MenuItem>
                                     <ListDivider />
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Buscar asignaturas
                                     </MenuItem>
                                  </Menu>

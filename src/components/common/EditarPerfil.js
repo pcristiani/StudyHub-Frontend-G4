@@ -81,8 +81,9 @@ export default function EditarPerfil() {
 		let nombre = data.get('nombre');
 		let apellido = data.get('apellido');
 		let email = data.get('email');
+		let fechaNacimiento = data.get('fechanacimiento');
 
-		modificarPerfilUsuario(user.id, nombre, apellido, email, userData.fechaNacimiento, user.jwtLogin).then((result) => {
+		modificarPerfilUsuario(user.id, nombre, apellido, email, fechaNacimiento, user.jwtLogin).then((result) => {
 			if (result) {
 				console.log("Datos modificados correctamente: ", result);
 				autentication(user.id, user.cedula, nombre, apellido, user.rol, email, user.jwtLogin);
@@ -107,7 +108,9 @@ export default function EditarPerfil() {
 								<Input size="sm" id="nombre" name="nombre" defaultValue={userData.nombre} />
 								<Input size="sm" id="apellido" name="apellido" sx={{}} defaultValue={userData.apellido} />
 								<Input size="sm" id="cedula" name="cedula" defaultValue={userData.cedula} readOnly />
-								<Input size="sm" id="fechanacimiento" name="fechanacimiento" defaultValue={userData.fechaNacimiento} />
+								{/* <Input size="sm" id="fechanacimiento" name="fechanacimiento" defaultValue={userData.fechaNacimiento} /> */}
+								<Input size="sm" id="fechanacimiento" name="fechanacimiento" type="date" placeholder="Fecha nacimientos:" defaultValue={userData.fechaNacimiento} />
+
 								<Input size="sm" id="email" name="email" type="email" defaultValue={userData.email} />
 
 								{user.rol === "C" ? <Input size="sm" id="rol" name="rol" defaultValue='Coordinador' readOnly />

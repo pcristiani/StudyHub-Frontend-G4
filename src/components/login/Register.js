@@ -10,12 +10,14 @@ import swal from 'sweetalert';
 import { URL_BACK } from '../../services/util/constants'
 import { AuthContext } from '../../context/AuthContext';
 import { Sheet } from '@mui/joy';
+import { useNavigate } from 'react-router-dom';
 
 import logo from '../../img/logo.png';
 
 // debugger;
 function Register() {
     const { user } = useContext(AuthContext);
+    const history = useNavigate();
 
     async function registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password, rol) {
         let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": rol };
@@ -37,6 +39,7 @@ function Register() {
                 position: "center",
                 timer: 4000
             });
+            history('/novedades');
         } else {
             swal("¡Advertencia!", 'Los datos ingresados son incorrectos', "error", {
                 timer: 3000
@@ -53,6 +56,7 @@ function Register() {
         let fechaNacimiento = data.get('fechaNacimiento');
         let cedula = data.get('cedula');
         let password = data.get('password');
+
         registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password, `E`);
     };
 

@@ -56,7 +56,11 @@ export default function Navigation() {
 																Alta de usuario
 															</Button>
 														</ListItemButton>
-
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sw" sx={{ alignSelf: 'left' }}>
+																Alta docente
+															</Button>
+														</ListItemButton>
 														<ListItemButton>
 															<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idM}`} size="sw" sx={{ alignSelf: 'left' }}>
 																Modificar/Baja usuarios
@@ -73,12 +77,12 @@ export default function Navigation() {
 											</Button>
 										</ListItemButton>
 										<ListItemButton>
-											<Button variant="plain" color="neutral" component="a" href='./listados-busquedas' size="sw" sx={{ alignSelf: 'left' }}>
+										<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idL}`} size="sw" sx={{ alignSelf: 'left' }}>
 												Listados y busquedas
 											</Button>
 										</ListItemButton>
 										<ListItemButton>
-											<Button variant="plain" color="neutral" component="a" href='./resumen-actividad' size="sw" sx={{ alignSelf: 'left' }}>
+										<Button variant="plain" color="neutral" component="a" href={URI_FRONT.resumenActividadUri} size="sw" sx={{ alignSelf: 'left' }}>
 												Resumen de actividad
 											</Button>
 										</ListItemButton>
@@ -115,7 +119,7 @@ export default function Navigation() {
 														</ListItemButton>
 
 														<ListItemButton>
-															<Button variant="plain" color="neutral" component="a" href='/not-found' size="sw" sx={{ alignSelf: 'left' }}>
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.inscripcionExamenUri} size="sw" sx={{ alignSelf: 'left' }}>
 																Examen
 															</Button>
 														</ListItemButton>
@@ -124,16 +128,43 @@ export default function Navigation() {
 											</ListItemButton>
 										</Dropdown>
 
+										<Dropdown>
+											<ListItemButton>
+												<MenuButton variant="plain" size="sw" component="a" color="neutral" sx={{ alignSelf: 'left' }}>
+													Listados y búsquedas
+													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadoAsignaturasAprobadasUri} size="sw" sx={{ alignSelf: 'left' }}>
+																Asignaturas aprobadas
+															</Button>
+														</ListItemButton>
+
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadoAsignaturasNoAprobadasUri} size="sw" sx={{ alignSelf: 'left' }}>
+																Pendientes de Aprobación
+															</Button>
+														</ListItemButton>
+
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sw" sx={{ alignSelf: 'left' }}>
+																Buscar carreras
+															</Button>
+														</ListItemButton>
+													</Menu>
+												</MenuButton>
+											</ListItemButton>
+										</Dropdown>
+
 										<ListItemButton>
-											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.solicitudesUri} size="sw" sx={{ alignSelf: 'left' }}>
-												Solicitudes
+											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.gestionUri} size="sw" sx={{ alignSelf: 'left' }}>
+												Solicitar escolaridad
 											</Button>
 										</ListItemButton>
-										<ListItemButton>
+										{/* <ListItemButton>
 											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.gestionUri} size="sw" sx={{ alignSelf: 'left' }}>
 												Gestion
 											</Button>
-										</ListItemButton>
+										</ListItemButton> */}
 									</>
 								}{
 									(user.rol === T_ROL.FUNCIONARIO) &&
@@ -146,23 +177,21 @@ export default function Navigation() {
 										<Dropdown>
 											<ListItemButton>
 												<MenuButton variant="plain" size="sw" component="a" color="neutral" sx={{ alignSelf: 'left' }}>
-													Administración de usuarios
+													Gestion de usuario
 													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
 														<ListItemButton>
 															<Button variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sw" sx={{ alignSelf: 'left' }}>
-																Alta docente
+																Alta de docente
 															</Button>
 														</ListItemButton>
-
 														<ListItemButton>
 															<Button variant="plain" color="neutral" component="a" href='/validar-estudiantes' size="sw" sx={{ alignSelf: 'left' }}>
-																Validar estudiante
+																Validar acceso estudiante
 															</Button>
 														</ListItemButton>
-
 														<ListItemButton>
 															<Button variant="plain" color="neutral" component="a" href='/validar-inscripciones-carrera' size="sw" sx={{ alignSelf: 'left' }}>
-																Validar inscripciónes a carrera
+																Validar inscripción carrera
 															</Button>
 														</ListItemButton>
 													</Menu>
@@ -172,7 +201,7 @@ export default function Navigation() {
 										<Dropdown>
 											<ListItemButton>
 												<MenuButton variant="plain" size="sw" component="a" color="neutral" sx={{ alignSelf: 'left' }}>
-													Registros
+													Asignaturas
 													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
 														<ListItemButton>
 															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.registrarHorarioAsignaturaUri} size="sw" sx={{ alignSelf: 'left' }}>
@@ -181,14 +210,33 @@ export default function Navigation() {
 														</ListItemButton>
 
 														<ListItemButton>
-															<Button variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sw" sx={{ alignSelf: 'left' }}>
-																Período de examen
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.RegistrarAsignaturaPeriodoExamenUri} size="sw" sx={{ alignSelf: 'left' }}>
+																Fecha de examen
 															</Button>
 														</ListItemButton>
 
 														<ListItemButton>
-															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.RegistrarAsignaturaPeriodoExamenUri} size="sw" sx={{ alignSelf: 'left' }}>
-																Fecha de examen
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sw" sx={{ alignSelf: 'left' }}>
+																Buscar asignaturas
+															</Button>
+														</ListItemButton>
+													</Menu>
+												</MenuButton>
+											</ListItemButton>
+										</Dropdown>
+										<Dropdown>
+											<ListItemButton>
+												<MenuButton variant="plain" size="sw" component="a" color="neutral" sx={{ alignSelf: 'left' }}>
+													Carreras
+													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href='/alta-periodo-examen' size="sw" sx={{ alignSelf: 'left' }}>
+																Alta período de examen
+															</Button>
+														</ListItemButton>
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sw" sx={{ alignSelf: 'left' }}>
+																Buscar carreras
 															</Button>
 														</ListItemButton>
 													</Menu>
@@ -201,20 +249,13 @@ export default function Navigation() {
 													Calificaciones
 													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
 														<ListItemButton>
-															<Button variant="plain" color="neutral" component="a" href='/not-found' size="sw" sx={{ alignSelf: 'left' }}>
-																Registro calificaciones fin de curso
+															<Button variant="plain" color="neutral" component="a" href='/calificaciones-fin-curso' size="sw" sx={{ alignSelf: 'left' }}>
+																Notas fin de curso
 															</Button>
 														</ListItemButton>
-
 														<ListItemButton>
-															<Button variant="plain" color="neutral" component="a" href='/not-found' size="sw" sx={{ alignSelf: 'left' }}>
-																Registro calificaciones examen
-															</Button>
-														</ListItemButton>
-
-														<ListItemButton>
-															<Button variant="plain" color="neutral" component="a" href='/not-found' size="sw" sx={{ alignSelf: 'left' }}>
-																Generación de actas
+															<Button variant="plain" color="neutral" component="a" href='/calificaciones-examen' size="sw" sx={{ alignSelf: 'left' }}>
+																Notas de examen
 															</Button>
 														</ListItemButton>
 													</Menu>
@@ -224,17 +265,16 @@ export default function Navigation() {
 										<Dropdown>
 											<ListItemButton>
 												<MenuButton variant="plain" size="sw" component="a" color="neutral" sx={{ alignSelf: 'left' }}>
-													Listados y búsquedas
+													Actas de asignatura
 													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
 														<ListItemButton>
 															<Button variant="plain" color="neutral" component="a" href='/not-found' size="sw" sx={{ alignSelf: 'left' }}>
-																Carreras
+																Acta fin de curso
 															</Button>
 														</ListItemButton>
-
 														<ListItemButton>
 															<Button variant="plain" color="neutral" component="a" href='/not-found' size="sw" sx={{ alignSelf: 'left' }}>
-																Asignaturas
+																Acta de examen
 															</Button>
 														</ListItemButton>
 													</Menu>

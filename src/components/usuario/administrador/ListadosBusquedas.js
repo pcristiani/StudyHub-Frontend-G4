@@ -304,7 +304,7 @@ export default function ListadosBusquedas() {
   const loading = open && options.length === 0;
   return (
     <>
-      <Stack sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', minHeight: '6vh', width: '100%', alignItems: 'center', }}>
+      <Stack sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', }}>
         <Autocomplete
           sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '600px' }}
           placeholder="Filtrar por usuario"
@@ -331,7 +331,7 @@ export default function ListadosBusquedas() {
         />
       </Stack>
       <Stack direction="row" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
-        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '650px' }}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '620px' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
 
           <Table aria-labelledby="tableTitle" hoverRow

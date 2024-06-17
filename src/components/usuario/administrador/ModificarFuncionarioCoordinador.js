@@ -110,14 +110,14 @@ export default function ModificarFuncionarioCoordinador() {
                     <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Modificar Funcionario - Coordinador</Typography>
                 </Box>
                 <Divider />
-                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 1 }}>
+                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
                     <Input size="sm" id="nombre" name="nombre" placeholder="Nombre:" required defaultValue={userData.nombre} />
                     <Input size="sm" id="apellido" name="apellido" placeholder="Apellido:" required defaultValue={userData.apellido} />
                     <Input size="sm" id="cedula" name="cedula" placeholder="Cedula:" required defaultValue={userData.cedula} />
                     <Input size="sm" id="email" name="email" type="email" placeholder="Email:" required defaultValue={userData.email} />
                     <Input size="sm" id="fecha" name="fecha" type="date" placeholder="Fecha nacimientos:" defaultValue={userData.fechaNacimiento} />
                     <Divider />
-                    <div marginTop={2}>
+                    <div marginTop={1}>
                         <Select size="sm" id="rol" name="rol" defaultValue={userData.rol} >
                             {DatosRol.map((strRol, index) => (
                                 <Option key={index} value={strRol.cod}>{strRol.rol}</Option>
@@ -125,8 +125,8 @@ export default function ModificarFuncionarioCoordinador() {
                         </Select>
                     </div>
                 </FormControl>
-                <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
-                    <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">                        Guardar</Button>
+                <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' , zIndex: '1000' }}>
+                    <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
                     <Button size="sm" fullWidth variant="outlined" color="neutral" onClick={() => handleCancelar()}>
                         Cancelar
                     </Button>
