@@ -77,12 +77,12 @@ export default function Navigation() {
 											</Button>
 										</ListItemButton>
 										<ListItemButton>
-										<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idL}`} size="sw" sx={{ alignSelf: 'left' }}>
+											<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idL}`} size="sw" sx={{ alignSelf: 'left' }}>
 												Listados y busquedas
 											</Button>
 										</ListItemButton>
 										<ListItemButton>
-										<Button variant="plain" color="neutral" component="a" href={URI_FRONT.resumenActividadUri} size="sw" sx={{ alignSelf: 'left' }}>
+											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.resumenActividadUri} size="sw" sx={{ alignSelf: 'left' }}>
 												Resumen de actividad
 											</Button>
 										</ListItemButton>
@@ -160,11 +160,6 @@ export default function Navigation() {
 												Solicitar escolaridad
 											</Button>
 										</ListItemButton>
-										{/* <ListItemButton>
-											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.gestionUri} size="sw" sx={{ alignSelf: 'left' }}>
-												Gestion
-											</Button>
-										</ListItemButton> */}
 									</>
 								}{
 									(user.rol === T_ROL.FUNCIONARIO) &&
@@ -208,13 +203,11 @@ export default function Navigation() {
 																Horario de asignatura
 															</Button>
 														</ListItemButton>
-
 														<ListItemButton>
 															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.RegistrarAsignaturaPeriodoExamenUri} size="sw" sx={{ alignSelf: 'left' }}>
 																Fecha de examen
 															</Button>
 														</ListItemButton>
-
 														<ListItemButton>
 															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sw" sx={{ alignSelf: 'left' }}>
 																Buscar asignaturas
@@ -282,6 +275,60 @@ export default function Navigation() {
 											</ListItemButton>
 										</Dropdown>
 									</>
+								}{
+									(user.rol === T_ROL.COORDINADOR) &&
+									<>
+										<ListItemButton>
+											<img className="logo-navbar-mobile" src={Logo} alt="ico" />
+										</ListItemButton>
+										<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
+										</Button>
+									
+										<Dropdown>
+											<ListItemButton>
+												<MenuButton variant="plain" size="sw" component="a" color="neutral" sx={{ alignSelf: 'left' }}>
+													Asignaturas
+													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href='/nueva-asignatura' size="sw" sx={{ alignSelf: 'left' }}>
+																Alta de asignatura
+															</Button>
+														</ListItemButton>
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href='/registrar-previaturas' size="sw" sx={{ alignSelf: 'left' }}>
+																Registrar previas
+															</Button>
+														</ListItemButton>
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sw" sx={{ alignSelf: 'left' }}>
+																Buscar asignaturas
+															</Button>
+														</ListItemButton>
+													</Menu>
+												</MenuButton>
+											</ListItemButton>
+										</Dropdown>
+
+										<Dropdown>
+											<ListItemButton>
+												<MenuButton variant="plain" size="sw" component="a" color="neutral" sx={{ alignSelf: 'left' }}>
+													Carreras
+													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href='/nueva-carrera' size="sw" sx={{ alignSelf: 'left' }}>
+																Alta de carrera
+															</Button>
+														</ListItemButton>
+														<ListItemButton>
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sw" sx={{ alignSelf: 'left' }}>
+																Buscar carreras
+															</Button>
+														</ListItemButton>													
+													</Menu>
+												</MenuButton>
+											</ListItemButton>
+										</Dropdown>
+									</>
 								}
 							</>
 							:
@@ -298,8 +345,7 @@ export default function Navigation() {
 									</Button>
 								</ListItemButton>
 								{/* <ListItemButton> */}
-								{/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sw" sx={{ alignSelf: 'left' }}>
-                                        Preguntas frecuentas
+								{/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sw" sx={{ alignSelf: 'left' }}>Preguntas frecuentas
                                     </Button> 
 								</ListItemButton>*/}
 								<ListItemButton>
