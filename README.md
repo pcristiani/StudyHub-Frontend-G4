@@ -56,3 +56,22 @@ vercel login
     "eject": "react-scripts eject"
   },
 ```
+
+`graph {
+bgcolor = transparent;shape = rectangle; style = "rounded";
+node[shape = rectangle, style = "rounded,filled", fillcolor = "#d7f8fd", color = "#2596be", fontcolor = black, fontsize = 12, fontname = "Arial"];
+  edge[color = "#2596be"];
+  rankdir = TB;`
+"1" [label="Programacion I"];
+"2" [label="Programacion II"];
+"3" [label="Programacion III"];
+"4" [label="Estructura de Datos"];
+"5" [label="Programacion Avanzada"];
+"6" [label="Bases de Datos I"];
+"7" [label="Bases de Datos II"];
+"8" [label="Taller de Sistemas de Información.NET"];
+"13" [label="Álgebra Lineal I"];
+"1" -- "2";
+"2" -- "3";
+"3" -- "4";
+```

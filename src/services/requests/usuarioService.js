@@ -1,5 +1,6 @@
 import { URL_BACK } from '../util/constants'
 import swal from 'sweetalert';
+import axios from 'axios';
 
 // Devuelve un objeto con los datos del usuario
 export const getUsuario = async (idUsuario, jwtLogin) => {
@@ -210,5 +211,28 @@ export const bajaUsuario = async (idUsuario, jwtLogin) => {
          timer: 3000
       });
    }
-
 };
+
+
+///
+
+export const getResumenActivida = async (idUsuario, jwtLogin) => {
+   try {
+      let headersList = {
+         'Content-Type': 'application/json',
+         'Authorization': `Bearer ${jwtLogin}`,
+      }
+
+      let reqOptions = {
+         url: URL_BACK.getResumenActividad + idUsuario,
+         method: "GET",
+         headers: headersList,
+      };
+
+      let response = await axios.request(reqOptions);
+      console.log("response: ", response.data);
+      return response.data;
+   } catch (error) {
+      return error.response;
+   }
+}

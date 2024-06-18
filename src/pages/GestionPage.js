@@ -9,7 +9,7 @@ const downloadPDF = (event) => {
     var doc = new jsPDF();
 
     doc.setTextColor(100);
-    doc.text(`gest`, 20, 20);
+    doc.text(`------------------------------------------------------------------`, 20, 20);
 
     doc.setTextColor(150);
     doc.text("StudyHub.", 20, 30);

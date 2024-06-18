@@ -2,6 +2,7 @@
 import { URL_BACK } from '../util/constants'
 import axios from 'axios';
 
+
 // Función para obtener las asignaturas
 export const getAsignaturas = async (jwtLogin) => {
 	const url = URL_BACK.getAsignaturas;

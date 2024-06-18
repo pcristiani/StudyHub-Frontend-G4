@@ -22,7 +22,7 @@ import AutocompleteOption from '@mui/joy/AutocompleteOption';
 import { URI_FRONT, redirigir } from '../../../services/util/constants';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
 const filters = createFilterOptions();
@@ -143,6 +143,10 @@ const handleModificar = (idUsuario) => {
   redirigir(URI_FRONT.modificarFuncionarioUri + `?id=${idUsuario}`);
 }
 
+const handleActividades = (idUsuario) => {
+  redirigir(URI_FRONT.resumenActividadUri + `?id=${idUsuario}`);
+}
+
 const handleAlta = () => {
   redirigir(URI_FRONT.altaFuncionarioCoordinadorUri);
 }
@@ -235,24 +239,24 @@ EnhancedTableToolbar.propTypes = {
 
 export default function ListadosBusquedas() {
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('idCarrera');
+  const [orderBy, setOrderBy] = useState('idUsuario');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filter, setFilter] = useState('');
 
-  const [carrerasData, setCarrerasData] = useState([]);
+  const [usuariosData, setUsuariosData] = useState([]);
   const { user } = useContext(AuthContext);
   const [value, setValue] = useState(null);
 
   useEffect(() => {
-    async function fetchCarreras() {
-      const carreras = await getUsuarios(user.jwtLogin);
-      if (carreras !== undefined) {
-        setCarrerasData(carreras);
+    async function fetchUsuarios() {
+      const usuarios = await getUsuarios(user.jwtLogin);
+      if (usuarios !== undefined) {
+        setUsuariosData(usuarios);
       }
     }
-    fetchCarreras();
+    fetchUsuarios();
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -263,7 +267,7 @@ export default function ListadosBusquedas() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = carrerasData.map((n) => n.idUsuario);
+      const newSelected = usuariosData.map((n) => n.idUsuario);
       setSelected(newSelected);
       return;
     }
@@ -292,7 +296,7 @@ export default function ListadosBusquedas() {
   const handleChangePage = (newPage) => setPage(newPage);
   const isSelected = (idUsuario) => selected.indexOf(idUsuario) !== -1;
   const handleFilter = (nombre) => setFilter(nombre);
-  const filteredUsers = filter ? carrerasData.filter((user) => user.nombre === filter) : carrerasData;
+  const filteredUsers = filter ? usuariosData.filter((user) => user.nombre === filter) : usuariosData;
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredUsers.length) : 0;
 
   const handleAutocompleteChange = (event, newValue) => {
@@ -325,7 +329,7 @@ export default function ListadosBusquedas() {
           }}
           renderOption={(props, option) => (
             <AutocompleteOption {...props} key={option.nombre}>
-              {option.nombre}
+              {option.nombre} {option.apellido}
             </AutocompleteOption>
           )}
         />
@@ -349,7 +353,7 @@ export default function ListadosBusquedas() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={carrerasData.length}
+              rowCount={usuariosData.length}
             />
             <tbody>
               {stableSort(filteredUsers, getComparator(order, orderBy))
@@ -370,8 +374,7 @@ export default function ListadosBusquedas() {
                         isItemSelected
                           ? { '--TableCell-dataBackground': 'var(--TableCell-selectedBackground)', '--TableCell-headBackground': 'var(--TableCell-selectedBackground)', 'cursor': 'pointer' }
                           : { 'cursor': 'pointer' }
-                      }
-                    >
+                      }>
                       <th id={labelId} scope="row">
                         {usuario.nombre} {usuario.apellido}
                       </th>
@@ -383,19 +386,26 @@ export default function ListadosBusquedas() {
                           <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(usuario.idUsuario)}>
                             <AccountCircleOutlined />
                           </IconButton>
-                        </Tooltip></td>
+                        </Tooltip>
+
+                        <Tooltip title="Resumen de actividades">
+                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleActividades(usuario.idUsuario)}>
+                            <InsertChartOutlinedIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </td>
                     </tr>
                   );
                 })}
               {emptyRows > 0 && (
                 <tr style={{ height: 63 * emptyRows }}>
-                  <td colSpan={5} />
+                  <td colSpan={6} />
                 </tr>
               )}
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan={5}>
+                <td colSpan={6}>
                   <Box sx={{ width: '100%', display: 'flex', alignItems: 'right', justifyContent: 'flex-end' }}>
                     <Box sx={{ width: '20%', display: 'flex', gap: 0.5, justifyContent: 'flex-end' }}>
                       <IconButton size="sm" color="neutral"
@@ -405,7 +415,7 @@ export default function ListadosBusquedas() {
                         <KeyboardArrowLeftIcon />
                       </IconButton>
                       <IconButton size="sm" color="neutral" variant="outlined"
-                        disabled={carrerasData.length !== -1 ? page >= Math.ceil(carrerasData.length / rowsPerPage) - 1 : false}
+                        disabled={usuariosData.length !== -1 ? page >= Math.ceil(usuariosData.length / rowsPerPage) - 1 : false}
                         onClick={() => handleChangePage(page + 1)}
                         sx={{ bgcolor: 'background.surface' }}>
                         <KeyboardArrowRightIcon />
