@@ -82,7 +82,7 @@ export default function Navigation() {
 											</Button>
 										</ListItemButton>
 										<ListItemButton>
-											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.resumenActividadUri} size="sw" sx={{ alignSelf: 'left' }}>
+										<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idL}`} size="sw" sx={{ alignSelf: 'left' }}>
 												Resumen de actividad
 											</Button>
 										</ListItemButton>

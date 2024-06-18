@@ -26,10 +26,8 @@ const DatosRol = [
 export default function EditarPerfil() {
 	const { user } = useContext(AuthContext);
 	const [userData, setUserData] = useState(null);
-	const [userRol, setRolData] = useState('');
 	const [error, setError] = useState(null);
 	const context = useContext(AuthContext);
-
 
 	useEffect(() => {
 		const fetchUser = async () => {

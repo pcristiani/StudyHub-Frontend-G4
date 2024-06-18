@@ -181,7 +181,6 @@ export const registrarUsuario = async (nombre, apellido, cedula, password, email
 ///
 // Registrar usuario
 export const bajaUsuario = async (idUsuario, jwtLogin) => {
-
    try {
       const response = await fetch(`${URL_BACK.deleteUsuario}${idUsuario}`, {
          method: 'DELETE',
@@ -214,8 +213,8 @@ export const bajaUsuario = async (idUsuario, jwtLogin) => {
 };
 
 
-///
 
+///
 export const getResumenActivida = async (idUsuario, jwtLogin) => {
    try {
       let headersList = {
@@ -230,8 +229,7 @@ export const getResumenActivida = async (idUsuario, jwtLogin) => {
       };
 
       let response = await axios.request(reqOptions);
-      console.log("response: ", response.data);
-      return response.data;
+      return response;
    } catch (error) {
       return error.response;
    }

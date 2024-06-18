@@ -197,7 +197,7 @@ export default function Header() {
                               </Button>
                            </Tooltip>
                            <Tooltip title="Resumen de actividad de usuarios" variant="plain" color="neutral">
-                              <Button variant="plain" color="neutral" component="a" href={URI_FRONT.resumenActividadUri} size="sm">
+                           <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idL}`} size="sm">
                                  Resumen de actividad
                               </Button>
                            </Tooltip>

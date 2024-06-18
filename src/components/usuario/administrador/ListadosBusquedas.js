@@ -157,6 +157,7 @@ function EnhancedTableToolbar(props) {
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
+  
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', py: 0.8, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.body' : 'background.body', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }} >
 
@@ -236,6 +237,10 @@ EnhancedTableToolbar.propTypes = {
   onFilter: PropTypes.func.isRequired,
   selected: PropTypes.array.isRequired,
 };
+
+
+
+///
 
 export default function ListadosBusquedas() {
   const [order, setOrder] = useState('asc');
@@ -382,7 +387,7 @@ export default function ListadosBusquedas() {
                       <td>{usuario.rol === "F" ? 'Funcionario' : usuario.rol === "C" ? 'Coordinador' : usuario.rol === "E" ? 'Estudiante' : usuario.rol === "A" ? 'Administrador' : ''}
                       </td>
                       <td>
-                        <Tooltip title="Información usuario">
+                        <Tooltip title="Información">
                           <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(usuario.idUsuario)}>
                             <AccountCircleOutlined />
                           </IconButton>

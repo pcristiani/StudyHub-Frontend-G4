@@ -17,9 +17,12 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
-import { URI_FRONT, redirigir } from '../../../services/util/constants';
 import { createFilterOptions } from '@mui/joy/Autocomplete';
 import { useLocation } from 'react-router-dom';
+import { errors } from '../../../services/util/errors';
+import { useNavigate } from 'react-router-dom';
+import Dropdown from '@mui/joy/Dropdown';
+import { formatFecha } from '../../../services/util/formatoFecha';
 
 const filters = createFilterOptions();
 
@@ -118,49 +121,38 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-
-// const handleAdd = (idUsuario) => {
-//   console.log('Agregar usuario con ID:', idUsuario);
-// };
-
-// const handleModificar = (idUsuario) => {
-//   redirigir(URI_FRONT.modificarFuncionarioUri + `?id=${idUsuario}`);
-// }
-
-// const handleActividades = (idUsuario) => {
-//   redirigir(URI_FRONT.resumenActividadUri + `?id=${idUsuario}`);
-// }
-
-// const handleAlta = () => {
-//   redirigir(URI_FRONT.altaFuncionarioCoordinadorUri);
-// }
-
 function EnhancedTableToolbar(props) {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const { numSelected, onFilter, selected } = props;
-  const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', py: 0.8, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.body' : 'background.body', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }} >
-
       <Box sx={{ alignSelf: 'center' }}>
-        <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Resumen de Actividad</Typography>
+        <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Resumen de Actividades</Typography>
       </Box>
       <>
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-          <IconButton size="sm" variant="outlined" color="neutral" onClick={handleClick}>
-            <FilterListIcon />
-          </IconButton>
-          <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem onClick={() => onFilter('Cambiar Resultado de Cursada')}>Cambiar Resultado de Cursada</MenuItem>
-            <MenuItem onClick={() => onFilter('Cierre de sesion')}>Cierre de sesion</MenuItem>
-            <MenuItem onClick={() => onFilter('Inicio de sesion')}>Inicio de sesion</MenuItem>
-            <MenuItem onClick={() => onFilter('Inscripción a Examen')}>Inscripción a Examen</MenuItem>
-            <MenuItem onClick={() => onFilter('Inscripción en Asignatura')}>Inscripción en Asignatura</MenuItem>
-            <MenuItem onClick={() => onFilter('Registro de Asignatura a Período de Examen')}>Registro a Período de Examen</MenuItem>
-            <MenuItem onClick={() => onFilter('')}>Mostrar todo</MenuItem>
-          </Menu>
+          <Dropdown>
+            <IconButton size="sm" variant="outlined" color="neutral" onClick={handleClick}>
+              <FilterListIcon />
+            </IconButton>
+            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} >
+              <MenuItem onClick={() => { onFilter('Cambiar Resultado de Cursada'); handleClose(); }}>Cambiar Resultado de Cursada</MenuItem>
+              <MenuItem onClick={() => { onFilter('Cierre de sesion'); handleClose(); }}>Cierre de sesion</MenuItem>
+              <MenuItem onClick={() => { onFilter('Inicio de sesion'); handleClose(); }}>Inicio de sesion</MenuItem>
+              <MenuItem onClick={() => { onFilter('Inscripción a Examen'); handleClose(); }}>Inscripción a Examen</MenuItem>
+              <MenuItem onClick={() => { onFilter('Inscripción en Asignatura'); handleClose(); }}>Inscripción en Asignatura</MenuItem>
+              <MenuItem onClick={() => { onFilter('Registro de Asignatura a Período de Examen'); handleClose(); }}>Registro a Período de Examen</MenuItem>
+              <MenuItem onClick={() => { onFilter(''); handleClose(); }}>Mostrar todo</MenuItem>
+            </Menu>
+          </Dropdown>
         </Box>
       </>
     </Box>
@@ -180,6 +172,7 @@ export function ResumenActividad() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filter, setFilter] = useState('');
+  const history = useNavigate();
 
   const [actividadData, setActividadData] = useState([]);
   const { user } = useContext(AuthContext);
@@ -188,16 +181,18 @@ export function ResumenActividad() {
   const queryParams = new URLSearchParams(location.search);
   const idU = queryParams.get('id');
 
-  console.log('idUact:', idU);
 
   useEffect(() => {
-    async function fetchCarreras() {
+    async function fetchActividad() {
       const actividad = await getResumenActivida(idU, user.jwtLogin);
-      if (actividad !== undefined && actividad !== null && actividad.length > 0) {
-        setActividadData(actividad);
+      if (actividad.status === 200) {
+        setActividadData(actividad.data);
+      } else {
+        errors(actividad.data, actividad.data, actividad.status);
+        history('/dashboard-admin?id=l');
       }
     }
-    fetchCarreras();
+    fetchActividad();
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -233,7 +228,6 @@ export function ResumenActividad() {
     setSelected(newSelected);
   };
 
-
   const handleChangePage = (newPage) => setPage(newPage);
   const isSelected = (idUsuario) => selected.indexOf(idUsuario) !== -1;
   const handleFilter = (accion) => setFilter(accion);
@@ -244,21 +238,23 @@ export function ResumenActividad() {
     setValue(newValue);
     setFilter(newValue ? newValue.accion : '');
   };
+
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
+
   return (
     <>
       <Stack direction="row" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
-        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '620px' }}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '520px' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
           <Table aria-labelledby="tableTitle" hoverRow
             sx={{
-              '--TableCell-headBackground': 'transparent',         
+              '--TableCell-headBackground': 'transparent', 'cursor': 'pointer',
               '--TableCell-selectedBackground': (theme) =>
                 theme.vars.palette.success.softBg,
-              '& thead th:nth-child(1)': { width: '40%', },
-              '& thead th:nth-child(2)': { width: '30%', },
+              '& thead th:nth-child(1)': { width: '48%', },
+              '& thead th:nth-child(2)': { width: '25%', },
               '& tr > *:nth-child(n+3)': { width: '15%', textAlign: 'center' },
             }}>
             <EnhancedTableHead
@@ -282,17 +278,11 @@ export function ResumenActividad() {
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={actividad.idUsuario}
-                      selected={isItemSelected}
-                      // style={
-                      //   isItemSelected
-                      //     ? { '--TableCell-dataBackground': 'var(--TableCell-selectedBackground)', '--TableCell-headBackground': 'var(--TableCell-selectedBackground)', 'cursor': 'pointer' }
-                      //     : { 'cursor': 'pointer' }
-                      // }
-                    >
+                      selected={isItemSelected}>
                       <th id={labelId} scope="row">
                         {actividad.accion}
                       </th>
-                      <td>{actividad.fechaHora}</td>
+                      <td>{formatFecha(actividad.fechaHora)}</td>
                     </tr>
                   );
                 })}
@@ -330,3 +320,13 @@ export function ResumenActividad() {
     </>
   );
 }
+
+// function formatFecha(data) {
+//   let fechaExamen = new Date(data);
+//   const year = fechaExamen.getFullYear();
+//   const month = String(fechaExamen.getMonth() + 1).padStart(2, '0'); // Los meses empiezan en 0
+//   const day = String(fechaExamen.getDate()).padStart(2, '0');
+//   const hours = String(fechaExamen.getHours()).padStart(2, '0');
+//   const minutes = String(fechaExamen.getMinutes()).padStart(2, '0');
+//   return `${day}/${month}/${year} - ${hours}:${minutes} hs`;
+// }

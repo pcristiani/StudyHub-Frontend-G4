@@ -22,7 +22,7 @@ import AutocompleteOption from '@mui/joy/AutocompleteOption';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
-
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 const filters = createFilterOptions();
 
 function descendingComparator(a, b, orderBy) {
@@ -359,9 +359,10 @@ export default function ListadoCarreras() {
                       <td>
                         <Tooltip title="Ver asignaturas">
                           <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(carrera.idCarrera)}>
-                            <ArrowForwardIosRoundedIcon />
+                            <ChevronRightRoundedIcon />
                           </IconButton>
-                        </Tooltip></td>
+                        </Tooltip>
+                      </td>
                     </tr>
                   );
                 })}
