@@ -109,30 +109,11 @@ export default function AltaAsignatura() {
 		if (resp.statusCodeValue === 200) {
 			let title = "¡Previatura registada!\n\n";
 			errors(title, resp.body, resp.statusCodeValue);
-		//	history('/novedades');
+		history('/novedades');
 		} else {
 			console.log("Error: ", resp);
 			errors(resp.data, resp.data, resp.status);
 		}
-		// 	swal({
-		// 		title: "¡Asignatura creada!\n\n",
-		// 		text: "La asignatura ha sido creada con éxito.",
-		// 		icon: "success",
-		// 		dangerMode: false,
-		// 		position: "center",
-		// 		timer: 4000
-		// 	});
-		// 	history('/novedades');
-		// } catch (error) {
-		// 	let errorMsg = 'Los datos ingresados no son correctos o ya existe una asignatura con ese nombre';
-		// 	if (error.status === 401) {
-		// 		errorMsg = 'No autorizado. Verifica tu token de autenticación.';
-		// 	} else if (error.status === 500) {
-		// 		errorMsg = 'Error interno del servidor. Inténtalo más tarde.';
-		// 	}
-		// 	swal("Error", errorMsg, "error", {
-		// 		timer: 3000
-		// 	});
 
 	};
 
@@ -193,7 +174,7 @@ export default function AltaAsignatura() {
 					</FormControl>
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 						<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-						<Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
+						<Button size="sm" variant="outlined" fullWidth color="neutral" component="a" href='/novedades'>Cancelar</Button>
 					</Stack>
 				</Stack>
 			</Card>

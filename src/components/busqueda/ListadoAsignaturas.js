@@ -290,7 +290,7 @@ export default function ListadoAsignaturas() {
     <>
       <Stack sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
         <Autocomplete
-          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '600px' }}
+          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '650px' }}
           placeholder="Filtrar por asignatura"
           autoSelect={true}
           autoHighlight={true}
@@ -315,16 +315,16 @@ export default function ListadoAsignaturas() {
         />
       </Stack>
       <Stack direction="row" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
-        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '650px' }}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '740px' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
           <Table aria-labelledby="tableTitle" hoverRow
             sx={{
               '--TableCell-headBackground': 'transparent',
               '--TableCell-selectedBackground': (theme) =>
                 theme.vars.palette.success.softBg,
-              '& thead th:nth-child(1)': { width: '30%', },
-              '& thead th:nth-child(2)': { width: '58%', },
-              '& tr > *:nth-child(n+3)': { width: '12%', textAlign: 'center' },
+              '& thead th:nth-child(1)': { width: '62%', },
+              '& thead th:nth-child(2)': { width: '72%', },
+              '& tr > *:nth-child(n+3)': { width: '14%', textAlign: 'center' },
             }}>
             <EnhancedTableHead
               numSelected={selected.length}

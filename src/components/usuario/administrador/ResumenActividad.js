@@ -170,7 +170,7 @@ export function ResumenActividad() {
   const [orderBy, setOrderBy] = useState('accion');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(8);
   const [filter, setFilter] = useState('');
   const history = useNavigate();
 
