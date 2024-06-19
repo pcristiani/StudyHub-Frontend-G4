@@ -85,7 +85,7 @@ export default function CalificacionesFinCurso() {
 
 	const [year, setYear] = useState(new Date().getFullYear());
 	const startYear = 2023;
-	const endYear = new Date().getFullYear()+1;
+	const endYear = new Date().getFullYear() + 1;
 	const years = [];
 	for (let i = startYear; i <= endYear; i++) {
 		years.push(i);

@@ -16,6 +16,8 @@ import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
 import { formatFechaEmision } from '../services/util/formatoFecha';
+import { useNavigate } from 'react-router-dom';
+
 
 const GestionPage = () => {
     const { user } = useContext(AuthContext);
@@ -23,6 +25,7 @@ const GestionPage = () => {
     const [pdfUrl, setPdfUrl] = useState('');
     const [carreraData, setCarreraData] = useState([]);
     const [error, setError] = useState(null);
+    const history = useNavigate();
 
     useEffect(() => {
         const fetchCarreras = async () => {
@@ -49,7 +52,6 @@ const GestionPage = () => {
         let idC = data.get('idcarrera');
         if (idC !== null && idC !== undefined && idC !== "") {
             visualizarPDF(idC);
-            // fechaEmision();
         }
     };
 
@@ -81,109 +83,109 @@ const GestionPage = () => {
         });
     };
 
-    const downloadPDF = (event) => {
-        var doc = new jsPDF();
+    // const downloadPDF = (event) => {
+    //     var doc = new jsPDF();
+    //     doc.setTextColor(100);
+    //     doc.text(`gest`, 20, 20);
 
-        doc.setTextColor(100);
-        doc.text(`gest`, 20, 20);
+    //     doc.setTextColor(150);
+    //     doc.text("StudyHub.", 20, 30);
 
-        doc.setTextColor(150);
-        doc.text("StudyHub.", 20, 30);
+    //     doc.setTextColor(255, 0, 0);
+    //     doc.text("StudyHub", 20, 40);
 
-        doc.setTextColor(255, 0, 0);
-        doc.text("StudyHub", 20, 40);
+    //     doc.setTextColor(0, 255, 0);
+    //     doc.text("StudyHub", 20, 50);
+    //     // doc.setTextColor("blue");
+    //     // doc.text("This is blue.", 60, 60);
+    //     // const doc = new jsPDF();
 
-        doc.setTextColor(0, 255, 0);
-        doc.text("StudyHub", 20, 50);
-        // doc.setTextColor("blue");
-        // doc.text("This is blue.", 60, 60);
-        // const doc = new jsPDF();
-
-        doc.text("StudyHub", 10, 10);
-        doc.save("a4.pdf");
-    }
+    //     doc.text("StudyHub", 10, 10);
+    //     doc.save("a4.pdf");
+    // }
 
     const visualizarPDF = async (idCarrera) => {
-        // console.log("Carrera seleccionada: ", idCarrera, user.id, user.jwtLogin);
         const resultCalificaciones = await getCalificacionesAsignaturas(idCarrera, user.id, user.jwtLogin);
         const resultExamenes = await getCalificacionesExamenes(idCarrera, user.id, user.jwtLogin);
-
         const carrera = await getCarreraById(idCarrera, user.jwtLogin);
+        console.log("resultExamenes: ", carrera);
+        if (resultCalificaciones === null || resultCalificaciones === undefined || resultCalificaciones === '' || resultCalificaciones.status !== 200) {
+            errors(resultCalificaciones.data, resultCalificaciones.data, resultCalificaciones.status);
+            history('/gestion');
+        }
 
-        var doc = new jsPDF();
+        try {
+            var doc = new jsPDF();
+            const logoURL = 'https://frontstudyhub.vercel.app/static/media/logo-text.1b43604a02cff559bc6a.png';
+            const logoBase64 = await convertirURLaBase64(logoURL);
 
-        const logoURL = 'https://frontstudyhub.vercel.app/static/media/logo-text.1b43604a02cff559bc6a.png'; // Reemplaza con tu URL de imagen
-        const logoBase64 = await convertirURLaBase64(logoURL);
+            doc.setFontSize(22);
+            doc.setTextColor(34);
+            doc.text("Certificado de Escolaridad", 20, 20);
+            doc.setFontSize(14);
+            doc.text("Resultados finales", 20, 26);
+            doc.setFontSize(18);
+            doc.text(`${carrera.data.nombre}`, 20, 40);
+            doc.setFontSize(10);
+            doc.text(`Emisión ${fechaEmision()}`, 160, 8,);
 
-        doc.setFontSize(22);
-        doc.setTextColor(34);
-        doc.text("Certificado de Escolaridad", 20, 20);
-        doc.setFontSize(14);
-        doc.text("Resultados finales", 20, 26);
-        doc.setFontSize(18);
-        doc.text(`${carrera.data.nombre}`, 20, 40);
-        doc.setFontSize(10);
-        doc.text(`Emisión ${fechaEmision()}`, 160, 8,);
+            doc.addImage(logoBase64, 'PNG', 160, 13, 40, 10);
+            doc.setLineWidth(0.2);
+            doc.line(20, 45, 190, 45);
 
-        doc.addImage(logoBase64, 'PNG', 160, 13, 40, 10);
-
-        // Línea de separación
-        doc.setLineWidth(0.2);
-        doc.line(20, 45, 190, 45);
-
-        // Información del estudiante
-        doc.setFontSize(12);
-        doc.setTextColor(0);
-        doc.text(`Nombre: ${user?.nombre + " " + user?.apellido || "Nombre del Estudiante"}`, 20, 55);
-        doc.text(`Cédula: ${formatoCi(user?.cedula) || "ID del Estudiante"}`, 20, 62);
-        doc.text(`Correo: ${user?.email || "Correo del Estudiante"}`, 20, 69);
-
-
-        doc.setFontSize(14);
-        doc.text("Cursos", 20, 85);
-        let y = 92;
-        let contCursos = 0;
-        let calificacionCursos = 0;
-        resultCalificaciones.forEach(notas => {
             doc.setFontSize(12);
-            doc.text(`${notas.asignatura}`, 20, y);
-            doc.text(`Calificación: ${notas.calificaciones[0].calificacion}`, 90, y);
-            doc.text(`${notas.calificaciones[0].resultado}`, 155, y);
-            contCursos = contCursos + 1;
-            calificacionCursos = calificacionCursos + notas.calificaciones[0].calificacion;
-            y += 6;
-        });
+            doc.setTextColor(0);
+            doc.text(`Nombre: ${user?.nombre + " " + user?.apellido || "Nombre del Estudiante"}`, 20, 55);
+            doc.text(`Cédula: ${formatoCi(user?.cedula) || "ID del Estudiante"}`, 20, 62);
+            doc.text(`Correo: ${user?.email || "Correo del Estudiante"}`, 20, 69);
 
+            doc.setFontSize(14);
+            doc.text("Cursos", 20, 85);
+            let y = 92;
+            let contCursos = 0;
+            let calificacionCursos = 0;
+            resultCalificaciones.forEach(notas => {
+                doc.setFontSize(12);
+                doc.text(`${notas.asignatura}`, 20, y);
+                doc.text(`Calificación: ${notas.calificaciones[0].calificacion}`, 90, y);
+                doc.text(`${notas.calificaciones[0].resultado}`, 155, y);
+                contCursos = contCursos + 1;
+                calificacionCursos = calificacionCursos + notas.calificaciones[0].calificacion;
+                y += 6;
+            });
 
-        doc.setFontSize(14);
-        doc.text("Examenes", 20, 130);
-        let j = 137;
-        let contExamen = 0;
-        let calificacion = 0;
-        resultExamenes.forEach(notas => {
+            doc.setFontSize(14);
+            doc.text("Examenes", 20, 130);
+            let j = 137;
+            let contExamen = 0;
+            let calificacion = 0;
+            resultExamenes.forEach(notas => {
+                doc.setFontSize(12);
+                doc.text(`${notas.asignatura}`, 20, j);
+                doc.text(`Calificación: ${notas.calificacion}`, 90, j);
+                doc.text(`${notas.resultado}`, 155, j);
+                contExamen = contExamen + 1;
+                calificacion = calificacion + notas.calificacion;
+                j += 6;
+            });
+
             doc.setFontSize(12);
-            doc.text(`${notas.asignatura}`, 20, j);
-            doc.text(`Calificación: ${notas.calificacion}`, 90, j);
-            doc.text(`${notas.resultado}`, 155, j);
-            contExamen = contExamen + 1;
-            calificacion = calificacion + notas.calificacion;
-            j += 6;
-        });
+            doc.text(`Cantidad cursadas: ${contCursos}`, 20, y + 40);
+            doc.text(`Cantidad examenes: ${contExamen}`, 20, y + 45);
+            doc.text(`Total: ` + `${contCursos + contExamen}`, 90, y + 42);
 
+            let promedio = calificacionCursos / (contCursos + contExamen);
+            const promedioFormat = promedio.toFixed(2);
+            doc.setFontSize(15);
+            doc.text(`Promedio General: ` + `${promedioFormat}`, 20, y + 65);
 
-        // doc.text("Resumen del desempeño:", 20, y + 20);
-        doc.setFontSize(12);
-        doc.text(`Cantidad cursadas: ${contCursos}`, 20, y + 40);
-        doc.text(`Cantidad examenes: ${contExamen}`, 20, y + 45);
-        doc.text(`Total: ` + `${contCursos + contExamen}`, 90, y + 42);
-        let promedio = calificacionCursos / (contCursos + contExamen);
-        const promedioFormat = promedio.toFixed(2);
-        doc.setFontSize(15);
-        doc.text(`Promedio General: ` + `${promedioFormat}`, 20, y + 65);
-
-        var blob = doc.output("blob");
-        var url = URL.createObjectURL(blob);
-        setPdfUrl(url);
+            var blob = doc.output("blob");
+            var url = URL.createObjectURL(blob);
+            setPdfUrl(url);
+        }
+        catch (error) {
+            console.log("Error: ", error);
+        }
     };
 
     useEffect(() => {
@@ -192,9 +194,10 @@ const GestionPage = () => {
         }
     }, [pdfUrl]);
 
+
     return (
         <>
-            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px', marginBottom: '80px' }} onSubmit={handleSubmit} >
+            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px', marginBottom: '80px' }} onSubmit={handleSubmit}>
                 <Card sx={{ marginTop: 8, display: 'flex', alignSelf: 'center', }}>
                     <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
                         <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Escolaridad</Typography>
@@ -202,7 +205,7 @@ const GestionPage = () => {
                     <Divider />
                     <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                         <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
-                            <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" >
+                            <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
                                 {carreraData.map((carrera, index) => (
                                     <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                                 ))}
@@ -215,23 +218,13 @@ const GestionPage = () => {
                         </FormControl>
                     </Stack>
                 </Card>
-
             </Box>
 
             <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {pdfUrl &&
-                    <iframe
-                        src={pdfUrl}
-                        style={{
-                            width: '90%',
-                            maxWidth: '80vw',
-                            height: '100%',
-                            maxHeight: '95vh',
-                            border: 'none',
-                        }}
-                        frameBorder="0"
-                        title="PDF Viewer"
-                    />
+                    <iframe src={pdfUrl}
+                        style={{ width: '90%', maxWidth: '80vw', height: '100%', maxHeight: '95vh', border: 'none', }}
+                        frameBorder="0" title="PDF Viewer" />
                 }
             </Modal>
         </>
