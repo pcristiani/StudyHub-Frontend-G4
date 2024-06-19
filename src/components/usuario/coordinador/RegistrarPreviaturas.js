@@ -48,7 +48,6 @@ export default function RegistrarPreviaturas() {
 	}, [carreraData]);
 
 	const handleChange = (event, newValue) => {
-		// console.log("Selected: ", newValue);
 		setSelectedCarrera(newValue);
 		if (newValue !== null) {
 			getInfoCarrera(newValue);
@@ -80,20 +79,19 @@ export default function RegistrarPreviaturas() {
 		const data = new FormData(event.currentTarget);
 		let idCarrera = data.get('idcarrera');
 		let idAsignatura = data.get('idasignatura');
+		let idPrev = data.get('idprevias');
 
-		let idPrev = data.get('idprevias') ? data.get('idprevias').split('').map(item => {
-			const nums = parseInt(item.trim(), 10);
-			return isNaN(nums) ? null : nums;
-		}).filter(item => item !== null) : [];
-
-		const response = await registroPreviaturas(idAsignatura, idPrev, user.jwtLogin);
+		const nroComoString = idPrev.slice(1, -1).split(',');
+		const arrayPrevias = nroComoString.map(Number);
+		const response = await registroPreviaturas(idAsignatura, arrayPrevias, user.jwtLogin);
 
 		if (response.statusCodeValue === 200) {
 			let title = "¡Previatura registada!\n\n";
 			errors(title, response.body, response.statusCodeValue);
 			history('/novedades');
 		} else {
-			errors(response.body, response.body, response.statusCodeValue);
+			console.log("Error: ", response);
+			errors(response.body, response.body, response.status);
 		}
 	};
 
@@ -106,7 +104,6 @@ export default function RegistrarPreviaturas() {
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-
 					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
 							{carreraData.map((carrera, index) => (
