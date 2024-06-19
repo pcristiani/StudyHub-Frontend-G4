@@ -1,10 +1,10 @@
-import React, { StrictMode } from 'react';
+import React from 'react';
 import Typography from '@mui/joy/Typography';
 import logo from '../img/logo.png';
 import Container from '@mui/joy/Container';
 import Box from '@mui/joy/Box';
 import { MyAnimation } from '../components/common/AnimationType';
-import {  CssVarsProvider, extendTheme } from '@mui/joy/styles'
+import { CssVarsProvider, extendTheme } from '@mui/joy/styles'
 
 const theme = extendTheme({ cssVarPrefix: 'demo' });
 // debugger;

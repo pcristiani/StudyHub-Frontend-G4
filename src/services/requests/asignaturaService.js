@@ -127,7 +127,7 @@ export const altaAsignatura = async (nombre, creditos, descripcion, departamento
 		}
 
 		let response = await axios.request(reqOptions);
-		return response.data;
+		return response;
 	} catch (error) {
 		return error.response;
 	}

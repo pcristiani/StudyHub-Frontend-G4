@@ -8,7 +8,6 @@ import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
 import { SelectProps } from '../../common/SelectProps';
 
 import { useNavigate } from 'react-router-dom';
@@ -119,8 +118,8 @@ export default function InscripcionAsignatura() {
 		}
 	};
 
-
 	const [small, setSmall] = React.useState(false);
+
 	return (
 		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>

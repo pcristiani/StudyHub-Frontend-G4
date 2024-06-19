@@ -132,14 +132,14 @@ export const getExamenesAsignaturaPorAnio = async (idAsignatura, anio, jwtLogin)
 
 
 ///
-export const cambiarResultadoExamen = async (idCursada, calificacion, jwtLogin) => {
+export const cambiarResultadoExamen = async (idCursadaExamen, calificacion, jwtLogin) => {
     try {
         let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
         }
         let reqOptions = {
-            url: `${URL_BACK.cambiarResultadoExamen}${idCursada}?calificacion=${calificacion}`,
+            url: `${URL_BACK.cambiarResultadoExamen}${idCursadaExamen}?calificacion=${calificacion}`,
             method: "POST",
             headers: headersList,
         }

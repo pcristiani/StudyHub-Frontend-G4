@@ -97,24 +97,20 @@ export default function AltaAsignatura() {
 		const arrayPreviasDocente = nroComoStringD.map(Number);
 
 		let idPrev = data.get('idprevias');
+		console.log("Id previas: ", idPrev);
 		const nroComoString = idPrev.slice(1, -1).split(',');
-		const arrayPrevias = nroComoString.map(Number);
-
-		console.log("Id docente: ", arrayPreviasDocente);
-		console.log("Id previaturas: ", arrayPrevias);
-
+		const arrayPrevias = nroComoString.map(Number).filter(item => item !== 0);
 
 		let resp = await altaAsignatura(nombre, creditos, descripcion, departamento, arrayPrevias, idCarrera, arrayPreviasDocente, user.jwtLogin);
 
 		if (resp.statusCodeValue === 200) {
-			let title = "¡Previatura registada!\n\n";
+			let title = "¡Asignatura registada!\n\n";
 			errors(title, resp.body, resp.statusCodeValue);
-		history('/novedades');
+			history('/novedades');
 		} else {
 			console.log("Error: ", resp);
 			errors(resp.data, resp.data, resp.status);
 		}
-
 	};
 
 

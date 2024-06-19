@@ -96,14 +96,22 @@ export default function CalificacionesExamen() {
 		if (idExamen !== null && idExamen !== undefined && idExamen !== '') {
 			let result = await getCursadasExamen(idExamen, user.jwtLogin);
 			setUsuarioData(result);
+			console.log("getCursadasExamen-------: ", result);
 		}
 	}
 
 
 	///
-	const handleModificar = async (id) => {
-		if (id !== null && id !== undefined && resultadoData !== null && resultadoData !== undefined) {
-			let result = await cambiarResultadoExamen(id, resultadoData, user.jwtLogin);
+	const handleModificar = async (row) => {
+
+		let cursadaExam = row.idCursadaExamen;
+
+		console.log("idcursada examen: ", cursadaExam);
+
+		// if (id.idCusadaExamen !== null && id.idCusadaExamen !== undefined && id.idCusadaExamen !== '') {
+
+		if (cursadaExam !== null && cursadaExam !== undefined && resultadoData !== null && resultadoData !== undefined) {
+			let result = await cambiarResultadoExamen(cursadaExam, resultadoData, user.jwtLogin);
 			if (result.statusCodeValue === 200) {
 				let title = "¡Calificación exitosa!\n\n";
 				errors(title, result.body, result.statusCodeValue);
@@ -111,6 +119,7 @@ export default function CalificacionesExamen() {
 			} else {
 				errors(result.body, result.body, result.statusCodeValue);
 			}
+			// }
 		}
 	};
 
@@ -218,7 +227,7 @@ export default function CalificacionesExamen() {
 													</td>
 													<td>
 														<Tooltip title="Guardar calificación">
-															<IconButton size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color="primary" onClick={() => handleModificar(row.idCursada)}>
+															<IconButton size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color="primary" onClick={() => handleModificar(row)}>
 																<Save size="sw"></Save>
 															</IconButton>
 														</Tooltip>
