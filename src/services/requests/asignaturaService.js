@@ -100,33 +100,65 @@ export const getAsignaturasAprobadas = async (idEstudiante, jwtLogin) => {
 	return data;
 }
 
+
 ///
 export const altaAsignatura = async (nombre, creditos, descripcion, departamento, previaturas, idCarrera, idDocente, jwtLogin) => {
-	let body = {
-		"nombre": nombre,
-		"creditos": creditos,
-		"descripcion": descripcion,
-		"departamento": departamento,
-		"tieneExamen": true,
-		"activa": true,
-		"previaturas": previaturas,
-		"idCarrera": idCarrera,
-		"idDocentes": idDocente
-	};
-
-	let response = await fetch(URL_BACK.altaAsignatura, {
-		method: 'POST',
-		headers: {
+	try {
+		let body = {
+			"nombre": nombre,
+			"creditos": creditos,
+			"descripcion": descripcion,
+			"departamento": departamento,
+			"tieneExamen": true,
+			"activa": true,
+			"previaturas": previaturas,
+			"idCarrera": idCarrera,
+			"idDocentes": idDocente
+		};
+		let headersList = {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${jwtLogin}`,
-		},
-		body: JSON.stringify(body)
-	});
+		}
+		let reqOptions = {
+			url: URL_BACK.altaAsignatura,
+			method: "POST",
+			headers: headersList,
+			data: JSON.stringify(body)
+		}
 
-	if (!response.ok) {
-		throw { status: response.status };
+		let response = await axios.request(reqOptions);
+		return response.data;
+	} catch (error) {
+		return error.response;
 	}
 };
+
+// export const altaAsignatura = async (nombre, creditos, descripcion, departamento, previaturas, idCarrera, idDocente, jwtLogin) => {
+// 	let body = {
+// 		"nombre": nombre,
+// 		"creditos": creditos,
+// 		"descripcion": descripcion,
+// 		"departamento": departamento,
+// 		"tieneExamen": true,
+// 		"activa": true,
+// 		"previaturas": previaturas,
+// 		"idCarrera": idCarrera,
+// 		"idDocentes": idDocente
+// 	};
+
+// 	let response = await fetch(URL_BACK.altaAsignatura, {
+// 		method: 'POST',
+// 		headers: {
+// 			'Content-Type': 'application/json',
+// 			'Authorization': `Bearer ${jwtLogin}`,
+// 		},
+// 		body: JSON.stringify(body)
+// 	});
+
+// 	if (!response.ok) {
+// 		throw { status: response.status };
+// 	}
+// };
 
 
 ///

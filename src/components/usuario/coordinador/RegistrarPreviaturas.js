@@ -73,8 +73,6 @@ export default function RegistrarPreviaturas() {
 	}
 
 
-
-
 	///
 	const handleSubmit = async (event) => {
 		event.preventDefault();

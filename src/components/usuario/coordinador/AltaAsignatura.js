@@ -17,6 +17,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
 import { getAsignaturasDeCarrera, altaAsignatura } from '../../../services/requests/asignaturaService';
 import { getDocentes } from '../../../services/requests/usuarioService';
+import { errors } from '../../../services/util/errors';
 
 
 export default function AltaAsignatura() {
@@ -88,43 +89,51 @@ export default function AltaAsignatura() {
 		let creditos = parseInt(data.get('creditos'), 10);
 		let descripcion = data.get('descripcion');
 		let departamento = data.get('departamento');
-		let idCarrera = data.get('idcarrera');
+		let idCarrerastr = data.get('idcarrera');
+		let idCarrera = parseInt(idCarrerastr, 10);
 
-		let idDocente = data.get('iddocente') ? data.get('iddocente').split('').map(item => {
-			const nums = parseInt(item.trim(), 10);
-			return isNaN(nums) ? null : nums;
-		}).filter(item => item !== null) : [];
+		let idDoc = data.get('iddocente');
+		const nroComoStringD = idDoc.slice(1, -1).split(',');
+		const arrayPreviasDocente = nroComoStringD.map(Number);
 
-		console.log("Id docente: ", idDocente);
+		let idPrev = data.get('idprevias');
+		const nroComoString = idPrev.slice(1, -1).split(',');
+		const arrayPrevias = nroComoString.map(Number);
 
-		let previaturas = data.get('idprevias') ? data.get('idprevias').split('').map(item => {
-			const num = parseInt(item.trim(), 10);
-			return isNaN(num) ? null : num;
-		}).filter(item => item !== null) : [];
-		console.log("Id previaturas: ", previaturas);
+		console.log("Id docente: ", arrayPreviasDocente);
+		console.log("Id previaturas: ", arrayPrevias);
 
-		try {
-			await altaAsignatura(nombre, creditos, descripcion, departamento, previaturas, idCarrera, idDocente, user.jwtLogin);
-			swal({
-				title: "¡Asignatura creada!\n\n",
-				text: "La asignatura ha sido creada con éxito.",
-				icon: "success",
-				dangerMode: false,
-				position: "center",
-				timer: 4000
-			});
-			history('/novedades');
-		} catch (error) {
-			let errorMsg = 'Los datos ingresados no son correctos o ya existe una asignatura con ese nombre';
-			if (error.status === 401) {
-				errorMsg = 'No autorizado. Verifica tu token de autenticación.';
-			} else if (error.status === 500) {
-				errorMsg = 'Error interno del servidor. Inténtalo más tarde.';
-			}
-			swal("Error", errorMsg, "error", {
-				timer: 3000
-			});
+
+		let resp = await altaAsignatura(nombre, creditos, descripcion, departamento, arrayPrevias, idCarrera, arrayPreviasDocente, user.jwtLogin);
+
+		if (resp.statusCodeValue === 200) {
+			let title = "¡Previatura registada!\n\n";
+			errors(title, resp.body, resp.statusCodeValue);
+		//	history('/novedades');
+		} else {
+			console.log("Error: ", resp);
+			errors(resp.data, resp.data, resp.status);
 		}
+		// 	swal({
+		// 		title: "¡Asignatura creada!\n\n",
+		// 		text: "La asignatura ha sido creada con éxito.",
+		// 		icon: "success",
+		// 		dangerMode: false,
+		// 		position: "center",
+		// 		timer: 4000
+		// 	});
+		// 	history('/novedades');
+		// } catch (error) {
+		// 	let errorMsg = 'Los datos ingresados no son correctos o ya existe una asignatura con ese nombre';
+		// 	if (error.status === 401) {
+		// 		errorMsg = 'No autorizado. Verifica tu token de autenticación.';
+		// 	} else if (error.status === 500) {
+		// 		errorMsg = 'Error interno del servidor. Inténtalo más tarde.';
+		// 	}
+		// 	swal("Error", errorMsg, "error", {
+		// 		timer: 3000
+		// 	});
+
 	};
 
 

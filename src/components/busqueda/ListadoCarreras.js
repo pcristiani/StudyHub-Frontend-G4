@@ -170,7 +170,7 @@ function EnhancedTableToolbar(props) {
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
             <Tooltip title="Ver asignaturas">
-              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleAdd(selected[0])}>
+              <IconButton size="sm" variant="outlined" color="success" >
                 <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
@@ -186,7 +186,7 @@ function EnhancedTableToolbar(props) {
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
             <Tooltip title="Ver asignaturas">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAdd(selected[0])} disabled>
+              <IconButton size="sm" variant="outlined" color="neutral"  disabled>
                 <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
