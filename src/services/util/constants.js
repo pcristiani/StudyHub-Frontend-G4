@@ -57,6 +57,8 @@ const URI_FRONT = {
   listadoAsignaturasUri: `/listado-asignaturas`,
   listadoAsignaturasAprobadasUri: `/listado-asignaturas-aprobadas`,
   listadoAsignaturasNoAprobadasUri: `/listado-asignaturas-no-aprobadas`,
+  generarActaExamenUri: `/generar-acta-examen`,
+  generarActaAsignaturaUri: `/generar-acta-asignatura`,
 }
 
 

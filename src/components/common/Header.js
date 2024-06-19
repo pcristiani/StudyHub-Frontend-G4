@@ -197,7 +197,7 @@ export default function Header() {
                               </Button>
                            </Tooltip>
                            <Tooltip title="Resumen de actividad de usuarios" variant="plain" color="neutral">
-                           <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idL}`} size="sm">
+                              <Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idL}`} size="sm">
                                  Resumen de actividad
                               </Button>
                            </Tooltip>
@@ -232,7 +232,7 @@ export default function Header() {
                                     <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoAsignaturasAprobadasUri} size="sm">
                                        Asignaturas aprobadas
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a"  href={URI_FRONT.listadoAsignaturasNoAprobadasUri} size="sm">
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.listadoAsignaturasNoAprobadasUri} size="sm">
                                        Pendientes de Aprobación
                                     </MenuItem>
                                     <ListDivider />
@@ -315,10 +315,10 @@ export default function Header() {
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
                                  Actas de asignatura
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.generarActaAsignaturaUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Acta fin de curso
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/not-found' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.generarActaExamenUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Acta de examen
                                     </MenuItem>
                                  </Menu>

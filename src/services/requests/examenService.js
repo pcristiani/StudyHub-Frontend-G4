@@ -175,3 +175,24 @@ export const cambiarResultadoExamen = async (idCursada, calificacion, jwtLogin) 
         return error.response;
     }
 };
+
+
+export const getExamenesPeriodo = async (idPeriodo, jwtLogin) => {
+    try {
+        let headersList = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        }
+
+        let reqOptions = {
+            url: URL_BACK.getExamenesPeriodo + idPeriodo,
+            method: "GET",
+            headers: headersList,
+        };
+
+        let response = await axios.request(reqOptions);
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+}
