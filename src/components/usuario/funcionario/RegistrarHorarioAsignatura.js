@@ -3,6 +3,7 @@ import swal from 'sweetalert';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
+import IconButton from '@mui/joy/IconButton';
 import FormControl from '@mui/joy/FormControl';
 import Tooltip from '@mui/joy/Tooltip';
 import Stack from '@mui/joy/Stack';
@@ -76,7 +77,6 @@ export default function RegistrarHorarioAsignatura() {
    const handleChangeHorario = () => {
       let horaInicio = selectedInicio;
       let horaFin = selectedFin;
-
       // let horaFin = parseInt(selectedFin, 10);
       const nuevoHorario = {
          diaSemana: selectedDay,
@@ -102,11 +102,10 @@ export default function RegistrarHorarioAsignatura() {
          });
       } else {
          const response = await registroHorarios(idDocente, anioLectivo, horarioData, idAsignatura, user.jwtLogin);
-
          if (response.statusCodeValue === 200) {
             let title = "¡Horario registado!\n\n";
             errors(title, response.body, response.statusCodeValue);
-            // history('/novedades');
+            history('/novedades');
          } else {
             errors(response.body, response.body, response.statusCodeValue);
          }
@@ -131,73 +130,70 @@ export default function RegistrarHorarioAsignatura() {
       { value: 'DOMINGO', label: 'Domingo' },
    ];
 
-   const slotProps = {
-      listbox: { sx: { width: '100%' }, },
+   // Select con slotProps
+   const withSlotProps = (WrappedComponent, slotProps) => {
+      return (props) => <WrappedComponent {...props} slotProps={slotProps} />;
    };
-
+   const slotProps = {
+      listbox: { sx: { width: '100%', }, },
+   };
+   const SelectProps = withSlotProps(Select, slotProps);
 
    return (
-      <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
+      <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
          <Card sx={{ display: 'flex', alignSelf: 'center', }}>
             <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
                <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registrar horario asignatura</Typography>
             </Box>
             <Divider />
-            <Stack slotProps={slotProps} direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-               <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
+            <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+               <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
 
-                  <Select size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
+                  <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
                      {carreraData.map((carrera, index) => (
                         <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                      ))}
-                  </Select>
+                  </SelectProps>
 
-                  <Select slotProps={slotProps} size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required>
+                  <SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required>
                      {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
                         <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                      ))}
-                  </Select>
+                  </SelectProps>
 
-                  <Select slotProps={slotProps} size="sm" placeholder="Seleccionar docente" id="iddocente" name="iddocente" required>
+                  <SelectProps size="sm" placeholder="Seleccionar docente" id="iddocente" name="iddocente" required>
                      {Array.isArray(docenteData) && docenteData.map((docente, index) => (
                         <Option key={index} value={docente.idDocente}>{docente.nombre}</Option>
                      ))}
-                  </Select>
+                  </SelectProps>
                   <Divider />
 
-                  <Select slotProps={slotProps} size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
+                  <SelectProps size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
                      {years.map((year) => (
                         <Option key={year} value={year} >{year}</Option>
                      ))}
-                  </Select>
+                  </SelectProps>
 
-                  <Select size="sm" value={selectedDay} onChange={(event, newValue) => setSelectedDay(newValue)} placeholder="Dia de la semana" id="diasemana" name="diasemana" required>
+                  <SelectProps size="sm" value={selectedDay} onChange={(event, newValue) => setSelectedDay(newValue)} placeholder="Dia de la semana" id="diasemana" name="diasemana" required>
                      {diasSemana.map((day) => (
-                        <Box >
-                           <Option key={day.value} value={day.value}>
-                              {day.label}
-                           </Option>
-                        </Box>
+                        <Option key={day.value} value={day.value}>{day.label}</Option>
                      ))}
-                  </Select>
+                  </SelectProps>
 
                   <Stack direction="row" spacing={0.6} sx={{ justifyContent: 'right' }}>
                      <Autocomplete size="sm" id="inicioclase" name="inicioclase" options={timeSlots} placeholder="Inicia" onChange={(event, newValue) => setSelectedInicio(newValue)} />
                      <Autocomplete size="sm" id="finclase" name="finclase" options={timeSlots} placeholder="Finaliza" onChange={(event, newValue) => setSelectedFin(newValue)} />
                      <Tooltip title="Agregar a horario de clase" variant="plain" color="primary">
-                        <Button size="sm" variant="outlined" color="neutral" onClick={handleChangeHorario}>
-                           <ControlPointIcon variant="plain" color="primary" />
-                        </Button>
+                        <IconButton size="sm" variant="outlined" color="neutral" onClick={handleChangeHorario}>
+                           <ControlPointIcon size="sm" variant="plain" color="primary" />
+                        </IconButton>
                      </Tooltip>
                   </Stack>
-                  <Divider />
 
                   <Select size="sm" placeholder="Horario de clase" multiple renderValue={(selected) => (
                      <Box sx={{ display: 'flex', gap: '0.25rem' }}>
                         {selected.map((selectedOption) => (
-                           <Chip key={selectedOption.value} variant="soft" color="primary" >
-                              {selectedOption.label} {selectedOption.horario}
-                           </Chip>
+                           <Chip key={selectedOption.value} variant="soft" color="primary">{selectedOption.label} {selectedOption.horario}</Chip>
                         ))}
                      </Box>)}
                      slotProps={{ listbox: { sx: { width: '100%', }, }, }} required>
@@ -209,8 +205,8 @@ export default function RegistrarHorarioAsignatura() {
                <Divider />
 
                <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
-                  <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-                  <Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
+                  <Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
+                  <Button size="sm" variant="outlined" fullWidth color="neutral" component="a" href='/'>Cancelar</Button>
                </Stack>
             </Stack>
          </Card>
@@ -223,4 +219,3 @@ const timeSlots = Array.from(new Array(24 * 1)).map(
       `${index < 20 ? '' : ''}${Math.floor(index / 1)
       }:00`,
 );
-

@@ -1,50 +1,241 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
+import Modal from '@mui/joy/Modal';
 import { jsPDF } from "jspdf";
 import { AuthContext } from '../context/AuthContext';
-import Sheet from '@mui/joy/Sheet';
-
-
-const downloadPDF = (event) => {
-    var doc = new jsPDF();
-
-    doc.setTextColor(100);
-    doc.text(`------------------------------------------------------------------`, 20, 20);
-
-    doc.setTextColor(150);
-    doc.text("StudyHub.", 20, 30);
-
-    doc.setTextColor(255, 0, 0);
-    doc.text("StudyHub", 20, 40);
-
-    doc.setTextColor(0, 255, 0);
-    doc.text("StudyHub", 20, 50);
-    // doc.setTextColor("blue");
-    // doc.text("This is blue.", 60, 60);
-    // const doc = new jsPDF();
-
-    doc.text("StudyHub", 10, 10);
-    doc.save("a4.pdf");
-}
-
+import { Stack } from '@mui/joy';
+import { formatoCi } from '../services/util/formatoCi';
+import { getCalificacionesAsignaturas, getCalificacionesExamenes } from '../services/requests/estudianteService';
+import { getCarreras, getCarreraById } from '../services/requests/carreraService';
+import { errors } from '../services/util/errors';
+import Divider from '@mui/joy/Divider';
+import FormControl from '@mui/joy/FormControl';
+import Typography from '@mui/joy/Typography';
+import Card from '@mui/joy/Card';
+import Option from '@mui/joy/Option';
+import Select from '@mui/joy/Select';
+import { formatFechaEmision } from '../services/util/formatoFecha';
 
 const GestionPage = () => {
-    const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
+    const { user } = useContext(AuthContext);
+    const [open, setOpen] = useState(false);
+    const [pdfUrl, setPdfUrl] = useState('');
+    const [carreraData, setCarreraData] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchCarreras = async () => {
+            try {
+                const result = await getCarreras(user.jwtLogin);
+                setCarreraData(result);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+        fetchCarreras();
+    }, [user]);
+
+    useEffect(() => {
+        if (carreraData) {
+            console.log("Carreras: ", carreraData);
+        }
+    }, [carreraData]);
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        let idC = data.get('idcarrera');
+        if (idC !== null && idC !== undefined && idC !== "") {
+            visualizarPDF(idC);
+            // fechaEmision();
+        }
+    };
+
+    function fechaEmision() {
+        const date = new Date();
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        date.toLocaleDateString('es-UY', options);
+        return formatFechaEmision(date);
+    }
+
+
+    const convertirURLaBase64 = (url) => {
+        return new Promise((resolve, reject) => {
+            let img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = () => {
+                let canvas = document.createElement('canvas');
+                let ctx = canvas.getContext('2d');
+                canvas.height = img.height;
+                canvas.width = img.width;
+                ctx.drawImage(img, 0, 0);
+                let dataURL = canvas.toDataURL('image/png');
+                resolve(dataURL);
+            };
+            img.onerror = () => {
+                reject(new Error('No se pudo cargar la imagen.'));
+            };
+            img.src = url;
+        });
+    };
+
+    const downloadPDF = (event) => {
+        var doc = new jsPDF();
+
+        doc.setTextColor(100);
+        doc.text(`gest`, 20, 20);
+
+        doc.setTextColor(150);
+        doc.text("StudyHub.", 20, 30);
+
+        doc.setTextColor(255, 0, 0);
+        doc.text("StudyHub", 20, 40);
+
+        doc.setTextColor(0, 255, 0);
+        doc.text("StudyHub", 20, 50);
+        // doc.setTextColor("blue");
+        // doc.text("This is blue.", 60, 60);
+        // const doc = new jsPDF();
+
+        doc.text("StudyHub", 10, 10);
+        doc.save("a4.pdf");
+    }
+
+    const visualizarPDF = async (idCarrera) => {
+        // console.log("Carrera seleccionada: ", idCarrera, user.id, user.jwtLogin);
+        const resultCalificaciones = await getCalificacionesAsignaturas(idCarrera, user.id, user.jwtLogin);
+        const resultExamenes = await getCalificacionesExamenes(idCarrera, user.id, user.jwtLogin);
+
+        const carrera = await getCarreraById(idCarrera, user.jwtLogin);
+
+        var doc = new jsPDF();
+
+        const logoURL = 'https://frontstudyhub.vercel.app/static/media/logo-text.1b43604a02cff559bc6a.png'; // Reemplaza con tu URL de imagen
+        const logoBase64 = await convertirURLaBase64(logoURL);
+
+        doc.setFontSize(22);
+        doc.setTextColor(34);
+        doc.text("Certificado de Escolaridad", 20, 20);
+        doc.setFontSize(14);
+        doc.text("Resultados finales", 20, 26);
+        doc.setFontSize(18);
+        doc.text(`${carrera.data.nombre}`, 20, 40);
+        doc.setFontSize(10);
+        doc.text(`Emisión ${fechaEmision()}`, 160, 8,);
+
+        doc.addImage(logoBase64, 'PNG', 160, 13, 40, 10);
+
+        // Línea de separación
+        doc.setLineWidth(0.2);
+        doc.line(20, 45, 190, 45);
+
+        // Información del estudiante
+        doc.setFontSize(12);
+        doc.setTextColor(0);
+        doc.text(`Nombre: ${user?.nombre + " " + user?.apellido || "Nombre del Estudiante"}`, 20, 55);
+        doc.text(`Cédula: ${formatoCi(user?.cedula) || "ID del Estudiante"}`, 20, 62);
+        doc.text(`Correo: ${user?.email || "Correo del Estudiante"}`, 20, 69);
+
+
+        doc.setFontSize(14);
+        doc.text("Cursos", 20, 85);
+        let y = 92;
+        let contCursos = 0;
+        let calificacionCursos = 0;
+        resultCalificaciones.forEach(notas => {
+            doc.setFontSize(12);
+            doc.text(`${notas.asignatura}`, 20, y);
+            doc.text(`Calificación: ${notas.calificaciones[0].calificacion}`, 90, y);
+            doc.text(`${notas.calificaciones[0].resultado}`, 155, y);
+            contCursos = contCursos + 1;
+            calificacionCursos = calificacionCursos + notas.calificaciones[0].calificacion;
+            y += 6;
+        });
+
+
+        doc.setFontSize(14);
+        doc.text("Examenes", 20, 130);
+        let j = 137;
+        let contExamen = 0;
+        let calificacion = 0;
+        resultExamenes.forEach(notas => {
+            doc.setFontSize(12);
+            doc.text(`${notas.asignatura}`, 20, j);
+            doc.text(`Calificación: ${notas.calificacion}`, 90, j);
+            doc.text(`${notas.resultado}`, 155, j);
+            contExamen = contExamen + 1;
+            calificacion = calificacion + notas.calificacion;
+            j += 6;
+        });
+
+
+        // doc.text("Resumen del desempeño:", 20, y + 20);
+        doc.setFontSize(12);
+        doc.text(`Cantidad cursadas: ${contCursos}`, 20, y + 40);
+        doc.text(`Cantidad examenes: ${contExamen}`, 20, y + 45);
+        doc.text(`Total: ` + `${contCursos + contExamen}`, 90, y + 42);
+        let promedio = calificacionCursos / (contCursos + contExamen);
+        const promedioFormat = promedio.toFixed(2);
+        doc.setFontSize(15);
+        doc.text(`Promedio General: ` + `${promedioFormat}`, 20, y + 65);
+
+        var blob = doc.output("blob");
+        var url = URL.createObjectURL(blob);
+        setPdfUrl(url);
+    };
+
+    useEffect(() => {
+        if (pdfUrl) {
+            setOpen(true);
+        }
+    }, [pdfUrl]);
 
     return (
         <>
-            <Sheet>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginBottom: '80px' }}>
-                    <h1 className="focus-ring-primary py-4" component="h1" >
-                        Escolaridad
-                    </h1>
-                    <br></br>
-                    <a className="link-style" onClick={downloadPDF}>Descargar</a>
-                </Box>
-            </Sheet>
+            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px', marginBottom: '80px' }} onSubmit={handleSubmit} >
+                <Card sx={{ marginTop: 8, display: 'flex', alignSelf: 'center', }}>
+                    <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+                        <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Escolaridad</Typography>
+                    </Box>
+                    <Divider />
+                    <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+                        <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
+                            <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" >
+                                {carreraData.map((carrera, index) => (
+                                    <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
+                                ))}
+                            </Select>
+                            <Stack direction="row" spacing={0.8} sx={{ marginTop: 2, justifyContent: 'right', zIndex: '1000' }}>
+                                <Button size="sm" type='submit' fullWidth variant="soft" color="primary" sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }}>
+                                    Visualizar pdf
+                                </Button>
+                            </Stack>
+                        </FormControl>
+                    </Stack>
+                </Card>
 
+            </Box>
+
+            <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {pdfUrl &&
+                    <iframe
+                        src={pdfUrl}
+                        style={{
+                            width: '90%',
+                            maxWidth: '80vw',
+                            height: '100%',
+                            maxHeight: '95vh',
+                            border: 'none',
+                        }}
+                        frameBorder="0"
+                        title="PDF Viewer"
+                    />
+                }
+            </Modal>
         </>
     );
-}
+};
 
 export default GestionPage;

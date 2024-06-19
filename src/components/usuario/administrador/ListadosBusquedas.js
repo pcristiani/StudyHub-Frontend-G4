@@ -140,7 +140,7 @@ const handleAdd = (idUsuario) => {
 };
 
 const handleModificar = (idUsuario) => {
-  redirigir(URI_FRONT.modificarFuncionarioUri + `?id=${idUsuario}`);
+  redirigir(URI_FRONT.infoUsuarioUri + `?id=${idUsuario}`);
 }
 
 const handleActividades = (idUsuario) => {
@@ -157,7 +157,7 @@ function EnhancedTableToolbar(props) {
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
-  
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', py: 0.8, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.body' : 'background.body', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }} >
 
@@ -169,7 +169,7 @@ function EnhancedTableToolbar(props) {
           <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="neutral" noWrap>Seleccionar usuario</Typography>
         ) : ''}
         {numSelected > 1 ? (
-          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="danger" noWrap>Selecionar una usuario</Typography>
+          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="danger" noWrap>Selecionar un usuario</Typography>
         ) : ''}
       </Box>
 
@@ -178,7 +178,7 @@ function EnhancedTableToolbar(props) {
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
 
             <Tooltip title="Alta funcionario/coordinador">
-              <IconButton size="sm" variant="outlined" color="success" onClick={handleAlta}>
+              <IconButton size="sm" variant="outlined" color="success" >
                 <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
@@ -200,13 +200,13 @@ function EnhancedTableToolbar(props) {
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
             <Tooltip title="Alta funcionario/coordinador">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={handleAlta} disabled>
+              <IconButton size="sm" variant="outlined" color="neutral" onClick={'handleAlta'} disabled>
                 <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
 
             <Tooltip title="Ver inscrpciones">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta()} disabled>
+              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta} disabled>
                 <PostAddOutlinedIcon />
               </IconButton>
             </Tooltip>
@@ -387,15 +387,15 @@ export default function ListadosBusquedas() {
                       <td>{usuario.rol === "F" ? 'Funcionario' : usuario.rol === "C" ? 'Coordinador' : usuario.rol === "E" ? 'Estudiante' : usuario.rol === "A" ? 'Administrador' : ''}
                       </td>
                       <td>
-                        <Tooltip title="Información">
-                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(usuario.idUsuario)}>
-                            <AccountCircleOutlined />
+                        <Tooltip title="Resumen de actividad">
+                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleActividades(usuario.idUsuario)}>
+                            <InsertChartOutlinedIcon />
                           </IconButton>
                         </Tooltip>
 
-                        <Tooltip title="Resumen de actividades">
-                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleActividades(usuario.idUsuario)}>
-                            <InsertChartOutlinedIcon />
+                        <Tooltip title="Información">
+                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(usuario.idUsuario)}>
+                            <AccountCircleOutlined />
                           </IconButton>
                         </Tooltip>
                       </td>

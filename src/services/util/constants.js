@@ -1,14 +1,17 @@
+import { Info } from "@mui/icons-material"
+import { getCarreraById } from "../requests/carreraService"
+
 const PORT = {
   back: 8080,   // Puerto backend
   front: 3000,  // Puerto frontend
 }
 // http://localhost:3000/  Encoder
 // http://localhost:3000/  Url encode
-const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
-const uriBaseFront = `https://frontstudyhub.vercel.app`
+// const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
+// const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-// const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-// const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 // ? http://localhost:3000/
 const URI_FRONT = {
@@ -21,6 +24,7 @@ const URI_FRONT = {
 
   preferenciasUri: `/preferencias`,
   editPerfilUri: `/edit-perfil`,
+  infoUsuarioUri: `/info-usuario`,
   modificarPasswordUri: `/modificar-password`,
 
   // Uri Invitado
@@ -49,10 +53,10 @@ const URI_FRONT = {
   inscripcionExamenUri: `/inscripcion-examen`,
 
   listadoCarrerasUri: `/listado-carreras`,
+  InfoCarrerasUri: `/info-carrera`,
   listadoAsignaturasUri: `/listado-asignaturas`,
   listadoAsignaturasAprobadasUri: `/listado-asignaturas-aprobadas`,
   listadoAsignaturasNoAprobadasUri: `/listado-asignaturas-no-aprobadas`,
-
 }
 
 
@@ -130,6 +134,7 @@ const URL_BACK = {
   getCarrerasConPeriodo: `${uriBaseBack}/api/carrera/getCarrerasConPeriodo`,      // GET
   getPeriodosDeCarrera: `${uriBaseBack}/api/carrera/getPeriodosDeCarrera/`,       // GET
   getPreviaturasGrafo: `${uriBaseBack}/api/carrera/getPreviaturasGrafo/`,         // GET
+  getCarreraById: `${uriBaseBack}/api/carrera/getCarreraById/`,                   // GET
 
 
   ///
@@ -170,21 +175,11 @@ const redirigir = (url) => {
   window.location.href = url;
 };
 const COURSE = {
-
-  graph: `graph {
+  graph: `digraph {
   bgcolor = transparent;shape = rectangle; style = "rounded";
   node[shape = rectangle, style = "rounded,filled", fillcolor = "#d7f8fd", color = "#2596be", fontcolor = black, fontsize = 12, fontname = "Arial"];
   edge[color = "#2596be"];
   rankdir = TB;`
-
 };
-
-// const COURSE = {
-//   graph: `graph {
-//       node [shape=rectangle, style=filled, color=lightblue];
-//       bgcolor=transparent;
-//          node [shape=rectangle, style=filled, color=lightblue, fontcolor=grey, fontsize=12, fontname="Arial", height=0.2, width=0.4, margin="0.1,0.1"];
-//         rankdir=TB;   `
-// };
 
 export { URI_FRONT, URL_BACK, T_ROL, PARAMETERS, redirigir, uriBaseFront, COURSE };

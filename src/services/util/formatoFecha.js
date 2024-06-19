@@ -8,6 +8,17 @@ export function formatFecha(data) {
     return `${day}/${month}/${year} - ${hours}:${minutes} hs`;
 }
 
+export function formatFechaEmision(data) {
+    let fechaExamen = new Date(data);
+    const year = fechaExamen.getFullYear();
+    const month = String(fechaExamen.getMonth() + 1).padStart(2, '0'); // Los meses empiezan en 0
+    const day = String(fechaExamen.getDate()).padStart(2, '0');
+    const hours = String(fechaExamen.getHours()).padStart(2, '0');
+    const minutes = String(fechaExamen.getMinutes()).padStart(2, '0');
+    const seconds = String(fechaExamen.getSeconds()).padStart(2, '0');
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+}
+
 // const f = new Date('2024-06-13');
 // const dtf = new DtFecha(f);
 // console.log('DtFecha: ', dtf.format());

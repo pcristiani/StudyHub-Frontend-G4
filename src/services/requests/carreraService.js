@@ -23,6 +23,30 @@ export const getCarreras = async (jwtLogin) => {
 
 
 ///
+export const getCarreraById = async (idCarrera, jwtLogin) => {
+    try {
+        let headersList = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        }
+
+        let reqOptions = {
+            url: URL_BACK.getCarreraById + idCarrera,
+            method: "GET",
+            headers: headersList,
+        };
+
+        let response = await axios.request(reqOptions);
+        console.log("Datos de la Carrera: ", response.data);
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+
+
+///
 export const asignarCoordinadorCarrera = async (idUsuario, idCarrera, jwtLogin) => {
     try {
         let headersList = {
@@ -221,19 +245,6 @@ export const altaPeriodoDeExamen = async (nombrePeriodo, dtFechaInicio, dtFechaF
     } catch (error) {
         return error.response;
     }
-
-    // let response = await fetch(URL_BACK.altaPeriodoDeExamen + idCarrera, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${jwtLogin}`,
-    //     },
-    //     body: bodyContent,
-    // });
-
-    // if (!response.ok) {
-    //     throw { status: response.status };
-    // }
 };
 
 

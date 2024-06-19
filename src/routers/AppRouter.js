@@ -53,6 +53,8 @@ import ListadoCarreras from '../components/busqueda/ListadoCarreras';
 import ListadoAsignaturas from '../components/busqueda/ListadoAsignaturas.js';
 import ListadoAsignaturasAprobadas from '../components/busqueda/ListadoAsignaturasAprobadas';
 import ListadoAsignaturasNoAprobadas from '../components/busqueda/ListadoAsignaturasNoAprobadas';
+import InfoUsuario from '../components/common/InfoUsuario.js';
+import InfoCarreras from '../components/busqueda/InfoCarreras.js';
 
 
 
@@ -79,6 +81,7 @@ export const AppRouter = () => {
 
                     <Route path="/nuestro-equipo" element={<NuestroEquipo user={user.id} />} exact />
                     <Route path="/edit-perfil" element={<EditarPerfil user={user.id} />} exact />
+                    <Route path="/info-usuario" element={<InfoUsuario user={user.id} />} exact />
 
                     <Route path="/not-found" element={<Page404 user={user.id} />} exact />
                     <Route path="/nueva-carrera" element={<AltaCarrera user={user.id} />} exact />
@@ -114,6 +117,7 @@ export const AppRouter = () => {
                     <Route path='/listado-asignaturas' element={<ListadoAsignaturas user={user.id} />} exact />
                     <Route path='/listado-asignaturas-aprobadas' element={<ListadoAsignaturasAprobadas user={user.id} />} exact />
                     <Route path='/listado-asignaturas-no-aprobadas' element={<ListadoAsignaturasNoAprobadas user={user.id} />} exact />
+                    <Route path='/info-carrera' element={<InfoCarreras user={user.id} />} exact />
 
 
 

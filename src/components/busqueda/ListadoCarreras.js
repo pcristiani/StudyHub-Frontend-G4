@@ -23,6 +23,9 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import Chip from '@mui/joy/Chip';
+import AdjustIcon from '@mui/icons-material/Adjust';
+
 const filters = createFilterOptions();
 
 function descendingComparator(a, b, orderBy) {
@@ -128,6 +131,8 @@ EnhancedTableHead.propTypes = {
 
 const handleAdd = (idCarrera) => {
   console.log('Agregar carrera con ID:', idCarrera);
+  redirigir(URI_FRONT.InfoCarrerasUri + `?id=${idCarrera}`);
+
 };
 
 const handleModificar = (idCarrera) => {
@@ -165,7 +170,7 @@ function EnhancedTableToolbar(props) {
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
             <Tooltip title="Ver asignaturas">
-              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleAlta()}>
+              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleAdd(selected[0])}>
                 <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
@@ -181,8 +186,8 @@ function EnhancedTableToolbar(props) {
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
             <Tooltip title="Ver asignaturas">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta()} disabled>
-                  <AddBoxOutlinedIcon />
+              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAdd(selected[0])} disabled>
+                <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
 
@@ -337,7 +342,6 @@ export default function ListadoCarreras() {
                 .map((carrera, index) => {
                   const isItemSelected = isSelected(carrera.idCarrera);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                     <tr
                       onClick={(event) => handleClick(event, carrera.idCarrera)}
@@ -352,16 +356,15 @@ export default function ListadoCarreras() {
                           : { 'cursor': 'pointer' }
                       }
                     >
+
                       <th id={labelId} scope="row">
                         {carrera.nombre}
                       </th>
                       <td>{carrera.descripcion}</td>
                       <td>
-                        <Tooltip title="Ver asignaturas">
-                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(carrera.idCarrera)}>
-                            <ChevronRightRoundedIcon />
-                          </IconButton>
-                        </Tooltip>
+                        <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(carrera.idCarrera)}>
+                          <ChevronRightRoundedIcon />
+                        </IconButton>
                       </td>
                     </tr>
                   );
@@ -401,3 +404,71 @@ export default function ListadoCarreras() {
 
   );
 }
+
+
+
+
+// export default function GitHubTooltip() {
+//   return (
+//     <Tooltip
+//       placement="top-end"
+//       variant="outlined"
+//       arrow
+//       title={
+//         <Box
+//           sx={{
+//             display: 'flex',
+//             flexDirection: 'column',
+//             maxWidth: 320,
+//             justifyContent: 'center',
+//             p: 1,
+//           }}
+//         >
+//           <Typography
+//             fontSize="sm"
+//             textColor="grey"
+//             startDecorator={
+//               <Link
+//                 underline="always"
+//                 href="#common-examples"
+//                 color="neutral"
+//                 fontSize="sm"
+//               >
+//                 mui/material-ui
+//               </Link>
+//             }
+//           >
+//             on Feb 25
+//           </Typography>
+//           <Box sx={{ display: 'flex', gap: 1, width: '100%', mt: 1 }}>
+//             <AdjustIcon color="success" />
+//             <div>
+//               <Typography fontWeight="lg" fontSize="sm">
+//                 [system] grey is no more recognized as color with the sx prop
+//               </Typography>
+//               <Typography textColor="text.secondary" fontSize="sm" sx={{ mb: 1 }}>
+//                 Duplicates I have searched the existing issues Latest version I have
+//                 tested the …
+//               </Typography>
+//               <Chip size="sm" color="danger" sx={{ fontWeight: 'lg' }}>
+//                 bug 🐛
+//               </Chip>
+//               <Chip size="sm" color="primary" sx={{ ml: 1, fontWeight: 'lg' }}>
+//                 package: system
+//               </Chip>
+//             </div>
+//           </Box>
+//         </Box>
+//       }
+//     >
+//       <Link
+//         href="#common-examples"
+//         underline="none"
+//         startDecorator={<AdjustIcon color="success" />}
+//         sx={{ fontWeight: 'lg' }}
+//       >
+//         [system] grey is no more recognized as color with the sx prop
+//       </Link>
+//     </Tooltip>
+//   );
+// }

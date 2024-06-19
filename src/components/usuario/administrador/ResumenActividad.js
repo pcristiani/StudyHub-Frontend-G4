@@ -321,12 +321,3 @@ export function ResumenActividad() {
   );
 }
 
-// function formatFecha(data) {
-//   let fechaExamen = new Date(data);
-//   const year = fechaExamen.getFullYear();
-//   const month = String(fechaExamen.getMonth() + 1).padStart(2, '0'); // Los meses empiezan en 0
-//   const day = String(fechaExamen.getDate()).padStart(2, '0');
-//   const hours = String(fechaExamen.getHours()).padStart(2, '0');
-//   const minutes = String(fechaExamen.getMinutes()).padStart(2, '0');
-//   return `${day}/${month}/${year} - ${hours}:${minutes} hs`;
-// }

@@ -65,12 +65,12 @@ function Register() {
             <Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
                 <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div sx={{ bgcolor: 'secondary.main' }}>
-                        <img src={logo} className="animate-bounce" alt="logo" />
+                        <img src={logo} className="animate-bounce logo-desktop" alt="logo" />
                     </div>
                     <h2 component="h1" variant="h4" style={{ textAlign: 'center' }}>Registrarse</h2>
                     <Typography level="body-sm" sx={{ textAlign: 'center' }}>Ingresa la información de tu cuenta</Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px', spacing: 4 }}>
-                        <Stack spacing={0.7}>
+                        <Stack spacing={0.6}>
                             <Input size="sm" autoComplete="given-name" name="nombre" fullWidth id="nombre" placeholder="Nombre" autoFocus required />
                             <Input size="sm" required id="apellido" name="apellido" fullWidth placeholder="Apellido" autoComplete="family-name" />
                             <Input size="sm" required id="email" name="email" fullWidth placeholder="Email" autoComplete="email" />

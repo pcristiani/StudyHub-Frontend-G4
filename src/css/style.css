@@ -30,16 +30,16 @@ body {
 }
 
 
-
+/* 
 Input::-webkit-calendar-picker-indicator {
   filter: invert(1) brightness(70%) sepia(100%) saturate(10000%) hue-rotate(180deg) contrast(0.1);
 
-}
+} */
 
 .logo-desktop {
-  max-width: 40px;
-  max-height: 40px;
-  margin: 0 10px 0 0;
+  max-width: 70px;
+  max-height: 70px;
+  margin: 0 1px 0 0;
 }
 
 .logo-navbar {
