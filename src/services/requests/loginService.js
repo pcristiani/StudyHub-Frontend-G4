@@ -21,6 +21,7 @@ export const getToken = async (cedula, password) => {
     }
 }
 
+
 // Cierra la sesion del usuario
 export const cerrarSesion = async (jwtLogin) => {
     try {
@@ -35,6 +36,7 @@ export const cerrarSesion = async (jwtLogin) => {
         });
     }
 }
+
 
 ///
 // Modificar contraseña del usuario

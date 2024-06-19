@@ -83,36 +83,16 @@ const GestionPage = () => {
         });
     };
 
-    // const downloadPDF = (event) => {
-    //     var doc = new jsPDF();
-    //     doc.setTextColor(100);
-    //     doc.text(`gest`, 20, 20);
 
-    //     doc.setTextColor(150);
-    //     doc.text("StudyHub.", 20, 30);
-
-    //     doc.setTextColor(255, 0, 0);
-    //     doc.text("StudyHub", 20, 40);
-
-    //     doc.setTextColor(0, 255, 0);
-    //     doc.text("StudyHub", 20, 50);
-    //     // doc.setTextColor("blue");
-    //     // doc.text("This is blue.", 60, 60);
-    //     // const doc = new jsPDF();
-
-    //     doc.text("StudyHub", 10, 10);
-    //     doc.save("a4.pdf");
-    // }
 
     const visualizarPDF = async (idCarrera) => {
         const resultCalificaciones = await getCalificacionesAsignaturas(idCarrera, user.id, user.jwtLogin);
         const resultExamenes = await getCalificacionesExamenes(idCarrera, user.id, user.jwtLogin);
         const carrera = await getCarreraById(idCarrera, user.jwtLogin);
         console.log("resultExamenes: ", carrera);
-        if (resultCalificaciones === null || resultCalificaciones === undefined || resultCalificaciones === '' || resultCalificaciones.status !== 200) {
-            errors(resultCalificaciones.data, resultCalificaciones.data, resultCalificaciones.status);
-            history('/gestion');
-        }
+        // if (resultCalificaciones === null || resultCalificaciones === undefined || resultCalificaciones === '' || resultCalificaciones.status !== 200) {            errors(resultCalificaciones.data, resultCalificaciones.data, resultCalificaciones.status);
+        //     history('/gestion');
+        // }
 
         try {
             var doc = new jsPDF();
@@ -232,3 +212,26 @@ const GestionPage = () => {
 };
 
 export default GestionPage;
+
+
+
+// const downloadPDF = (event) => {
+//     var doc = new jsPDF();
+//     doc.setTextColor(100);
+//     doc.text(`gest`, 20, 20);
+
+//     doc.setTextColor(150);
+//     doc.text("StudyHub.", 20, 30);
+
+//     doc.setTextColor(255, 0, 0);
+//     doc.text("StudyHub", 20, 40);
+
+//     doc.setTextColor(0, 255, 0);
+//     doc.text("StudyHub", 20, 50);
+//     // doc.setTextColor("blue");
+//     // doc.text("This is blue.", 60, 60);
+//     // const doc = new jsPDF();
+
+//     doc.text("StudyHub", 10, 10);
+//     doc.save("a4.pdf");
+// }

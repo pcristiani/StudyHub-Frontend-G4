@@ -19,6 +19,7 @@ import { errors } from '../../../services/util/errors';
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
 import { Save } from '@mui/icons-material';
+import { SelectProps } from '../../common/SelectProps';
 
 
 export default function CalificacionesExamen() {
@@ -106,7 +107,7 @@ export default function CalificacionesExamen() {
 			if (result.statusCodeValue === 200) {
 				let title = "¡Calificación exitosa!\n\n";
 				errors(title, result.body, result.statusCodeValue);
-			//	history('/novedades');
+				//	history('/novedades');
 			} else {
 				errors(result.body, result.body, result.statusCodeValue);
 			}
@@ -121,12 +122,6 @@ export default function CalificacionesExamen() {
 	for (let i = startYear; i <= endYear; i++) {
 		years.push(i);
 	}
-
-	const diasSemana = [
-		{ value: 'APROBADO', label: 'Aprobado' },
-		{ value: 'REPROBADO', label: 'Reprobado' },
-		{ value: 'PENDIENTE', label: 'Pendiente' },
-	];
 
 	function formatFecha(data) {
 		let fechaExamen = new Date(data);
@@ -153,34 +148,33 @@ export default function CalificacionesExamen() {
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
 					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '450px' }, gap: 0.8 }}>
-						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
+						<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
-						</Select>
+						</SelectProps>
 
-						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" >
+						<SelectProps size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" >
 							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
-						</Select>
+						</SelectProps>
 						{/* onChange={handleChangeAsignatura} */}
 						<Stack direction="row" spacing={0.8} sx={{ justifyContent: 'right', zIndex: '1000' }}>
-							<Select size="sm" sx={{ width: "500px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
+							<SelectProps size="sm" sx={{ width: "500px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
 								placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
 								{years.map((year) => (
 									<Option key={year} value={year} >{year}</Option>
 								))}
-							</Select>
+							</SelectProps>
 							<Button fullWidth size="sm" type="submit" sx={{ mt: 1, mb: 1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar períodos</Button>
-
 						</Stack>
 
-						<Select size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangePeriodo}>
+						<SelectProps size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangePeriodo}>
 							{Array.isArray(cursadasData) && cursadasData.map((cursada, index) => (
 								<Option key={index} value={cursada.idExamen}>{cursada.periodoExamen}</Option>
 							))}
-						</Select>
+						</SelectProps>
 
 						{/* <Stack direction="row" spacing={0.8} sx={{ marginBottom: 0.6, justifyContent: 'right', zIndex: '1000' }}>
 							<Button type="submit" fullWidth sx={{ mt: 1, mb: 1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
@@ -217,10 +211,10 @@ export default function CalificacionesExamen() {
 													<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
 													<td>{row.cedulaEstudiante}</td>
 													<td>
-														<Select size="sm" placeholder="0" onChange={(event, newValue) => setResultadoData(newValue)} id="idresultado" name="idresultado">{notas.map((nota) => (
+														<SelectProps size="sm" placeholder="0" onChange={(event, newValue) => setResultadoData(newValue)} id="idresultado" name="idresultado">{notas.map((nota) => (
 															<Option key={notas} value={nota}>{nota}</Option>
 														))}
-														</Select>
+														</SelectProps>
 													</td>
 													<td>
 														<Tooltip title="Guardar calificación">

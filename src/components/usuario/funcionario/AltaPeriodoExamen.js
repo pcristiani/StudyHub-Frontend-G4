@@ -11,10 +11,10 @@ import Card from '@mui/joy/Card';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras, altaPeriodoDeExamen } from '../../../services/requests/carreraService';
 import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
 import { useNavigate } from 'react-router-dom';
 import DtFecha from '../../../services/data/DtFecha';
 import { errors } from '../../../services/util/errors';
+import { SelectProps } from '../../common/SelectProps';
 
 
 export default function AltaPeriodoExamen() {
@@ -72,10 +72,6 @@ export default function AltaPeriodoExamen() {
 		}
 	};
 
-	const slotProps = {
-		listbox: { sx: { width: '100%' }, },
-	};
-
 
 	return (
 		<>
@@ -87,19 +83,19 @@ export default function AltaPeriodoExamen() {
 					<Divider />
 					<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
 						<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
-							<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
+							<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
 								{carreraData.map((carrera, index) => (
 									<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 								))}
-							</Select>
+							</SelectProps>
 
-							<Select slotProps={slotProps} size="sm" value={selectedPeriodo} onChange={(event, newValue) => setSelectedPeriodo(newValue)} placeholder="Seleccionar periodo examen" id="periodo" name="periodo">
+							<SelectProps size="sm" value={selectedPeriodo} onChange={(event, newValue) => setSelectedPeriodo(newValue)} placeholder="Seleccionar periodo examen" id="periodo" name="periodo">
 								{periodoExamen.map((periodo) => (
 									<Option key={periodo.value} value={periodo.value}>
 										{periodo.label}
 									</Option>
 								))}
-							</Select>
+							</SelectProps>
 
 							<Input size="sm" type="date" id="fechaInicio" name="fechaInicio" required />
 							<Input size="sm" type="date" id="fechaFin" name="fechaFin" required />

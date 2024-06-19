@@ -8,7 +8,7 @@ import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
+import { SelectProps } from '../../common/SelectProps';
 
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
@@ -42,20 +42,19 @@ export default function InscripcionExamen() {
 
 	useEffect(() => {
 		if (carreraData) {
-			console.log("Carreras: ", carreraData);
+			// console.log("Carreras: ", carreraData);
 		}
 	}, [carreraData]);
 
 
 	///
 	const handleChange = (event, newValue) => {
-		console.log("Carrera seleccionada: ", newValue);
+		// console.log("Carrera seleccionada: ", newValue);
 		getInfoAsignaturasDeEstudiante(newValue);
 	};
 
 	async function getInfoAsignaturasDeEstudiante(idCarrera) {
 		if (idCarrera !== null && idCarrera !== undefined) {
-
 			let result = await getAsignaturasConExamenPendiente(user.id, idCarrera, user.jwtLogin);
 			setAsignaturaNoAprobadasData(result);
 		}
@@ -69,13 +68,11 @@ export default function InscripcionExamen() {
 	};
 
 	async function getInfoExamenDate(fechaExamen) {
-	
 		const date = new Date('2024-06-13T01:50:21.000Z');
 		const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
 		date.toLocaleDateString('es-UY', options);
-
-		console.log('Fecha: ', date.getDate());
-		console.log('Fecha: ', formatFecha(fechaExamen));
+		// console.log('Fecha: ', date.getDate());
+		// console.log('Fecha: ', formatFecha(fechaExamen));
 		setFechaData(fechaExamen);
 	}
 
@@ -85,7 +82,6 @@ export default function InscripcionExamen() {
 		const data = new FormData(event.currentTarget);
 		let idExamen = data.get('idexamen');
 		let intIdExamen = parseInt(idExamen, 10);
-
 		let result = await inscripcionExamen(user.id, intIdExamen, user.jwtLogin);
 
 		if (result.status === 200) {
@@ -118,24 +114,24 @@ export default function InscripcionExamen() {
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
 					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
-						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
+						<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
-						</Select>
+						</SelectProps>
 
-						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
+						<SelectProps size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
 							{Array.isArray(asignaturaNoAprobadaData) && asignaturaNoAprobadaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
-						</Select>
+						</SelectProps>
 						<Divider />
 
-						<Select size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idexamen" name="idexamen">
+						<SelectProps size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idexamen" name="idexamen">
 							{Array.isArray(fechaData) && fechaData.map((f, index) => (
 								<Option key={index} value={f.idExamen}>{f.periodoExamen} - {formatFecha(f.fechaHora)}</Option>
 							))}
-						</Select>
+						</SelectProps>
 					</FormControl>
 
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>

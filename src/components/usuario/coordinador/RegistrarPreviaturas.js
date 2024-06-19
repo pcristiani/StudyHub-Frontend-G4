@@ -15,6 +15,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
 import { getAsignaturasDeCarrera, getNoPreviasAsignatura, registroPreviaturas } from '../../../services/requests/asignaturaService';
 import { errors } from '../../../services/util/errors';
+import { SelectProps } from '../../common/SelectProps';
 
 
 export default function RegistrarPreviaturas() {
@@ -24,7 +25,6 @@ export default function RegistrarPreviaturas() {
 	const [asignaturaData, setAsignaturaData] = useState([]);
 	const [previasData, setPreviasData] = useState([]);
 	const [error, setError] = useState(null);
-
 	const [selectedCarrera, setSelectedCarrera] = useState('');
 	const [selectedPrevias, setSelectedPrevias] = useState('');
 
@@ -73,6 +73,8 @@ export default function RegistrarPreviaturas() {
 	}
 
 
+
+
 	///
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -111,11 +113,11 @@ export default function RegistrarPreviaturas() {
 							))}
 						</Select>
 
-						<Select size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleAsignatura}>
+						<SelectProps size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleAsignatura}>
 							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
-						</Select>
+						</SelectProps>
 
 						<Divider />
 						<Select size="sm" placeholder="Seleccionar previas" multiple renderValue={(selected) => (

@@ -11,7 +11,6 @@ export const registroAsignaturaAPeriodo = async (idAsignatura, idPeriodo, idsDoc
         "idsDocentes": idsDocentes,
         "fechaHora": fechaHora
     };
-
     let response = await fetch(URL_BACK.registroAsignaturaAPeriodo, {
         method: 'POST',
         headers: {
@@ -27,15 +26,14 @@ export const registroAsignaturaAPeriodo = async (idAsignatura, idPeriodo, idsDoc
 };
 
 
-///
 
+///
 export const inscripcionExamen = async (idEstudiante, idExamen, jwtLogin) => {
     try {
         let body = {
             "idEstudiante": idEstudiante,
             "idExamen": idExamen
         };
-
         let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
@@ -57,7 +55,6 @@ export const inscripcionExamen = async (idEstudiante, idExamen, jwtLogin) => {
 
 
 ///
-
 export const getExamenesAsignatura = async (idAsignatura, jwtLogin) => {
     let response = await fetch(URL_BACK.getExamenesAsignatura + idAsignatura, {
         method: 'GET',
@@ -76,29 +73,9 @@ export const getExamenesAsignatura = async (idAsignatura, jwtLogin) => {
 
 
 
-// export const getCursadasExamenPendientes = async (idAsignatura, anio, jwtLogin) => {
-//     let url = `${URL_BACK.getCursadasExamenPendientes}?anio=${anio}&idAsignatura=${idAsignatura}`;
-//     //s?anio=11&idAsignatura=22
-
-//     let response = await fetch(url, {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${jwtLogin}`,
-//         }
-//     });
-
-//     if (!response.ok) {
-//         throw { status: response.status };
-//     }
-
-//     return await response.json();
-// };
-
-
+///
 export const getCursadasExamen = async (idExamen, jwtLogin) => {
     let url = `${URL_BACK.getCursadasExamen}${idExamen}`;
-
     let response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -110,14 +87,13 @@ export const getCursadasExamen = async (idExamen, jwtLogin) => {
     if (!response.ok) {
         throw { status: response.status };
     }
-
     return await response.json();
 };
 
 
+///
 export const getAsignaturasConExamenPendiente = async (idEstudiante, idCarrera, jwtLogin) => {
     let url = `${URL_BACK.getAsignaturasConExamenPendiente}${idEstudiante}?idCarrera=${idCarrera}`;
-
     let response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -134,6 +110,8 @@ export const getAsignaturasConExamenPendiente = async (idEstudiante, idCarrera, 
 };
 
 
+
+///
 export const getExamenesAsignaturaPorAnio = async (idAsignatura, anio, jwtLogin) => {
     let url = `${URL_BACK.getExamenesAsignaturaPorAnio}${idAsignatura}?anio=${anio}`;
 
@@ -148,18 +126,18 @@ export const getExamenesAsignaturaPorAnio = async (idAsignatura, anio, jwtLogin)
     if (!response.ok) {
         throw { status: response.status };
     }
-
     return await response.json();
 };
 
 
+
+///
 export const cambiarResultadoExamen = async (idCursada, calificacion, jwtLogin) => {
     try {
         let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
         }
-
         let reqOptions = {
             url: `${URL_BACK.cambiarResultadoExamen}${idCursada}?calificacion=${calificacion}`,
             method: "POST",
@@ -167,25 +145,45 @@ export const cambiarResultadoExamen = async (idCursada, calificacion, jwtLogin) 
         }
 
         let response = await axios.request(reqOptions);
-
         console.log(response.data);
         return response.data;
-
     } catch (error) {
         return error.response;
     }
 };
 
 
+
+///
 export const getExamenesPeriodo = async (idPeriodo, jwtLogin) => {
     try {
         let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
         }
-
         let reqOptions = {
             url: URL_BACK.getExamenesPeriodo + idPeriodo,
+            method: "GET",
+            headers: headersList,
+        };
+        let response = await axios.request(reqOptions);
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+
+
+///
+export const getActaExamen = async (idExamen, jwtLogin) => {
+    try {
+        let headersList = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        }
+        let reqOptions = {
+            url: URL_BACK.getActaExamen + idExamen,
             method: "GET",
             headers: headersList,
         };

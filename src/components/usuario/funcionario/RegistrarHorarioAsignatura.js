@@ -19,6 +19,7 @@ import { getAsignaturasDeCarrera, getDocentesByAsignatura, registroHorarios } fr
 import Autocomplete from '@mui/joy/Autocomplete';
 import ControlPointIcon from '@mui/icons-material/DataSaverOn';
 import { errors } from '../../../services/util/errors';
+import { SelectProps } from '../../common/SelectProps';
 
 
 export default function RegistrarHorarioAsignatura() {
@@ -131,13 +132,13 @@ export default function RegistrarHorarioAsignatura() {
    ];
 
    // Select con slotProps
-   const withSlotProps = (WrappedComponent, slotProps) => {
-      return (props) => <WrappedComponent {...props} slotProps={slotProps} />;
-   };
-   const slotProps = {
-      listbox: { sx: { width: '100%', }, },
-   };
-   const SelectProps = withSlotProps(Select, slotProps);
+   // const withSlotProps = (WrappedComponent, slotProps) => {
+   //    return (props) => <WrappedComponent {...props} slotProps={slotProps} />;
+   // };
+   // const slotProps = {
+   //    listbox: { sx: { width: '100%', }, },
+   // };
+   // const SelectProps = withSlotProps(Select, slotProps);
 
    return (
       <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
@@ -190,7 +191,7 @@ export default function RegistrarHorarioAsignatura() {
                      </Tooltip>
                   </Stack>
 
-                  <Select size="sm" placeholder="Horario de clase" multiple renderValue={(selected) => (
+                  <SelectProps size="sm" placeholder="Horario de clase" multiple renderValue={(selected) => (
                      <Box sx={{ display: 'flex', gap: '0.25rem' }}>
                         {selected.map((selectedOption) => (
                            <Chip key={selectedOption.value} variant="soft" color="primary">{selectedOption.label} {selectedOption.horario}</Chip>
@@ -200,7 +201,7 @@ export default function RegistrarHorarioAsignatura() {
                      {Array.isArray(horarioData) && horarioData.map((horario, index) => (
                         <Option key={index} value={horario.diaSemana}> {horario.diaSemana} de {horario.horaInicio} a {horario.horaFin} hs</Option>
                      ))}
-                  </Select>
+                  </SelectProps>
                </FormControl>
                <Divider />
 

@@ -6,7 +6,6 @@ import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
-import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
@@ -15,6 +14,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import { registrarUsuario } from "../../../services/requests/usuarioService";
 import { URI_FRONT, redirigir } from '../../../services/util/constants';
 import { useNavigate } from 'react-router-dom';
+import { SelectProps } from '../../common/SelectProps';
 
 
 export default function AltaFuncionarioCoordinador() {
@@ -41,7 +41,7 @@ export default function AltaFuncionarioCoordinador() {
 		let rol = data.get('rol');
 		let password = '123';
 		try {
-		await registrarUsuario(nombre, apellido, cedula, password, email, fecha, rol, user.jwtLogin);
+			await registrarUsuario(nombre, apellido, cedula, password, email, fecha, rol, user.jwtLogin);
 			swal({
 				title: "El usuario ha sido creado con éxito\n\n",
 				icon: "success",
@@ -77,11 +77,11 @@ export default function AltaFuncionarioCoordinador() {
 					<Input size="sm" id="fecha" name="fecha" type="date" placeholder="Fecha nacimientos:" />
 					<Divider />
 
-					<Select size="sm" width="150px" id="rol" name="rol" placeholder="Seleccionar perfil de usuario..." required>
+					<SelectProps size="sm" width="150px" id="rol" name="rol" placeholder="Seleccionar perfil de usuario..." required>
 						{DatosRol.map((strRol, index) => (
 							<Option key={index} value={strRol.cod}>{strRol.rol}</Option>
 						))}
-					</Select>
+					</SelectProps>
 
 				</FormControl>
 				<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>

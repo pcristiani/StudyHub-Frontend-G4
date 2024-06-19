@@ -58,8 +58,8 @@ export function ModalSelect(ida) {
         let idUsuario = data.get(ida);
 
         const idCa = idCarrera;
-        console.log(`IDcarrera: ${idCarrera}`);
-        console.log("IDcoorinador: ", ida.id);
+        // console.log(`IDcarrera: ${idCarrera}`);
+        // console.log("IDcoorinador: ", ida.id);
         if (ida !== null) {
             try {
                 await asignarCoordinadorCarrera(idCarrera, ida, user.jwtLogin);

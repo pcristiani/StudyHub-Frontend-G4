@@ -39,7 +39,7 @@ export default function AltaDocente() {
 				position: "center",
 				timer: 4000
 			});
-		history('/novedades');
+			history('/novedades');
 		} else {
 			let errorMsg = 'Los datos ingresados no son correctos o ya existe un docente con ese nombre';
 			if (response.status === 401) {

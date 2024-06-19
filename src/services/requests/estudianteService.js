@@ -57,7 +57,6 @@ export const inscripcionCarrera = async (idUsuario, idCarrera, jwtLogin) => {
 			"idEstudiante": idUsuario,
 			"validado": false
 		});
-
 		let headersList = {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${jwtLogin}`,
@@ -86,7 +85,6 @@ export const getCalificacionesAsignaturas = async (idEstudiante, idCarrera, jwtL
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${jwtLogin}`,
 		}
-
 		let reqOptions = {
 			url: `${URL_BACK.getCalificacionesAsignaturas}${idEstudiante}?idCarrera=${idCarrera}`,
 			method: "GET",
@@ -109,7 +107,6 @@ export const getCalificacionesExamenes = async (idEstudiante, idCarrera, jwtLogi
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${jwtLogin}`,
 		}
-
 		let reqOptions = {
 			url: `${URL_BACK.getCalificacionesExamenes}${idEstudiante}?idCarrera=${idCarrera}`,
 			method: "GET",

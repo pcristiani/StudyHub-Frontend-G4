@@ -175,6 +175,7 @@ export const registroHorarios = async (idDocente, anio, horarioData, idAsignatur
 };
 
 
+
 ///
 export const getHorarios = async (idAsignatura, jwtLogin) => {
 	const url = URL_BACK.getHorarios;
@@ -239,6 +240,7 @@ export const getPreviasAsignatura = async (idAsignatura, jwtLogin) => {
 }
 
 
+
 ///
 export const getNoPreviasAsignatura = async (idAsignatura, jwtLogin) => {
 	const url = URL_BACK.getNoPreviasAsignatura;
@@ -256,6 +258,7 @@ export const getNoPreviasAsignatura = async (idAsignatura, jwtLogin) => {
 	// console.log("No previas: ", data);
 	return data;
 }
+
 
 
 ///
@@ -286,6 +289,7 @@ export const inscripcionAsignatura = async (idEstudiante, idAsignatura, idHorari
 };
 
 
+
 ///
 export const getPreviaturasGrafo = async (idCarrera, jwtLogin) => {
 	const url = URL_BACK.getPreviaturasGrafo;
@@ -303,6 +307,7 @@ export const getPreviaturasGrafo = async (idCarrera, jwtLogin) => {
 	let result = await response.text();
 	return result;
 }
+
 
 
 ///

@@ -6,7 +6,6 @@ import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
-import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
@@ -15,6 +14,7 @@ import { modificarDatosUsuario, getUsuario } from "../../../services/requests/us
 import { URI_FRONT, redirigir } from '../../../services/util/constants';
 import { useNavigate } from 'react-router-dom';
 import { types } from '../../../context/types';
+import { SelectProps } from '../../common/SelectProps';
 
 
 export default function ModificarFuncionarioCoordinador() {
@@ -118,14 +118,14 @@ export default function ModificarFuncionarioCoordinador() {
                     <Input size="sm" id="fecha" name="fecha" type="date" placeholder="Fecha nacimientos:" defaultValue={userData.fechaNacimiento} />
                     <Divider />
                     <div marginTop={1}>
-                        <Select size="sm" id="rol" name="rol" defaultValue={userData.rol} >
+                        <SelectProps size="sm" id="rol" name="rol" defaultValue={userData.rol} >
                             {DatosRol.map((strRol, index) => (
                                 <Option key={index} value={strRol.cod}>{strRol.rol}</Option>
                             ))}
-                        </Select>
+                        </SelectProps>
                     </div>
                 </FormControl>
-                <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' , zIndex: '1000' }}>
+                <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
                     <Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
                     <Button size="sm" fullWidth variant="outlined" color="neutral" onClick={() => handleCancelar()}>
                         Cancelar
