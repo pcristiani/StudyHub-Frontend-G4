@@ -66,7 +66,7 @@ export default function CalificacionesFinCurso() {
 			if (result.statusCodeValue === 200) {
 				let title = "¡Calificación exitosa!\n\n";
 				errors(title, result.body, result.statusCodeValue);
-				history('/novedades');
+				// history('/novedades');
 			} else {
 				errors(result.body, result.body, result.statusCodeValue);
 			}

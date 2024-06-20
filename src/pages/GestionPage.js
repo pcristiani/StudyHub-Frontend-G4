@@ -122,7 +122,7 @@ const GestionPage = () => {
             let calificacionCursos = 0;
             doc.setFontSize(14);
             doc.setFont('helvetica', 'bold');
-            const resultCalificaciones = await getCalificacionesAsignaturas(idCarrera, user.id, user.jwtLogin);
+            const resultCalificaciones = await getCalificacionesAsignaturas(user.id, idCarrera, user.jwtLogin);
             if (resultCalificaciones !== null && resultCalificaciones !== undefined && resultCalificaciones !== '' && resultCalificaciones.status !== 200) {
                 doc.text("Cursos", 20, 85);
                 doc.setFont('helvetica', 'normal');
@@ -143,7 +143,7 @@ const GestionPage = () => {
             let calificacion = 0;
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(14);
-            if (resultExamenes !== null && resultExamenes !== undefined && resultExamenes !== '' ) {
+            if (resultExamenes !== null && resultExamenes !== undefined && resultExamenes !== '') {
                 doc.text("Examenes", 20, 130);
                 resultExamenes.forEach(notasx => {
                     doc.setFontSize(12);
@@ -159,11 +159,11 @@ const GestionPage = () => {
             doc.setFontSize(12);
             doc.text(`Cantidad cursadas: ${contCursos}`, 20, y + 60);
             doc.text(`Cantidad examenes: ${contExamen}`, 20, y + 65);
-            doc.text(`Total: ` + `${contCursos + contExamen}`, 100, y + 62  );
+            doc.text(`Total: ` + `${contCursos + contExamen}`, 100, y + 62);
 
             let promedio = calificacionCursos / (contCursos + contExamen);
-        
-           let promedioFormat = promedio.toFixed(2);
+
+            let promedioFormat = promedio.toFixed(2);
             if (isNaN(promedio)) {
                 promedioFormat = 0;
             }
