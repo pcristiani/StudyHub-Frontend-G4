@@ -315,7 +315,7 @@ export default function Header() {
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
                                  Actas de asignatura
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.generarActaAsignaturaUri} size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.generarActaCursoUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Acta fin de curso
                                     </MenuItem>
                                     <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.generarActaExamenUri} size="sm" sx={{ alignSelf: 'left' }}>

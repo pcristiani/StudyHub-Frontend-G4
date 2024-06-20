@@ -1,17 +1,14 @@
-import { Info } from "@mui/icons-material"
-import { getCarreraById } from "../requests/carreraService"
-
 const PORT = {
   back: 8080,   // Puerto backend
   front: 3000,  // Puerto frontend
 }
 // http://localhost:3000/  Encoder
 // http://localhost:3000/  Url encode
-const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
-const uriBaseFront = `https://frontstudyhub.vercel.app`
+// const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
+// const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-// const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-// const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 // ? http://localhost:3000/
 const URI_FRONT = {
@@ -58,7 +55,7 @@ const URI_FRONT = {
   listadoAsignaturasAprobadasUri: `/listado-asignaturas-aprobadas`,
   listadoAsignaturasNoAprobadasUri: `/listado-asignaturas-no-aprobadas`,
   generarActaExamenUri: `/generar-acta-examen`,
-  generarActaAsignaturaUri: `/generar-acta-asignatura`,
+  generarActaCursoUri: `/generar-acta-curso`,
 }
 
 
@@ -183,5 +180,6 @@ const COURSE = {
   edge[color = "#2596be"];
   rankdir = TB;`
 };
+
 
 export { URI_FRONT, URL_BACK, T_ROL, PARAMETERS, redirigir, uriBaseFront, COURSE };

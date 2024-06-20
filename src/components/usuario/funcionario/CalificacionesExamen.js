@@ -20,6 +20,7 @@ import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
 import { Save } from '@mui/icons-material';
 import { SelectProps } from '../../common/SelectProps';
+import { formatoCi } from '../../../services/util/formatoCi';
 
 
 export default function CalificacionesExamen() {
@@ -218,9 +219,9 @@ export default function CalificacionesExamen() {
 											{usuarioData.map((row) => (
 												<tr key={row.idExamen}>
 													<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
-													<td>{row.cedulaEstudiante}</td>
+													<td>{formatoCi(row.cedulaEstudiante)}</td>
 													<td>
-														<SelectProps size="sm" placeholder="0" onChange={(event, newValue) => setResultadoData(newValue)} id="idresultado" name="idresultado">{notas.map((nota) => (
+														<SelectProps size="sm" placeholder={row.calificacion} onChange={(event, newValue) => setResultadoData(newValue)} id="idresultado" name="idresultado">{notas.map((nota) => (
 															<Option key={notas} value={nota}>{nota}</Option>
 														))}
 														</SelectProps>

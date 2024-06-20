@@ -56,8 +56,7 @@ import ListadoAsignaturasNoAprobadas from '../components/busqueda/ListadoAsignat
 import InfoUsuario from '../components/common/InfoUsuario.js';
 import InfoCarreras from '../components/busqueda/InfoCarreras.js';
 import GenerarActaExamen from '../components/usuario/funcionario/GenerarActaExamen';
-
-
+import GenerarActaFinDeCurso from '../components/usuario/funcionario/GenerarActaFinDeCurso.js';
 
 
 export const AppRouter = () => {
@@ -122,7 +121,7 @@ export const AppRouter = () => {
                     <Route path='/info-carrera' element={<InfoCarreras user={user.id} />} exact />
 
                     <Route path='/generar-acta-examen' element={<GenerarActaExamen user={user.id} />} exact />
-                    {/* <Route path='/generar-acta-curso' element={<GenerarActaExamen user={user.id} />} exact /> */}
+                    <Route path='/generar-acta-curso' element={<GenerarActaFinDeCurso user={user.id} />} exact />
 
                     <Route path='/login' element={
                         <PublicRoute>

@@ -66,7 +66,7 @@ export default function CalificacionesFinCurso() {
 			if (result.statusCodeValue === 200) {
 				let title = "¡Calificación exitosa!\n\n";
 				errors(title, result.body, result.statusCodeValue);
-				// history('/novedades');
+				history('/novedades');
 			} else {
 				errors(result.body, result.body, result.statusCodeValue);
 			}
@@ -96,12 +96,6 @@ export default function CalificacionesFinCurso() {
 		notas.push(i);
 	}
 
-	const diasSemana = [
-		{ value: 1, label: '1' },
-		{ value: 2, label: '2' },
-		{ value: 3, label: '3' },
-	];
-
 	return (
 		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
@@ -111,7 +105,7 @@ export default function CalificacionesFinCurso() {
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
 					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '420px' }, gap: 0.8 }}>
-						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
+						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera}>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
@@ -131,8 +125,8 @@ export default function CalificacionesFinCurso() {
 								))}
 							</Select>
 							<Button fullWidth size="sm" type="submit" sx={{ mt: 1, mb: 1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
-
 						</Stack>
+
 						<Divider sx={{ marginBottom: 1.5, marginTop: 1 }} />
 						<section className="text-black body-font">
 							<div>
@@ -142,12 +136,10 @@ export default function CalificacionesFinCurso() {
 										'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
 										borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
 									}}>
-
 									<Table hoverRow>
 										<thead>
 											<tr>
 												<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
-												{/* <th style={{ width: 'var(--Table-lastColumnWidth)' }}>Cédula</th> */}
 												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Calificacion</th>
 												<th style={{ width: 'var(--Table-buttonColumnWidth)' }}></th>
 											</tr>
@@ -156,15 +148,7 @@ export default function CalificacionesFinCurso() {
 											{cursadasData.map((row) => (
 												row.rol !== 'E' && (
 													<tr key={row.idCursada}>
-														<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
-														{/* <td>{row.cedula}</td> */}
-														{/* <td>
-															<Select size="sm" placeholder="Pendiente" id="idresultado" name="idresultado" onChange={handleChangeResultado}>
-																{diasSemana.map((resultado, index) => (
-																	<Input key={index} value={resultado.value}>{resultado.label}</Input>
-																))}
-															</Select>
-														</td> */}
+														<td>{row.nombreEstudiante} {row.apellidoEstudiante}	</td>
 														<td>
 															<Select size="sm" placeholder="0" onChange={(event, newValue) => setResultado(newValue)}
 																id="idresultado" name="idresultado">{notas.map((nota) => (
@@ -175,7 +159,7 @@ export default function CalificacionesFinCurso() {
 														<td>
 															<Button size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color='neutral'
 																onClick={() => handleModificar(row.idCursada)} >
-																<Save size="sw">	</Save>
+																<Save size="sw"></Save>
 															</Button>
 														</td>
 													</tr>
@@ -187,7 +171,6 @@ export default function CalificacionesFinCurso() {
 							</div>
 						</section>
 					</FormControl>
-
 				</Stack>
 			</Card>
 		</Box>

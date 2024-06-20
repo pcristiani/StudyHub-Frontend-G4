@@ -232,7 +232,6 @@ export const getHorarios = async (idAsignatura, jwtLogin) => {
 export const registroPreviaturas = async (idAsignatura, idPreviaturas, jwtLogin) => {
 	try {
 		let body = JSON.stringify(idPreviaturas);
-
 		let headersList = {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${jwtLogin}`,
@@ -256,12 +255,10 @@ export const registroPreviaturas = async (idAsignatura, idPreviaturas, jwtLogin)
 ///
 export const getPreviasAsignatura = async (idAsignatura, jwtLogin) => {
 	const url = URL_BACK.getPreviasAsignatura;
-
 	let headersList = {
 		'Content-Type': 'application/json',
 		'Authorization': `Bearer ${jwtLogin}`
 	}
-
 	let response = await fetch(url + idAsignatura, {
 		method: "GET",
 		headers: headersList
@@ -280,14 +277,12 @@ export const getNoPreviasAsignatura = async (idAsignatura, jwtLogin) => {
 		'Content-Type': 'application/json',
 		'Authorization': `Bearer ${jwtLogin}`
 	}
-
 	let response = await fetch(url + idAsignatura, {
 		method: "GET",
 		headers: headersList
 	});
 
 	const data = await response.json();
-	// console.log("No previas: ", data);
 	return data;
 }
 
@@ -301,7 +296,6 @@ export const inscripcionAsignatura = async (idEstudiante, idAsignatura, idHorari
 			"idAsignatura": idAsignatura,
 			"idHorario": idHorario
 		};
-
 		let headersList = {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${jwtLogin}`,
@@ -325,12 +319,10 @@ export const inscripcionAsignatura = async (idEstudiante, idAsignatura, idHorari
 ///
 export const getPreviaturasGrafo = async (idCarrera, jwtLogin) => {
 	const url = URL_BACK.getPreviaturasGrafo;
-
 	let headersList = {
 		'Content-Type': 'application/json',
 		'Authorization': `Bearer ${jwtLogin} `,
 	}
-
 	let response = await fetch(url + idCarrera, {
 		method: "GET",
 		headers: headersList
@@ -349,7 +341,6 @@ export const getCursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${jwtLogin}`,
 		}
-
 		let reqOptions = {
 			url: `${URL_BACK.getCursadasPendientes}?anio=${anio}&idAsignatura=${idAsignatura}`,
 			method: "GET",
@@ -364,6 +355,7 @@ export const getCursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
 }
 
 
+
 ///
 export const cambiarResultadoCursada = async (idCursada, calificacion, jwtLogin) => {
 	try {
@@ -371,7 +363,6 @@ export const cambiarResultadoCursada = async (idCursada, calificacion, jwtLogin)
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${jwtLogin}`,
 		}
-
 		let reqOptions = {
 			url: `${URL_BACK.cambiarResultadoCursada}${idCursada}?calificacion=${calificacion}`,
 			method: "POST",
@@ -387,3 +378,24 @@ export const cambiarResultadoCursada = async (idCursada, calificacion, jwtLogin)
 	}
 };
 
+
+
+///
+export const getActaAsignatura = async (idHorarioAsignatura, jwtLogin) => {
+	try {
+		let headersList = {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${jwtLogin}`,
+		}
+		let reqOptions = {
+			url: URL_BACK.getActaAsignatura + idHorarioAsignatura,
+			method: "GET",
+			headers: headersList,
+		};
+
+		let response = await axios.request(reqOptions);
+		return response;
+	} catch (error) {
+		return error.response;
+	}
+}
