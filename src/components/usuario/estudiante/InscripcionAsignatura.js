@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
@@ -108,13 +109,13 @@ export default function InscripcionAsignatura() {
 		let idasignatura = parseInt(data.get('idasignatura'), 10);
 
 		const response = await inscripcionAsignatura(user.id, idasignatura, idhorario, user.jwtLogin)
-		console.log("Response: ", response);
+		console.log("Response: ", response.status);
 		if (response.status === 200) {
 			let title = "Inscripcion realizada!\n\n";
 			errors(title, response.data, response.status);
 			history('/novedades');
 		} else {
-			errors(response.data, response.data, response.status);
+			errors("Debe ingresar un horario", null, response.status);
 		}
 	};
 
@@ -143,7 +144,7 @@ export default function InscripcionAsignatura() {
 
 						<SelectProps size="sm" defaultValue="Seleccionar horario" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick} width="150px">
 							{Array.isArray(horarioData) && horariosConsolidados.map((horario, index) => (
-								<Option key={index} value={horario.idHorarioAsignatura}>
+								<Option key={index} value={horario.idHorarioAsignatura} >
 									{`${horario.idHorarioAsignatura} - ${horario.diasConsolidados}`}
 								</Option>
 							))}
@@ -152,7 +153,7 @@ export default function InscripcionAsignatura() {
 
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 						<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-						<Button size="sm" variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
+						<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/novedades">Cancelar</Button>
 					</Stack>
 				</Stack>
 			</Card>
