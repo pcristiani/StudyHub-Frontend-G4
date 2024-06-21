@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
@@ -135,7 +136,7 @@ const ForgotPassword = () => {
 									</FormControl>
 									<Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
 										<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Cambiar contraseña</Button>
-										<Button variant="outlined" fullWidth color="neutral" href='/'>Cancelar</Button>
+										<Button variant="outlined" fullWidth color="neutral" component={Link} to="/novedades">Cancelar</Button>
 									</Stack>
 								</Stack>
 							</Card>
