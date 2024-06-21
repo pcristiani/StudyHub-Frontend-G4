@@ -109,13 +109,13 @@ export default function InscripcionAsignatura() {
 		let idasignatura = parseInt(data.get('idasignatura'), 10);
 
 		const response = await inscripcionAsignatura(user.id, idasignatura, idhorario, user.jwtLogin)
-		console.log("Response: ", response);
+		console.log("Response: ", response.status);
 		if (response.status === 200) {
 			let title = "Inscripcion realizada!\n\n";
 			errors(title, response.data, response.status);
 			history('/novedades');
 		} else {
-			errors(response.data, response.data, response.status);
+			errors("Debe ingresar un horario", null, response.status);
 		}
 	};
 
@@ -144,7 +144,7 @@ export default function InscripcionAsignatura() {
 
 						<SelectProps size="sm" defaultValue="Seleccionar horario" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick} width="150px">
 							{Array.isArray(horarioData) && horariosConsolidados.map((horario, index) => (
-								<Option key={index} value={horario.idHorarioAsignatura}>
+								<Option key={index} value={horario.idHorarioAsignatura} >
 									{`${horario.idHorarioAsignatura} - ${horario.diasConsolidados}`}
 								</Option>
 							))}
