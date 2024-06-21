@@ -109,8 +109,6 @@ export default function CalificacionesExamen() {
 
 		console.log("idcursada examen: ", cursadaExam);
 
-		// if (id.idCusadaExamen !== null && id.idCusadaExamen !== undefined && id.idCusadaExamen !== '') {
-
 		if (cursadaExam !== null && cursadaExam !== undefined && resultadoData !== null && resultadoData !== undefined) {
 			let result = await cambiarResultadoExamen(cursadaExam, resultadoData, user.jwtLogin);
 			if (result.statusCodeValue === 200) {

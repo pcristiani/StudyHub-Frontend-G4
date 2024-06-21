@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import React, { useEffect, useRef, useCallback } from "react";
 import { Graphviz } from "graphviz-react";
 import { graphviz } from "d3-graphviz";
@@ -15,7 +16,6 @@ export default ({ dot, width, height }) => {
     useEffect(() => {
         if (graphvizRoot.current) {
             const { id } = graphvizRoot.current;
-            // use DOM id update style
             const el = document.getElementById(id);
             for (let [k, v] of Object.entries(style)) {
                 el.style[k] = v;
@@ -25,17 +25,7 @@ export default ({ dot, width, height }) => {
     }, [graphvizRoot, style]);
     return (
         <div
-            style={{
-                ...style,
-                position: "relative",
-                overflow: "hidden",
-                // width: "1200px",
-                // height: "1200px"
-
-
-                //backgroundColor: "red
-            }}
-        >
+            style={{ ...style, position: "relative", overflow: "hidden", }}>
             {dot !== ""
                 ? [
                     <Graphviz
@@ -54,7 +44,7 @@ export default ({ dot, width, height }) => {
                     //         position: "absolute",
                     //         right: "5%",
                     //         top: "5%"
-                    //     }}                    >
+                    //     }}>
                     //     Reset
                     // </button>
                 ]

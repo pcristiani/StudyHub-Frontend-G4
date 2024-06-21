@@ -62,13 +62,15 @@ export default function AltaPeriodoExamen() {
 		const dtFechaFin = new DtFecha(fechaFin);
 
 		const response = await altaPeriodoDeExamen(nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, user.jwtLogin);
-		console.log("Response: ", response.status);
-		if (response.status === 200) {
-			let title = "¡Periodo examen creado!\n\n";
-			errors(title, response.data, response.status);
-			history('/novedades');
-		} else {
-			errors(response.data, response.data, response.status);
+		if (response === undefined) {
+			console.log("Response: ", response.data);
+			if (response.data.status === 200 && response.data !== undefined && response.data !== null) {
+				let title = "¡Periodo examen creado!\n\n";
+				errors(title, response.data, response.data.status);
+				history('/novedades');
+			} else {
+				errors(response.data, response.data, response.status);
+			}
 		}
 	};
 

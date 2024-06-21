@@ -130,8 +130,8 @@ const ForgotPassword = () => {
 								<Divider />
 								<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
 									<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 1 }}>
-										<Input size="sm" name="password" placeholder="Nueva contraseña" type="password" id="newPass" autoComplete="current-password" required />
-										<Input size="sm" name="password" placeholder="Confirmar nueva contraseña" type="password" id="confirmNewPass" autoComplete="current-password" required />
+										<Input size="sm" name="newPass" placeholder="Nueva contraseña" type="password" id="newPass" autoComplete="current-password" required />
+										<Input size="sm" name="confirmNewPass" placeholder="Confirmar nueva contraseña" type="password" id="confirmNewPass" autoComplete="current-password" required />
 									</FormControl>
 									<Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
 										<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Cambiar contraseña</Button>

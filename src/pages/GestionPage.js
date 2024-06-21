@@ -62,7 +62,6 @@ const GestionPage = () => {
         return formatFechaEmision(date);
     }
 
-
     const convertirURLaBase64 = (url) => {
         return new Promise((resolve, reject) => {
             let img = new Image();
@@ -82,8 +81,6 @@ const GestionPage = () => {
             img.src = url;
         });
     };
-
-
 
     const visualizarPDF = async (idCarrera) => {
         const carrera = await getCarreraById(idCarrera, user.jwtLogin);

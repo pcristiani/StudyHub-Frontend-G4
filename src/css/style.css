@@ -351,3 +351,8 @@ div {
 .option-item:hover {
   background-color: #f0f0f0;
 }
+
+#graphviz0 {
+  height: 100%;
+  width: 100%;
+}
