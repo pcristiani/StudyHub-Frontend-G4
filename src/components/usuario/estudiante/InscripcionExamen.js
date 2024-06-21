@@ -90,7 +90,7 @@ export default function InscripcionExamen() {
 			errors(title, result.data, result.status);
 			history('/novedades');
 		} else {
-			errors(result.data, result.data, result.status);
+			errors("Todos los campos deben ser completados", "", result.status);
 		}
 	};
 
@@ -128,7 +128,7 @@ export default function InscripcionExamen() {
 						</SelectProps>
 						<Divider />
 
-						<SelectProps size="sm" defaultValue="Seleccionar periodo" placeholder="Seleccionar periodo" id="idexamen" name="idexamen">
+						<SelectProps size="sm" defaultValue="Seleccionar examen" placeholder="Seleccionar examen" id="idexamen" name="idexamen">
 							{Array.isArray(fechaData) && fechaData.map((f, index) => (
 								<Option key={index} value={f.idExamen}>{f.periodoExamen} - {formatFecha(f.fechaHora)}</Option>
 							))}
