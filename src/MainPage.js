@@ -23,7 +23,7 @@ export const MainPage = () => {
       }}>
         <AppRouter />
       </AuthContext.Provider>
-    </>
+     </>
   )
 
 }

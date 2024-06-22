@@ -16,6 +16,7 @@ import Save from '@mui/icons-material/Save';
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
 import { errors } from '../../../services/util/errors';
+import { SelectProps } from '../../common/SelectProps';
 
 export default function CalificacionesFinCurso() {
 	const { user } = useContext(AuthContext);
@@ -103,26 +104,26 @@ export default function CalificacionesFinCurso() {
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '420px' }, gap: 0.8 }}>
-						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera}>
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '340px' }, gap: 0.8 }}>
+						<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera}>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
-						</Select>
+						</SelectProps>
 						{/* onChange={handleChangeAsignatura} */}
-						<Select size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" required>
+						<SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" required>
 							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
-						</Select>
+						</SelectProps>
 
 						<Stack direction="row" spacing={0.8} sx={{ justifyContent: 'right', zIndex: '1000' }}>
-							<Select size="sm" sx={{ width: "500px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
+							<SelectProps size="sm" sx={{ width: "500px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
 								placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
 								{years.map((year) => (
 									<Option key={year} value={year} >{year}</Option>
 								))}
-							</Select>
+							</SelectProps>
 							<Button fullWidth size="sm" type="submit" sx={{ mt: 1, mb: 1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
 						</Stack>
 

@@ -96,7 +96,7 @@ export default function CalificacionesExamen() {
 		if (idExamen !== null && idExamen !== undefined && idExamen !== '') {
 			let result = await getCursadasExamen(idExamen, user.jwtLogin);
 			setUsuarioData(result);
-		//	console.log("getCursadasExamen-------: ", result);
+			//	console.log("getCursadasExamen-------: ", result);
 		}
 	}
 
@@ -104,7 +104,7 @@ export default function CalificacionesExamen() {
 	///
 	const handleModificar = async (row) => {
 		let cursadaExam = row.idCursadaExamen;
-	//	console.log("idcursada examen: ", cursadaExam);
+		//	console.log("idcursada examen: ", cursadaExam);
 
 		if (cursadaExam !== null && cursadaExam !== undefined && resultadoData !== null && resultadoData !== undefined) {
 			let result = await cambiarResultadoExamen(cursadaExam, resultadoData, user.jwtLogin);
@@ -152,7 +152,7 @@ export default function CalificacionesExamen() {
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '450px' }, gap: 0.8 }}>
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '340px' }, gap: 0.8 }}>
 						<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
@@ -180,61 +180,61 @@ export default function CalificacionesExamen() {
 								<Option key={index} value={cursada.idExamen}>{cursada.periodoExamen}</Option>
 							))}
 						</SelectProps>
-
-										<Divider />
-
-						<section className="text-black body-font">
-							<div>
-								<Sheet variant="outlined"
-									sx={{
-										'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-										'--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '120px', '--Table-lastColumnWidth2': '50px', '--Table-buttonColumnWidth': '70px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)', borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer'
-									}}>
-
-									<Table aria-labelledby="tableTitle" hoverRow
-										sx={{
-											'& thead th:nth-child(1)': { width: '40%', },
-											'& thead th:nth-child(2)': { width: '65%', },
-											'& tr > *:nth-child(n+3)': { width: '12%', textAlign: 'center' },
-										}}>
-
-										<thead>
-											<tr>
-												<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
-												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Cédula</th>
-												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Calificación</th>
-												<th aria-label="last" style={{ width: 'var(--Table-buttonColumnWidth)' }} />
-											</tr>
-										</thead>
-
-										<tbody>
-											{usuarioData.map((row) => (
-												<tr key={row.idExamen}>
-													<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
-													<td>{formatoCi(row.cedulaEstudiante)}</td>
-													<td>
-														<SelectProps size="sm" placeholder={row.calificacion} onChange={(event, newValue) => setResultadoData(newValue)} id="idresultado" name="idresultado">{notas.map((nota) => (
-															<Option key={notas} value={nota}>{nota}</Option>
-														))}
-														</SelectProps>
-													</td>
-													<td>
-														<Tooltip title="Guardar calificación">
-															<IconButton size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color="primary" onClick={() => handleModificar(row)}>
-																<Save size="sw"></Save>
-															</IconButton>
-														</Tooltip>
-													</td>
-												</tr>
-											))}
-										</tbody>
-									</Table>
-								</Sheet>
-							</div>
-						</section>
 					</FormControl>
 				</Stack>
 			</Card>
+			{/* <Divider /> */}
+
+			<section className="text-black body-font">
+				<div>
+					<Sheet variant="outlined"
+						sx={{
+							'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
+							'--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '120px', '--Table-lastColumnWidth2': '50px', '--Table-buttonColumnWidth': '70px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)', borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer', marginTop: 2
+						}}>
+
+						<Table aria-labelledby="tableTitle" hoverRow
+							sx={{
+								'& thead th:nth-child(1)': { width: '40%', },
+								'& thead th:nth-child(2)': { width: '65%', },
+								'& tr > *:nth-child(n+3)': { width: '12%', textAlign: 'center' }, maxWidth: '440px'
+							}}>
+
+							<thead>
+								<tr>
+									<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
+									<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Cédula</th>
+									<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Calificación</th>
+									<th aria-label="last" style={{ width: 'var(--Table-buttonColumnWidth)' }} />
+								</tr>
+							</thead>
+
+							<tbody>
+								{usuarioData.map((row) => (
+									<tr key={row.idExamen}>
+										<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
+										<td>{formatoCi(row.cedulaEstudiante)}</td>
+										<td>
+											<SelectProps size="sm" placeholder={row.calificacion} onChange={(event, newValue) => setResultadoData(newValue)} id="idresultado" name="idresultado">{notas.map((nota) => (
+												<Option key={notas} value={nota}>{nota}</Option>
+											))}
+											</SelectProps>
+										</td>
+										<td>
+											<Tooltip title="Guardar calificación">
+												<IconButton size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color="primary" onClick={() => handleModificar(row)}>
+													<Save size="sw"></Save>
+												</IconButton>
+											</Tooltip>
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</Table>
+					</Sheet>
+				</div>
+			</section>
+
 		</Box>
 	);
 };

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext';
 import { PublicRoute } from './PublicRoute';
+import { PrivateRoute } from './PrivateRoute';
 
 import HomePage from '../pages/HomePage';
 import PlanEstudiosPage from "../pages/PlanEstudiosPage";
@@ -58,90 +59,73 @@ import InfoCarreras from '../components/busqueda/InfoCarreras.js';
 import GenerarActaExamen from '../components/usuario/funcionario/GenerarActaExamen';
 import GenerarActaFinDeCurso from '../components/usuario/funcionario/GenerarActaFinDeCurso.js';
 
-
 export const AppRouter = () => {
     const { user } = useContext(AuthContext);
-
     return (
         <BrowserRouter>
-            <Layout.Header>
-                <Header />
-            </Layout.Header>
-            <Layout.Main>
+            <Layout.Header><Header /></Layout.Header>
 
+            <Layout.Main>
                 <Routes>
-                    <Route path="/" element={<Novedades />} exact />
-                    <Route path="/plan-estudios" element={<PlanEstudiosPage user={user.id} />} exact />
-                    <Route path="/inscripciones" element={<InscripcionesPage user={user.id} />} exact />
-                    <Route path="/solicitudes" element={<SolicitudesPage user={user.id} />} exact />
-                    <Route path="/gestion" element={<GestionPage user={user.id} />} exact />
-                    <Route path="/novedades" element={<Novedades user={user.id} />} exact />
+                    <Route path="/plan-estudios" element={<PrivateRoute><PlanEstudiosPage user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/inscripciones" element={<PrivateRoute><InscripcionesPage user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/solicitudes" element={<PrivateRoute><SolicitudesPage user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/gestion" element={<PrivateRoute><GestionPage user={user.id} /></PrivateRoute>} />
+
+                    <Route path="/edit-perfil" element={<PrivateRoute><EditarPerfil user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/info-usuario" element={<PrivateRoute><InfoUsuario user={user.id} /></PrivateRoute>} exact />
+
+                    <Route path="/nueva-carrera" element={<PrivateRoute><AltaCarrera user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/nuevo-docente" element={<PrivateRoute><AltaDocente user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/nueva-asignatura" element={<PrivateRoute><AltaAsignatura user={user.id} /></PrivateRoute>} exact />
+
+                    <Route path="/validar-estudiantes" element={<PrivateRoute><ValidarEstudiantes user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/dashboard-admin" element={<PrivateRoute><DashboardAdmin user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/modificar-password" element={<PrivateRoute><ModificarPassword user={user.id} /></PrivateRoute>} />
+                    <Route path="/alta-funcionario-coordinador" element={<PrivateRoute><AltaFuncionarioCoordinador user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/modificar-funcionario-coordinador" element={<PrivateRoute><ModificarFuncionarioCoordinador user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/listados-busquedas" element={<PrivateRoute><ListadosBusquedas user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/resumen-actividad" element={<PrivateRoute><ResumenActividad user={user.id} /></PrivateRoute>} exact />
+
+                    <Route path="/inscripcion-carrera" element={<PrivateRoute><InscripcionCarrera user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/inscripcion-asignatura" element={<PrivateRoute><InscripcionAsignatura /></PrivateRoute>} exact />
+                    <Route path="/inscripcion-examen" element={<PrivateRoute><InscripcionExamen /></PrivateRoute>} exact />
+
+                    <Route path="/validar-inscripciones-carrera" element={<PrivateRoute><ValidarInscripcionesCarrera user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/tabla-inscripciones-carrera" element={<PrivateRoute><TablaInscripcionesCarrera user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/alta-periodo-examen" element={<PrivateRoute><AltaPeriodoExamen user={user.id} /></PrivateRoute>} exact />
+
+                    <Route path="/registrar-previaturas" element={<PrivateRoute><RegistrarPreviaturas user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/registrar-horario-asignatura" element={<PrivateRoute><RegistrarHorarioAsignatura user={user.id} /></PrivateRoute>} exact />
+                    <Route path="/registrar-asignatura-periodo-examen" element={<PrivateRoute><RegistrarAsignaturaPeriodoExamen user={user.id} /></PrivateRoute>} exact />
+
+                    <Route path='/incripcion-examen' element={<PrivateRoute><InscripcionExamen user={user.id} /></PrivateRoute>} exact />
+                    <Route path='/calificaciones-fin-curso' element={<PrivateRoute><CalificacionesFinCurso user={user.id} /></PrivateRoute>} exact />
+                    <Route path='/calificaciones-examen' element={<PrivateRoute><CalificacionesExamen user={user.id} /></PrivateRoute>} exact />
+                    <Route path='/generar-acta-examen' element={<PrivateRoute><GenerarActaExamen user={user.id} /></PrivateRoute>} exact />
+                    <Route path='/generar-acta-curso' element={<PrivateRoute><GenerarActaFinDeCurso user={user.id} /></PrivateRoute>} exact />
+
+                    <Route path='/listado-carreras' element={<PrivateRoute><ListadoCarreras user={user.id} /></PrivateRoute>} exact />
+                    <Route path='/listado-asignaturas' element={<PrivateRoute><ListadoAsignaturas user={user.id} /></PrivateRoute>} exact />
+                    <Route path='/listado-asignaturas-aprobadas' element={<PrivateRoute><ListadoAsignaturasAprobadas user={user.id} /></PrivateRoute>} exact />
+                    <Route path='/listado-asignaturas-no-aprobadas' element={<PrivateRoute><ListadoAsignaturasNoAprobadas user={user.id} /></PrivateRoute>} exact />
+                    <Route path='/info-carrera' element={<PrivateRoute><InfoCarreras user={user.id} /></PrivateRoute>} exact />
+
+
+                    <Route exact path='/login' element={<PublicRoute><Login /></PublicRoute>} />
+                    <Route path='/registrarse' element={<PublicRoute><Register /></PublicRoute>} />
+                    <Route path='/logout' element={<PublicRoute><Login /></PublicRoute>} />
 
                     <Route path="/olvido-contrasenia" element={<ForgotPassword user={user.id} />} exact />
                     <Route path="/resetPassword" element={<RecuperarPassword user={user.id} />} exact />
 
-                    <Route path="/nuestro-equipo" element={<NuestroEquipo user={user.id} />} exact />
-                    <Route path="/edit-perfil" element={<EditarPerfil user={user.id} />} exact />
-                    <Route path="/info-usuario" element={<InfoUsuario user={user.id} />} exact />
-
+                    <Route path="/novedades" element={<Novedades user={user.id} />} exact />
+                    <Route path="/" element={<Novedades user={user.id} />} exact />
                     <Route path="/not-found" element={<Page404 user={user.id} />} exact />
-                    <Route path="/nueva-carrera" element={<AltaCarrera user={user.id} />} exact />
-                    <Route path="/nuevo-docente" element={<AltaDocente user={user.id} />} exact />
-                    <Route path="/nueva-asignatura" element={<AltaAsignatura user={user.id} />} exact />
-
-                    <Route path="/validar-estudiantes" element={<ValidarEstudiantes user={user.id} />} exact />
-                    <Route path="/dashboard-admin" element={<DashboardAdmin user={user.id} />} exact />
-                    <Route path="/modificar-password" element={<ModificarPassword user={user.id} />} />
-                    <Route path="/alta-funcionario-coordinador" element={<AltaFuncionarioCoordinador user={user.id} />} exact />
-                    <Route path="/modificar-funcionario-coordinador" element={<ModificarFuncionarioCoordinador user={user.id} />} exact />
-                    <Route path="/listados-busquedas" element={<ListadosBusquedas user={user.id} />} exact />
-                    <Route path="/resumen-actividad" element={<ResumenActividad user={user.id} />} exact />
                     <Route path="/contacto" element={<ContactoPage user={user.id} />} exact />
-
-                    <Route path="/inscripcion-carrera" element={<InscripcionCarrera user={user.id} />} exact />
-                    <Route path="/inscripcion-asignatura" element={<InscripcionAsignatura />} exact />
-                    <Route path="/inscripcion-examen" element={<InscripcionExamen />} exact />
-
-                    <Route path="/validar-inscripciones-carrera" element={<ValidarInscripcionesCarrera user={user.id} />} exact />
-                    <Route path="/tabla-inscripciones-carrera" element={<TablaInscripcionesCarrera user={user.id} />} exact />
-                    <Route path="/alta-periodo-examen" element={<AltaPeriodoExamen user={user.id} />} exact />
-
-                    <Route path="/registrar-previaturas" element={<RegistrarPreviaturas user={user.id} />} exact />
-                    <Route path="/registrar-horario-asignatura" element={<RegistrarHorarioAsignatura user={user.id} />} exact />
-                    <Route path="/registrar-asignatura-periodo-examen" element={<RegistrarAsignaturaPeriodoExamen user={user.id} />} exact />
-
-                    <Route path='/incripcion-examen' element={<InscripcionExamen user={user.id} />} exact />
-                    <Route path='/calificaciones-fin-curso' element={<CalificacionesFinCurso user={user.id} />} exact />
-                    <Route path='/calificaciones-examen' element={<CalificacionesExamen user={user.id} />} exact />
-
-                    <Route path='/listado-carreras' element={<ListadoCarreras user={user.id} />} exact />
-                    <Route path='/listado-asignaturas' element={<ListadoAsignaturas user={user.id} />} exact />
-                    <Route path='/listado-asignaturas-aprobadas' element={<ListadoAsignaturasAprobadas user={user.id} />} exact />
-                    <Route path='/listado-asignaturas-no-aprobadas' element={<ListadoAsignaturasNoAprobadas user={user.id} />} exact />
-                    <Route path='/info-carrera' element={<InfoCarreras user={user.id} />} exact />
-
-                    <Route path='/generar-acta-examen' element={<GenerarActaExamen user={user.id} />} exact />
-                    <Route path='/generar-acta-curso' element={<GenerarActaFinDeCurso user={user.id} />} exact />
-
-                    <Route path='/login' element={
-                        <PublicRoute>
-                            <Login />
-                        </PublicRoute>
-                    } />
-
-                    <Route path='/registrarse' element={
-                        <PublicRoute>
-                            <Register />
-                        </PublicRoute>
-                    } />
-
-                    <Route path='/logout' element={
-                        <PublicRoute>
-                            <Login />
-                        </PublicRoute>
-                    } />
+                    <Route path="/nuestro-equipo" element={<NuestroEquipo user={user.id} />} exact />
                 </Routes>
-
+                
                 <Footer />
             </Layout.Main >
 

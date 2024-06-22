@@ -60,6 +60,6 @@ class DtUsuario {
 }
 
 
-const dtUsuario = new DtUsuario(1, 'Sebastián', 'Gonzalez', 'sgonzalez', 'sebas@example.com', new Date(1999, 5, 15), ['Estudiante', 'Administrador']);
+// const dtUsuario = new DtUsuario(1, 'Sebastián', 'Gonzalez', 'sgonzalez', 'sebas@example.com', new Date(1999, 5, 15), ['Estudiante', 'Administrador']);
 
-console.log(dtUsuario);
+// console.log(dtUsuario);

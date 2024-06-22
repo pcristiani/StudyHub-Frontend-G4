@@ -1,35 +1,28 @@
 import React, { useState, useEffect, useContext } from 'react';
-import swal from 'sweetalert';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import { Input } from 'reactstrap';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
+import dayjs from 'dayjs';
+import isBetweenPlugin from 'dayjs/plugin/isBetween';
+import Modal from '@mui/joy/Modal';
 
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarrerasConPeriodoExamen, getPeriodosDeCarrera } from '../../../services/requests/carreraService';
-import { getAsignaturasDeCarreraConExamen, getDocentesByAsignatura } from '../../../services/requests/asignaturaService';
-
-import dayjs from 'dayjs';
-import isBetweenPlugin from 'dayjs/plugin/isBetween';
-import { registroAsignaturaAPeriodo, getExamenesPeriodo, getActaExamen } from '../../../services/requests/examenService';
-import Modal from '@mui/joy/Modal';
+import { getExamenesPeriodo, getActaExamen } from '../../../services/requests/examenService';
 import { jsPDF } from "jspdf";
+import { SelectProps } from '../../common/SelectProps';
 import { formatoCi } from '../../../services/util/formatoCi';
-import { getCalificacionesAsignaturas, getCalificacionesExamenes } from '../../../services/requests/estudianteService';
-import { getCarreras, getCarreraById } from '../../../services/requests/carreraService';
 import { errors } from '../../../services/util/errors';
 import { formatFechaEmision } from '../../../services/util/formatoFecha';
 
 
 dayjs.extend(isBetweenPlugin);
-
 
 export default function GenerarActaExamen() {
    const { user } = useContext(AuthContext);
@@ -39,7 +32,7 @@ export default function GenerarActaExamen() {
    const [error, setError] = useState(null);
    const [periodoData, setPeriodoData] = useState([]);
    const history = useNavigate();
-   const [idPeriodo, setIdPeriodo] = useState('');
+
    const [actaData, setActaData] = useState('');
    const [pdfUrl, setPdfUrl] = useState('');
    const [open, setOpen] = useState(false);
@@ -100,11 +93,6 @@ export default function GenerarActaExamen() {
       }
    }
 
-   const slotProps = {
-      listbox: { sx: { width: '100%' }, },
-   };
-
-
 
    ///
    const handleSubmit = async (event) => {
@@ -145,16 +133,8 @@ export default function GenerarActaExamen() {
       });
    };
 
-   const visualizarPDF = async (idCarrera) => {
-      // const resultCalificaciones = await getCalificacionesAsignaturas(idCarrera, user.id, user.jwtLogin);
-      // const resultExamenes = await getCalificacionesExamenes(idCarrera, user.id, user.jwtLogin);
-      // const carrera = await getCarreraById(idCarrera, user.jwtLogin);
-      // console.log("resultExamenes: ", carrera);
-      // if (resultCalificaciones === null || resultCalificaciones === undefined || resultCalificaciones === '' || resultCalificaciones.status !== 200) {
-      //    errors(resultCalificaciones.data, resultCalificaciones.data, resultCalificaciones.status);
-      //    // history('/gestion');
-      // }
 
+   const visualizarPDF = async (idCarrera) => {
       try {
          var doc = new jsPDF();
          let y = 45;
@@ -210,7 +190,7 @@ export default function GenerarActaExamen() {
          actaData.estudiantes.forEach(estudiante => {
             y += 6;
             doc.setFontSize(12);
-            doc.text(`${estudiante.cedula}`, 20, y);
+            doc.text(`${formatoCi(estudiante.cedula)}`, 20, y);
             doc.text(`${estudiante.nombre}` + ` ` + `${estudiante.apellido}`, 88, y);
          });
          var blob = doc.output("blob");
@@ -244,28 +224,28 @@ export default function GenerarActaExamen() {
                <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                   <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
-                     <Select slotProps={slotProps} size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} >
+                     <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} >
                         {carreraData.map((carrera, index) => (
                            <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                         ))}
-                     </Select>
+                     </SelectProps>
 
-                     <Select size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha} slotProps={{ listbox: { sx: { width: '100%', }, }, }}>
+                     <SelectProps size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha} slotProps={{ listbox: { sx: { width: '100%', }, }, }}>
                         {Array.isArray(periodoData) && periodoData.map((periodo, index) => (
                            <Option key={index} value={periodo}>Periodo {periodo.nombre}</Option>
                         ))}
-                     </Select>
+                     </SelectProps>
 
-                     <Select size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} >
+                     <SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} >
                         {Array.isArray(docenteData) && docenteData.map((asignatura, index) => (
                            <Option key={index} value={asignatura.idExamen}>{asignatura.asignatura}</Option>
                         ))}
-                     </Select>
+                     </SelectProps>
                      <Divider />
 
                      <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
                         <Button size="sm" type='submit' fullWidth variant="soft" color="primary" sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }}>
-                           Visualizar pdf
+                           Visualizar PDF
                         </Button>
                      </Stack>
                   </FormControl>

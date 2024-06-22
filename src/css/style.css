@@ -72,12 +72,9 @@ Input::-webkit-calendar-picker-indicator {
 
 .text-fecha {
   font-size: 15px;
-   /* font-family: 'Courier New'; */
   color: #8b9297;
   padding: 0px 0px;
-
 }
-
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;

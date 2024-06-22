@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 
 import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
-import { Input } from 'reactstrap';
+import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import swal from 'sweetalert';

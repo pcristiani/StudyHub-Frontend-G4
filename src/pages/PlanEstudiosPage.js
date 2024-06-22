@@ -1,6 +1,5 @@
 import { CssVarsProvider } from '@mui/joy/styles';
 import React, { useState, useEffect, useContext } from 'react';
-
 import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
 import Box from '@mui/joy/Box';
@@ -10,7 +9,6 @@ import { getCarreras } from '../services/requests/carreraService';
 import { getPreviaturasGrafo } from '../services/requests/asignaturaService';
 import { errors } from '../services/util/errors';
 import { COURSE } from '../services/util/constants';
-import Sheet from '@mui/joy/Sheet';
 
 
 const PlanEstudiosPage = () => {
@@ -44,38 +42,38 @@ const PlanEstudiosPage = () => {
     }
   };
 
-  if (selectedCarrera === null || selectedCarrera === '' || selectedCarrera === undefined) {
-     getInfoPreviaturasGrafo(1);
-  }
+  // if (selectedCarrera === null || selectedCarrera === '' || selectedCarrera === undefined) {
+  //   // getInfoPreviaturasGrafo(1);
+  // }
+
+  const mostrarGrafo = COURSE.graph + `${previaturasGrafoData}}`;
 
   async function getInfoPreviaturasGrafo(idCarrera) {
-    const result = await getPreviaturasGrafo(idCarrera, user.jwtLogin);
-
+    let result = await getPreviaturasGrafo(idCarrera, user.jwtLogin);
     if (result === null || result === '' || result === undefined) {
       errors("La carrera no tiene asignaturas", "", 400);
     } else {
       setPreviaturasGrafoData(result);
     }
   }
-  if (!previaturasGrafoData) return null;
+  // if (!previaturasGrafoData) return null;
 
-  const mostrarGrafo = COURSE.graph + `${previaturasGrafoData}}`;
 
   return (
     <>
-       <CssVarsProvider>
-      <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-          <Select size="sm" defaultValue="Seleccionar carrera" placeholder={carreraData[0].nombre} id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
-          {carreraData.map((carrera, index) => (
-            <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
-          ))}
-        </Select>
-      </Box>
+      <CssVarsProvider>
+        <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+          <Select size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
+            {carreraData.map((carrera, index) => (
+              <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
+            ))}
+          </Select>
 
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1%', height: '70%', border: "0.5px solid #2596be", borderRadius: "20px" }}>
-        <DAGViewer dot={mostrarGrafo} options={{}} />
-      </Box>
-          </CssVarsProvider> 
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1%', height: '70%', border: "0.5px solid #2596be", borderRadius: "20px" }}>
+          <DAGViewer dot={mostrarGrafo} options={{}} />
+        </Box>
+      </CssVarsProvider>
     </>
   );
 }

@@ -12,7 +12,7 @@ import { URI_FRONT, T_ROL } from '../../services/util/constants'
 
 import Box from '@mui/joy/Box';
 import Logo from '../../img/logo-text.png';
-import { Input } from 'reactstrap';
+import Input from '@mui/joy/Input';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 import { types } from '../../context/types';

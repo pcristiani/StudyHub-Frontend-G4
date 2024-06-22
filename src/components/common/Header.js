@@ -6,7 +6,7 @@ import Typography from '@mui/joy/Typography';
 import IconButton from '@mui/joy/IconButton';
 import Stack from '@mui/joy/Stack';
 import Avatar from '@mui/joy/Avatar';
-import { Input } from 'reactstrap';
+import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
 import Tooltip from '@mui/joy/Tooltip';
 import Dropdown from '@mui/joy/Dropdown';

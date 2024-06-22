@@ -19,6 +19,8 @@ import { getAsignaturasConExamenPendiente, getExamenesAsignatura, inscripcionExa
 import { errors } from '../../../services/util/errors';
 import DtFecha from '../../../services/util/formatoFecha';
 
+import CircularProgress from '@mui/joy/CircularProgress';
+import { Alerta } from '../../../services/util/Alerta';
 
 export default function InscripcionExamen() {
 	const { user } = useContext(AuthContext);
@@ -46,7 +48,6 @@ export default function InscripcionExamen() {
 			// console.log("Carreras: ", carreraData);
 		}
 	}, [carreraData]);
-
 
 	///
 	const handleChange = (event, newValue) => {
@@ -77,7 +78,6 @@ export default function InscripcionExamen() {
 		setFechaData(fechaExamen);
 	}
 
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
@@ -85,6 +85,7 @@ export default function InscripcionExamen() {
 		let intIdExamen = parseInt(idExamen, 10);
 		let result = await inscripcionExamen(user.id, intIdExamen, user.jwtLogin);
 		console.log("result: ", result);
+
 		if (result.status === 200) {
 			let title = "¡Inscripto a examen!\n\n";
 			errors(title, result.data, result.status);
@@ -93,7 +94,7 @@ export default function InscripcionExamen() {
 			errors(result.data, "", result.status);
 		}
 	};
-
+	// Alerta();
 
 	function formatFecha(data) {
 		let fechaExamen = new Date(data);
@@ -108,7 +109,7 @@ export default function InscripcionExamen() {
 
 	return (
 		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
-			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
+			<Card sx={{ display: 'flex', alignSelf: 'center' }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Inscripción examen</Typography>
 				</Box>
@@ -120,7 +121,6 @@ export default function InscripcionExamen() {
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
 						</SelectProps>
-
 						<SelectProps size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
 							{Array.isArray(asignaturaNoAprobadaData) && asignaturaNoAprobadaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
@@ -142,6 +142,6 @@ export default function InscripcionExamen() {
 				</Stack>
 			</Card>
 		</Box>
-
 	);
 };
+

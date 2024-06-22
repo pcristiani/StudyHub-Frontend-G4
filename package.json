@@ -13,8 +13,8 @@
     "@mui/icons-material": "5.15.20",
     "@mui/joy": "5.0.0-beta.36",
     "@mui/material": "5.15.20",
-    "@mui/x-charts": "7.7.0",
-    "@mui/x-date-pickers": "7.7.0",
+    "@mui/x-charts": "7.7.1",
+    "@mui/x-date-pickers": "7.7.1",
     "@testing-library/react": "16.0.0",
     "axios": "1.7.2",
     "body-parser": "1.20.2",
@@ -28,15 +28,15 @@
     "mermaid": "10.9.1",
     "node-fetch": "3.3.2",
     "react": "18.3.1",
-    "react-bootstrap": "2.10.2",
+    "react-bootstrap": "2.10.3",
     "react-dom": "18.3.1",
-    "react-router-dom": "^6.23.1",
+    "react-router-dom": "6.23.1",
     "react-scripts": "5.0.1",
     "react-type-animation": "3.2.0",
     "reactstrap": "9.2.2",
     "simplebar-react": "3.2.6",
     "sweetalert": "2.1.2",
-    "web-vitals": "4.1.1"
+    "web-vitals": "4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -60,10 +60,12 @@
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "last 1 edge version"
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11",
+    "@testing-library/jest-dom": "6.4.6"
   }
 }

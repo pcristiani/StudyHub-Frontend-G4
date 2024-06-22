@@ -94,7 +94,7 @@ export default class DtFecha {
 
 const f = new Date('2024-06-13');
 const dtf = new DtFecha(f);
-console.log('DtFecha: ', dtf.format());
+// console.log('DtFecha: ', dtf.format());
 
 
 ///

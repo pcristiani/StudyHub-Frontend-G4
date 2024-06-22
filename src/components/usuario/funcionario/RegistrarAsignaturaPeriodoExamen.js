@@ -4,7 +4,7 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import { Input } from 'reactstrap';
+import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
@@ -16,11 +16,11 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarrerasConPeriodoExamen, getPeriodosDeCarrera } from '../../../services/requests/carreraService';
 import { getAsignaturasDeCarreraConExamen, getDocentesByAsignatura } from '../../../services/requests/asignaturaService';
-
 import dayjs from 'dayjs';
 import isBetweenPlugin from 'dayjs/plugin/isBetween';
 import { registroAsignaturaAPeriodo } from '../../../services/requests/examenService';
 import { errors } from '../../../services/util/errors';
+import { SelectProps } from '../../common/SelectProps';
 
 dayjs.extend(isBetweenPlugin);
 
@@ -31,12 +31,12 @@ export default function RegistrarAsignaturaPeriodoExamen() {
    const [docenteData, setDocenteData] = useState([]);
    const [asignaturaData, setAsignaturaData] = useState([]);
    const [selectedCarrera, setSelectedCarrera] = useState('');
-   const [error, setError] = useState(null);
    const [periodoData, setPeriodoData] = useState([]);
    const history = useNavigate();
    const [idPeriodo, setIdPeriodo] = useState('');
    const [selectedInicio, setSelectedInicio] = useState('');
    const [selectedFin, setSelectedFin] = useState('');
+
 
    useEffect(() => {
       const fetchCarreras = async () => {
@@ -44,7 +44,7 @@ export default function RegistrarAsignaturaPeriodoExamen() {
             const result = await getCarrerasConPeriodoExamen(user.jwtLogin);
             setCarreraData(result);
          } catch (error) {
-            setError(error.message);
+            console.log("error: ", error);
          }
       };
       fetchCarreras();
@@ -67,7 +67,6 @@ export default function RegistrarAsignaturaPeriodoExamen() {
       let result = await getAsignaturasDeCarreraConExamen(selectedCarrera, user.jwtLogin);
       let resultPeriodo = await getPeriodosDeCarrera(selectedCarrera, user.jwtLogin);
       // console.log("resultPeriodo: ", resultPeriodo);
-      // console.log("getInfoCarrera: ", result);
       setAsignaturaData(result);
       setPeriodoData(resultPeriodo);
    }
@@ -100,11 +99,6 @@ export default function RegistrarAsignaturaPeriodoExamen() {
          setSelectedFin(idPeriodoExamen.fechaFin + 'T23:59');
       }
    };
-
-   const slotProps = {
-      listbox: { sx: { width: '100%' }, },
-   };
-
 
    const handleSubmit = async (event) => {
       event.preventDefault();
@@ -143,42 +137,37 @@ export default function RegistrarAsignaturaPeriodoExamen() {
             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
-                  <Select slotProps={slotProps} size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
+                  <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
                      {carreraData.map((carrera, index) => (
                         <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                      ))}
-                  </Select>
-                  <Divider />
+                  </SelectProps>
 
-                  <Select size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
+                  <SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
                      {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
                         <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                      ))}
-                  </Select>
-                  <Divider />
+                  </SelectProps>
 
-                  <Select size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha}>
+                  <SelectProps size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha}>
                      {Array.isArray(periodoData) && periodoData.map((periodo, index) => (
-                        <Option key={index} value={periodo} >{periodo.nombre}</Option>
+                        <Option size="sm" key={index} value={periodo}>{periodo.nombre}</Option>
                      ))}
-                  </Select>
-                  <Divider />
+                  </SelectProps>
 
-                  <Select size="sm" placeholder="Seleccionar docente" multiple renderValue={(selecteds) => (
+                  <SelectProps size="sm" placeholder="Seleccionar docente" multiple renderValue={(selecteds) => (
                      <Box sx={{ display: 'flex', gap: '0.25rem' }}>
                         {selecteds.map((selectedOptions) => (
                            <Chip variant="soft" color="primary">
                               {selectedOptions.label}
                            </Chip>
                         ))}
-                     </Box>
-                  )}
-                     slotProps={{ listbox: { sx: { width: '100%', }, }, }} id="iddocente" name="iddocente">
+                     </Box>)} id="iddocente" name="iddocente">
                      {Array.isArray(docenteData) && docenteData.map((docente, index) => (
                         <Option key={index} value={docente.idDocente}>{docente.nombre}</Option>
 
                      ))}
-                  </Select>
+                  </SelectProps>
                   <Divider />
                   {(selectedInicio !== null && selectedFin !== null && selectedInicio !== undefined && selectedFin !== undefined) &&
                      <Input type="datetime-local" size='sm' slotProps={{ input: { min: selectedInicio, max: selectedFin, }, }} id="fechaHora" name="fechaHora" />

@@ -7,6 +7,7 @@ import DialogTitle from '@mui/joy/DialogTitle';
 import Stack from '@mui/joy/Stack';
 import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
+
 import Tooltip from '@mui/joy/Tooltip';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras, asignarCoordinadorCarrera } from '../../../services/requests/carreraService';
@@ -106,6 +107,7 @@ export function ModalSelect(ida) {
 							<Button type="submit">Confirmar</Button>
 						</Stack>
 					</form>
+
 				</ModalDialog>
 			</Modal>
 		</React.Fragment>

@@ -3,25 +3,22 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import { Input } from 'reactstrap';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
-
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../context/AuthContext';
-import { getAsignaturasDeCarrera, getHorarios, getActaAsignatura } from '../../../services/requests/asignaturaService';
-
 import dayjs from 'dayjs';
 import isBetweenPlugin from 'dayjs/plugin/isBetween';
 import Modal from '@mui/joy/Modal';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthContext';
+import { getAsignaturasDeCarrera, getHorarios, getActaAsignatura } from '../../../services/requests/asignaturaService';
+import { getCarreras } from '../../../services/requests/carreraService';
 import { jsPDF } from "jspdf";
 import { formatoCi } from '../../../services/util/formatoCi';
-import { getCarreras } from '../../../services/requests/carreraService';
 import { errors } from '../../../services/util/errors';
 import { formatFechaEmision } from '../../../services/util/formatoFecha';
+import { SelectProps } from '../../common/SelectProps';
 
 dayjs.extend(isBetweenPlugin);
 
@@ -37,13 +34,6 @@ export default function GenerarActaFinDeCurso() {
    const [horarioData, setHorarioData] = useState('');
    const [pdfUrl, setPdfUrl] = useState('');
    const [open, setOpen] = useState(false);
-
-
-   const datoCurso = [
-      { value: 'M', label: 'Matutino' },
-      { value: 'V', label: 'Vespertino' },
-      { value: 'N', label: 'Nocturno' },
-   ];
 
 
    useEffect(() => {
@@ -121,7 +111,6 @@ export default function GenerarActaFinDeCurso() {
       const data = new FormData(event.currentTarget);
       let idC = data.get('idcarrera');
       if (idC !== null && idC !== undefined && idC !== "") {
-         // console.log("ACAAAAAAAAAAAAAAAAAAA");
          visualizarPDF(idC);
       }
    };
@@ -171,7 +160,6 @@ export default function GenerarActaFinDeCurso() {
          doc.setFontSize(14);
          doc.setFont('helvetica', 'normal');
          // doc.text(`Periodo ${horarioData.ANIO}`, 20, 25);
-
          doc.setFontSize(18);
          doc.setFont('helvetica', 'bold');
          doc.text(`${actaCursoData.data.asignatura}`, 20, 45);
@@ -199,23 +187,34 @@ export default function GenerarActaFinDeCurso() {
          y += 6;
          doc.setFontSize(12);
          doc.setFont('helvetica', 'bold');
-         doc.text("Alumnos inscriptos", 20, y);
-         y += 3;
+         doc.text("Alumnos inscriptos", 20, y + 2);
+         y += 6;
          doc.setLineWidth(0.1);
          doc.line(20, y, 190, y);
-         y += 6;
+
+
+         y += 8;
          doc.setFont('helvetica', 'bold');
          doc.text("Cedula", 20, y);
          doc.text("Nombre", 88, y);
          doc.text("Calificación", 150, y);
 
+
          doc.setFont('helvetica', 'normal');
+         doc.setLineWidth(0.1);
+         doc.setDrawColor(60, 57, 48);
          actaCursoData.data.estudiantes.forEach(estudiante => {
             y += 6;
             doc.setFontSize(12);
-            doc.text(`${estudiante.cedula}`, 20, y);
+            doc.text(`${formatoCi(estudiante.cedula)}`, 20, y);
             doc.text(`${estudiante.nombre}` + ` ` + `${estudiante.apellido}`, 88, y);
+            doc.setLineWidth(0.1);
+            doc.line(15, y + 1, 195, y + 1);
          });
+
+         // doc.roundedRect(15, x, 180, y, 2, 1);
+
+
          var blob = doc.output("blob");
          var url = URL.createObjectURL(blob);
          setPdfUrl(url);
@@ -244,25 +243,25 @@ export default function GenerarActaFinDeCurso() {
                <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                   <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
-                     <Select size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
+                     <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
                         {carreraData.map((carrera, index) => (
                            <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                         ))}
-                     </Select>
+                     </SelectProps>
 
-                     <Select size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} >
+                     <SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} >
                         {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
                            <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                         ))}
-                     </Select>
+                     </SelectProps>
 
-                     <Select size="sm" placeholder="Seleccionar curso" id="idanio" name="idanio" onChange={handleChangeAnio} >
+                     <SelectProps size="sm" placeholder="Seleccionar curso" id="idanio" name="idanio" onChange={handleChangeAnio} >
                         {Array.isArray(horarioData) && horarioData.map((horario, index) => (
                            <Option key={index} value={horario.idHorarioAsignatura}>{horario.anio} - {horario.idHorarioAsignatura} -
                               {horario.dtHorarioDias[0].horaInicio <= '12:00' ? ' Matutino' : (horario.dtHorarioDias[0].horaInicio > '12:00' && horario.dtHorarioDias[0].horaInicio <= '17:00') ? ' Vespertivo' : horario.dtHorarioDias[0].horaInicio > '17:00' ? ' Nocturno' : ''}
                            </Option>
                         ))}
-                     </Select>
+                     </SelectProps>
                      <Divider />
 
                      <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
