@@ -3,7 +3,7 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import Input from '@mui/joy/Input';
+import { Input } from 'reactstrap';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
@@ -39,6 +39,13 @@ export default function GenerarActaFinDeCurso() {
    const [open, setOpen] = useState(false);
 
 
+   const datoCurso = [
+      { value: 'M', label: 'Matutino' },
+      { value: 'V', label: 'Vespertino' },
+      { value: 'N', label: 'Nocturno' },
+   ];
+
+
    useEffect(() => {
       const fetchCarreras = async () => {
          try {
@@ -69,21 +76,33 @@ export default function GenerarActaFinDeCurso() {
       setAsignaturaData(resultPeriodo);
    }
 
-   const handleChangeAsignatura = (event, idHorario) => {
-      getInfoExamen(idHorario);
+   const handleChangeAsignatura = (event, idasignatura) => {
+      getInfoExamen(idasignatura);
    };
 
-   async function getInfoExamen(idHorario) {
-      if (idHorario !== null && idHorario !== undefined && idHorario !== '') {
-         let result = await getHorarios(idHorario, user.jwtLogin);
-         setHorarioData(result);
-         console.log("result: ", horarioData);
+   async function getInfoExamen(idasignatura) {
+      console.log("ASIGNATURA: ", idasignatura);
+      if (idasignatura !== null && idasignatura !== undefined && idasignatura !== '') {
+         let result = await getHorarios(idasignatura, user.jwtLogin);
+
+         if (result.length > 0) {
+            if (result[0].dtHorarioDias[0] !== null &&
+               result[0].dtHorarioDias[0].horaInicio !== undefined
+               && result[0].dtHorarioDias[0] !== undefined &&
+               result[0].dtHorarioDias !== undefined &&
+               result[0].dtHorarioDias[0] !== '') {
+               console.log("HORARIO: ", result[0].dtHorarioDias[0].horaInicio);
+            }
+            setHorarioData(result);
+         } else {
+            setHorarioData('');
+         }
       }
    }
 
    const handleChangeAnio = (event, anio) => {
       if (anio !== null && anio !== undefined && anio !== '') {
-         console.log("anio: ", anio);
+         //  console.log("anio: ", anio);
          getInfoAnio(anio);
       }
    };
@@ -92,8 +111,7 @@ export default function GenerarActaFinDeCurso() {
       if (idHorarioAsig !== null && idHorarioAsig !== undefined && idHorarioAsig !== '') {
          let result = await getActaAsignatura(idHorarioAsig, user.jwtLogin);
          setActaCursoData(result);
-         console.log("actaData: ", actaCursoData);
-
+         //  console.log("actaData: ", actaCursoData);
       }
    }
 
@@ -103,7 +121,7 @@ export default function GenerarActaFinDeCurso() {
       const data = new FormData(event.currentTarget);
       let idC = data.get('idcarrera');
       if (idC !== null && idC !== undefined && idC !== "") {
-         console.log("ACAAAAAAAAAAAAAAAAAAA");
+         // console.log("ACAAAAAAAAAAAAAAAAAAA");
          visualizarPDF(idC);
       }
    };
@@ -138,10 +156,11 @@ export default function GenerarActaFinDeCurso() {
    };
 
 
-   const visualizarPDF = async (idCarrera) => {
 
+   const visualizarPDF = async (idCarrera) => {
       try {
          var doc = new jsPDF();
+         let y = 45;
          const logoURL = 'https://frontstudyhub.vercel.app/static/media/logo-text.1b43604a02cff559bc6a.png';
          const logoBase64 = await convertirURLaBase64(logoURL);
 
@@ -159,37 +178,43 @@ export default function GenerarActaFinDeCurso() {
 
          doc.setFontSize(9);
          doc.setFont('helvetica', 'normal');
-         doc.text(`Emisión ${fechaEmision()}`, 160, 8,);
+         doc.text(`Emisión ${fechaEmision()}`, 160, 8);
          doc.addImage(logoBase64, 'PNG', 160, 13, 40, 10);
-         doc.setLineWidth(0.2);
-         doc.line(20, 48, 190, 48);
-
-         doc.setFontSize(12);
-         doc.setTextColor(0);
-         let y = 92;
-         actaCursoData.data.docentes.forEach(docente => {
-            doc.setFontSize(12);
-            doc.text(`Docente: ${docente.nombre}`, 150, 45);
-            y += 6;
-         });
 
          doc.setFontSize(12);
          doc.setFont('helvetica', 'bold');
-         doc.text("Alumnos inscriptos", 20, 65);
+         doc.setTextColor(0);
+         doc.text(`Docente`, 150, y);
+         y += 3;
+         doc.setLineWidth(0.2);
+         doc.line(20, y, 190, y);
+
+         doc.setFontSize(12);
+         doc.setFont('helvetica', 'normal');
+         actaCursoData.data.docentes.forEach(docente => {
+            y += 6;
+            doc.text(`${docente.nombre}`, 150, y);
+         });
+
+         y += 6;
+         doc.setFontSize(12);
+         doc.setFont('helvetica', 'bold');
+         doc.text("Alumnos inscriptos", 20, y);
+         y += 3;
          doc.setLineWidth(0.1);
-         doc.line(20, 67, 190, 67);
+         doc.line(20, y, 190, y);
+         y += 6;
+         doc.setFont('helvetica', 'bold');
+         doc.text("Cedula", 20, y);
+         doc.text("Nombre", 88, y);
+         doc.text("Calificación", 150, y);
 
          doc.setFont('helvetica', 'normal');
-         doc.text("Cedula", 20, 73);
-         doc.text("Nombre", 88, 73);
-         doc.text("Calificación", 155, 73);
-
-         let j = 80;
          actaCursoData.data.estudiantes.forEach(estudiante => {
+            y += 6;
             doc.setFontSize(12);
-            doc.text(`${estudiante.cedula}`, 20, j);
-            doc.text(` ${estudiante.nombre}` + ` ` + `${estudiante.apellido}`, 86, j);
-            j += 6;
+            doc.text(`${estudiante.cedula}`, 20, y);
+            doc.text(`${estudiante.nombre}` + ` ` + `${estudiante.apellido}`, 88, y);
          });
          var blob = doc.output("blob");
          var url = URL.createObjectURL(blob);
@@ -231,9 +256,11 @@ export default function GenerarActaFinDeCurso() {
                         ))}
                      </Select>
 
-                     <Select size="sm" placeholder="Seleccionar año" id="idanio" name="idanio" onChange={handleChangeAnio} >
+                     <Select size="sm" placeholder="Seleccionar curso" id="idanio" name="idanio" onChange={handleChangeAnio} >
                         {Array.isArray(horarioData) && horarioData.map((horario, index) => (
-                           <Option key={index} value={horario.idHorarioAsignatura}>{horario.anio} - {horario.idHorarioAsignatura}</Option>
+                           <Option key={index} value={horario.idHorarioAsignatura}>{horario.anio} - {horario.idHorarioAsignatura} -
+                              {horario.dtHorarioDias[0].horaInicio <= '12:00' ? ' Matutino' : (horario.dtHorarioDias[0].horaInicio > '12:00' && horario.dtHorarioDias[0].horaInicio <= '17:00') ? ' Vespertivo' : horario.dtHorarioDias[0].horaInicio > '17:00' ? ' Nocturno' : ''}
+                           </Option>
                         ))}
                      </Select>
                      <Divider />

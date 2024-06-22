@@ -33,6 +33,7 @@
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "react-type-animation": "3.2.0",
+    "reactstrap": "9.2.2",
     "simplebar-react": "3.2.6",
     "sweetalert": "2.1.2",
     "web-vitals": "4.1.1"

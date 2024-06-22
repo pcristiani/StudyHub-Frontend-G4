@@ -6,7 +6,7 @@ import Typography from '@mui/joy/Typography';
 import IconButton from '@mui/joy/IconButton';
 import Stack from '@mui/joy/Stack';
 import Avatar from '@mui/joy/Avatar';
-import Input from '@mui/joy/Input';
+import { Input } from 'reactstrap';
 import Button from '@mui/joy/Button';
 import Tooltip from '@mui/joy/Tooltip';
 import Dropdown from '@mui/joy/Dropdown';
@@ -411,12 +411,12 @@ export default function Header() {
                   <>
                      <Dropdown>
                         <MenuButton variant="plain" size="sm" sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '9999999px' }}>
-                           <Avatar src="https://i.pravatar.cc/40?img=59" srcSet="https://i.pravatar.cc/80?img=59" sx={{ maxWidth: '32px', maxHeight: '32px' }} />
+                           <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR-bFMTg-_J6uYsepWVSHbQtlvXDp7O-d1bqqy5HofosXdGa4P" srcSet="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR-bFMTg-_J6uYsepWVSHbQtlvXDp7O-d1bqqy5HofosXdGa4P" sx={{ maxWidth: '32px', maxHeight: '32px' }} />
                         </MenuButton>
                         <Menu placement="bottom-end" size="sm" sx={{ zIndex: '99999', p: 1, gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                            <MenuItem href={URI_FRONT.editPerfilUri} component="a">
                               <Box sx={{ display: 'flex', alignItems: 'center', }}>
-                                 <Avatar src="https://i.pravatar.cc/40?img=59" srcSet="https://i.pravatar.cc/80?img=59" sx={{ borderRadius: '50%' }} />
+                                 <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR-bFMTg-_J6uYsepWVSHbQtlvXDp7O-d1bqqy5HofosXdGa4P" srcSet="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR-bFMTg-_J6uYsepWVSHbQtlvXDp7O-d1bqqy5HofosXdGa4P" sx={{ borderRadius: '50%' }} />
                                  <Box sx={{ ml: 1.5 }}>
                                     <Typography level="title-sm" textColor="text.primary">
                                        {user.nombre} {user.apellido}

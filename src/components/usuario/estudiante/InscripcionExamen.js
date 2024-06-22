@@ -84,13 +84,13 @@ export default function InscripcionExamen() {
 		let idExamen = data.get('idexamen');
 		let intIdExamen = parseInt(idExamen, 10);
 		let result = await inscripcionExamen(user.id, intIdExamen, user.jwtLogin);
-
+		console.log("result: ", result);
 		if (result.status === 200) {
 			let title = "¡Inscripto a examen!\n\n";
 			errors(title, result.data, result.status);
 			history('/novedades');
 		} else {
-			errors("Todos los campos deben ser completados", "", result.status);
+			errors(result.data, "", result.status);
 		}
 	};
 

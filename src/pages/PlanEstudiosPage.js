@@ -10,11 +10,12 @@ import { getCarreras } from '../services/requests/carreraService';
 import { getPreviaturasGrafo } from '../services/requests/asignaturaService';
 import { errors } from '../services/util/errors';
 import { COURSE } from '../services/util/constants';
+import Sheet from '@mui/joy/Sheet';
 
 
 const PlanEstudiosPage = () => {
   const { user } = useContext(AuthContext);
-  const [previaturasGrafoData, setPreviaturasGrafoData] = useState(null);
+  const [previaturasGrafoData, setPreviaturasGrafoData] = useState('');
   const [carreraData, setCarreraData] = useState([]);
   const [selectedCarrera, setSelectedCarrera] = useState('');
 
@@ -44,7 +45,7 @@ const PlanEstudiosPage = () => {
   };
 
   if (selectedCarrera === null || selectedCarrera === '' || selectedCarrera === undefined) {
-    getInfoPreviaturasGrafo(1);
+     getInfoPreviaturasGrafo(1);
   }
 
   async function getInfoPreviaturasGrafo(idCarrera) {
@@ -62,19 +63,19 @@ const PlanEstudiosPage = () => {
 
   return (
     <>
-      <CssVarsProvider>
-        <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-          <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
-            {carreraData.map((carrera, index) => (
-              <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
-            ))}
-          </Select>
-        </Box>
+       <CssVarsProvider>
+      <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+          <Select size="sm" defaultValue="Seleccionar carrera" placeholder={carreraData[0].nombre} id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
+          {carreraData.map((carrera, index) => (
+            <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
+          ))}
+        </Select>
+      </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1%', height: '70%', border:"0.5px solid #2596be",borderRadius:"20px" }}>
-          <DAGViewer dot={mostrarGrafo} options={{ }} />
-        </Box>
-      </CssVarsProvider>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1%', height: '70%', border: "0.5px solid #2596be", borderRadius: "20px" }}>
+        <DAGViewer dot={mostrarGrafo} options={{}} />
+      </Box>
+          </CssVarsProvider> 
     </>
   );
 }

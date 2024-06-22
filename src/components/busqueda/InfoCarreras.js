@@ -4,7 +4,7 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import Input from '@mui/joy/Input';
+import { Input } from 'reactstrap';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
@@ -57,10 +57,10 @@ export default function InfoCarreras() {
 			<Card variant="outlined" sx={{ maxWidth: 400 }}>
 				<Typography level="h4">	{userData.nombre}</Typography>
 				<Typography level="h5" fontSize="sm" sx={{ mb: 0.5 }}>
-					{userData.descripcion} 
+					{userData.descripcion}
 				</Typography>
 				<Typography level="h5" fontSize="sm" sx={{ mb: 0.5 }}>
-					Requisitos: {userData.requisitos} 
+					Requisitos: {userData.requisitos}
 				</Typography>
 			</Card>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>

@@ -17,7 +17,6 @@ import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
 import { errors } from '../../../services/util/errors';
 
-
 export default function CalificacionesFinCurso() {
 	const { user } = useContext(AuthContext);
 	const history = useNavigate();
@@ -31,6 +30,7 @@ export default function CalificacionesFinCurso() {
 	useEffect(() => {
 		const fetchCarreras = async () => {
 			try {
+
 				const result = await getCarreras(user.jwtLogin);
 				setCarreraData(result);
 			} catch (error) {
@@ -59,7 +59,6 @@ export default function CalificacionesFinCurso() {
 	}
 
 	const handleModificar = async (idCursada) => {
-
 		if (idCursada !== null && idCursada !== undefined && resultadoData !== null && resultadoData !== undefined) {
 			const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
 
@@ -158,7 +157,7 @@ export default function CalificacionesFinCurso() {
 														</td>
 														<td>
 															<Button size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color='neutral'
-																onClick={() => handleModificar(row.idCursada)} >
+																onClick={() => handleModificar(row.idCursada)}>
 																<Save size="sw"></Save>
 															</Button>
 														</td>

@@ -5,7 +5,7 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import Input from '@mui/joy/Input';
+import { Input } from 'reactstrap';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
@@ -120,9 +120,7 @@ export default function EditarPerfil() {
 					</Stack>
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 						<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-						<Button size="sm" fullWidth variant="outlined" color="neutral" component="a" href='/'>
-							Cancelar
-						</Button>
+						<Button size="sm" fullWidth variant="outlined" color="neutral" component="a" href='/'>Cancelar</Button>
 					</Stack>
 				</Box>
 			</Card>

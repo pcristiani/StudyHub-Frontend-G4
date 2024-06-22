@@ -12,7 +12,7 @@ import { URI_FRONT, T_ROL } from '../../services/util/constants'
 
 import Box from '@mui/joy/Box';
 import Logo from '../../img/logo-text.png';
-import Input from '@mui/joy/Input';
+import { Input } from 'reactstrap';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 import { types } from '../../context/types';
@@ -82,7 +82,7 @@ export default function Navigation() {
 											</Button>
 										</ListItemButton>
 										<ListItemButton>
-										<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idL}`} size="sw" sx={{ alignSelf: 'left' }}>
+											<Button variant="plain" color="neutral" component="a" href={`/dashboard-admin?id=${idL}`} size="sw" sx={{ alignSelf: 'left' }}>
 												Resumen de actividad
 											</Button>
 										</ListItemButton>
@@ -283,7 +283,7 @@ export default function Navigation() {
 										</ListItemButton>
 										<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
 										</Button>
-									
+
 										<Dropdown>
 											<ListItemButton>
 												<MenuButton variant="plain" size="sw" component="a" color="neutral" sx={{ alignSelf: 'left' }}>
@@ -323,7 +323,7 @@ export default function Navigation() {
 															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.listadoCarrerasUri} size="sw" sx={{ alignSelf: 'left' }}>
 																Buscar carreras
 															</Button>
-														</ListItemButton>													
+														</ListItemButton>
 													</Menu>
 												</MenuButton>
 											</ListItemButton>

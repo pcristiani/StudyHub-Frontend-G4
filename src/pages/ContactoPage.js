@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
-import Input from '@mui/joy/Input';
+import { Input } from 'reactstrap';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
@@ -34,7 +34,7 @@ const ContactoPage = () => {
             </FormControl>
             <Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
               <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-              <Button size="md" fullWidth variant="outlined" color="neutral" href='/'>Cancelar</Button>
+              <Button size="md" fullWidth variant="outlined" color="neutral" component="a" href='/'>Cancelar</Button>
             </Stack>
           </Stack>
         </Box>

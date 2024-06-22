@@ -41,7 +41,7 @@ const GestionPage = () => {
 
     useEffect(() => {
         if (carreraData) {
-            console.log("Carreras: ", carreraData);
+            //        console.log("Carreras: ", carreraData);
         }
     }, [carreraData]);
 
@@ -50,7 +50,9 @@ const GestionPage = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         let idC = data.get('idcarrera');
+        console.log("Carrera:sss ", idC.status);
         if (idC !== null && idC !== undefined && idC !== "") {
+
             visualizarPDF(idC);
         }
     };
@@ -84,7 +86,6 @@ const GestionPage = () => {
 
     const visualizarPDF = async (idCarrera) => {
         const carrera = await getCarreraById(idCarrera, user.jwtLogin);
-
         try {
             var doc = new jsPDF();
             const logoURL = 'https://frontstudyhub.vercel.app/static/media/logo-text.1b43604a02cff559bc6a.png';
@@ -102,7 +103,7 @@ const GestionPage = () => {
             doc.text(`${carrera.data.nombre}`, 20, 40);
             doc.setFontSize(10);
             doc.setFont('helvetica', 'normal');
-            doc.text(`Emisión ${fechaEmision()}`, 160, 8,);
+            doc.text(`Emisión ${fechaEmision()}`, 160, 8);
 
             doc.addImage(logoBase64, 'PNG', 160, 13, 40, 10);
             doc.setLineWidth(0.2);
@@ -111,62 +112,76 @@ const GestionPage = () => {
             doc.setFontSize(12);
             doc.setTextColor(0);
             doc.text(`Nombre: ${user?.nombre + " " + user?.apellido || "Nombre del Estudiante"}`, 20, 55);
-            doc.text(`Cédula: ${formatoCi(user?.cedula) || "ID del Estudiante"}`, 20, 62);
-            doc.text(`Correo: ${user?.email || "Correo del Estudiante"}`, 20, 69);
+            doc.text(`Cédula: ${formatoCi(user?.cedula) || "ID del Estudiante"}`, 20, 61);
+            doc.text(`Correo: ${user?.email || "Correo del Estudiante"}`, 20, 67);
 
             let y = 92;
             let contCursos = 0;
             let calificacionCursos = 0;
             doc.setFontSize(14);
             doc.setFont('helvetica', 'bold');
-            const resultCalificaciones = await getCalificacionesAsignaturas(user.id, idCarrera, user.jwtLogin);
+            let resultCalificaciones = await getCalificacionesAsignaturas(user.id, idCarrera, user.jwtLogin);
             if (resultCalificaciones !== null && resultCalificaciones !== undefined && resultCalificaciones !== '' && resultCalificaciones.status !== 200) {
-                doc.text("Cursos", 20, 85);
-                doc.setFont('helvetica', 'normal');
+                doc.text("Cursos", 20, 87);
                 doc.setFontSize(12);
+                doc.setFont('helvetica', 'normal');
+
                 resultCalificaciones.forEach(notas => {
-                    doc.text(`${notas.asignatura}`, 20, y);
-                    doc.text(`Calificación: ${notas.calificaciones[0].calificacion}`, 90, y);
-                    doc.text(`${notas.calificaciones[0].resultado}`, 155, y);
-                    contCursos = contCursos + 1;
-                    calificacionCursos = calificacionCursos + notas.calificaciones[0].calificacion;
-                    y += 6;
+                    if (notas.calificaciones[0].calificacion !== 0) {
+                        doc.text(`${notas.asignatura}`, 20, y);
+                        doc.text(`Calificación: ${notas.calificaciones[0].calificacion}`, 90, y);
+                        doc.text(`${notas.calificaciones[0].resultado}`, 155, y);
+                        contCursos = contCursos + 1;
+                        calificacionCursos = calificacionCursos + notas.calificaciones[0].calificacion;
+                        y += 6;
+                    }
                 });
             }
-
-            const resultExamenes = await getCalificacionesExamenes(user.id, idCarrera, user.jwtLogin);
-            let j = 137;
+            doc.setLineWidth(0.2);
+            doc.line(20, y, 190, y);
+            //  let j = 137;
             let contExamen = 0;
-            let calificacion = 0;
-            doc.setFont('helvetica', 'bold');
+            let calificacionExamen = 0;
+            y += 10;
             doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            let resultExamenes = await getCalificacionesExamenes(user.id, idCarrera, user.jwtLogin);
             if (resultExamenes !== null && resultExamenes !== undefined && resultExamenes !== '') {
-                doc.text("Examenes", 20, 130);
+                doc.text("Examenes", 20, y);
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'normal');
+                y += 6;
+
                 resultExamenes.forEach(notasx => {
-                    doc.setFontSize(12);
-                    doc.setFont('helvetica', 'normal');
-                    doc.text(`${notasx.asignatura}`, 20, j);
-                    doc.text(`Calificación: ${notasx.calificacion}`, 90, j);
-                    doc.text(`${notasx.resultado}`, 155, j);
-                    contExamen = contExamen + 1;
-                    calificacion = calificacion + notasx.calificacion;
-                    j += 6;
+                    if (notasx.calificacion !== 0) {
+                        doc.text(`${notasx.asignatura}`, 20, y);
+                        doc.text(`Calificación: ${notasx.calificacion}`, 90, y);
+                        doc.text(`${notasx.resultado}`, 155, y);
+                        contExamen = contExamen + 1;
+                        calificacionExamen = calificacionExamen + notasx.calificacion;
+                        y += 6;
+                    }
                 });
             }
+
+            doc.setLineWidth(0.2);
+            doc.line(20, y, 190, y);
+            y += 10;
             doc.setFontSize(12);
-            doc.text(`Cantidad cursadas: ${contCursos}`, 20, y + 60);
-            doc.text(`Cantidad examenes: ${contExamen}`, 20, y + 65);
-            doc.text(`Total: ` + `${contCursos + contExamen}`, 100, y + 62);
+            doc.text(`Cantidad cursadas: ${contCursos}`, 20, y);
+            y += 6
+            doc.text(`Cantidad examenes: ${contExamen}`, 20, y);
+            doc.text(`Total: ` + `${contCursos + contExamen}`, 90, y - 3);
 
-            let promedio = calificacionCursos / (contCursos + contExamen);
-
+            let promedio = (calificacionCursos + calificacionExamen) / (contCursos + contExamen);
             let promedioFormat = promedio.toFixed(2);
             if (isNaN(promedio)) {
                 promedioFormat = 0;
             }
+            y += 10;
             doc.setFontSize(15);
             doc.setFont('helvetica', 'bold');
-            doc.text(`Promedio General: ` + `${promedioFormat}`, 20, y + 75);
+            doc.text(`Promedio General: ` + `${promedioFormat}`, 20, y);
 
             var blob = doc.output("blob");
             var url = URL.createObjectURL(blob);

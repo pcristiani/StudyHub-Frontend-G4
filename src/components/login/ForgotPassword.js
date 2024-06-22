@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from 'sweetalert';
-import Input from '@mui/joy/Input';
+import { Input } from 'reactstrap';
 import Button from '@mui/joy/Button';
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
@@ -22,7 +22,7 @@ const defaultTheme = createTheme();
 const ForgotPassword = () => {
 	let params = new URLSearchParams(window.location.search);
 	let token = params.get('token');
-	const redirectHome = URI_FRONT.homeUri;
+	const redirectHome = URI_FRONT.novedadesUri;
 
 	async function emailValue(email) {
 		let response = await fetch(URL_BACK.forgotPassword, {

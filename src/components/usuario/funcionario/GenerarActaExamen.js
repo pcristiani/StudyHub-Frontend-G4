@@ -4,7 +4,7 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import Input from '@mui/joy/Input';
+import { Input } from 'reactstrap';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
@@ -77,14 +77,14 @@ export default function GenerarActaExamen() {
 
    const handleChangeFecha = (event, idPeriodoExamen) => {
       if (idPeriodoExamen !== null && idPeriodoExamen !== undefined) {
-         console.log("fechaFin: ", idPeriodoExamen.idPeriodoExamen);
+         //   console.log("fechaFin: ", idPeriodoExamen.idPeriodoExamen);
          getInfoPeriodoExamen(idPeriodoExamen.idPeriodoExamen);
       }
    };
 
    async function getInfoPeriodoExamen(idPeriodoExamen) {
       let result = await getExamenesPeriodo(idPeriodoExamen, user.jwtLogin);
-      console.log("getExamenesPeriodo: ", result.data);
+      //  console.log("getExamenesPeriodo: ", result.data);
       setDocenteData(result.data);
    }
 
@@ -96,7 +96,7 @@ export default function GenerarActaExamen() {
       if (idExamen !== null && idExamen !== undefined && idExamen !== '') {
          let result = await getActaExamen(idExamen, user.jwtLogin);
          setActaData(result.data);
-         console.log("actaData: ", actaData);
+         //    console.log("actaData: ", actaData);
       }
    }
 
@@ -157,6 +157,7 @@ export default function GenerarActaExamen() {
 
       try {
          var doc = new jsPDF();
+         let y = 45;
          const logoURL = 'https://frontstudyhub.vercel.app/static/media/logo-text.1b43604a02cff559bc6a.png';
          const logoBase64 = await convertirURLaBase64(logoURL);
 
@@ -176,36 +177,41 @@ export default function GenerarActaExamen() {
          doc.setFont('helvetica', 'normal');
          doc.text(`Emisión ${fechaEmision()}`, 160, 8,);
          doc.addImage(logoBase64, 'PNG', 160, 13, 40, 10);
-         doc.setLineWidth(0.2);
-         doc.line(20, 48, 190, 48);
-
-
-         doc.setFontSize(12);
-         doc.setTextColor(0);
-         let y = 92;
-         actaData.docentes.forEach(docente => {
-            doc.setFontSize(12);
-            doc.text(`Docente: ${docente.nombre}`, 150, 45);
-            y += 6;
-         });
 
          doc.setFontSize(12);
          doc.setFont('helvetica', 'bold');
-         doc.text("Alumnos inscriptos", 20, 65);
-         doc.setLineWidth(0.1);
-         doc.line(20, 67, 190, 67);
+         doc.setTextColor(0);
+         doc.text(`Docente`, 150, y);
+         y += 3;
+         doc.setLineWidth(0.2);
+         doc.line(20, y, 190, y);
 
+         doc.setFontSize(12);
          doc.setFont('helvetica', 'normal');
-         doc.text("Cedula", 20, 73);
-         doc.text("Nombre", 88, 73);
-         doc.text("Calificación", 155, 73);
+         actaData.docentes.forEach(docente => {
+            y += 6;
+            doc.text(`${docente.nombre}`, 150, y);
+         });
 
-         let j = 80;
+         y += 6;
+         doc.setFontSize(12);
+         doc.setFont('helvetica', 'bold');
+         doc.text("Alumnos inscriptos", 20, y);
+         y += 3;
+         doc.setLineWidth(0.1);
+         doc.line(20, y, 190, y);
+         y += 6;
+         doc.setFont('helvetica', 'bold');
+         doc.text("Cedula", 20, y);
+         doc.text("Nombre", 88, y);
+         doc.text("Calificación", 150, y);
+         doc.setFont('helvetica', 'normal');
+
          actaData.estudiantes.forEach(estudiante => {
+            y += 6;
             doc.setFontSize(12);
-            doc.text(`${estudiante.cedula}`, 20, j);
-            doc.text(` ${estudiante.nombre}` + ` ` + `${estudiante.apellido}`, 86, j);
-            j += 6;
+            doc.text(`${estudiante.cedula}`, 20, y);
+            doc.text(`${estudiante.nombre}` + ` ` + `${estudiante.apellido}`, 88, y);
          });
          var blob = doc.output("blob");
          var url = URL.createObjectURL(blob);
@@ -214,7 +220,6 @@ export default function GenerarActaExamen() {
          // guardar
          // const blob = doc.output('blob');
          // doc.save('document.pdf');
-
       }
       catch (error) {
          console.log("Error: ", error);
@@ -250,7 +255,6 @@ export default function GenerarActaExamen() {
                            <Option key={index} value={periodo}>Periodo {periodo.nombre}</Option>
                         ))}
                      </Select>
-                     {/* slotProps={{ listbox: { sx: { width: '100%', }, }, }} */}
 
                      <Select size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} >
                         {Array.isArray(docenteData) && docenteData.map((asignatura, index) => (

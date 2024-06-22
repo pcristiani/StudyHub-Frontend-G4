@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Button from '@mui/joy/Button';
-import Input from '@mui/joy/Input';
+import { Input } from 'reactstrap';
 import Stack from '@mui/joy/Stack';
 import Link from '@mui/joy/Link';
 import Grid from '@mui/joy/Grid';
@@ -94,8 +94,7 @@ function Login() {
 
 							<Input size="md" id="cedula" label="Cédula" name="cedula" autoComplete="text" placeholder="Cédula" autoFocus required />
 							<Input size="md" name="password" label="Contraseña" type="password" id="password" placeholder="Contraseña" autoComplete="current-password" required />
-							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d', zIndex: '1000' }} variant="soft">
-								Iniciar sesión</Button>
+							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d', zIndex: '1000' }} variant="soft">Iniciar sesión</Button>
 
 							<Grid container spacing={1}>
 								<Grid item>

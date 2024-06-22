@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { Graphviz } from "graphviz-react";
 import { graphviz } from "d3-graphviz";
+import Option from '@mui/joy/Option';
+import Select from '@mui/joy/Select';
 
 export default ({ dot, width, height }) => {
     // gen css from props
@@ -38,17 +40,11 @@ export default ({ dot, width, height }) => {
                         }}
                         ref={graphvizRoot}
                     />,
-                    // <button
-                    //     onClick={reset}
-                    //     style={{
-                    //         position: "absolute",
-                    //         right: "5%",
-                    //         top: "5%"
-                    //     }}>
-                    //     Reset
-                    // </button>
+                  
                 ]
-                : null}
+                : <Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera"  >
+                    sd
+                </Select>}
         </div>
     );
 };

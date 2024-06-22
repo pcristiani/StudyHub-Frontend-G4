@@ -4,7 +4,7 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
-import Input from '@mui/joy/Input';
+import { Input } from 'reactstrap';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
@@ -20,6 +20,7 @@ import { getAsignaturasDeCarreraConExamen, getDocentesByAsignatura } from '../..
 import dayjs from 'dayjs';
 import isBetweenPlugin from 'dayjs/plugin/isBetween';
 import { registroAsignaturaAPeriodo } from '../../../services/requests/examenService';
+import { errors } from '../../../services/util/errors';
 
 dayjs.extend(isBetweenPlugin);
 
@@ -51,12 +52,11 @@ export default function RegistrarAsignaturaPeriodoExamen() {
 
    useEffect(() => {
       if (carreraData) {
-         console.log("Carreras: ", carreraData);
+         //  console.log("Carreras: ", carreraData);
       }
    }, [carreraData]);
 
    const handleChange = (event, newValue) => {
-      console.log("Selected: ", newValue);
       setSelectedCarrera(newValue);
       if (newValue !== null) {
          getInfoCarrera(newValue);
@@ -66,8 +66,8 @@ export default function RegistrarAsignaturaPeriodoExamen() {
    async function getInfoCarrera(selectedCarrera) {
       let result = await getAsignaturasDeCarreraConExamen(selectedCarrera, user.jwtLogin);
       let resultPeriodo = await getPeriodosDeCarrera(selectedCarrera, user.jwtLogin);
-      console.log("resultPeriodo: ", resultPeriodo);
-      console.log("getInfoCarrera: ", result);
+      // console.log("resultPeriodo: ", resultPeriodo);
+      // console.log("getInfoCarrera: ", result);
       setAsignaturaData(result);
       setPeriodoData(resultPeriodo);
    }
@@ -78,7 +78,16 @@ export default function RegistrarAsignaturaPeriodoExamen() {
 
    async function getInfoDocentesDeAsignatura(idAsignatura) {
       let result = await getDocentesByAsignatura(idAsignatura, user.jwtLogin);
-      console.log("getInfoDocentesDeAsignatura: ", result);
+      if (result.length === '' || result === null || result === undefined) {
+         swal({
+            title: "¡Error!\n\n",
+            text: "No hay docentes asignados a esta asignatura.",
+            icon: "error",
+            dangerMode: true,
+            position: "center",
+            timer: 4000
+         });
+      }
       setDocenteData(result);
    }
 
@@ -109,32 +118,23 @@ export default function RegistrarAsignaturaPeriodoExamen() {
       let fechaHora = data.get('fechaHora');
 
       try {
-         await registroAsignaturaAPeriodo(idAsignatura, idPeriodo, idsDocentes, fechaHora, user.jwtLogin);
-         swal({
-            title: "¡Horario registado!\n\n",
-            text: "Horario asignatura ha sido creada con éxito.",
-            icon: "success",
-            dangerMode: false,
-            position: "center",
-            timer: 4000
-         });
-         history('/novedades');
-      } catch (error) {
-         let errorMsg = 'Los datos ingresados no son correctos o ya existe horario para la asignatura';
-         if (error.status === 401) {
-            errorMsg = 'No autorizado. Verifica tu token de autenticación.';
-         } else if (error.status === 500) {
-            errorMsg = 'Error interno del servidor. Inténtalo más tarde.';
+         const restul = await registroAsignaturaAPeriodo(idAsignatura, idPeriodo, idsDocentes, fechaHora, user.jwtLogin);
+         console.log("restul: ", restul);
+         if (restul.statusCodeValue === 200) {
+            let title = "¡Fecha de examen registrada con éxito!\n\n";
+            errors(title, restul.body, restul.statusCodeValue);
+            history('/novedades');
+         } else {
+            errors(restul.body, restul.body, restul.statusCodeValue);
          }
-         swal("Error", errorMsg, "error", {
-            timer: 3000
-         });
+      } catch (error) {
+         errors('Ya existe un examen de la asignatura para la fecha indicada.', '', error.statusCod);
       }
    };
 
 
    return (
-      <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
+      <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
          <Card sx={{ display: 'flex', alignSelf: 'center', }}>
             <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
                <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registrar fecha de examen</Typography>
@@ -143,21 +143,21 @@ export default function RegistrarAsignaturaPeriodoExamen() {
             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
-                  <Select slotProps={slotProps} size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} >
+                  <Select slotProps={slotProps} size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
                      {carreraData.map((carrera, index) => (
                         <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                      ))}
                   </Select>
                   <Divider />
 
-                  <Select size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} slotProps={{ listbox: { sx: { width: '100%', }, }, }}>
+                  <Select size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
                      {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
                         <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                      ))}
                   </Select>
                   <Divider />
 
-                  <Select size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha} slotProps={{ listbox: { sx: { width: '100%', }, }, }}>
+                  <Select size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha}>
                      {Array.isArray(periodoData) && periodoData.map((periodo, index) => (
                         <Option key={index} value={periodo} >{periodo.nombre}</Option>
                      ))}
@@ -173,8 +173,7 @@ export default function RegistrarAsignaturaPeriodoExamen() {
                         ))}
                      </Box>
                   )}
-                     slotProps={{ listbox: { sx: { width: '100%', }, }, }}
-                     id="iddocente" name="iddocente">
+                     slotProps={{ listbox: { sx: { width: '100%', }, }, }} id="iddocente" name="iddocente">
                      {Array.isArray(docenteData) && docenteData.map((docente, index) => (
                         <Option key={index} value={docente.idDocente}>{docente.nombre}</Option>
 

@@ -44,7 +44,7 @@ export default function RegistrarPreviaturas() {
 
 	useEffect(() => {
 		if (carreraData) {
-			console.log("IF Carreras: ", carreraData);
+			//	console.log("IF Carreras: ", carreraData);
 		}
 	}, [carreraData]);
 

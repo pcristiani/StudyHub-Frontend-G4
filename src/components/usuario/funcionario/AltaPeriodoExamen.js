@@ -4,7 +4,9 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
+import { FormGroup, Label } from 'reactstrap';
 import Input from '@mui/joy/Input';
+
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
@@ -16,6 +18,18 @@ import DtFecha from '../../../services/data/DtFecha';
 import { errors } from '../../../services/util/errors';
 import { SelectProps } from '../../common/SelectProps';
 
+export const FechaExamen = () => {
+	return (
+		<Input
+			size="sm"
+			placeholder="Seleccionar periodo examen"
+			type="date"
+			id="fechaInicio"
+			name="fechaInicio"
+			required
+		/>
+	);
+};
 
 export default function AltaPeriodoExamen() {
 	const { user } = useContext(AuthContext);
@@ -29,7 +43,6 @@ export default function AltaPeriodoExamen() {
 		{ value: 'Julio', label: 'Julio' },
 		{ value: 'Diciembre', label: 'Diciembre' },
 	];
-
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
@@ -62,8 +75,8 @@ export default function AltaPeriodoExamen() {
 		const dtFechaFin = new DtFecha(fechaFin);
 
 		const response = await altaPeriodoDeExamen(nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, user.jwtLogin);
-		if (response === undefined) {
-			console.log("Response: ", response.data);
+		console.log("Response: ", response.data);
+		if (response !== undefined) {
 			if (response.data.status === 200 && response.data !== undefined && response.data !== null) {
 				let title = "¡Periodo examen creado!\n\n";
 				errors(title, response.data, response.data.status);
@@ -71,6 +84,8 @@ export default function AltaPeriodoExamen() {
 			} else {
 				errors(response.data, response.data, response.status);
 			}
+		} else {
+			errors("Error", "El período ingresado se solapa con un período existente.", 500);
 		}
 	};
 
@@ -80,7 +95,7 @@ export default function AltaPeriodoExamen() {
 			<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
 				<Card sx={{ display: 'flex', alignSelf: 'center', }}>
 					<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
-						<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registro de períodos de examen</Typography>
+						<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registro de períodos de éxamen</Typography>
 					</Box>
 					<Divider />
 					<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
@@ -98,9 +113,14 @@ export default function AltaPeriodoExamen() {
 									</Option>
 								))}
 							</SelectProps>
-
-							<Input size="sm" type="date" id="fechaInicio" name="fechaInicio" required />
-							<Input size="sm" type="date" id="fechaFin" name="fechaFin" required />
+							<Stack  sx={{  width: '100%', }}>
+								<Label className='text-fecha'>Fecha Inicio
+									<Input size='sm'  type="date" id="fechaInicio" name="fechaInicio" required />
+								</Label>
+								<Label className='text-fecha'>Fecha Fin
+									<Input  size="sm" type="date" id="fechaFin" name="fechaFin" required />
+								</Label>
+							</Stack>
 							<Divider />
 
 						</FormControl>

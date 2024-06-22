@@ -14,14 +14,6 @@ import { formatoCi } from '../../../services/util/formatoCi';
 function selectValidar(id, validado) {
   return { id, validado };
 }
-// const dataSelect = [
-//   selectValidar(true, "Validado"),
-//   selectValidar(false, "No Validado"),
-// ];
-
-// function preventDefault(event) {
-//   event.preventDefault();
-// }
 
 export default function TableAsignarCoordinadorCarrera() {
   const { user } = useContext(AuthContext);

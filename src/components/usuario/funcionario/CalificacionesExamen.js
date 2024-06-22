@@ -7,7 +7,6 @@ import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
@@ -97,17 +96,15 @@ export default function CalificacionesExamen() {
 		if (idExamen !== null && idExamen !== undefined && idExamen !== '') {
 			let result = await getCursadasExamen(idExamen, user.jwtLogin);
 			setUsuarioData(result);
-			console.log("getCursadasExamen-------: ", result);
+		//	console.log("getCursadasExamen-------: ", result);
 		}
 	}
 
 
 	///
 	const handleModificar = async (row) => {
-
 		let cursadaExam = row.idCursadaExamen;
-
-		console.log("idcursada examen: ", cursadaExam);
+	//	console.log("idcursada examen: ", cursadaExam);
 
 		if (cursadaExam !== null && cursadaExam !== undefined && resultadoData !== null && resultadoData !== undefined) {
 			let result = await cambiarResultadoExamen(cursadaExam, resultadoData, user.jwtLogin);
@@ -184,10 +181,7 @@ export default function CalificacionesExamen() {
 							))}
 						</SelectProps>
 
-						{/* <Stack direction="row" spacing={0.8} sx={{ marginBottom: 0.6, justifyContent: 'right', zIndex: '1000' }}>
-							<Button type="submit" fullWidth sx={{ mt: 1, mb: 1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
-						</Stack> */}
-						<Divider />
+										<Divider />
 
 						<section className="text-black body-font">
 							<div>
@@ -250,23 +244,4 @@ const timeSlots = Array.from(new Array(24 * 1)).map(
 		`${index < 20 ? '' : ''}${Math.floor(index / 1)
 		}:00`,
 );
-
-
-
-
-
-
-// const handleChangeAsignatura = (event, idAsignatura) => {
-// 	if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '') {
-// 		getInfoCursadasPendientes(idAsignatura);
-// 	}
-// };
-// async function getInfoCursadasPendientes(idAsignatura) {
-// 	if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '') {
-// 		let result = await getExamenesAsignaturaPorAnio(idAsignatura, 2024, user.jwtLogin);
-// 		console.log("getExamenesAsignaturaPorAnio: ", result);
-// 		setCursadasData(result);
-// 	}
-// }
-
 

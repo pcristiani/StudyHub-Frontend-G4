@@ -35,6 +35,7 @@ export default function RegistrarHorarioAsignatura() {
    const [selectedInicio, setSelectedInicio] = useState('');
    const [selectedFin, setSelectedFin] = useState('');
 
+
    useEffect(() => {
       const fetchCarreras = async () => {
          try {
@@ -54,7 +55,6 @@ export default function RegistrarHorarioAsignatura() {
    }, [carreraData]);
 
    const handleChange = (event, newValue) => {
-      console.log("Selected: ", newValue);
       setSelectedCarrera(newValue);
       if (newValue !== null) {
          getInfoCarrera(newValue);
@@ -75,18 +75,41 @@ export default function RegistrarHorarioAsignatura() {
       setDocenteData(result);
    }
 
+
+   ///
+   const validarHorario = (nuevoHorario) => {
+      return !horarioData.some(horario =>
+         horario.diaSemana === nuevoHorario.diaSemana &&
+         (
+            (nuevoHorario.horaInicio >= horario.horaInicio && nuevoHorario.horaInicio < horario.horaFin) ||
+            (nuevoHorario.horaFin > horario.horaInicio && nuevoHorario.horaFin <= horario.horaFin) ||
+            (nuevoHorario.horaInicio <= horario.horaInicio && nuevoHorario.horaFin >= horario.horaFin)
+         )
+      );
+   };
+
+   ///
+
    const handleChangeHorario = () => {
       let horaInicio = selectedInicio;
       let horaFin = selectedFin;
-      // let horaFin = parseInt(selectedFin, 10);
       const nuevoHorario = {
          diaSemana: selectedDay,
          horaInicio: horaInicio,
          horaFin: horaFin
       };
 
-      setHorarioData(prev => [...prev, nuevoHorario]);
+      if (validarHorario(nuevoHorario)) {
+         setHorarioData(prev => [...prev, nuevoHorario]);
+      } else {
+         swal("Error", "El horario se superpone con uno existente.", "error", {
+            timer: 3000
+         });
+      }
+      //setHorarioData(prev => [...prev, nuevoHorario]);
    };
+
+
 
    const handleSubmit = async (event) => {
       event.preventDefault();
@@ -113,6 +136,10 @@ export default function RegistrarHorarioAsignatura() {
       }
    };
 
+
+   ///
+
+
    const [year, setYear] = useState(new Date().getFullYear());
    const startYear = 2023;
    const endYear = new Date().getFullYear() + 2;
@@ -131,14 +158,7 @@ export default function RegistrarHorarioAsignatura() {
       { value: 'DOMINGO', label: 'Domingo' },
    ];
 
-   // Select con slotProps
-   // const withSlotProps = (WrappedComponent, slotProps) => {
-   //    return (props) => <WrappedComponent {...props} slotProps={slotProps} />;
-   // };
-   // const slotProps = {
-   //    listbox: { sx: { width: '100%', }, },
-   // };
-   // const SelectProps = withSlotProps(Select, slotProps);
+
 
    return (
       <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
@@ -199,7 +219,8 @@ export default function RegistrarHorarioAsignatura() {
                      </Box>)}
                      slotProps={{ listbox: { sx: { width: '100%', }, }, }} required>
                      {Array.isArray(horarioData) && horarioData.map((horario, index) => (
-                        <Option key={index} value={horario.diaSemana}> {horario.diaSemana} de {horario.horaInicio} a {horario.horaFin} hs</Option>
+                        <Option key={index} value={horario.horaInicio}>
+                           {horario.diaSemana} de {horario.horaInicio} a {horario.horaFin} hs</Option>
                      ))}
                   </SelectProps>
                </FormControl>
@@ -213,7 +234,8 @@ export default function RegistrarHorarioAsignatura() {
          </Card>
       </Box>
    );
-};
+}
+
 
 const timeSlots = Array.from(new Array(24 * 1)).map(
    (_, index) =>
