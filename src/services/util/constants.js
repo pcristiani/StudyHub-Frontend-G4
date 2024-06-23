@@ -170,9 +170,14 @@ const PARAMETERS = {
   // accessToken: ``,
 };
 
+const UI = {
+  mtop: 10,
+};
+
 const redirigir = (url) => {
   window.location.href = url;
 };
+
 const COURSE = {
   graph: `digraph {
   bgcolor = transparent;shape = rectangle; style = "rounded";
@@ -182,4 +187,4 @@ const COURSE = {
 };
 
 
-export { URI_FRONT, URL_BACK, T_ROL, PARAMETERS, redirigir, uriBaseFront, COURSE };
+export { URI_FRONT, URL_BACK, T_ROL, PARAMETERS, redirigir, uriBaseFront, COURSE, UI };

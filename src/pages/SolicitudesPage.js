@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getUsuarios } from '../services/requests/usuarioService';
 
@@ -7,16 +7,18 @@ import Typography from '@mui/joy/Typography';
 import { CssVarsProvider } from '@mui/joy/styles';
 import Container from '@mui/joy/Container';
 import Box from '@mui/joy/Box';
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { useEffect, useMemo, useState } from "react";
 
 const SolicitudesPage = () => {
   const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
   console.log("IdUser : ", user.id);
 
-  useEffect(() => {
-    getUsuarios(user.id).then(result => {
-      console.log("Datos Usuario: ", result);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getUsuarios(user.id).then(result => {
+  //     console.log("Datos Usuario: ", result);
+  //   });
+  // }, []);
 
   // useEffect(() => {
   //   getToken('11', '123').then(result => {
@@ -24,20 +26,16 @@ const SolicitudesPage = () => {
   //   });
   // }, []);
 
+
+
   return (
-    <CssVarsProvider>
-      <Container component="main" maxWidth="xs">
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '22px' }}>
-          <Typography className="text-dark focus-ring-primary" component="h1" >
-            <div style={{ height: 300, width: '100%' }}>
-              <Typography className="text-dark focus-ring-primary" component="h1" >
-                Solicitudes
-              </Typography>
-            </div>
-          </Typography>
-        </Box>
-      </Container>
-    </CssVarsProvider>
+
+    <Particles
+      id="tsparticles"
+    // particlesLoaded={particlesLoaded}
+    // options={options}
+    />
+
   );
 }
 

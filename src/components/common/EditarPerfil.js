@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
@@ -12,7 +12,8 @@ import Card from '@mui/joy/Card';
 import { AuthContext } from '../../context/AuthContext';
 import { getUsuario, modificarPerfilUsuario } from "../../services/requests/usuarioService";
 import { types } from '../../context/types';
-
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 
 const DatosRol = [
 	{ cod: `A`, rol: `Administrador` },
@@ -22,12 +23,96 @@ const DatosRol = [
 	{ cod: `I`, rol: `Invitado` }
 ];
 
-
-export default function EditarPerfil() {
+function EditarPerfil() {
 	const { user } = useContext(AuthContext);
 	const [userData, setUserData] = useState(null);
 	const [error, setError] = useState(null);
 	const context = useContext(AuthContext);
+	const [init, setInit] = useState(false);
+	// this should be run only once per application lifetime
+	useEffect(() => {
+		initParticlesEngine(async (engine) => {
+			await loadSlim(engine);
+
+		}).then(() => {
+			setInit(true);
+		});
+	}, []);
+
+	const particlesLoaded = (container) => {
+		// console.log(container);
+
+	};
+	const options = useMemo(
+		() => ({
+			background: {
+				color: {
+					//  value: "#0b0d0e",
+				},
+			},
+			fpsLimit: 120,
+			interactivity: {
+				events: {
+					onClick: {
+						enable: true,
+						mode: "push",
+					},
+					onHover: {
+						enable: true,
+						mode: "repulse",
+					},
+				},
+				modes: {
+					push: {
+						quantity: 4,
+					},
+					repulse: {
+						distance: 200,
+						duration: 0.4,
+					},
+				},
+			},
+			particles: {
+				color: {
+					value: "#ffffff",
+				},
+				links: {
+					color: "#53a7b9",
+					distance: 150,
+					enable: true,
+					opacity: 0.8,
+					width: 1.4,
+				},
+				move: {
+					direction: "none",
+					enable: true,
+					outModes: {
+						default: "bounce",
+					},
+					random: false,
+					speed: 6,
+					straight: false,
+				},
+				number: {
+					density: {
+						enable: true,
+					},
+					value: 80,
+				},
+				opacity: {
+					value: 0.5,
+				},
+				shape: {
+					type: "circle",
+				},
+				size: {
+					value: { min: 1, max: 5 },
+				},
+			},
+			detectRetina: true,
+		}),
+		[],
+	);
 
 	useEffect(() => {
 		const fetchUser = async () => {
@@ -92,14 +177,17 @@ export default function EditarPerfil() {
 	}
 
 
+
+
 	return (
-		<Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
+		<Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Datos de usuario</Typography>
 				</Box>
 				<Divider />
 				<Box component="form" sx={{ marginTop: 0, display: 'flex', flexDirection: 'column', width: '100%' }} onSubmit={handleModificar}>
+					<Particles id="tsparticles" particlesLoaded={particlesLoaded} options={options} />
 					<Stack>
 						<Stack>
 							<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
@@ -127,3 +215,5 @@ export default function EditarPerfil() {
 		</Box>
 	);
 }
+
+export default EditarPerfil;

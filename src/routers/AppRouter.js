@@ -111,7 +111,6 @@ export const AppRouter = () => {
                     <Route path='/listado-asignaturas-no-aprobadas' element={<PrivateRoute><ListadoAsignaturasNoAprobadas user={user.id} /></PrivateRoute>} exact />
                     <Route path='/info-carrera' element={<PrivateRoute><InfoCarreras user={user.id} /></PrivateRoute>} exact />
 
-
                     <Route exact path='/login' element={<PublicRoute><Login /></PublicRoute>} />
                     <Route path='/registrarse' element={<PublicRoute><Register /></PublicRoute>} />
                     <Route path='/logout' element={<PublicRoute><Login /></PublicRoute>} />
@@ -120,7 +119,7 @@ export const AppRouter = () => {
                     <Route path="/resetPassword" element={<RecuperarPassword user={user.id} />} exact />
 
                     <Route path="/novedades" element={<Novedades user={user.id} />} exact />
-                    <Route path="/" element={<Novedades user={user.id} />} exact />
+                    <Route path="/" element={<HomePage user={user.id} />} exact />
                     <Route path="/not-found" element={<Page404 user={user.id} />} exact />
                     <Route path="/contacto" element={<ContactoPage user={user.id} />} exact />
                     <Route path="/nuestro-equipo" element={<NuestroEquipo user={user.id} />} exact />
