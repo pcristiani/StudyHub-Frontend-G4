@@ -28,6 +28,7 @@ export function MyAnimation() {
             height: '55px',
             fontSize: '0.8em',
             display: 'block',
+            fontStyle: 'bold',
             // overflow: 'hidden',
             // wordBreak: 'break-all',
           }}
@@ -40,24 +41,24 @@ export function MyAnimation() {
 
 export function MyAnimationStudyHub() {
   const listItems = [
-    { strAnimated: "StudyHub" }
+    { strAnimatedStudy: "StudyHub" }
   ]
-
   return (
     <section className="">
       <div className="text-base leading-tight text-semibold">
         <TypeAnimation
-          preRenderFirstString={false}
+        
           sequence={[
-            100,
-            listItems[0].strAnimated,
+            1800,
+            listItems[0].strAnimatedStudy,
             2500,
           ]}
-          speed={30}
+          speed={20}
           deletionSpeed={90}
           style={{
             height: '55px',
-            fontSize: '1.2em',
+            fontStyle: 'bold',
+            fontSize: '1.1em',
             display: 'block',
             // overflow: 'hidden',
             // wordBreak: 'break-all',
@@ -137,7 +138,7 @@ export function MyAnimationFooter() {
         <TypeAnimation
           sequence={[3100,
             integrantes.name1,
-          //   2000,
+            //   2000,
           ]}
           speed={150}
           cursor={false}

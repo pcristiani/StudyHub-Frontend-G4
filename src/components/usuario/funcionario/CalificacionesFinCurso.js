@@ -134,8 +134,7 @@ export default function CalificacionesFinCurso() {
 									sx={{
 										'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
 										'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
-										borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
-									}}>
+										borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer'									}}>
 									<Table hoverRow>
 										<thead>
 											<tr>

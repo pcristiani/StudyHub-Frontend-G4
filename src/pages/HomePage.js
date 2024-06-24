@@ -1,6 +1,4 @@
-import Typography from '@mui/joy/Typography';
-import logo from '../img/logo.png';
-import Container from '@mui/joy/Container';
+import logo from '../img/logohd.png'
 import Box from '@mui/joy/Box';
 import { MyAnimationStudyHub } from '../components/common/AnimationType';
 import { useEffect, useMemo, useState } from "react";
@@ -9,21 +7,16 @@ import { loadSlim } from "@tsparticles/slim";
 import Sheet from '@mui/joy/Sheet';
 import { UI } from '../services/util/constants';
 
-// debugger;
 
+///
+// debugger;
 const HomePage = () => {
   const [init, setInit] = useState(false);
 
-  // this should be run only once per application lifetime
+
   useEffect(() => {
     initParticlesEngine(async (engine) => {
-      // Puede iniciar la instancia de TsParticles (motor) aquí, agregando formas o preajustes personalizados
-      // Esto carga el paquete del paquete TSParticles, es el método más fácil para preparar todo
-      // A partir de V2 puede agregar solo las características que necesita reducir el tamaño del paquete
-      //await loadAll(engine);
-      //await loadFull(engine);
       await loadSlim(engine);
-      //await loadBasic(engine);
     }).then(() => {
       setInit(true);
     });
@@ -41,7 +34,7 @@ const HomePage = () => {
           //  value: "#0b0d0e",
         },
       },
-      fpsLimit: 120,
+  //    fpsLimit: 120,
       interactivity: {
         events: {
           onClick: {
@@ -50,16 +43,18 @@ const HomePage = () => {
           },
           onHover: {
             enable: true,
-            mode: "repulse",
+            mode: "grab",
           },
         },
         modes: {
           push: {
-            quantity: 4,
+            quantity: 2,
           },
-          repulse: {
-            distance: 200,
-            duration: 0.4,
+          grab: {
+            "distance": 250,
+            "line_linked": {
+              "opacity": 1
+            }
           },
         },
       },
@@ -81,7 +76,7 @@ const HomePage = () => {
             default: "bounce",
           },
           random: false,
-          speed: 6,
+          speed: 2,
           straight: false,
         },
         number: {
@@ -107,40 +102,26 @@ const HomePage = () => {
 
   if (init) {
     return (
-
-      <Box sx={{ marginTop: UI.mtop, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+      <Box sx={{ display: 'flex',verticalAlign:'center', flexDirection: 'column', alignItems: 'center', }}>
         <Particles id="tsparticles" particlesLoaded={particlesLoaded} options={options} />
-        <div sx={{ m: 19, bgcolor: 'secondary.main' }}>
-          <img src={logo} className="scale-animation" alt="logo" />
-        </div>
-
-        <br></br>
-        {/*   <h1 className="focus-ring-primary" component="h1" >
-          StudyHub
-        </h1>
-        <h6 className="focus-ring-primary" component="h1" >
-          Novedades
-        </h6> */}
-        <Sheet>
-        </Sheet>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-          <h1 className="focus-ring-primary" component="h1" >
-            <div>
-              <h1 className="focus-ring-primary" component="h1"
-                sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '18px' }}>
-                <MyAnimationStudyHub />
-              </h1>
-            </div>
-          </h1>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+          <div sx={{ m: 10, bgcolor: 'secondary.main' }}>
+            <img src={logo} className="scale-animation" alt="logo" />
+          </div>
+          {/* <br></br> */}
+          <Sheet sx={{ background: 'none', flexDirection: 'column', alignItems: 'center', }}>
+            <h1 className="focus-ring-primary" component="h1" >
+              <MyAnimationStudyHub />
+            </h1>
+          </Sheet>
         </Box>
-
-
       </Box>
     );
   }
 
   return <></>;
 };
+
 export default HomePage;
 
 // <>

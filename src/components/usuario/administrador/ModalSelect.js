@@ -49,8 +49,6 @@ export function ModalSelect(ida) {
 
 	///
 	let intValue = parseInt(ida.value, 10);
-
-
 	const handleAsignar = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
@@ -104,7 +102,7 @@ export function ModalSelect(ida) {
 									))}
 								</Select>
 							</FormControl>
-							<Button type="submit">Confirmar</Button>
+													<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Confirmar</Button>
 						</Stack>
 					</form>
 
