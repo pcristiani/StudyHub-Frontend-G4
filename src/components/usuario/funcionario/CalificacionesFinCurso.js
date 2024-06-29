@@ -26,7 +26,6 @@ export default function CalificacionesFinCurso() {
 	const [asignaturaData, setAsignaturaData] = useState([]);
 	const [error, setError] = useState(null);
 	const [selectedCarrera, setSelectedCarrera] = useState('');
-	const [resultadoData, setResultado] = useState('');
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
@@ -59,9 +58,9 @@ export default function CalificacionesFinCurso() {
 		setAsignaturaData(result);
 	}
 
-	const handleModificar = async (idCursada) => {
-		if (idCursada !== null && idCursada !== undefined && resultadoData !== null && resultadoData !== undefined) {
-			const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
+	const handleModificar = async (idCursada, calificacion) => {
+		if (idCursada !== null && idCursada !== undefined && calificacion !== null && calificacion !== undefined && calificacion !== 0) {
+			const result = await cambiarResultadoCursada(idCursada, calificacion, user.jwtLogin);
 
 			if (result.statusCodeValue === 200) {
 				let title = "¡Calificación exitosa!\n\n";
@@ -150,7 +149,9 @@ export default function CalificacionesFinCurso() {
 													<tr key={row.idCursada}>
 														<td>{row.nombreEstudiante} {row.apellidoEstudiante}	</td>
 														<td>
-															<Select size="sm" placeholder="0" onChange={(event, newValue) => setResultado(newValue)}
+															<Select size="sm" placeholder="0"   onChange={(event, newValue) => {
+																	row.calificacion = newValue;
+																}}
 																id="idresultado" name="idresultado">{notas.map((nota) => (
 																	<Option key={notas} value={nota}>{nota}</Option>
 																))}
@@ -158,7 +159,7 @@ export default function CalificacionesFinCurso() {
 														</td>
 														<td>
 															<Button size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color='neutral'
-																onClick={() => handleModificar(row.idCursada)}>
+																onClick={() => handleModificar(row.idCursada, row.calificacion)}>
 																<Save size="sw"></Save>
 															</Button>
 														</td>

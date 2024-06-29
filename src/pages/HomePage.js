@@ -50,16 +50,18 @@ const HomePage = () => {
           },
           onHover: {
             enable: true,
-            mode: "repulse",
+            mode: "grab",
           },
         },
         modes: {
           push: {
-            quantity: 4,
+            quantity: 2,
           },
-          repulse: {
-            distance: 200,
-            duration: 0.4,
+          grab: {
+            "distance": 250,
+            "line_linked": {
+              "opacity": 1
+            }
           },
         },
       },
@@ -81,7 +83,7 @@ const HomePage = () => {
             default: "bounce",
           },
           random: false,
-          speed: 6,
+          speed: 2,
           straight: false,
         },
         number: {
