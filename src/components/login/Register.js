@@ -12,6 +12,7 @@ import { URL_BACK } from '../../services/util/constants'
 import { AuthContext } from '../../context/AuthContext';
 import { Sheet } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
+import { borrarFormatoCi  } from '../../services/util/formatoCi'
 
 import logo from '../../img/logo.png';
 
@@ -57,6 +58,17 @@ function Register() {
 		let fechaNacimiento = data.get('fechaNacimiento');
 		let cedula = data.get('cedula');
 		let password = data.get('password');
+
+		// Limpiar el formato de la cédula
+		let cedulaSinFormato = borrarFormatoCi(cedula);
+
+		// Validar la longitud de la cédula
+		if (cedulaSinFormato.length !== 8) {
+			swal("¡Advertencia!", 'La cédula ingresada no es válida', "error", {
+				timer: 3000
+			});
+			return;
+		}
 
 		registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password, `E`);
 	};
