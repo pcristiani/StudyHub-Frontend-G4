@@ -57,11 +57,11 @@ function Copyright() {
         <>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: { xs: 3, sm: 3 }, width: '100%', borderTop: '1px solid', borderColor: 'divider' }}>
                 <div>
-                    <Typography variant="body2" color="text.secondary" mt={0.2}>
+                    <Typography variant="body2" color="text.secondary" mt={0}>
                         <a className="link-footer" href="./">{'Copyright © '}StudyHub{' '}{new Date().getFullYear()}</a>
                     </Typography>
                 </div>
-                <Typography variant="body2" color="text.secondary" mt={0.1}>
+                <Typography variant="body2" color="text.secondary" mt={0}>
                     <a className="link-footer" href="./nuestro-equipo">Sobre Nosotros</a>
                 </Typography>
             </Box>
@@ -71,7 +71,7 @@ function Copyright() {
 
 function Footer() {
     return (
-        <div className='footer my-2' style={{ width: '100%'}}>
+        <div className='footer my-3' style={{ width: '100%'}}>
             <Box>
                 <Copyright />
             </Box>

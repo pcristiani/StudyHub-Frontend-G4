@@ -12,7 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 
 const SolicitudesPage = () => {
   const { user } = useContext(AuthContext); // Obtengo la informacion de logueo
-  console.log("IdUser : ", user.id);
+  //console.log("IdUser : ", user.id);
 
   // useEffect(() => {
   //   getUsuarios(user.id).then(result => {

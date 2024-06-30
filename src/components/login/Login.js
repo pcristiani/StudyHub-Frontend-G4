@@ -68,8 +68,7 @@ function Login() {
 			let payload = null;
 			if (response.status === 200) {
 				payload = decodificaJwt(response.data);
-				getInfoUsuario(payload, response.data).then(() => {
-					history('/novedades');
+				getInfoUsuario(payload, response.data).then(() => {					
 				});
 			} else {
 				errors(response.data, response.data, response.status);

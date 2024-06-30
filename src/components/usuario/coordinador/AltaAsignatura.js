@@ -106,7 +106,7 @@ export default function AltaAsignatura() {
 		if (resp.statusCodeValue === 200) {
 			let title = "¡Asignatura registada!\n\n";
 			errors(title, resp.body, resp.statusCodeValue);
-			history('/novedades');
+			history('/');
 		} else {
 			console.log("Error: ", resp);
 			errors(resp.data, resp.data, resp.status);
@@ -170,7 +170,7 @@ export default function AltaAsignatura() {
 					</FormControl>
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 						<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-						<Button size="sm" variant="outlined" fullWidth color="neutral" component="a" href='/novedades'>Cancelar</Button>
+						<Button size="sm" variant="outlined" fullWidth color="neutral" component="a" href='/'>Cancelar</Button>
 					</Stack>
 				</Stack>
 			</Card>

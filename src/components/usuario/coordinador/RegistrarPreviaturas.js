@@ -89,7 +89,7 @@ export default function RegistrarPreviaturas() {
 		if (response.statusCodeValue === 200) {
 			let title = "¡Previatura registada!\n\n";
 			errors(title, response.body, response.statusCodeValue);
-			history('/novedades');
+			history('/');
 		} else {
 			console.log("Error: ", response);
 			errors(response.body, response.body, response.status);
@@ -106,38 +106,35 @@ export default function RegistrarPreviaturas() {
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
 					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
-						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
+						<SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
-						</Select>
+						</SelectProps>
 
-						<SelectProps size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleAsignatura}>
+						<SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleAsignatura}>
 							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
 						</SelectProps>
 
 						<Divider />
-						<Select size="sm" placeholder="Seleccionar previas" multiple renderValue={(selected) => (
+						<SelectProps size="sm" placeholder="Seleccionar previas" multiple renderValue={(selected) => (
 							<Box sx={{ display: 'flex', gap: '0.25rem' }}>
 								{selected.map((selectedOption) => (
-									<Chip variant="soft" color="primary">
-										{selectedOption.label}
-									</Chip>
+									<Chip variant="soft" color="primary">{selectedOption.label}</Chip>
 								))}
 							</Box>
-						)}
-							slotProps={{ listbox: { sx: { width: '100%', }, }, }} id="idprevias" name="idprevias">
+						)} id="idprevias" name="idprevias">
 							{Array.isArray(previasData) && previasData.map((previas, index) => (
 								<Option key={index} value={previas.idAsignatura}>{previas.nombre}</Option>
 							))}
-						</Select>
+						</SelectProps>
 						<Divider />
 					</FormControl>
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 						<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-						<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/novedades">Cancelar</Button>
+						<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/">Cancelar</Button>
 					</Stack>
 				</Stack>
 			</Card>

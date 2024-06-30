@@ -40,7 +40,7 @@ function Register() {
 				position: "center",
 				timer: 4000
 			});
-			history('/novedades');
+			history('/');
 		} else {
 			swal("¡Advertencia!", 'Los datos ingresados son incorrectos', "error", {
 				timer: 3000

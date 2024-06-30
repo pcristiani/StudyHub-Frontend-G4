@@ -34,7 +34,6 @@ const HomePage = () => {
           //  value: "#0b0d0e",
         },
       },
-  //    fpsLimit: 120,
       interactivity: {
         events: {
           onClick: {
@@ -76,7 +75,7 @@ const HomePage = () => {
             default: "bounce",
           },
           random: false,
-          speed: 2,
+          speed: 1.5,
           straight: false,
         },
         number: {

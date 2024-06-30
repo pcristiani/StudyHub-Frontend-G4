@@ -73,7 +73,7 @@ export const getDocentes = async (jwtLogin) => {
 ///
 // Modifica los datos del usuario
 export const modificarDatosUsuario = async (idUsuario, nombre, apellido, email, fechaNacimiento, rol, cedula, jwtLogin) => {
-   console.log("idUsuarioaaaa: ", idUsuario, nombre, apellido, email, fechaNacimiento, rol, cedula, jwtLogin);
+  // console.log("idUsuarioaaaa: ", idUsuario, nombre, apellido, email, fechaNacimiento, rol, cedula, jwtLogin);
    try {
       const response = await fetch(`${URL_BACK.modificarUsuario}${idUsuario}`, {
          method: 'PUT',
@@ -169,7 +169,7 @@ export const registrarUsuario = async (nombre, apellido, cedula, password, email
    })
 
    if (response.ok) {
-      console.log("response: ", response);
+   //   console.log("response: ", response);
    } else {
       swal("¡Advertencia!", 'Los datos ingresados son incorrectos', "error", {
          timer: 3000

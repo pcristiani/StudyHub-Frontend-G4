@@ -95,8 +95,6 @@ export const getAsignaturasAprobadas = async (idEstudiante, jwtLogin) => {
 	});
 
 	const data = await response.json();
-
-	console.log("Asignaturas aprobadas: ", data);
 	return data;
 }
 
@@ -133,32 +131,6 @@ export const altaAsignatura = async (nombre, creditos, descripcion, departamento
 	}
 };
 
-// export const altaAsignatura = async (nombre, creditos, descripcion, departamento, previaturas, idCarrera, idDocente, jwtLogin) => {
-// 	let body = {
-// 		"nombre": nombre,
-// 		"creditos": creditos,
-// 		"descripcion": descripcion,
-// 		"departamento": departamento,
-// 		"tieneExamen": true,
-// 		"activa": true,
-// 		"previaturas": previaturas,
-// 		"idCarrera": idCarrera,
-// 		"idDocentes": idDocente
-// 	};
-
-// 	let response = await fetch(URL_BACK.altaAsignatura, {
-// 		method: 'POST',
-// 		headers: {
-// 			'Content-Type': 'application/json',
-// 			'Authorization': `Bearer ${jwtLogin}`,
-// 		},
-// 		body: JSON.stringify(body)
-// 	});
-
-// 	if (!response.ok) {
-// 		throw { status: response.status };
-// 	}
-// };
 
 
 ///
@@ -200,7 +172,7 @@ export const registroHorarios = async (idDocente, anio, horarioData, idAsignatur
 		}
 
 		let response = await axios.request(reqOptions);
-		return response.data;
+		return response;
 	} catch (error) {
 		return error.response;
 	}
@@ -348,7 +320,7 @@ export const getCursadasPendientes = async (idAsignatura, anio, jwtLogin) => {
 		};
 
 		let response = await axios.request(reqOptions);
-		return response.data;
+		return response;
 	} catch (error) {
 		return error.response;
 	}
@@ -370,9 +342,7 @@ export const cambiarResultadoCursada = async (idCursada, calificacion, jwtLogin)
 		}
 
 		let response = await axios.request(reqOptions);
-		console.log(response.data);
-		return response.data;
-
+		return response;
 	} catch (error) {
 		return error.response;
 	}

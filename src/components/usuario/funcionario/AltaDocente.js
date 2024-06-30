@@ -39,7 +39,7 @@ export default function AltaDocente() {
 				position: "center",
 				timer: 4000
 			});
-			history('/novedades');
+			history('/');
 		} else {
 			let errorMsg = 'Los datos ingresados no son correctos o ya existe un docente con ese nombre';
 			if (response.status === 401) {
@@ -73,7 +73,6 @@ export default function AltaDocente() {
 					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 						<Input size="sm" id="codigoDocente" name="codigoDocente" placeholder="Código" required />
 						<Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
-						<Divider />
 					</FormControl>
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right' }}>
 						<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>

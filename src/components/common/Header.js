@@ -30,10 +30,10 @@ import PropTypes from 'prop-types';
 import Navigation from './Navigation';
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../img/logo.png';
+import LogoAvatar from '../../img/avatar/graduated_3135810.png';
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
 import { cerrarSesion } from '../../services/requests/loginService';
-
 import { URI_FRONT, T_ROL } from '../../services/util/constants';
 import { Key } from '@mui/icons-material';
 import swal from 'sweetalert';
@@ -387,7 +387,7 @@ export default function Header() {
             </Stack>
 
             <Box sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
-               <IconButton variant="plain" color="neutral" onClick={() => setOpen(true)}>
+               <IconButton onClick={() => setOpen(true)}>
                   <MenuRoundedIcon />
                   <Stack direction="row" justifyContent="center" alignItems="center" textAlign="center" sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
                      <IconButton size="sm" justifyContent="center" alignItems="center" textAlign="center" sx={{ m: 0.2, display: { xs: 'inline-flex', sm: 'none' }, }}>
@@ -403,20 +403,20 @@ export default function Header() {
                </Drawer>
             </Box>
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 0.8, alignItems: 'center', }} >
+            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 0.6, alignItems: 'center', }} >
                <Input size="sm" variant="outlined" placeholder="Buscar…" startDecorator={<SearchRoundedIcon color="primary" />}
                   sx={{ alignSelf: 'center', display: { xs: 'none', sm: 'flex', }, }} />
                <ColorSchemeToggle />
                {(user.logged) ?
                   <>
                      <Dropdown>
-                        <MenuButton variant="plain" size="sm" sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '9999999px' }}>
-                           <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR-bFMTg-_J6uYsepWVSHbQtlvXDp7O-d1bqqy5HofosXdGa4P" srcSet="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR-bFMTg-_J6uYsepWVSHbQtlvXDp7O-d1bqqy5HofosXdGa4P" sx={{ maxWidth: '32px', maxHeight: '32px' }} />
+                        <MenuButton size="sm" sx={{ maxWidth: '34px', maxHeight: '34px', borderRadius: '9999999px',marginRight:0.5,marginLeft:1 }}>
+                           <Avatar variant="plain" color="neutral" src={LogoAvatar} srcSet={LogoAvatar} sx={{ maxWidth: '34px', maxHeight: '34px'}} />
                         </MenuButton>
                         <Menu placement="bottom-end" size="sm" sx={{ zIndex: '99999', p: 1, gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                            <MenuItem href={URI_FRONT.editPerfilUri} component="a">
                               <Box sx={{ display: 'flex', alignItems: 'center', }}>
-                                 <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR-bFMTg-_J6uYsepWVSHbQtlvXDp7O-d1bqqy5HofosXdGa4P" srcSet="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR-bFMTg-_J6uYsepWVSHbQtlvXDp7O-d1bqqy5HofosXdGa4P" sx={{ borderRadius: '50%' }} />
+                                 <Avatar variant="plain" color="neutral" src={LogoAvatar} srcSet={LogoAvatar} sx={{ borderRadius: '50%' }} />
                                  <Box sx={{ ml: 1.5 }}>
                                     <Typography level="title-sm" textColor="text.primary">
                                        {user.nombre} {user.apellido}

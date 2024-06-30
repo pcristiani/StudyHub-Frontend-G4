@@ -3,9 +3,9 @@ import logo from '../img/logo.png';
 import Container from '@mui/joy/Container';
 import Box from '@mui/joy/Box';
 import Sheet from '@mui/joy/Sheet';
-
 import { CssVarsProvider } from '@mui/joy/styles';
 import { extendTheme } from '@mui/joy/styles';
+
 const theme = extendTheme({ cssVarPrefix: 'demo' });
 
 const Novedades = () => {

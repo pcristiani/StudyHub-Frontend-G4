@@ -22,7 +22,7 @@ const defaultTheme = createTheme();
 const ForgotPassword = () => {
 	let params = new URLSearchParams(window.location.search);
 	let token = params.get('token');
-	const redirectHome = URI_FRONT.novedadesUri;
+	const redirectHome = URI_FRONT.homeUri;
 
 	async function emailValue(email) {
 		let response = await fetch(URL_BACK.forgotPassword, {
@@ -136,7 +136,7 @@ const ForgotPassword = () => {
 									</FormControl>
 									<Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
 										<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Cambiar contraseña</Button>
-										<Button variant="outlined" fullWidth color="neutral" component={Link} to="/novedades">Cancelar</Button>
+										<Button variant="outlined" fullWidth color="neutral" component={Link} to="/">Cancelar</Button>
 									</Stack>
 								</Stack>
 							</Card>

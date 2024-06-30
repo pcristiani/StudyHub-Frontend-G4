@@ -17,6 +17,15 @@ import { getCarrerasInscripto } from '../../../services/requests/carreraService'
 import { getAsignaturasDeCarrera, getHorarios, inscripcionAsignatura } from '../../../services/requests/asignaturaService';
 import { errors } from '../../../services/util/errors';
 
+const diasSemana = [
+	{ value: 'LUNES', label: 'Lunes' },
+	{ value: 'MARTES', label: 'Martes' },
+	{ value: 'MIERCOLES', label: 'Miércoles' },
+	{ value: 'JUEVES', label: 'Jueves' },
+	{ value: 'VIERNES', label: 'Viernes' },
+	{ value: 'SABADO', label: 'Sábado' },
+	{ value: 'DOMINGO', label: 'Domingo' },
+];
 
 export default function InscripcionAsignatura() {
 	const { user } = useContext(AuthContext);
@@ -25,6 +34,10 @@ export default function InscripcionAsignatura() {
 	const [carreraData, setCarreraData] = useState([]);
 	const [asignaturaData, setAsignaturaData] = useState([]);
 	const [horarioData, setHorarioData] = useState([]);
+
+
+
+
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
@@ -84,7 +97,8 @@ export default function InscripcionAsignatura() {
 			return [];
 		} else {
 			return horarios.map(horario => {
-				const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana}: ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
+				// const dias = horario.dtHorarioDias.map(dia => `${formatDiaSemana(horarios)} de ${dia.horaInicio} a ${dia.horaFin} (${horario.anio})`).join(', ');
+				const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
 				return {
 					...horario,
 					diasConsolidados: dias
@@ -103,20 +117,13 @@ export default function InscripcionAsignatura() {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		// let idasignatura = data.get('idasignatura');
-		// let idhorario = data.get('idhorario');
 		let idhorario = parseInt(data.get('idhorario'), 10);
 		let idasignatura = parseInt(data.get('idasignatura'), 10);
 
 		const response = await inscripcionAsignatura(user.id, idasignatura, idhorario, user.jwtLogin)
-		console.log("Response: ", response.status);
-		if (response.status === 200) {
-			let title = "Inscripcion realizada!\n\n";
-			errors(title, response.data, response.status);
-			history('/novedades');
-		} else {
-			errors("Debe ingresar un horario", null, response.status);
-		}
+
+		let title = "Inscripcion realizada!\n\n";
+		errors(title, response.data, response.status);
 	};
 
 	const [small, setSmall] = React.useState(false);
@@ -129,23 +136,22 @@ export default function InscripcionAsignatura() {
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
-						<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '340px' }, gap: 0.8 }}>
+						<SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} required>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
 						</SelectProps>
-						<SelectProps size="sm" defaultValue="Seleccionar asignatura" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
+						<SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required>
 							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
 						</SelectProps>
-						<Divider />
 
-						<SelectProps size="sm" defaultValue="Seleccionar horario" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick}>
+						<SelectProps size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick} required>
 							{Array.isArray(horarioData) && horariosConsolidados.map((horario, index) => (
 								<Option key={index} value={horario.idHorarioAsignatura}>
-									{`${horario.idHorarioAsignatura} - ${horario.diasConsolidados}`}
+									{`${horario.diasConsolidados}  (${horario.anio})`}
 								</Option>
 							))}
 						</SelectProps>
@@ -153,7 +159,7 @@ export default function InscripcionAsignatura() {
 
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 						<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-						<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/novedades">Cancelar</Button>
+						<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/">Cancelar</Button>
 					</Stack>
 				</Stack>
 			</Card>
@@ -161,3 +167,21 @@ export default function InscripcionAsignatura() {
 
 	);
 };
+export function formatDiaSemana(diaSem) {
+	let dsem = [];
+	let result = [];
+
+	if (diaSem !== null && diaSem !== undefined) {
+		diaSem.map(horario => {
+			dsem = horario.dtHorarioDias.map(diasem => diasem.diaSemana);
+			diasSemana.map(dia => {
+				if (dia.value === dsem[0] && dsem[0] !== null && dsem[0] !== undefined) {
+					result.push(dia.label);
+					console.log("DiaSem: ", result)
+				}
+			}
+			);
+		});
+	}
+	return result;
+}

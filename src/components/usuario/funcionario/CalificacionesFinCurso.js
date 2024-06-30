@@ -15,6 +15,7 @@ import { getAsignaturasDeCarrera, getCursadasPendientes, cambiarResultadoCursada
 import Save from '@mui/icons-material/Save';
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
+import swal from 'sweetalert';
 import { errors } from '../../../services/util/errors';
 import { SelectProps } from '../../common/SelectProps';
 
@@ -27,11 +28,12 @@ export default function CalificacionesFinCurso() {
 	const [error, setError] = useState(null);
 	const [selectedCarrera, setSelectedCarrera] = useState('');
 	const [resultadoData, setResultado] = useState('');
+	const [selectedAsignatura, setSelectedAsignatura] = useState('');
+	const [selectedAnio, setSelectedAnio] = useState('');
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
 			try {
-
 				const result = await getCarreras(user.jwtLogin);
 				setCarreraData(result);
 			} catch (error) {
@@ -50,37 +52,85 @@ export default function CalificacionesFinCurso() {
 	const handleChangeCarrera = (event, newValue) => {
 		setSelectedCarrera(newValue);
 		if (newValue !== null) {
-			getInfoCarrera(newValue);
+			initAsignatura(newValue);
 		}
 	};
 
-	async function getInfoCarrera(selectedCarrera) {
-		let result = await getAsignaturasDeCarrera(selectedCarrera, user.jwtLogin);
-		setAsignaturaData(result);
+	async function initAsignatura(selectIdCarrera) {
+		if (selectIdCarrera !== null && selectIdCarrera !== undefined && selectIdCarrera !== '') {
+			let result = await getAsignaturasDeCarrera(selectIdCarrera, user.jwtLogin);
+			setAsignaturaData(result);
+			setCursadasData([]);
+		}
 	}
+
+	// const handleSubmit = async (event) => {
+	// 	event.preventDefault();
+	// 	const data = new FormData(event.currentTarget);
+	// 	let idAsignatura = data.get('idasignatura');
+	// 	let anioLectivo = parseInt(data.get('aniolectivo'), 10);
+
+	// 	const resp = await getCursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
+	// 	if (resp.data.length === 0) {
+	// 		let title = "Todos los estudiantes estan calificados!\n\n";
+	// 		errors('', title, 400);
+	// 	}
+
+	// 	setCursadasData(resp.data);
+	// };
+
+	const handleChangeAnio = (event, newValue) => {
+		// setSelectedAnio(newValue);
+		// initPeriodo(newValue);
+		if (newValue !== null && newValue !== undefined) {
+			setSelectedAnio(newValue);
+			initPeriodo(newValue);
+		}
+	};
+
+
+	const handleChangeAsignatura = (event, newValue) => {
+		if (newValue !== null && newValue !== undefined && newValue !== '') {
+			setSelectedAsignatura(newValue);
+			setCursadasData([]);
+		}
+	};
+
+	async function initPeriodo(newValue) {
+		let idAsignatura = selectedAsignatura;
+		let anioLectivo = newValue;
+		console.log("idAsignatura: ", idAsignatura);
+		//handleChangePeriodo();
+		if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '' && anioLectivo !== null && anioLectivo !== undefined && anioLectivo !== '') {
+			const resul = await getCursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
+			setCursadasData([]);
+			setCursadasData(resul.data);
+		}
+	};
+
 
 	const handleModificar = async (idCursada) => {
 		if (idCursada !== null && idCursada !== undefined && resultadoData !== null && resultadoData !== undefined) {
 			const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
+			// let title = "¡Calificación exitosa!\n\n";
+			// if (result.status === 200) {
+			// 	swal({
+			// 		title: `${title}`,
+			// 		icon: "success",
+			// 		dangerMode: false,
+			// 		position: "center",
+			// 		timer: 2000
+			// 	});
+			// }
 
-			if (result.statusCodeValue === 200) {
-				let title = "¡Calificación exitosa!\n\n";
-				errors(title, result.body, result.statusCodeValue);
-				// history('/novedades');
-			} else {
-				errors(result.body, result.body, result.statusCodeValue);
-			}
+			let title = "¡Calificación exitosa!\n\n";
+			errors(title, result.data, result.status, false);
+			// if (result.statusCodeValue === 200) {
+			// 	// history('/');
+			// } else {
+			// 	errors(result.body, result.body, result.statusCodeValue);
+			// }
 		}
-	};
-
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		let idAsignatura = data.get('idasignatura');
-		let anioLectivo = parseInt(data.get('aniolectivo'), 10);
-
-		const resp = await getCursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
-		setCursadasData(resp);
 	};
 
 	const [year, setYear] = useState(new Date().getFullYear());
@@ -97,7 +147,7 @@ export default function CalificacionesFinCurso() {
 	}
 
 	return (
-		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
+		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registro de calificaciones de fin de curso</Typography>
@@ -105,23 +155,28 @@ export default function CalificacionesFinCurso() {
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
 					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '340px' }, gap: 0.8 }}>
-						<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera}>
+						<SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera}>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
 						</SelectProps>
-						{/* onChange={handleChangeAsignatura} */}
-						<SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" required>
+
+						<SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" required onChange={handleChangeAsignatura}>
 							{Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
 						</SelectProps>
 
 						<Stack direction="row" spacing={0.8} sx={{ justifyContent: 'right', zIndex: '1000' }}>
-							<SelectProps size="sm" sx={{ width: "500px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
+							{/* <SelectProps size="sm" sx={{ width: "500px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
 								placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
 								{years.map((year) => (
 									<Option key={year} value={year} >{year}</Option>
+								))}
+							</SelectProps> */}
+							<SelectProps size="sm" placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" sx={{ width: '60%' }} required onChange={handleChangeAnio}>
+								{years.map((year) => (
+									<Option key={years} value={year}>{year}</Option>
 								))}
 							</SelectProps>
 							<Button fullWidth size="sm" type="submit" sx={{ mt: 1, mb: 1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
@@ -130,43 +185,53 @@ export default function CalificacionesFinCurso() {
 						<Divider sx={{ marginBottom: 1.5, marginTop: 1 }} />
 						<section className="text-black body-font">
 							<div>
-								<Sheet variant="outlined"
-									sx={{
-										'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-										'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
-										borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer'									}}>
-									<Table hoverRow>
-										<thead>
-											<tr>
-												<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
-												<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Calificacion</th>
-												<th style={{ width: 'var(--Table-buttonColumnWidth)' }}></th>
-											</tr>
-										</thead>
-										<tbody>
-											{cursadasData.map((row) => (
-												row.rol !== 'E' && (
-													<tr key={row.idCursada}>
-														<td>{row.nombreEstudiante} {row.apellidoEstudiante}	</td>
-														<td>
-															<Select size="sm" placeholder="0" onChange={(event, newValue) => setResultado(newValue)}
-																id="idresultado" name="idresultado">{notas.map((nota) => (
-																	<Option key={notas} value={nota}>{nota}</Option>
-																))}
-															</Select>
-														</td>
-														<td>
-															<Button size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color='neutral'
-																onClick={() => handleModificar(row.idCursada)}>
-																<Save size="sw"></Save>
-															</Button>
-														</td>
-													</tr>
-												)
-											))}
-										</tbody>
-									</Table>
-								</Sheet>
+								{cursadasData.length > 0 && (
+									<Sheet variant="outlined"
+										sx={{
+											'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
+											'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
+											borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer'
+										}}>
+										<Table hoverRow>
+											<thead>
+												<tr>
+													<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
+													<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Calificacion</th>
+													<th style={{ width: 'var(--Table-buttonColumnWidth)' }}></th>
+												</tr>
+											</thead>
+											<tbody>
+												{cursadasData.map((row) => (
+													row.rol !== 'E' && (
+														<tr key={row.idCursada}>
+															<td>{row.nombreEstudiante} {row.apellidoEstudiante}	</td>
+															<td>
+																<Select size="sm" placeholder="0" onChange={(event, newValue) => setResultado(newValue)}
+																	id="idresultado" name="idresultado">{notas.map((nota) => (
+																		<Option key={notas} value={nota}>{nota}</Option>
+																	))}
+																</Select>
+															</td>
+															<td>
+																<Button size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color='neutral'
+																	onClick={() => handleModificar(row.idCursada)}>
+																	<Save size="sw"></Save>
+																</Button>
+															</td>
+														</tr>
+													)
+												))}
+											</tbody>
+										</Table>
+									</Sheet>
+								)}
+								{cursadasData.length === 0 && (
+									<Box sx={{ margin: 0, alignSelf: 'center' }}>
+										<Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="warning" noWrap>
+											No hay alumnos inscritos</Typography>
+									</Box>
+								)}
+
 							</div>
 						</section>
 					</FormControl>

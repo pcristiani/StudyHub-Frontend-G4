@@ -42,10 +42,6 @@ const PlanEstudiosPage = () => {
     }
   };
 
-  // if (selectedCarrera === null || selectedCarrera === '' || selectedCarrera === undefined) {
-  //   // getInfoPreviaturasGrafo(1);
-  // }
-
   const mostrarGrafo = COURSE.graph + `${previaturasGrafoData}}`;
 
   async function getInfoPreviaturasGrafo(idCarrera) {
@@ -56,8 +52,6 @@ const PlanEstudiosPage = () => {
       setPreviaturasGrafoData(result);
     }
   }
-  // if (!previaturasGrafoData) return null;
-
 
   return (
     <>

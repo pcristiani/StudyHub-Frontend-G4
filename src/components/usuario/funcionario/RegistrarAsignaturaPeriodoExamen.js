@@ -111,19 +111,9 @@ export default function RegistrarAsignaturaPeriodoExamen() {
       }).filter(item => item !== null) : [];
       let fechaHora = data.get('fechaHora');
 
-      try {
-         const restul = await registroAsignaturaAPeriodo(idAsignatura, idPeriodo, idsDocentes, fechaHora, user.jwtLogin);
-         console.log("restul: ", restul);
-         if (restul.statusCodeValue === 200) {
-            let title = "¡Fecha de examen registrada con éxito!\n\n";
-            errors(title, restul.body, restul.statusCodeValue);
-            history('/novedades');
-         } else {
-            errors(restul.body, restul.body, restul.statusCodeValue);
-         }
-      } catch (error) {
-         errors('Ya existe un examen de la asignatura para la fecha indicada.', '', error.statusCod);
-      }
+      const restul = await registroAsignaturaAPeriodo(idAsignatura, idPeriodo, idsDocentes, fechaHora, user.jwtLogin);
+      let title = "¡Fecha de examen registrada!\n\n";
+      errors(title, restul.data, restul.status);
    };
 
 
@@ -137,21 +127,21 @@ export default function RegistrarAsignaturaPeriodoExamen() {
             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
-                  <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
+                  <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} required>
                      {carreraData.map((carrera, index) => (
                         <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                      ))}
                   </SelectProps>
 
-                  <SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura}>
+                  <SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required>
                      {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
                         <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                      ))}
                   </SelectProps>
 
-                  <SelectProps size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha}>
+                  <SelectProps size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha} required>
                      {Array.isArray(periodoData) && periodoData.map((periodo, index) => (
-                        <Option size="sm" key={index} value={periodo}>{periodo.nombre}</Option>
+                        <Option size="sm" key={index} value={periodo} >{periodo.nombre}</Option>
                      ))}
                   </SelectProps>
 
@@ -162,16 +152,14 @@ export default function RegistrarAsignaturaPeriodoExamen() {
                               {selectedOptions.label}
                            </Chip>
                         ))}
-                     </Box>)} id="iddocente" name="iddocente">
+                     </Box>)} id="iddocente" name="iddocente" required>
                      {Array.isArray(docenteData) && docenteData.map((docente, index) => (
                         <Option key={index} value={docente.idDocente}>{docente.nombre}</Option>
-
                      ))}
                   </SelectProps>
-                  <Divider />
+
                   {(selectedInicio !== null && selectedFin !== null && selectedInicio !== undefined && selectedFin !== undefined) &&
-                     <Input type="datetime-local" size='sm' slotProps={{ input: { min: selectedInicio, max: selectedFin, }, }} id="fechaHora" name="fechaHora" />
-                  }
+                     <Input type="datetime-local" size='sm' slotProps={{ input: { min: selectedInicio, max: selectedFin, }, }} id="fechaHora" name="fechaHora" />}
                </FormControl>
 
                <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
@@ -180,6 +168,6 @@ export default function RegistrarAsignaturaPeriodoExamen() {
                </Stack>
             </Stack>
          </Card>
-      </Box >
+      </Box>
    );
 };

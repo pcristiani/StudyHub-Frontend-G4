@@ -75,20 +75,9 @@ export default function AltaPeriodoExamen() {
 		const dtFechaFin = new DtFecha(fechaFin);
 
 		const response = await altaPeriodoDeExamen(nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, user.jwtLogin);
-		console.log("Response: ", response.data);
-		if (response !== undefined) {
-			if (response.data.status === 200 && response.data !== undefined && response.data !== null) {
-				let title = "¡Periodo examen creado!\n\n";
-				errors(title, response.data, response.data.status);
-				history('/novedades');
-			} else {
-				errors(response.data, response.data, response.status);
-			}
-		} else {
-			errors("Error", "El período ingresado se solapa con un período existente.", 500);
-		}
+		let title = "¡Periodo examen creado!\n\n";
+		errors(title, response.data, response.status);
 	};
-
 
 	return (
 		<>
@@ -113,15 +102,14 @@ export default function AltaPeriodoExamen() {
 									</Option>
 								))}
 							</SelectProps>
-							<Stack  sx={{  width: '100%', }}>
+							<Stack sx={{ width: '100%', }}>
 								<Label className='text-fecha'>Fecha Inicio
-									<Input size='sm'  type="date" id="fechaInicio" name="fechaInicio" required />
+									<Input size='sm' type="date" id="fechaInicio" name="fechaInicio" required />
 								</Label>
 								<Label className='text-fecha'>Fecha Fin
-									<Input  size="sm" type="date" id="fechaFin" name="fechaFin" required />
+									<Input size="sm" type="date" id="fechaFin" name="fechaFin" required />
 								</Label>
 							</Stack>
-							<Divider />
 
 						</FormControl>
 						<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>

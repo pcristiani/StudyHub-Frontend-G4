@@ -48,7 +48,7 @@ export default function AltaFuncionarioCoordinador() {
 				position: "center",
 				timer: 4000
 			});
-			history('/novedades');
+			history('/');
 		} catch (error) {
 			let errorMsg = 'Los datos ingresados no son correctos o ya existe un usuario con esa cedula';
 			if (error.status === 400) {

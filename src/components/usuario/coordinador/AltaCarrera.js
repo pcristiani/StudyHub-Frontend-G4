@@ -59,7 +59,7 @@ export default function AltaCarrera() {
 
         console.log(nombre, descripcion, requisitos, duracion, idcoordinador);
         altaCarrera(nombre, descripcion, requisitos, duracion, idcoordinador);
-        history('/novedades');
+        history('/');
     };
 
     return (
@@ -79,7 +79,7 @@ export default function AltaCarrera() {
                     </FormControl>
                     <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
                         <Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-                        <Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/novedades">Cancelar</Button>
+                        <Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/">Cancelar</Button>
                     </Stack>
                 </Stack>
             </Card>

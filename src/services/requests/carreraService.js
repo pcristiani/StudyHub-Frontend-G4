@@ -182,35 +182,7 @@ export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin)
 
 
 ///
-// Registro Periodos de Examen
-// export const altaPeriodoExamen = async (nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, jwtLogin) => {
-//     let bodyContent = JSON.stringify({
-//         "nombre": nombrePeriodo,
-//         "inicio": {
-//             "anio": dtFechaInicio.getYear(),
-//             "mes": dtFechaInicio.getMonth(),
-//             "dia": dtFechaInicio.getDay()
-//         },
-//         "fin": {
-//             "anio": dtFechaFin.getYear(),
-//             "mes": dtFechaFin.getMonth(),
-//             "dia": dtFechaFin.getDay()
-//         }
-//     });
 
-//     let response = await fetch(URL_BACK.altaPeriodoDeExamen + idCarrera, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${jwtLogin}`,
-//         },
-//         body: bodyContent,
-//     });
-
-//     if (!response.ok) {
-//         throw { status: response.status };
-//     }
-// };
 // Registro Periodos de Examen
 export const altaPeriodoDeExamen = async (nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, jwtLogin) => {
     try {
@@ -241,7 +213,7 @@ export const altaPeriodoDeExamen = async (nombrePeriodo, dtFechaInicio, dtFechaF
         }
 
         let response = await axios.request(reqOptions);
-        return response.data;
+        return response;
     } catch (error) {
         return error.response;
     }
@@ -262,7 +234,7 @@ export const getCarrerasConPeriodoExamen = async (jwtLogin) => {
     });
 
     let data = await response.json();
-    console.log("Data 109: ", data);
+  //  console.log("Data 109: ", data);
     return data;
 }
 

@@ -89,7 +89,7 @@ export default function InscripcionExamen() {
 		if (result.status === 200) {
 			let title = "¡Inscripto a examen!\n\n";
 			errors(title, result.data, result.status);
-			history('/novedades');
+			history('/');
 		} else {
 			errors(result.data, "", result.status);
 		}
@@ -115,7 +115,7 @@ export default function InscripcionExamen() {
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '340px' }, gap: 0.8 }}>
 						<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
@@ -126,7 +126,6 @@ export default function InscripcionExamen() {
 								<Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
 							))}
 						</SelectProps>
-						<Divider />
 
 						<SelectProps size="sm" defaultValue="Seleccionar examen" placeholder="Seleccionar examen" id="idexamen" name="idexamen">
 							{Array.isArray(fechaData) && fechaData.map((f, index) => (
@@ -137,7 +136,7 @@ export default function InscripcionExamen() {
 
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 						<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-						<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/novedades">Cancelar</Button>
+						<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/">Cancelar</Button>
 					</Stack>
 				</Stack>
 			</Card>

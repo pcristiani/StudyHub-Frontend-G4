@@ -3,28 +3,31 @@ import { URL_BACK } from '../util/constants'
 import axios from 'axios';
 
 
-///
 export const registroAsignaturaAPeriodo = async (idAsignatura, idPeriodo, idsDocentes, fechaHora, jwtLogin) => {
-    let body = {
-        "idAsignatura": idAsignatura,
-        "idPeriodo": idPeriodo,
-        "idsDocentes": idsDocentes,
-        "fechaHora": fechaHora
-    };
-    let response = await fetch(URL_BACK.registroAsignaturaAPeriodo, {
-        method: 'POST',
-        headers: {
+    try {
+        let body = {
+            "idAsignatura": idAsignatura,
+            "idPeriodo": idPeriodo,
+            "idsDocentes": idsDocentes,
+            "fechaHora": fechaHora
+        };
+        let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
-        },
-        body: JSON.stringify(body)
-    });
+        }
+        let reqOptions = {
+            url: URL_BACK.registroAsignaturaAPeriodo,
+            method: "POST",
+            headers: headersList,
+            data: body
+        }
 
-    if (!response.ok) {
-        throw { status: response.status };
+        let response = await axios.request(reqOptions);
+        return response;
+    } catch (error) {
+        return error.response;
     }
 };
-
 
 
 ///
@@ -112,23 +115,39 @@ export const getAsignaturasConExamenPendiente = async (idEstudiante, idCarrera, 
 
 
 ///
-export const getExamenesAsignaturaPorAnio = async (idAsignatura, anio, jwtLogin) => {
-    let url = `${URL_BACK.getExamenesAsignaturaPorAnio}${idAsignatura}?anio=${anio}`;
+// export const getExamenesAsignaturaPorAnio = async (idAsignatura, anio, jwtLogin) => {
+//     let url = `${URL_BACK.getExamenesAsignaturaPorAnio}${idAsignatura}?anio=${anio}`;
 
-    let response = await fetch(url, {
-        method: 'GET',
-        headers: {
+//     let response = await fetch(url, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${jwtLogin}`,
+//         }
+//     });
+
+//     if (!response.ok) {
+//         throw { status: response.status };
+//     }
+//     return await response.json();
+// };
+export const getExamenesAsignaturaPorAnio = async (idAsignatura, anio, jwtLogin) => {
+      try {
+        let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
         }
-    });
-
-    if (!response.ok) {
-        throw { status: response.status };
+        let reqOptions = {
+            url: `${URL_BACK.getExamenesAsignaturaPorAnio}${idAsignatura}?anio=${anio}`,
+            method: "GET",
+            headers: headersList,
+        };
+        let response = await axios.request(reqOptions);
+        return response;
+    } catch (error) {
+        return error.response;
     }
-    return await response.json();
-};
-
+}
 
 
 ///
@@ -145,8 +164,8 @@ export const cambiarResultadoExamen = async (idCursadaExamen, calificacion, jwtL
         }
 
         let response = await axios.request(reqOptions);
-        console.log(response.data);
-        return response.data;
+        //   console.log(response.data);
+        return response;
     } catch (error) {
         return error.response;
     }

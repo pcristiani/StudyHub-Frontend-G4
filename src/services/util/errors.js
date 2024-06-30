@@ -1,11 +1,13 @@
 import swal from 'sweetalert';
+import { URI_FRONT, redirigir } from '../../services/util/constants';
 
-const errors = async (mensaje, text, status) => {
+const errors = async (mensaje, text, status, redirect) => {
+    let errorTitle = '', errorText = '';
 
     const response = {
-        status: status,
         message: mensaje,
-        text: text
+        text: text,
+        status: status
     };
 
     if (response.status === 200) {
@@ -15,55 +17,58 @@ const errors = async (mensaje, text, status) => {
             icon: "success",
             dangerMode: false,
             position: "center",
-            timer: 4000
-        });
-    } else {
-
-        let errorTitle, errorText = '';
-
-        if (mensaje !== null) {
-            errorTitle = '¡Advertencia!';
-            errorText = mensaje;
-        } else {
-            switch (response.status) {
-                case 400:
-                    errorTitle = 'Solicitud Incorrecta (400)';
-                    errorText = 'Sintaxis inválida, el servidor no pudo entender la solicitud.';
-                    break;
-                case 401:
-                    errorTitle = 'No Autorizado (401)';
-                    errorText = 'Requiere autenticación. Verifica tu token de autenticación.';
-                    break;
-                case 403:
-                    errorTitle = 'Acceso Denegado (403)';
-                    errorText = 'No tienes derechos de acceso al contenido.';
-                    break;
-                case 404:
-                    errorTitle = 'Recurso no Encontrado (404)';
-                    errorText = 'El servidor no encuentra el recurso solicitado.';
-                    break;
-                case 500:
-                    errorTitle = 'Error Interno del Servidor (500)';
-                    errorText = 'El servidor tiene un error inesperado. Inténtalo más tarde.';
-                    break;
-                case 503:
-                    errorTitle = 'Servicio no Disponible (503)';
-                    errorText = 'El servidor está sobrecargado o inactivo. Inténtalo más tarde.';
-                    break;
-                case 43:
-                    errorTitle = '¡Advertencia!';
-                    errorText = 'Usuario y/o contraseña incorrecta.';
-                    break;
-                default:
-                    errorTitle = `¡Error HTTP! ${response.status}`;
-                    errorText = 'Ocurrió un error inesperado.';
+            timer: 5000
+        }).then(() => {
+            if (redirect) {
+                redirigir(URI_FRONT.homeUri);
             }
+        });
+
+    } else if (response.status === 400 || response.status === 498 || response.status === 403) {
+        errorTitle = '¡Advertencia!';
+        swal({
+            title: `${errorTitle}`,
+            text: `${response.text}`,
+            icon: "error",
+            dangerMode: false,
+            position: "center",
+            timer: 8000
+        });
+
+    } else {
+        errorTitle = '¡Advertencia!';
+
+        switch (response.status) {
+            case 401:
+                errorTitle = 'No Autorizado (401)';
+                errorText = 'Requiere autenticación. Verifica tu token de autenticación.';
+                break;
+            case 404:
+                errorTitle = 'Recurso no Encontrado (404)';
+                errorText = 'El servidor no encuentra el recurso solicitado.';
+                break;
+            case 500:
+                errorTitle = 'Error Interno del Servidor (500)';
+                errorText = 'El servidor tiene un error inesperado. Inténtalo más tarde.';
+                break;
+            case 503:
+                errorTitle = 'Servicio no Disponible (503)';
+                errorText = 'El servidor está sobrecargado o inactivo. Inténtalo más tarde.';
+                break;
+            case 43:
+                errorTitle = '¡Advertencia!';
+                errorText = 'Usuario y/o contraseña incorrecta.';
+                break;
+            default:
+                errorTitle = `¡Error HTTP! ${response.status}`;
+                errorText = 'Ocurrió un error inesperado.';
         }
+
         swal({
             title: `${errorTitle}`,
             text: `${errorText}`,
             icon: "error",
-            dangerMode: true,
+            dangerMode: false,
             position: "center",
             timer: 4000
         });
@@ -87,3 +92,7 @@ function isNull(valor) {
 
 
 export { errors, isNull };
+
+
+// let title = "¡Fecha de examen registrada!\n\n";
+// errors(title, restul.data, restul.status);

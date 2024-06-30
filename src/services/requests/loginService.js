@@ -27,7 +27,7 @@ export const cerrarSesion = async (jwtLogin) => {
     try {
         let response = await axios.post(URL_BACK.cerrarSesion, jwtLogin);
         if (response.status === 200) {
-            console.log(response.data);
+        //    console.log(response.data);
             return response.data;
         }
     } catch (error) {

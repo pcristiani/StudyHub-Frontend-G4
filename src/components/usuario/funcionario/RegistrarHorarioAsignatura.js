@@ -78,11 +78,12 @@ export default function RegistrarHorarioAsignatura() {
 
    ///
    const validarHorario = (nuevoHorario) => {
+   
       return !horarioData.some(horario =>
-         horario.diaSemana === nuevoHorario.diaSemana &&
+         (horario.diaSemana === nuevoHorario.diaSemana) &&
          (
-            (nuevoHorario.horaInicio >= horario.horaInicio && nuevoHorario.horaInicio < horario.horaFin) ||
-            (nuevoHorario.horaFin > horario.horaInicio && nuevoHorario.horaFin <= horario.horaFin) ||
+            (nuevoHorario.horaInicio >= horario.horaInicio && nuevoHorario.horaInicio <= horario.horaFin) ||
+            (nuevoHorario.horaFin >= horario.horaInicio && nuevoHorario.horaFin <= horario.horaFin) ||
             (nuevoHorario.horaInicio <= horario.horaInicio && nuevoHorario.horaFin >= horario.horaFin)
          )
       );
@@ -93,8 +94,9 @@ export default function RegistrarHorarioAsignatura() {
    const handleChangeHorario = () => {
       let horaInicio = selectedInicio;
       let horaFin = selectedFin;
+      let diaSemana = selectedDay;
       const nuevoHorario = {
-         diaSemana: selectedDay,
+         diaSemana: diaSemana,
          horaInicio: horaInicio,
          horaFin: horaFin
       };
@@ -108,8 +110,6 @@ export default function RegistrarHorarioAsignatura() {
       }
       //setHorarioData(prev => [...prev, nuevoHorario]);
    };
-
-
 
    const handleSubmit = async (event) => {
       event.preventDefault();
@@ -126,13 +126,9 @@ export default function RegistrarHorarioAsignatura() {
          });
       } else {
          const response = await registroHorarios(idDocente, anioLectivo, horarioData, idAsignatura, user.jwtLogin);
-         if (response.statusCodeValue === 200) {
-            let title = "¡Horario registado!\n\n";
-            errors(title, response.body, response.statusCodeValue);
-            history('/novedades');
-         } else {
-            errors(response.body, response.body, response.statusCodeValue);
-         }
+         console.log("response: ", response);
+         let title = "¡Horario registado!\n\n";
+         errors(title, response.data, response.status);
       }
    };
 
@@ -157,7 +153,6 @@ export default function RegistrarHorarioAsignatura() {
       { value: 'SABADO', label: 'Sábado' },
       { value: 'DOMINGO', label: 'Domingo' },
    ];
-
 
 
    return (
@@ -202,11 +197,11 @@ export default function RegistrarHorarioAsignatura() {
                   </SelectProps>
 
                   <Stack direction="row" spacing={0.6} sx={{ justifyContent: 'right' }}>
-                     <Autocomplete size="sm" id="inicioclase" name="inicioclase" options={timeSlots} placeholder="Inicia" onChange={(event, newValue) => setSelectedInicio(newValue)} />
-                     <Autocomplete size="sm" id="finclase" name="finclase" options={timeSlots} placeholder="Finaliza" onChange={(event, newValue) => setSelectedFin(newValue)} />
+                     <Autocomplete size="sm" id="inicioclase" name="inicioclase" options={timeSlots} placeholder="Inicia" onChange={(event, newValue) => setSelectedInicio(newValue)} required />
+                     <Autocomplete size="sm" id="finclase" name="finclase" options={timeSlots} placeholder="Finaliza" onChange={(event, newValue) => setSelectedFin(newValue)} required />
                      <Tooltip title="Agregar a horario de clase" variant="plain" color="primary">
-                        <IconButton size="sm" variant="outlined" color="neutral" onClick={handleChangeHorario}>
-                           <ControlPointIcon size="sm" variant="plain" color="primary" />
+                        <IconButton size="sm" variant="plain" color="neutral" onClick={handleChangeHorario}>
+                           <ControlPointIcon size="sm" />
                         </IconButton>
                      </Tooltip>
                   </Stack>
@@ -219,12 +214,11 @@ export default function RegistrarHorarioAsignatura() {
                      </Box>)}
                      slotProps={{ listbox: { sx: { width: '100%', }, }, }} required>
                      {Array.isArray(horarioData) && horarioData.map((horario, index) => (
-                        <Option key={index} value={horario.horaInicio}>
+                        <Option key={index} value={horario.diaSemana}>
                            {horario.diaSemana} de {horario.horaInicio} a {horario.horaFin} hs</Option>
                      ))}
                   </SelectProps>
                </FormControl>
-               <Divider />
 
                <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
                   <Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>

@@ -16,7 +16,7 @@ export const getEstudiantesPendientes = async (jwtLogin) => {
 		headers: headersList
 	});
 	let result = await response.json();
-	console.log('result: ', result);
+	//console.log('result: ', result);
 	return result;
 }
 

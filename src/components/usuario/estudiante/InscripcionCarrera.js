@@ -10,8 +10,6 @@ import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
-
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
 import { inscripcionCarrera } from '../../../services/requests/estudianteService';
@@ -19,7 +17,6 @@ import { errors } from '../../../services/util/errors';
 
 export default function InscripcionCarrera() {
 	const { user } = useContext(AuthContext);
-	const history = useNavigate();
 	const [carreraData, setCarreraData] = useState([]);
 	const [error, setError] = useState(null);
 
@@ -50,35 +47,28 @@ export default function InscripcionCarrera() {
 		let idCarreraInt = parseInt(idCarrera, 10);
 
 		const response = await inscripcionCarrera(user.id, idCarreraInt, user.jwtLogin);
-		console.log('response: ', response);
-		if (response.status === 200) {
-			let title = "¡Inscripto a carrera!\n\n";
-			errors(title, response.data, response.status);
-			history('/novedades');
-		} else {
-			errors(response.data, response.data, response.status);
-		}
+		let title = "¡Inscripto a carrera!\n\n";
+		errors(title, response.data, response.status);
 	};
 
 	return (
 		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
-					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Inscripcion Carrera</Typography>
+					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Inscripción carrera</Typography>
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '350px' }, gap: 0.8 }}>
-						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '340px' }, gap: 0.8 }}>
+						<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" required>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 							))}
 						</Select>
-						<Divider />
 					</FormControl>
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 						<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
-						<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/novedades">Cancelar</Button>
+						<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/">Cancelar</Button>
 					</Stack>
 				</Stack>
 			</Card>
