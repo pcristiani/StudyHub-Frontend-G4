@@ -48,7 +48,7 @@ export default function InscripcionCarrera() {
 
 		const response = await inscripcionCarrera(user.id, idCarreraInt, user.jwtLogin);
 		let title = "¡Inscripto a carrera!\n\n";
-		errors(title, response.data, response.status);
+		errors(title, response.data, response.status, true);
 	};
 
 	return (

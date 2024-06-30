@@ -76,7 +76,7 @@ export default function AltaPeriodoExamen() {
 
 		const response = await altaPeriodoDeExamen(nombrePeriodo, dtFechaInicio, dtFechaFin, idCarrera, user.jwtLogin);
 		let title = "¡Periodo examen creado!\n\n";
-		errors(title, response.data, response.status);
+		errors(title, response.data, response.status,true);
 	};
 
 	return (

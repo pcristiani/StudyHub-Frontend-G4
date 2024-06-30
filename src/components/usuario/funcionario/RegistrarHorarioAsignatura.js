@@ -78,7 +78,7 @@ export default function RegistrarHorarioAsignatura() {
 
    ///
    const validarHorario = (nuevoHorario) => {
-   
+
       return !horarioData.some(horario =>
          (horario.diaSemana === nuevoHorario.diaSemana) &&
          (
@@ -128,7 +128,7 @@ export default function RegistrarHorarioAsignatura() {
          const response = await registroHorarios(idDocente, anioLectivo, horarioData, idAsignatura, user.jwtLogin);
          console.log("response: ", response);
          let title = "¡Horario registado!\n\n";
-         errors(title, response.data, response.status);
+         errors(title, response.data, response.status, true);
       }
    };
 
@@ -206,13 +206,13 @@ export default function RegistrarHorarioAsignatura() {
                      </Tooltip>
                   </Stack>
 
-                  <SelectProps size="sm" placeholder="Horario de clase" multiple renderValue={(selected) => (
+                  <SelectProps size="sm" multiple renderValue={(selected) => (
                      <Box sx={{ display: 'flex', gap: '0.25rem' }}>
                         {selected.map((selectedOption) => (
                            <Chip key={selectedOption.value} variant="soft" color="primary">{selectedOption.label} {selectedOption.horario}</Chip>
                         ))}
                      </Box>)}
-                     slotProps={{ listbox: { sx: { width: '100%', }, }, }} required>
+                     placeholder="Horario de clase" required>
                      {Array.isArray(horarioData) && horarioData.map((horario, index) => (
                         <Option key={index} value={horario.diaSemana}>
                            {horario.diaSemana} de {horario.horaInicio} a {horario.horaFin} hs</Option>

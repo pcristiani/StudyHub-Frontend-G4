@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import Stack from '@mui/joy/Stack';
@@ -18,7 +17,6 @@ import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
 import { Save } from '@mui/icons-material';
 import { SelectProps } from '../../common/SelectProps';
-import swal from 'sweetalert';
 
 
 export default function CalificacionesExamen() {
@@ -234,7 +232,7 @@ export default function CalificacionesExamen() {
 								{usuarioData.length === 0 && (
 									<Box sx={{ margin: 0, alignSelf: 'center' }}>
 										<Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="warning" noWrap>
-											No hay alumnos inscritos</Typography>
+											No hay alumnos inscriptos</Typography>
 									</Box>
 								)}
 							</div>

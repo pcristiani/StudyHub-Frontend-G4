@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
+import IconButton from '@mui/joy/IconButton';
+import Tooltip from '@mui/joy/Tooltip';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import Stack from '@mui/joy/Stack';
@@ -8,20 +9,17 @@ import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
 import { getAsignaturasDeCarrera, getCursadasPendientes, cambiarResultadoCursada } from '../../../services/requests/asignaturaService';
 import Save from '@mui/icons-material/Save';
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
-import swal from 'sweetalert';
 import { errors } from '../../../services/util/errors';
 import { SelectProps } from '../../common/SelectProps';
 
 export default function CalificacionesFinCurso() {
 	const { user } = useContext(AuthContext);
-	const history = useNavigate();
 	const [carreraData, setCarreraData] = useState([]);
 	const [cursadasData, setCursadasData] = useState([]);
 	const [asignaturaData, setAsignaturaData] = useState([]);
@@ -84,7 +82,7 @@ export default function CalificacionesFinCurso() {
 		// initPeriodo(newValue);
 		if (newValue !== null && newValue !== undefined) {
 			setSelectedAnio(newValue);
-			initPeriodo(newValue);
+			initEstudiantesExamen(newValue);
 		}
 	};
 
@@ -96,10 +94,10 @@ export default function CalificacionesFinCurso() {
 		}
 	};
 
-	async function initPeriodo(newValue) {
+
+	async function initEstudiantesExamen(newValue) {
 		let idAsignatura = selectedAsignatura;
 		let anioLectivo = newValue;
-		console.log("idAsignatura: ", idAsignatura);
 		//handleChangePeriodo();
 		if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '' && anioLectivo !== null && anioLectivo !== undefined && anioLectivo !== '') {
 			const resul = await getCursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
@@ -112,24 +110,8 @@ export default function CalificacionesFinCurso() {
 	const handleModificar = async (idCursada) => {
 		if (idCursada !== null && idCursada !== undefined && resultadoData !== null && resultadoData !== undefined) {
 			const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
-			// let title = "¡Calificación exitosa!\n\n";
-			// if (result.status === 200) {
-			// 	swal({
-			// 		title: `${title}`,
-			// 		icon: "success",
-			// 		dangerMode: false,
-			// 		position: "center",
-			// 		timer: 2000
-			// 	});
-			// }
-
 			let title = "¡Calificación exitosa!\n\n";
 			errors(title, result.data, result.status, false);
-			// if (result.statusCodeValue === 200) {
-			// 	// history('/');
-			// } else {
-			// 	errors(result.body, result.body, result.statusCodeValue);
-			// }
 		}
 	};
 
@@ -168,28 +150,22 @@ export default function CalificacionesFinCurso() {
 						</SelectProps>
 
 						<Stack direction="row" spacing={0.8} sx={{ justifyContent: 'right', zIndex: '1000' }}>
-							{/* <SelectProps size="sm" sx={{ width: "500px", zIndex: '1000' }} onChange={(event, newValue) => setYear(newValue)}
-								placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
-								{years.map((year) => (
-									<Option key={year} value={year} >{year}</Option>
-								))}
-							</SelectProps> */}
-							<SelectProps size="sm" placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" sx={{ width: '60%' }} required onChange={handleChangeAnio}>
+							<SelectProps size="sm" placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" sx={{ width: '100%' }} required onChange={handleChangeAnio}>
 								{years.map((year) => (
 									<Option key={years} value={year}>{year}</Option>
 								))}
 							</SelectProps>
-							<Button fullWidth size="sm" type="submit" sx={{ mt: 1, mb: 1, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Buscar</Button>
 						</Stack>
 
 						<Divider sx={{ marginBottom: 1.5, marginTop: 1 }} />
+
 						<section className="text-black body-font">
 							<div>
 								{cursadasData.length > 0 && (
 									<Sheet variant="outlined"
 										sx={{
 											'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-											'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
+											'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '80px', '--Table-lastColumnWidth2': '45px', '--Table-buttonColumnWidth': '45px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
 											borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer'
 										}}>
 										<Table hoverRow>
@@ -213,10 +189,11 @@ export default function CalificacionesFinCurso() {
 																</Select>
 															</td>
 															<td>
-																<Button size="sm" sx={{ border: 0, borderColor: '#3d3d3d', alignItems: 'right' }} variant="plain" color='neutral'
-																	onClick={() => handleModificar(row.idCursada)}>
-																	<Save size="sw"></Save>
-																</Button>
+																<Tooltip title="Guardar calificación">
+																	<IconButton size="sm" sx={{ alignItems: 'right' }} variant="plain" color="neutral" onClick={() => handleModificar(row.idCursada)}>
+																		<Save size="sw"></Save>
+																	</IconButton>
+																</Tooltip>
 															</td>
 														</tr>
 													)
@@ -228,10 +205,9 @@ export default function CalificacionesFinCurso() {
 								{cursadasData.length === 0 && (
 									<Box sx={{ margin: 0, alignSelf: 'center' }}>
 										<Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="warning" noWrap>
-											No hay alumnos inscritos</Typography>
+											No hay alumnos inscriptos</Typography>
 									</Box>
 								)}
-
 							</div>
 						</section>
 					</FormControl>
@@ -240,10 +216,4 @@ export default function CalificacionesFinCurso() {
 		</Box>
 	);
 };
-
-const timeSlots = Array.from(new Array(24 * 1)).map(
-	(_, index) =>
-		`${index < 20 ? '' : ''}${Math.floor(index / 1)
-		}:00`,
-);
 

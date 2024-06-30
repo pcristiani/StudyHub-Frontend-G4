@@ -10,8 +10,6 @@ import Option from '@mui/joy/Option';
 import dayjs from 'dayjs';
 import isBetweenPlugin from 'dayjs/plugin/isBetween';
 import Modal from '@mui/joy/Modal';
-
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarrerasConPeriodoExamen, getPeriodosDeCarrera } from '../../../services/requests/carreraService';
 import { getExamenesPeriodo, getActaExamen } from '../../../services/requests/examenService';
@@ -31,7 +29,6 @@ export default function GenerarActaExamen() {
    const [selectedCarrera, setSelectedCarrera] = useState('');
    const [error, setError] = useState(null);
    const [periodoData, setPeriodoData] = useState([]);
-   const history = useNavigate();
 
    const [actaData, setActaData] = useState('');
    const [pdfUrl, setPdfUrl] = useState('');
@@ -193,10 +190,17 @@ export default function GenerarActaExamen() {
             doc.text(`${formatoCi(estudiante.cedula)}`, 20, y);
             doc.text(`${estudiante.nombre}` + ` ` + `${estudiante.apellido}`, 88, y);
          });
-         var blob = doc.output("blob");
-         var url = URL.createObjectURL(blob);
-         setPdfUrl(url);
 
+         let largo = actaData.estudiantes.length;
+         if (largo > 0) {
+            largo = 0;
+            var blob = doc.output("blob");
+            var url = URL.createObjectURL(blob);
+            setPdfUrl(url);
+         } else {
+            let title = "No hay estudiantes inscriptos!\n\n";
+            errors(title, title, 400, false);
+         }
          // guardar
          // const blob = doc.output('blob');
          // doc.save('document.pdf');
@@ -215,7 +219,7 @@ export default function GenerarActaExamen() {
 
    return (
       <>
-         <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
+         <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
                   <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Generar acta de examen</Typography>
@@ -224,26 +228,25 @@ export default function GenerarActaExamen() {
                <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                   <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
-                     <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} >
+                     <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} required>
                         {carreraData.map((carrera, index) => (
                            <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                         ))}
                      </SelectProps>
 
-                     <SelectProps size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha} slotProps={{ listbox: { sx: { width: '100%', }, }, }}>
+                     <SelectProps size="sm" placeholder="Seleccionar periodo" id="idperiodo" name="idperiodo" onChange={handleChangeFecha} required>
                         {Array.isArray(periodoData) && periodoData.map((periodo, index) => (
                            <Option key={index} value={periodo}>Periodo {periodo.nombre}</Option>
                         ))}
                      </SelectProps>
 
-                     <SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} >
+                     <SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required>
                         {Array.isArray(docenteData) && docenteData.map((asignatura, index) => (
                            <Option key={index} value={asignatura.idExamen}>{asignatura.asignatura}</Option>
                         ))}
                      </SelectProps>
-                     <Divider />
 
-                     <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
+                     <Stack direction="row" spacing={0.6} sx={{ marginTop: 0.8, justifyContent: 'right', zIndex: '1000' }}>
                         <Button size="sm" type='submit' fullWidth variant="soft" color="primary" sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }}>
                            Visualizar PDF
                         </Button>

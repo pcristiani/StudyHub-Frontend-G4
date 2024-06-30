@@ -121,9 +121,8 @@ export default function InscripcionAsignatura() {
 		let idasignatura = parseInt(data.get('idasignatura'), 10);
 
 		const response = await inscripcionAsignatura(user.id, idasignatura, idhorario, user.jwtLogin)
-
 		let title = "Inscripcion realizada!\n\n";
-		errors(title, response.data, response.status);
+		errors(title, response.data, response.status,true);
 	};
 
 	const [small, setSmall] = React.useState(false);

@@ -66,8 +66,7 @@ export default function RegistrarAsignaturaPeriodoExamen() {
    async function getInfoCarrera(selectedCarrera) {
       let result = await getAsignaturasDeCarreraConExamen(selectedCarrera, user.jwtLogin);
       let resultPeriodo = await getPeriodosDeCarrera(selectedCarrera, user.jwtLogin);
-      // console.log("resultPeriodo: ", resultPeriodo);
-      setAsignaturaData(result);
+      setAsignaturaData(result.body);
       setPeriodoData(resultPeriodo);
    }
 
@@ -77,6 +76,7 @@ export default function RegistrarAsignaturaPeriodoExamen() {
 
    async function getInfoDocentesDeAsignatura(idAsignatura) {
       let result = await getDocentesByAsignatura(idAsignatura, user.jwtLogin);
+
       if (result.length === '' || result === null || result === undefined) {
          swal({
             title: "¡Error!\n\n",
@@ -92,8 +92,6 @@ export default function RegistrarAsignaturaPeriodoExamen() {
 
    const handleChangeFecha = (event, idPeriodoExamen) => {
       if (idPeriodoExamen !== null && idPeriodoExamen !== undefined) {
-         console.log("fechaInicio: ", idPeriodoExamen.fechaInicio);
-         console.log("fechaFin: ", idPeriodoExamen.fechaFin);
          setIdPeriodo(idPeriodoExamen.idPeriodoExamen);
          setSelectedInicio(idPeriodoExamen.fechaInicio + 'T00:00');
          setSelectedFin(idPeriodoExamen.fechaFin + 'T23:59');
@@ -104,16 +102,17 @@ export default function RegistrarAsignaturaPeriodoExamen() {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
       let idAsignatura = parseInt(data.get('idasignatura'));
+      let idsDocentes = data.get('iddocente');
 
-      let idsDocentes = data.get('iddocente') ? data.get('iddocente').split('').map(item => {
-         const nums = parseInt(item.trim(), 10);
-         return isNaN(nums) ? null : nums;
-      }).filter(item => item !== null) : [];
+      const nroComoString = idsDocentes.slice(1, -1).split(',');
+      const arrayDocentes = nroComoString.map(Number);
+
       let fechaHora = data.get('fechaHora');
+      console.log("Docentes: ", arrayDocentes);
 
-      const restul = await registroAsignaturaAPeriodo(idAsignatura, idPeriodo, idsDocentes, fechaHora, user.jwtLogin);
+      const restul = await registroAsignaturaAPeriodo(idAsignatura, idPeriodo, arrayDocentes, fechaHora, user.jwtLogin);
       let title = "¡Fecha de examen registrada!\n\n";
-      errors(title, restul.data, restul.status);
+      errors(title, restul.data, restul.status, true);
    };
 
 
