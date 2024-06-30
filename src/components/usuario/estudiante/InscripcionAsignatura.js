@@ -37,8 +37,6 @@ export default function InscripcionAsignatura() {
 
 
 
-
-
 	useEffect(() => {
 		const fetchCarreras = async () => {
 			try {

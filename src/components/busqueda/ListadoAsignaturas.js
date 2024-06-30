@@ -67,12 +67,12 @@ const headCells = [
     disablePadding: false,
     label: 'Desripción',
   },
-  {
-    id: 'creditos',
-    numeric: false,
-    disablePadding: false,
-    label: 'Créditos',
-  },
+  // {
+  //   id: 'creditos',
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: 'Créditos',
+  // },
   {
     id: 'asignatura',
     numeric: false,
@@ -138,7 +138,7 @@ const handleAdd = (idAsignatura) => {
 };
 
 const handleModificar = (idAsignatura) => {
-  // redirigir(URI_FRONT.modificarFuncionarioUri + `?id=${idAsignatura}`);
+  redirigir(`/info-asignatura?id=${idAsignatura}`);
 }
 
 const handleAlta = () => {
@@ -169,14 +169,14 @@ function EnhancedTableToolbar(props) {
       {numSelected === 1 ? (
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-            <Tooltip title="Ver asignaturas">
+            {/* <Tooltip title="Ver asignaturas">
               <IconButton size="sm" variant="outlined" color="success" onClick={() => handleAlta()}>
                 <AddBoxOutlinedIcon />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
 
-            <Tooltip title="Información">
-              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleModificar(selected[0])}>
+            <Tooltip title="Previaturas">
+              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleAlta(selected[0])}>
                 <DriveFileRenameOutlineOutlinedIcon />
               </IconButton>
             </Tooltip>
@@ -185,14 +185,14 @@ function EnhancedTableToolbar(props) {
       ) : (
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-            <Tooltip title="Ver asignaturas">
+            {/* <Tooltip title="Ver asignaturas">
               <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta()} disabled>
                 <AddBoxOutlinedIcon />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
 
-            <Tooltip title="Información">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleModificar(selected[0])} disabled>
+              <Tooltip title="Previaturas">
+                <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta(selected[0])} disabled>
                 <DriveFileRenameOutlineOutlinedIcon />
               </IconButton>
             </Tooltip>
@@ -290,7 +290,7 @@ export default function ListadoAsignaturas() {
     <>
       <Stack sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
         <Autocomplete
-          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '650px' }}
+          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '620px' }}
           placeholder="Filtrar por asignatura"
           autoSelect={true}
           autoHighlight={true}
@@ -315,7 +315,7 @@ export default function ListadoAsignaturas() {
         />
       </Stack>
       <Stack direction="row" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
-        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '740px' }}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '620px' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
           <Table aria-labelledby="tableTitle" hoverRow
             sx={{
@@ -358,11 +358,11 @@ export default function ListadoAsignaturas() {
                         {asignatura.nombre}
                       </th>
                       <td>{asignatura.descripcion}</td>
-                      <td>{asignatura.creditos}</td>
+                      {/* <td>{asignatura.creditos}</td> */}
 
                       <td>
                         <Tooltip title="Ver asignaturas">
-                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(selected[0])}>
+                          <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(asignatura.idAsignatura)}>
                             <PostAddOutlinedIcon />
                           </IconButton>
                         </Tooltip></td>
@@ -371,13 +371,13 @@ export default function ListadoAsignaturas() {
                 })}
               {emptyRows > 0 && (
                 <tr style={{ height: 63 * emptyRows }}>
-                  <td colSpan={4} />
+                  <td colSpan={3} />
                 </tr>
               )}
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan={4}>
+                <td colSpan={3}>
                   <Box sx={{ width: '100%', display: 'flex', alignItems: 'right', justifyContent: 'flex-end' }}>
                     <Box sx={{ width: '20%', display: 'flex', gap: 0.5, justifyContent: 'flex-end' }}>
                       <IconButton size="sm" color="neutral"

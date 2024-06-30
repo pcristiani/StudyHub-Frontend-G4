@@ -43,23 +43,6 @@ export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
 
 
 ///
-// export const getAsignaturasDeCarreraConExamen = async (idCarrera, jwtLogin) => {
-// 	const url = URL_BACK.getAsignaturasDeCarreraConExamen;
-
-// 	let headersList = {
-// 		'Content-Type': 'application/json',
-// 		'Authorization': `Bearer ${jwtLogin}`
-// 	}
-
-// 	let response = await fetch(url + idCarrera, {
-// 		method: "GET",
-// 		headers: headersList
-// 	});
-
-// 	const data = await response.json();
-// 	return data.body;
-// }
-
 export const getAsignaturasDeCarreraConExamen = async (idCarrera, jwtLogin) => {
 	try {
 		let headersList = {
@@ -377,6 +360,28 @@ export const getActaAsignatura = async (idHorarioAsignatura, jwtLogin) => {
 		}
 		let reqOptions = {
 			url: URL_BACK.getActaAsignatura + idHorarioAsignatura,
+			method: "GET",
+			headers: headersList,
+		};
+
+		let response = await axios.request(reqOptions);
+		return response;
+	} catch (error) {
+		return error.response;
+	}
+}
+
+///
+
+export const getAsignaturaById = async (idAsignatura, jwtLogin) => {
+	try {
+		let headersList = {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${jwtLogin}`,
+		}
+
+		let reqOptions = {
+			url: URL_BACK.getAsignaturaById + idAsignatura,
 			method: "GET",
 			headers: headersList,
 		};

@@ -71,8 +71,10 @@ export default function GenerarActaFinDeCurso() {
    }
 
    const handleChangeAsignatura = (event, idasignatura) => {
-      setActaCursoData([]);
-      getInfoExamen(idasignatura);
+      if (idasignatura !== null && idasignatura !== undefined) {
+         setActaCursoData([]);
+         getInfoExamen(idasignatura);
+      }
    };
 
    async function getInfoExamen(idasignatura) {
@@ -146,6 +148,20 @@ export default function GenerarActaFinDeCurso() {
          };
          img.src = url;
       });
+   };
+
+   const consolidarHorarios = (horarios) => {
+      if (horarios !== null && horarios !== undefined) {
+         return horarios.map(horario => {
+            if (horario[0].dtHorarioDias !== null && horario[0].dtHorarioDias !== undefined) {
+               const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
+               return {
+                  ...horario,
+                  diasConsolidados: dias
+               };
+            }
+         });
+      }
    };
 
 
@@ -222,7 +238,6 @@ export default function GenerarActaFinDeCurso() {
             var blob = doc.output("blob");
             var url = URL.createObjectURL(blob);
             setPdfUrl(url);
-
          } else {
             let title = "No hay estudiantes inscriptos!\n\n";
             errors(title, title, 400, false);
@@ -239,26 +254,11 @@ export default function GenerarActaFinDeCurso() {
       }
    }, [pdfUrl]);
 
-   const consolidarHorarios = (horarios) => {
-      if (horarios === null || horarios === undefined) {
-         return [];
-      } else {
-         return horarios.map(horario => {
-            // const dias = horario.dtHorarioDias.map(dia => `${formatDiaSemana(horarios)} de ${dia.horaInicio} a ${dia.horaFin} (${horario.anio})`).join(', ');
-            const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
-            return {
-               ...horario,
-               diasConsolidados: dias
-            };
-         });
-      }
-   };
 
    const horariosConsolidados = consolidarHorarios(horarioData);
    const handleValidateClick = (event, newValue) => {
-      console.log("ID HORARIO ", newValue);
+      //  console.log("ID HORARIO ", newValue);
    };
-
 
    return (
       <>

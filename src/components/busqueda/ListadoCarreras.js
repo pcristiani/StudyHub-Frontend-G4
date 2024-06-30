@@ -21,8 +21,9 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-
-
+import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
+import AccountCircleOutlined from '@mui/icons-material/AccountCircleOutlined';
 const filters = createFilterOptions();
 
 function descendingComparator(a, b, orderBy) {
@@ -126,7 +127,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const handleAdd = (idCarrera) => {
+const handleInfoCarreras = (idCarrera) => {
   console.log('Agregar carrera con ID:', idCarrera);
   redirigir(URI_FRONT.InfoCarrerasUri + `?id=${idCarrera}`);
 
@@ -166,33 +167,33 @@ function EnhancedTableToolbar(props) {
       {numSelected === 1 ? (
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-            <Tooltip title="Ver asignaturas">
-              <IconButton size="sm" variant="outlined" color="success" >
-                <AddBoxOutlinedIcon />
+            <Tooltip title="Ver información">
+              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleInfoCarreras(selected[0])}>
+                <PostAddOutlinedIcon />
               </IconButton>
             </Tooltip>
 
-            <Tooltip title="Información">
+            {/* <Tooltip title="Información">
               <IconButton size="sm" variant="outlined" color="success" onClick={() => handleModificar(selected[0])}>
-                <DriveFileRenameOutlineOutlinedIcon />
+                <InsertChartOutlinedIcon />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
           </Box>
         </>
       ) : (
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-            <Tooltip title="Ver asignaturas">
-              <IconButton size="sm" variant="outlined" color="neutral"  disabled>
-                <AddBoxOutlinedIcon />
+              <Tooltip title="Ver información">
+              <IconButton size="sm" variant="outlined" color="neutral" disabled>
+                  <PostAddOutlinedIcon />
               </IconButton>
             </Tooltip>
 
-            <Tooltip title="Información">
+            {/* <Tooltip title="Información">
               <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleModificar(selected[0])} disabled>
                 <DriveFileRenameOutlineOutlinedIcon />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
           </Box>
           {/* <IconButton size="sm" variant="outlined" color="neutral" onClick={handleClick}>
             <FilterListIcon />
@@ -288,7 +289,7 @@ export default function ListadoCarreras() {
     <>
       <Stack direction="row" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
         <Autocomplete
-          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '600px' }}
+          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '620px' }}
           placeholder="Filtrar por carrera"
           autoSelect={true}
           autoHighlight={true}
