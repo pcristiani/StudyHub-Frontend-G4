@@ -133,7 +133,7 @@ const URL_BACK = {
   getInscriptosPendientes: `${uriBaseBack}/api/carrera/getInscriptosPendientes/`, // GET
   getCarrerasConPeriodo: `${uriBaseBack}/api/carrera/getCarrerasConPeriodo`,      // GET
   getPeriodosDeCarrera: `${uriBaseBack}/api/carrera/getPeriodosDeCarrera/`,       // GET
-  getPreviaturasGrafo: `${uriBaseBack}/api/carrera/getPreviaturasGrafo/`,         // GET
+  getPreviaturasGrafo: `${uriBaseBack}/getPreviaturasGrafo/`,         // GET
   getCarreraById: `${uriBaseBack}/api/carrera/getCarreraById/`,                   // GET
 
 

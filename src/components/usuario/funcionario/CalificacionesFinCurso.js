@@ -25,7 +25,6 @@ export default function CalificacionesFinCurso() {
 	const [asignaturaData, setAsignaturaData] = useState([]);
 	const [error, setError] = useState(null);
 	const [selectedCarrera, setSelectedCarrera] = useState('');
-	const [resultadoData, setResultado] = useState('');
 	const [selectedAsignatura, setSelectedAsignatura] = useState('');
 	const [selectedAnio, setSelectedAnio] = useState('');
 
@@ -107,9 +106,9 @@ export default function CalificacionesFinCurso() {
 	};
 
 
-	const handleModificar = async (idCursada) => {
-		if (idCursada !== null && idCursada !== undefined && resultadoData !== null && resultadoData !== undefined) {
-			const result = await cambiarResultadoCursada(idCursada, resultadoData, user.jwtLogin);
+	const handleModificar = async (idCursada, calificacion) => {
+		if (idCursada !== null && idCursada !== undefined && calificacion !== null && calificacion !== undefined && calificacion !== 0) {
+			const result = await cambiarResultadoCursada(idCursada, calificacion, user.jwtLogin);
 			let title = "¡Calificación exitosa!\n\n";
 			errors(title, result.data, result.status, false);
 		}
@@ -182,7 +181,9 @@ export default function CalificacionesFinCurso() {
 														<tr key={row.idCursada}>
 															<td>{row.nombreEstudiante} {row.apellidoEstudiante}	</td>
 															<td>
-																<Select size="sm" placeholder="0" onChange={(event, newValue) => setResultado(newValue)}
+																<Select size="sm" placeholder="0"   onChange={(event, newValue) => {
+																		row.calificacion = newValue;
+																	}}
 																	id="idresultado" name="idresultado">{notas.map((nota) => (
 																		<Option key={notas} value={nota}>{nota}</Option>
 																	))}
@@ -190,7 +191,7 @@ export default function CalificacionesFinCurso() {
 															</td>
 															<td>
 																<Tooltip title="Guardar calificación">
-																	<IconButton size="sm" sx={{ alignItems: 'right' }} variant="plain" color="neutral" onClick={() => handleModificar(row.idCursada)}>
+																	<IconButton size="sm" sx={{ alignItems: 'right' }} variant="plain" color="neutral" onClick={() => handleModificar(row.idCursada, row.calificacion)}>
 																		<Save size="sw"></Save>
 																	</IconButton>
 																</Tooltip>
