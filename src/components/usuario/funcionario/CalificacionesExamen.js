@@ -29,7 +29,6 @@ export default function CalificacionesExamen() {
 	const [selectedCarrera, setSelectedCarrera] = useState('');
 	const [selectedAsignatura, setSelectedAsignatura] = useState('');
 	const [selectedAnio, setSelectedAnio] = useState('');
-	const [resultadoData, setResultadoData] = useState([]);
 
 
 	useEffect(() => {
@@ -106,8 +105,8 @@ export default function CalificacionesExamen() {
 
 	const handleModificar = async (row) => {
 		let cursadaExam = row.idCursadaExamen;
-		if (cursadaExam !== null && cursadaExam !== undefined && resultadoData !== null && resultadoData !== undefined) {
-			let result = await cambiarResultadoExamen(cursadaExam, resultadoData, user.jwtLogin);
+		if (cursadaExam !== null && cursadaExam !== undefined && row.calificacion !== null && row.calificacion !== undefined && row.calificacion !== 0) {
+			let result = await cambiarResultadoExamen(cursadaExam, row.calificacion, user.jwtLogin);
 			let title = "¡Calificación exitosa!\n\n";
 			errors(title, '', result.status, false);
 		}
@@ -196,8 +195,11 @@ export default function CalificacionesExamen() {
 													<tr key={row.idExamen}>
 														<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
 														<td>
-															<SelectProps size="sm" placeholder={row.calificacion} onChange={(event, newValue) => setResultadoData(newValue)} id="idresultado" name="idresultado">{notas.map((nota) => (
-																<Option key={nota} value={nota}>{nota}</Option>
+															<SelectProps size="sm" placeholder={row.calificacion} onChange={(event, newValue) => {
+																	row.calificacion = newValue;
+																}}
+																id="idresultado" name="idresultado">{notas.map((nota) => (
+																<Option key={notas} value={nota}>{nota}</Option>
 															))}
 															</SelectProps>
 														</td>
