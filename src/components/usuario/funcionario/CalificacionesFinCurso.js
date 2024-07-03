@@ -27,6 +27,7 @@ export default function CalificacionesFinCurso() {
 	const [selectedCarrera, setSelectedCarrera] = useState('');
 	const [selectedAsignatura, setSelectedAsignatura] = useState('');
 	const [selectedAnio, setSelectedAnio] = useState('');
+	const [calificaciones, setCalificaciones] = useState({});
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
@@ -39,12 +40,6 @@ export default function CalificacionesFinCurso() {
 		};
 		fetchCarreras();
 	}, [user]);
-
-	useEffect(() => {
-		if (carreraData) {
-			// console.log("Carreras: ", carreraData);
-		}
-	}, [carreraData]);
 
 	const handleChangeCarrera = (event, newValue) => {
 		setSelectedCarrera(newValue);
@@ -61,30 +56,12 @@ export default function CalificacionesFinCurso() {
 		}
 	}
 
-	// const handleSubmit = async (event) => {
-	// 	event.preventDefault();
-	// 	const data = new FormData(event.currentTarget);
-	// 	let idAsignatura = data.get('idasignatura');
-	// 	let anioLectivo = parseInt(data.get('aniolectivo'), 10);
-
-	// 	const resp = await getCursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
-	// 	if (resp.data.length === 0) {
-	// 		let title = "Todos los estudiantes estan calificados!\n\n";
-	// 		errors('', title, 400);
-	// 	}
-
-	// 	setCursadasData(resp.data);
-	// };
-
 	const handleChangeAnio = (event, newValue) => {
-		// setSelectedAnio(newValue);
-		// initPeriodo(newValue);
 		if (newValue !== null && newValue !== undefined) {
 			setSelectedAnio(newValue);
 			initEstudiantesExamen(newValue);
 		}
 	};
-
 
 	const handleChangeAsignatura = (event, newValue) => {
 		if (newValue !== null && newValue !== undefined && newValue !== '') {
@@ -93,24 +70,41 @@ export default function CalificacionesFinCurso() {
 		}
 	};
 
-
 	async function initEstudiantesExamen(newValue) {
 		let idAsignatura = selectedAsignatura;
 		let anioLectivo = newValue;
-		//handleChangePeriodo();
 		if (idAsignatura !== null && idAsignatura !== undefined && idAsignatura !== '' && anioLectivo !== null && anioLectivo !== undefined && anioLectivo !== '') {
 			const resul = await getCursadasPendientes(idAsignatura, anioLectivo, user.jwtLogin);
 			setCursadasData([]);
 			setCursadasData(resul.data);
 		}
+	}
+
+	const handleCalificacionChange = (idCursada, calificacion) => {
+		setCalificaciones(prevState => ({
+			...prevState,
+			[idCursada]: calificacion
+		}));
 	};
 
+	const handleGuardarTodas = async () => {
+		const promises = Object.entries(calificaciones).map(([idCursada, calificacion]) => {
+			if (calificacion !== null && calificacion !== undefined && calificacion !== 0) {
+				return cambiarResultadoCursada(idCursada, calificacion, user.jwtLogin);
+			}
+			return Promise.resolve();
+		});
 
-	const handleModificar = async (idCursada, calificacion) => {
-		if (idCursada !== null && idCursada !== undefined && calificacion !== null && calificacion !== undefined && calificacion !== 0) {
-			const result = await cambiarResultadoCursada(idCursada, calificacion, user.jwtLogin);
-			let title = "¡Calificación exitosa!\n\n";
-			errors(title, result.data, result.status, false);
+		try {
+			const results = await Promise.all(promises);
+			results.forEach(result => {
+				if (result && result.status === 200) {
+					let title = "¡Calificación exitosa!\n\n";
+					errors(title, result.data, result.status, false);
+				}
+			});
+		} catch (error) {
+			console.error("Error saving calificaciones: ", error);
 		}
 	};
 
@@ -129,7 +123,7 @@ export default function CalificacionesFinCurso() {
 
 	return (
 		<Box component="form" sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
+			<Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000' }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registro de calificaciones de fin de curso</Typography>
 				</Box>
@@ -156,7 +150,7 @@ export default function CalificacionesFinCurso() {
 							</SelectProps>
 						</Stack>
 
-						<Divider sx={{ marginBottom: 1, marginTop: 1 }} />
+						<Divider sx={{ marginBottom: 0.5, marginTop: 0.5 }} />
 
 						<section className="text-black body-font">
 							<div>
@@ -165,36 +159,26 @@ export default function CalificacionesFinCurso() {
 										sx={{
 											'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
 											'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '80px', '--Table-lastColumnWidth2': '45px', '--Table-buttonColumnWidth': '45px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
-											borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer',  zIndex: '1000'
+											borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer', zIndex: '1000'
 										}}>
 										<Table hoverRow>
 											<thead>
 												<tr>
 													<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
-													<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Calificacion</th>
-													<th style={{ width: 'var(--Table-buttonColumnWidth)' }}></th>
+													<th style={{ width: 'var(--Table-lastColumnWidth)', textAlign: 'center' }}>Calificación</th>
 												</tr>
 											</thead>
 											<tbody>
 												{cursadasData.slice(0, 5).map((row) => (
 													row.rol !== 'E' && (
 														<tr key={row.idCursada}>
-															<td>{row.nombreEstudiante} {row.apellidoEstudiante}	</td>
+															<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
 															<td>
-																<Select size="sm" placeholder="0" onChange={(event, newValue) => {
-																	row.calificacion = newValue;
-																}}
-																	id="idresultado" name="idresultado">{notas.map((nota) => (
-																		<Option key={notas} value={nota}>{nota}</Option>
+																<Select size="sm" placeholder={row.calificacion} onChange={(event, newValue) => handleCalificacionChange(row.idCursada, newValue)} id="idresultado" name="idresultado">
+																	{notas.map((nota) => (
+																		<Option key={nota} value={nota}>{nota}</Option>
 																	))}
 																</Select>
-															</td>
-															<td>
-																<Tooltip title="Guardar calificación">
-																	<IconButton size="sm" sx={{ alignItems: 'right' }} variant="plain" color="neutral" onClick={() => handleModificar(row.idCursada, row.calificacion)}>
-																		<Save size="sw"></Save>
-																	</IconButton>
-																</Tooltip>
 															</td>
 														</tr>
 													)
@@ -206,7 +190,16 @@ export default function CalificacionesFinCurso() {
 								{cursadasData.length === 0 && (
 									<Box sx={{ margin: 0, alignSelf: 'center' }}>
 										<Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="warning" noWrap>
-											No hay alumnos inscriptos</Typography>
+											No hay alumnos inscriptos
+										</Typography>
+									</Box>
+								)}
+								{cursadasData.length > 0 && (
+									<Box sx={{ marginTop: 1, textAlign: 'center' }}>
+										<IconButton size="sm" variant="plain" color="primary" onClick={handleGuardarTodas}>
+											<Save size="sw" />
+											<Typography variant="plain" color="primary"> Guardar calificaciones</Typography>
+										</IconButton>
 									</Box>
 								)}
 							</div>
@@ -216,4 +209,4 @@ export default function CalificacionesFinCurso() {
 			</Card>
 		</Box>
 	);
-};
+}

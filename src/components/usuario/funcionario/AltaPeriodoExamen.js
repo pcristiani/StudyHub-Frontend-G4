@@ -89,13 +89,13 @@ export default function AltaPeriodoExamen() {
 					<Divider />
 					<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
 						<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
-							<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
+							<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" required>
 								{carreraData.map((carrera, index) => (
 									<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 								))}
 							</SelectProps>
 
-							<SelectProps size="sm" value={selectedPeriodo} onChange={(event, newValue) => setSelectedPeriodo(newValue)} placeholder="Seleccionar periodo examen" id="periodo" name="periodo">
+							<SelectProps size="sm" value={selectedPeriodo} onChange={(event, newValue) => setSelectedPeriodo(newValue)} placeholder="Seleccionar periodo examen" id="periodo" name="periodo" required>
 								{periodoExamen.map((periodo) => (
 									<Option key={periodo.value} value={periodo.value}>
 										{periodo.label}

@@ -11,13 +11,12 @@ import { getCarreras } from '../../../services/requests/carreraService';
 import { cambiarResultadoExamen, getExamenesAsignaturaPorAnio, getCursadasExamen } from '../../../services/requests/examenService';
 import IconButton from '@mui/joy/IconButton';
 import Tooltip from '@mui/joy/Tooltip';
-import { getAsignaturasDeCarrera } from '../../../services/requests/asignaturaService';
+import { getAsignaturasDeCarreraConExamen } from '../../../services/requests/asignaturaService';
 import { errors } from '../../../services/util/errors';
 import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
 import { Save } from '@mui/icons-material';
 import { SelectProps } from '../../common/SelectProps';
-
 
 export default function CalificacionesExamen() {
 	const { user } = useContext(AuthContext);
@@ -29,7 +28,7 @@ export default function CalificacionesExamen() {
 	const [selectedCarrera, setSelectedCarrera] = useState('');
 	const [selectedAsignatura, setSelectedAsignatura] = useState('');
 	const [selectedAnio, setSelectedAnio] = useState('');
-
+	const [calificaciones, setCalificaciones] = useState({});
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
@@ -58,33 +57,24 @@ export default function CalificacionesExamen() {
 
 	async function initAsignatura(selecIdCarrera) {
 		if (selecIdCarrera !== null && selecIdCarrera !== undefined && selecIdCarrera !== '') {
-			let result = await getAsignaturasDeCarrera(selecIdCarrera, user.jwtLogin);
-			setAsignaturaData(result);
+			let result = await getAsignaturasDeCarreraConExamen(selecIdCarrera, user.jwtLogin);
+			setAsignaturaData(result.body);
 		}
 	}
 
 	const handleChangeAsignatura = (event, newValue) => {
 		setUsuarioData([]);
-
 		if (newValue !== null && newValue !== undefined && newValue !== '') {
 			setSelectedAsignatura(newValue);
-			//	handleSubmit(newValue);
 		}
 	};
 
-	///
-
-
 	const handleChangeAnio = (event, newValue) => {
-		// setSelectedAnio(newValue);
-		// initPeriodo(newValue);
 		if (newValue !== null && newValue !== undefined) {
-			// setUsuarioData([]);
 			setSelectedAnio(newValue);
 			initPeriodo(newValue);
 		}
 	};
-
 
 	async function initPeriodo(newValue) {
 		let idAsignatura = selectedAsignatura;
@@ -97,8 +87,6 @@ export default function CalificacionesExamen() {
 		}
 	};
 
-
-	///
 	const handleChangePeriodo = (event, idExamen) => {
 		if (idExamen !== null && idExamen !== undefined && idExamen !== '') {
 			setUsuarioData([]);
@@ -113,17 +101,22 @@ export default function CalificacionesExamen() {
 		}
 	}
 
-
-	///
-	const handleModificar = async (row) => {
-		let cursadaExam = row.idCursadaExamen;
-		if (cursadaExam !== null && cursadaExam !== undefined && row.calificacion !== null && row.calificacion !== undefined && row.calificacion !== 0) {
-			let result = await cambiarResultadoExamen(cursadaExam, row.calificacion, user.jwtLogin);
-			let title = "¡Calificación exitosa!\n\n";
-			errors(title, '', result.status, false);
-		}
+	const handleCalificacionChange = (idCursadaExamen, newValue) => {
+		setCalificaciones((prevCalificaciones) => ({
+			...prevCalificaciones,
+			[idCursadaExamen]: newValue,
+		}));
 	};
 
+	const handleGuardarTodas = async () => {
+		for (const [idCursadaExamen, calificacion] of Object.entries(calificaciones)) {
+			if (calificacion !== null && calificacion !== undefined && calificacion !== 0) {
+				let result = await cambiarResultadoExamen(idCursadaExamen, calificacion, user.jwtLogin);
+				let title = "¡Calificación exitosa!\n\n";
+				errors(title, '', result.status, false);
+			}
+		}
+	};
 
 	const [year, setYear] = useState(new Date().getFullYear());
 	const startYear = 2023;
@@ -136,7 +129,7 @@ export default function CalificacionesExamen() {
 	function formatFecha(data) {
 		let fechaExamen = new Date(data);
 		const year = fechaExamen.getFullYear();
-		const month = String(fechaExamen.getMonth() + 1).padStart(2, '0'); // Los meses empiezan en 0
+		const month = String(fechaExamen.getMonth() + 1).padStart(2, '0');
 		const day = String(fechaExamen.getDate()).padStart(2, '0');
 		const hours = String(fechaExamen.getHours()).padStart(2, '0');
 		const minutes = String(fechaExamen.getMinutes()).padStart(2, '0');
@@ -151,7 +144,7 @@ export default function CalificacionesExamen() {
 
 	return (
 		<Box component="form" sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} >
-			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
+			<Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000' }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registro de calificaciones de examen</Typography>
 				</Box>
@@ -183,7 +176,7 @@ export default function CalificacionesExamen() {
 							</SelectProps>
 						</Stack>
 
-						<Divider sx={{ marginBottom: 1, marginTop: 1 }} />
+						<Divider sx={{ marginBottom: 0.5, marginTop: 0.5 }} />
 
 						<section className="text-black body-font">
 							<div>
@@ -191,48 +184,31 @@ export default function CalificacionesExamen() {
 									<Sheet variant="outlined"
 										sx={{
 											'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-											'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '80px', '--Table-buttonColumnWidth': '45px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)', borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer', zIndex: '1000'
+											'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '80px', '--Table-lastColumnWidth2': '45px', '--Table-buttonColumnWidth': '45px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
+											borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer', zIndex: '1000'
 										}}>
-										<Table aria-labelledby="tableTitle" hoverRow
-											sx={{
-												'& thead th:nth-child(1)': { width: '40%', },
-												'& thead th:nth-child(2)': { width: '65%', },
-												'& tr > *:nth-child(n+3)': { width: '12%', textAlign: 'center' }, maxWidth: '400px'
-											}}>
-
+										<Table hoverRow>
 											<thead>
 												<tr>
 													<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
-													<th style={{ width: 'var(--Table-lastColumnWidth)' }}>Calificación</th>
-													<th aria-label="last" style={{ width: 'var(--Table-buttonColumnWidth)' }} />
+													<th style={{ width: 'var(--Table-lastColumnWidth)', textAlign: 'center' }}>Calificación</th>
 												</tr>
 											</thead>
 
 											<tbody>
-												{usuarioData.slice(0, 5).map((row) => ( // Aquí limitamos a 5 items
-
+												{usuarioData.slice(0, 5).map((row) => (
 													<tr key={row.idExamen}>
 														<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
 														<td>
-															<SelectProps size="sm" placeholder={row.calificacion} onChange={(event, newValue) => {
-																row.calificacion = newValue;
-															}}
-																id="idresultado" name="idresultado">{notas.map((nota) => (
-																	<Option key={notas} value={nota}>{nota}</Option>
+															<SelectProps size="sm" placeholder={row.calificacion} onChange={(event, newValue) => handleCalificacionChange(row.idCursadaExamen, newValue)}>
+																{notas.map((nota) => (
+																	<Option key={nota} value={nota}>{nota}</Option>
 																))}
 															</SelectProps>
-														</td>
-														<td>
-															<Tooltip title="Guardar calificación">
-																<IconButton size="sm" sx={{ alignItems: 'right' }} variant="plain" color="neutral" onClick={() => handleModificar(row)}>
-																	<Save size="sw"></Save>
-																</IconButton>
-															</Tooltip>
 														</td>
 													</tr>
 												))}
 											</tbody>
-
 										</Table>
 									</Sheet>
 								)}
@@ -242,43 +218,24 @@ export default function CalificacionesExamen() {
 											No hay alumnos inscriptos</Typography>
 									</Box>
 								)}
+								{usuarioData.length > 0 && (
+									<Box sx={{ marginTop: 1, textAlign: 'center' }}>
+										<IconButton size="sm" variant="plain" color="primary" onClick={handleGuardarTodas}>
+											<Save size="sw" />
+											<Typography variant="plain" color="primary"> Guardar calificaciones</Typography>
+										</IconButton>
+									</Box>
+								)}
 							</div>
 						</section>
+						{/* <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+							<IconButton size="sm" variant="solid" color="primary" onClick={handleGuardarTodas}>
+								Guardar todas las calificaciones
+							</IconButton>
+						</Box> */}
 					</FormControl>
 				</Stack>
-				{/* </Stack> */}
-			</Card >
-		</Box >
+			</Card>
+		</Box>
 	);
-};
-
-const timeSlots = Array.from(new Array(24 * 1)).map(
-	(_, index) =>
-		`${index < 20 ? '' : ''}${Math.floor(index / 1)
-		}:00`,
-);
-
-
-// <tbody>
-// 	{usuarioData.slice(0, 5).map((row) => ( // Aquí limitamos a 5 items
-// 		<tr key={row.idExamen}>
-// 			<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
-// 			<td>
-// 				<SelectProps size="sm" placeholder={row.calificacion} onChange={(event, newValue) => {
-// 					row.calificacion = newValue;
-// 				}}
-// 					id="idresultado" name="idresultado">{notas.map((nota) => (
-// 						<Option key={notas} value={nota}>{nota}</Option>
-// 					))}
-// 				</SelectProps>
-// 			</td>
-// 			<td>
-// 				<Tooltip title="Guardar calificación">
-// 					<IconButton size="sm" sx={{ alignItems: 'right' }} variant="plain" color="neutral" onClick={() => handleModificar(row)}>
-// 						<Save size="sw"></Save>
-// 					</IconButton>
-// 				</Tooltip>
-// 			</td>
-// 		</tr>
-// 	))}
-// </tbody>
+}

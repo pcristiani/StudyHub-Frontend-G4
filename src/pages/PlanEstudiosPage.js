@@ -5,7 +5,7 @@ import Select from '@mui/joy/Select';
 import Box from '@mui/joy/Box';
 import DAGViewer from './DAGViewer';
 import { AuthContext } from '../context/AuthContext';
-import { getCarreras } from '../services/requests/carreraService';
+import { getCarrerasPublic } from '../services/requests/carreraService';
 import { getPreviaturasGrafo } from '../services/requests/asignaturaService';
 import { errors } from '../services/util/errors';
 import { COURSE } from '../services/util/constants';
@@ -20,7 +20,7 @@ const PlanEstudiosPage = () => {
   useEffect(() => {
     const fetchCarreras = async () => {
       try {
-        const result = await getCarreras(user.jwtLogin);
+        const result = await getCarrerasPublic(user.jwtLogin);
         setCarreraData(result);
       } catch (error) {
         console.log(error.message);
@@ -55,8 +55,8 @@ const PlanEstudiosPage = () => {
 
   return (
     <>
-      <CssVarsProvider>
-        <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+      <CssVarsProvider sx={{ zIndex: '1000' }} >
+        <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', zIndex: '1000' }}>
           <Select size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
             {carreraData.map((carrera, index) => (
               <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
@@ -64,8 +64,8 @@ const PlanEstudiosPage = () => {
           </Select>
 
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1%', height: '70%', border: "0.5px solid #2596be", borderRadius: "20px" }}>
-          <DAGViewer dot={mostrarGrafo} options={{}} />
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1%', height: '70%', border: "0.5px solid #2596be", borderRadius: "20px", zIndex: '1000' }}>
+          <DAGViewer dot={mostrarGrafo} options={{}}/>
         </Box>
       </CssVarsProvider>
     </>

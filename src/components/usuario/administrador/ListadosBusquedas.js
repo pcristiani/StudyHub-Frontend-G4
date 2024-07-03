@@ -178,14 +178,9 @@ function EnhancedTableToolbar(props) {
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
 
             <Tooltip title="Alta funcionario/coordinador">
-              <IconButton size="sm" variant="outlined" color="success" >
-                <AddBoxOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-
-            <Tooltip title="Ver inscrpciones">
               <IconButton size="sm" variant="outlined" color="success" onClick={handleAlta}>
-                <PostAddOutlinedIcon />
+
+                <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
 
@@ -200,14 +195,9 @@ function EnhancedTableToolbar(props) {
         <>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
             <Tooltip title="Alta funcionario/coordinador">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={'handleAlta'} disabled>
-                <AddBoxOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-
-            <Tooltip title="Ver inscrpciones">
               <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta} disabled>
-                <PostAddOutlinedIcon />
+
+                <AddBoxOutlinedIcon />
               </IconButton>
             </Tooltip>
 
@@ -313,9 +303,9 @@ export default function ListadosBusquedas() {
   const loading = open && options.length === 0;
   return (
     <>
-      <Stack sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', }}>
+      <Stack sx={{ marginTop: 3, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
         <Autocomplete
-          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '600px' }}
+          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '550px', zIndex: '1000' }}
           placeholder="Filtrar por usuario"
           autoSelect={true}
           autoHighlight={true}
@@ -340,7 +330,7 @@ export default function ListadosBusquedas() {
         />
       </Stack>
       <Stack direction="row" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
-        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '620px' }}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '550px', zIndex: '1000' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
 
           <Table aria-labelledby="tableTitle" hoverRow
@@ -348,9 +338,7 @@ export default function ListadosBusquedas() {
               '--TableCell-headBackground': 'transparent',
               '--TableCell-selectedBackground': (theme) =>
                 theme.vars.palette.success.softBg,
-              '& thead th:nth-child(1)': { width: '40%', },
-              '& thead th:nth-child(2)': { width: '30%', },
-              '& tr > *:nth-child(n+3)': { width: '15%', textAlign: 'center' },
+              '& thead th:nth-child(1)': { width: '40%', }, '& thead th:nth-child(2)': { width: '20%', }, '& tr > *:nth-child(n+3)': { width: '20%', textAlign: 'center' }, zIndex: '1000'
             }}>
             <EnhancedTableHead
               numSelected={selected.length}

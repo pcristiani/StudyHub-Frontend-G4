@@ -31,10 +31,11 @@ import Navigation from './Navigation';
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../img/logo.png';
 import LogoAvatar from '../../img/avatar/graduated_3135810.png';
+import { URI_FRONT, redirigir, T_ROL, URL_BACK } from '../../services/util/constants';
+
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
 import { cerrarSesion } from '../../services/requests/loginService';
-import { URI_FRONT, T_ROL } from '../../services/util/constants';
 import { Key } from '@mui/icons-material';
 import swal from 'sweetalert';
 
@@ -128,6 +129,8 @@ export default function Header() {
    const [open, setOpen] = React.useState(false);
    const { user, dispatch } = useContext(AuthContext);
    const navigate = useNavigate();
+   const [searchQuery, setSearchQuery] = useState('');
+
    const idA = 'a';
    const idM = 'm';
    const idL = 'l';
@@ -146,6 +149,36 @@ export default function Header() {
       }
    }
 
+   const handleSearch = () => {
+      switch (searchQuery) {
+         case 'login':
+            redirigir(URI_FRONT.loginUri)
+            break
+         case 'novedades':
+            redirigir(URI_FRONT.novedadesUri)
+            break
+         case 'contacto':
+            redirigir(URI_FRONT.contactoUri)
+            break
+         case 'previas':
+            redirigir(URI_FRONT.planEstudiosUri)
+            break
+         case 'carrera':
+            redirigir(URI_FRONT.listadoCarrerasUri)
+            break
+         case 'asignatura':
+            redirigir(URI_FRONT.listadoAsignaturasUri)
+            break
+         case 'examen':
+            redirigir(URI_FRONT.inscripcionExamenUri)
+            break
+         case 'registrarse':
+            redirigir(URI_FRONT.registrarseUri)
+            break
+         default:
+            return URI_FRONT.homeUri;
+      }
+   }
 
    const handleLogout = () => {
       cerrarSesionUsuario(user.jwtLogin);
@@ -166,6 +199,9 @@ export default function Header() {
                      <DialogTitle>StudyHub</DialogTitle>
                   </Nav.Link>
                </IconButton>
+               <Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sm" sx={{ alignSelf: 'center' }}>
+                  Plan de estudios
+               </Button>
                {(user.logged) && (user.rol) ?
                   <>
                      {(user.rol === T_ROL.ADMIN) &&
@@ -206,9 +242,7 @@ export default function Header() {
                      {
                         (user.rol === T_ROL.ESTUDIANTE) &&
                         <>
-                           <Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sm" sx={{ alignSelf: 'center' }}>
-                              Plan de estudios
-                           </Button>
+
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
                                  Inscripciones
@@ -403,18 +437,18 @@ export default function Header() {
                </Drawer>
             </Box>
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 0.6, alignItems: 'center', }} >
-               <Input size="sm" variant="outlined" placeholder="Buscar…" startDecorator={<SearchRoundedIcon color="primary" />}
+            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 0.6, alignItems: 'center', }} size="sm" >
+               <Input size="sm" variant="outlined" placeholder="Buscar…" startDecorator={<SearchRoundedIcon color="primary" />} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                   sx={{ alignSelf: 'center', display: { xs: 'none', sm: 'flex', }, }} />
                <ColorSchemeToggle />
                {(user.logged) ?
                   <>
-                     <Dropdown>
-                        <MenuButton size="sm" sx={{ maxWidth: '34px', maxHeight: '34px', borderRadius: '9999999px',marginRight:0.5,marginLeft:1 }}>
-                           <Avatar variant="plain" color="neutral" src={LogoAvatar} srcSet={LogoAvatar} sx={{ maxWidth: '34px', maxHeight: '34px'}} />
+                     <Dropdown size="small">
+                        <MenuButton size="small" sx={{ maxWidth: '34px', maxHeight: '34px', borderRadius: '9999999px', marginRight: 0.5, marginLeft: 1 }}>
+                           <Avatar variant="plain" color="neutral" src={LogoAvatar} srcSet={LogoAvatar} sx={{ maxWidth: '34px', maxHeight: '34px' }} />
                         </MenuButton>
-                        <Menu placement="bottom-end" size="sm" sx={{ zIndex: '99999', p: 1, gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                           <MenuItem href={URI_FRONT.editPerfilUri} component="a">
+                        <Menu placement="bottom-end" size="small" sx={{ zIndex: '99999', p: 1, gap:1, '--ListItem-radius': 'var--joy-radius-sm)', marginLeft: 1 }}>
+                           <MenuItem size="small" href={URI_FRONT.editPerfilUri} component="a">
                               <Box sx={{ display: 'flex', alignItems: 'center', }}>
                                  <Avatar variant="plain" color="neutral" src={LogoAvatar} srcSet={LogoAvatar} sx={{ borderRadius: '50%' }} />
                                  <Box sx={{ ml: 1.5 }}>
@@ -429,21 +463,21 @@ export default function Header() {
                            </MenuItem>
                            <ListDivider />
 
-                           <MenuItem href={URI_FRONT.editPerfilUri} component="a">
-                              <AccountCircleOutlined />
+                           <MenuItem href={URI_FRONT.editPerfilUri} size="sw" component="a">
+                              <AccountCircleOutlined sx={{marginRight: 0.5 }} size="sw" />
                               Perfil
                            </MenuItem>
-                           <MenuItem href='/' component="a">
-                              <SettingsRoundedIcon />
+                           <MenuItem href='/' component="a" size="sw" >
+                              <SettingsRoundedIcon sx={{ marginRight: 0.5 }} size="sw" />
                               Ajustes
                            </MenuItem>
                            <ListDivider />
-                           <MenuItem href={URI_FRONT.modificarPasswordUri} component="a">
-                              <Key />
+                           <MenuItem href={URI_FRONT.modificarPasswordUri} size="sw" component="a">
+                              <Key sx={{ marginRight: 0.5 }} size="sw" />
                               Cambiar contraseña
                            </MenuItem>
-                           <MenuItem href={URI_FRONT.homeUri} onClick={handleLogout}>
-                              <LogoutRoundedIcon />
+                           <MenuItem size="small" href={URI_FRONT.homeUri} onClick={handleLogout}>
+                              <LogoutRoundedIcon sx={{ marginRight: 0.5 }} size="sw" />
                               Cerrar sesión
                            </MenuItem>
                         </Menu>
@@ -469,6 +503,7 @@ export default function Header() {
                   </>
                }
             </Box>
+
          </Box>
       </CssVarsProvider >
    );

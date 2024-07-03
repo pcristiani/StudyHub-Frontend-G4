@@ -68,7 +68,6 @@ export const AppRouter = () => {
 
             <Layout.Main>
                 <Routes>
-                    <Route path="/plan-estudios" element={<PrivateRoute><PlanEstudiosPage user={user.id} /></PrivateRoute>} exact />
                     <Route path="/inscripciones" element={<PrivateRoute><InscripcionesPage user={user.id} /></PrivateRoute>} exact />
                     <Route path="/solicitudes" element={<PrivateRoute><SolicitudesPage user={user.id} /></PrivateRoute>} exact />
                     <Route path="/gestion" element={<PrivateRoute><GestionPage user={user.id} /></PrivateRoute>} />
@@ -119,6 +118,8 @@ export const AppRouter = () => {
 
                     <Route path="/olvido-contrasenia" element={<ForgotPassword user={user.id} />} exact />
                     <Route path="/resetPassword" element={<RecuperarPassword user={user.id} />} exact />
+
+                    <Route path="/plan-estudios" element={<PlanEstudiosPage user={user.id} />} exact />
 
                     <Route path="/novedades" element={<Novedades user={user.id} />} exact />
                     <Route path="/" element={<HomePage user={user.id} />} exact />

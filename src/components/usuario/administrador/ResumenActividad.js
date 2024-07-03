@@ -23,7 +23,9 @@ import { errors } from '../../../services/util/errors';
 import { useNavigate } from 'react-router-dom';
 import Dropdown from '@mui/joy/Dropdown';
 import { formatFecha } from '../../../services/util/formatoFecha';
-
+import ListDivider from '@mui/joy/ListDivider';
+import ListItemDecorator from '@mui/joy/ListItemDecorator';
+import Check from '@mui/icons-material/Check';
 const filters = createFilterOptions();
 
 function descendingComparator(a, b, orderBy) {
@@ -135,21 +137,28 @@ function EnhancedTableToolbar(props) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', py: 0.8, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.body' : 'background.body', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }} >
       <Box sx={{ alignSelf: 'center' }}>
-        <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Resumen de Actividades</Typography>
+        <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Resumen de actividades</Typography>
       </Box>
       <>
-        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.1, zIndex: '1000' }}>
           <Dropdown>
             <IconButton size="sm" variant="outlined" color="neutral" onClick={handleClick}>
               <FilterListIcon />
             </IconButton>
-            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} >
-              <MenuItem onClick={() => { onFilter('Cambiar Resultado de Cursada'); handleClose(); }}>Cambiar Resultado de Cursada</MenuItem>
-              <MenuItem onClick={() => { onFilter('Cierre de sesion'); handleClose(); }}>Cierre de sesion</MenuItem>
+            <Menu size="sm" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} >
               <MenuItem onClick={() => { onFilter('Inicio de sesion'); handleClose(); }}>Inicio de sesion</MenuItem>
-              <MenuItem onClick={() => { onFilter('Inscripción a Examen'); handleClose(); }}>Inscripción a Examen</MenuItem>
-              <MenuItem onClick={() => { onFilter('Inscripción en Asignatura'); handleClose(); }}>Inscripción en Asignatura</MenuItem>
-              <MenuItem onClick={() => { onFilter('Registro de Asignatura a Período de Examen'); handleClose(); }}>Registro a Período de Examen</MenuItem>
+              <MenuItem onClick={() => { onFilter('Cierre de sesion'); handleClose(); }}>Cierre de sesion</MenuItem>
+              <ListDivider />
+
+              <MenuItem onClick={() => { onFilter('Inscripción en Asignatura'); handleClose(); }}>Inscripción Asignatura</MenuItem>
+              <MenuItem onClick={() => { onFilter('Inscripción a Examen'); handleClose(); }}>Inscripción Examen</MenuItem>
+              <ListDivider />
+              <MenuItem onClick={() => { onFilter('Obtener acta de Asignatura'); handleClose(); }}>Acta de Asignatura              </MenuItem>
+              <MenuItem onClick={() => { onFilter('Obtener acta de Examen'); handleClose(); }}>Acta de Examen</MenuItem>
+              <ListDivider />
+              <MenuItem onClick={() => { onFilter('Cambiar Resultado de Cursada'); handleClose(); }}>Cambiar resultado curso</MenuItem>
+              <MenuItem onClick={() => { onFilter('Registro de Asignatura a Período de Examen'); handleClose(); }}>Período de Examen</MenuItem>
+              <ListDivider />
               <MenuItem onClick={() => { onFilter(''); handleClose(); }}>Mostrar todo</MenuItem>
             </Menu>
           </Dropdown>
@@ -245,8 +254,8 @@ export function ResumenActividad() {
 
   return (
     <>
-      <Stack direction="row" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
-        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '520px' }}>
+      <Stack direction="row" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', zIndex: '1000' }} spacing={2}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '520px', zIndex: '1000' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
           <Table aria-labelledby="tableTitle" hoverRow
             sx={{

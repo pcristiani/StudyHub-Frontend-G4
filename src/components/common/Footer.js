@@ -55,7 +55,7 @@ const modifiers = [
 function Copyright() {
     return (
         <>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: { xs: 3, sm: 3 }, width: '100%', borderTop: '1px solid', borderColor: 'divider' }}>
+            <Box sx={{   zIndex: '800' ,display: 'flex', justifyContent: 'space-between', pt: { xs: 3, sm: 3 }, width: '100%', borderTop: '1px solid', borderColor: 'divider' }}>
                 <div>
                     <Typography variant="body2" color="text.secondary" mt={0}>
                         <a className="link-footer" href="./">{'Copyright © '}StudyHub{' '}{new Date().getFullYear()}</a>

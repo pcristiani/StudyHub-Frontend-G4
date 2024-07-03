@@ -9,7 +9,6 @@ import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
 import dayjs from 'dayjs';
 import Select from '@mui/joy/Select';
-
 import isBetweenPlugin from 'dayjs/plugin/isBetween';
 import Modal from '@mui/joy/Modal';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +18,6 @@ import { getCarreras } from '../../../services/requests/carreraService';
 import { jsPDF } from "jspdf";
 import { formatoCi } from '../../../services/util/formatoCi';
 import { errors } from '../../../services/util/errors';
-
 import { formatFechaEmision } from '../../../services/util/formatoFecha';
 import { SelectProps } from '../../common/SelectProps';
 
@@ -72,29 +70,18 @@ export default function GenerarActaFinDeCurso() {
       setAsignaturaData(resultPeriodo);
    }
 
+
    const handleChangeAsignatura = (event, idasignatura) => {
       if (idasignatura !== null && idasignatura !== undefined) {
          setActaCursoData([]);
-         getInfoExamen(idasignatura);
+         getInfoCurso(idasignatura);
       }
    };
 
-
-   // async function getInfoExamen(idHorario) {
-   //    if (idHorario !== null && idHorario !== undefined && idHorario !== '') {
-   //       let result = await getHorarios(idHorario, user.jwtLogin);
-   //       setHorarioData(result);
-   //       console.log("result: ", horarioData);
-   //    }
-   // }
-
-   async function getInfoExamen(idasignatura) {
-      console.log("ASIGNATURA: ", idasignatura);
+   async function getInfoCurso(idasignatura) {
       if (idasignatura !== null && idasignatura !== undefined && idasignatura !== '') {
          try {
             const result = await getHorarios(idasignatura, user.jwtLogin);
-            console.log("HORARIOS: ", result);
-
             if (Array.isArray(result) && result.length > 0) {
                setHorarioData(consolidarHorarios(result));
             } else {
@@ -149,15 +136,6 @@ export default function GenerarActaFinDeCurso() {
    }
 
 
-   // async function getInfoAnio(idHorarioAsig) { 
-   //    if (idHorarioAsig !== null && idHorarioAsig !== undefined && idHorarioAsig !== '') {
-   //       const result = await getActaAsignatura(idHorarioAsig, user.jwtLogin);
-   //       console.log("ACTA: ", result);
-   //       setActaCursoData(result.data);
-   //    }
-   // }
-
-
    ///
 
    function fechaEmision() {
@@ -197,22 +175,6 @@ export default function GenerarActaFinDeCurso() {
    };
 
 
-   // const consolidarHorarios = (horarios) => {
-   //    if (horarios !== null && horarios !== undefined) {
-   //       return horarios.map(horario => {
-   //          if (horario[0].dtHorarioDias !== null && horario[0].dtHorarioDias !== undefined) {
-   //             const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
-   //             return {
-   //                ...horario,
-   //                diasConsolidados: dias
-   //             };
-   //          }
-   //       });
-   //    }
-   // };
-
-
-
    const visualizarPDF = async (idCarreras) => {
       if (!actaCursoData || !actaCursoData.asignatura) {
          console.error("ActaCursoData o asignatura no definidos");
@@ -229,9 +191,9 @@ export default function GenerarActaFinDeCurso() {
          doc.setTextColor(34);
          doc.setFont('helvetica', 'bold');
          doc.text("ACTA DE FIN DE CURSO", 20, 20);
-         doc.setFontSize(14);
+         doc.setFontSize(13);
          doc.setFont('helvetica', 'normal');
-         doc.text(`Período ${actaCursoData.horarioAsignatura.anio}`, 20, 25);
+         doc.text(`Año lectivo ${actaCursoData.horarioAsignatura.anio}`, 20, 26);
          doc.setFontSize(18);
          doc.setFont('helvetica', 'bold');
          doc.text(`${actaCursoData.asignatura}`, 20, 45);
@@ -307,26 +269,6 @@ export default function GenerarActaFinDeCurso() {
    }, [pdfUrl]);
 
 
-   // const consolidarHorarios = (horarios) => {
-   //    if (horarios === null || horarios === undefined) {
-   //       return [];
-   //    } else {
-   //       return horarios.map(horarioa => {
-   //          let dias = horarioa.dtHorarioDias.map(dia => `${dia.horaInicio} a ${dia.horaFin} (${horarioa.anio})`).join(', ')
-   //          // const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
-   //          return {
-   //             ...horarioa,
-   //             diasConsolidados: dias
-   //          };
-   //       });
-   //    }
-   // };
-   // const horariosConsolidados = consolidarHorarios(horarioData);
-   // const handleValidateClick = (event, newValue) => {
-   //    //  console.log("ID HORARIO ", newValue);
-   // };
-
-
    return (
       <>
          <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
@@ -349,30 +291,6 @@ export default function GenerarActaFinDeCurso() {
                            <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
                         ))}
                      </SelectProps>
-
-                     {/* <Select size="sm" placeholder="Seleccionar año" id="idanio" name="idanio" onChange={handleChangeAnio} >
-                        {Array.isArray(horarioData) && horarioData.map((horario, index) => (
-                           <Option key={index} value={horario.idHorarioAsignatura}>{horario.anio} - {horario.idHorarioAsignatura}</Option>
-                        ))}
-                     </Select>
-                     <Divider /> */}
-                     {/* 
-                     <Select size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleChangeAnio} required
-                        slotProps={{ listbox: { placement: 'bottom-start', sx: { minWidth: 320 }, }, }}>
-                        {Array.isArray(consolidarHorarios) && consolidarHorarios.map((horario, index) => (
-                           <>
-                              <Option key={index} value={horario.idHorarioAsignatura}>
-                                 {horario.diasConsolidados}    {horario.anio} - {horario.horaFin}
-                              </Option>
-                              <Divider />
-                           </>
-                        ))}
-                     </Select> */}
-                     {/* <Select size="sm" placeholder="Seleccionar año" id="idanio" name="idanio" onChange={handleChangeAnio} >
-                        {Array.isArray(horarioData) && horarioData.map((horario, index) => (
-                           <Option key={index} value={horario.idHorarioAsignatura}>{horario.anio} - {horariosConsolidados}</Option>
-                        ))}
-                     </Select> */}
 
                      <Select size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleChangeAnio} required
                         slotProps={{ listbox: { placement: 'bottom-start', sx: { minWidth: 320 } } }}>
@@ -403,78 +321,3 @@ export default function GenerarActaFinDeCurso() {
       </>
    );
 };
-
-
-
-
-// const consolidarHorarios = (horarios) => {
-//    if (horarios === null || horarios === undefined) {
-//       return [];
-//    } else {
-//       return horarios.map(horario => {
-//          // const dias = horario.dtHorarioDias.map(dia => `${formatDiaSemana(horarios)} de ${dia.horaInicio} a ${dia.horaFin} (${horario.anio})`).join(', ');
-//          const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
-//          return {
-//             ...horario,
-//             diasConsolidados: dias
-//          };
-//       });
-//    }
-// };
-
-// const horariosConsolidados = consolidarHorarios(horarioData);
-// const handleValidateClick = (event, newValue) => {
-//    console.log("ID HORARIO ", newValue);
-// };
-
-
-// return (
-//       <>
-//       <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
-//          <Card sx={{ display: 'flex', alignSelf: 'center', }}>
-//             <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
-//                <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Generar acta de fin de curso</Typography>
-//             </Box>
-//             <Divider />
-//             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-//                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
-
-//                   <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} required>
-//                      {carreraData.map((carrera, index) => (
-//                         <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
-//                      ))}
-//                   </SelectProps>
-
-//                   <SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required >
-//                      {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
-//                         <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
-//                      ))}
-//                   </SelectProps>
-
-//                   <Select size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick} required
-//                      slotProps={{ listbox: { placement: 'bottom-start', sx: { minWidth: 320 }, }, }}>
-//                      {Array.isArray(horarioData) && horariosConsolidados.map((horario, index) => (
-//                         <>
-//                            <Option key={index} value={horario.idHorarioAsignatura}>
-//                               {`${horario.diasConsolidados}  (${horario.anio})`}
-//                            </Option>
-//                            <Divider />
-//                         </>
-//                      ))}
-//                   </Select>
-
-//                   <Stack direction="row" spacing={0.6} sx={{ marginTop: 0.8, justifyContent: 'right', zIndex: '1000' }}>
-//                      <Button size="sm" type='submit' fullWidth variant="soft" color="primary" sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }}>
-//                         Visualizar PDF
-//                      </Button>
-//                   </Stack>
-//                </FormControl>
-//             </Stack>
-//          </Card>
-//       </Box>
-//       <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-//          {pdfUrl &&
-//             <iframe src={pdfUrl} style={{ width: '90%', maxWidth: '80vw', height: '100%', maxHeight: '95vh', border: 'none' }}
-//                frameBorder="0" title="PDF Viewer" />
-//          }
-//       </Modal>

@@ -142,9 +142,9 @@ export default function GenerarActaExamen() {
          doc.setTextColor(34);
          doc.setFont('helvetica', 'bold');
          doc.text("ACTA DE EXAMEN", 20, 20);
-         doc.setFontSize(14);
+         doc.setFontSize(13);
          doc.setFont('helvetica', 'normal');
-         doc.text(`Periodo ${actaData.examen.periodoExamen}`, 20, 25);
+         doc.text(`Periodo ${actaData.examen.periodoExamen}`, 20, 26);
 
          doc.setFontSize(18);
          doc.setFont('helvetica', 'bold');
@@ -152,8 +152,8 @@ export default function GenerarActaExamen() {
 
          doc.setFontSize(9);
          doc.setFont('helvetica', 'normal');
-         doc.text(`Emisión ${fechaEmision()}`, 160, 8,);
-         doc.addImage(logoBase64, 'PNG', 160, 13, 40, 10);
+         doc.text(`Emisión ${fechaEmision()}`, 150, 8,);
+         doc.addImage(logoBase64, 'PNG', 150, 13, 40, 10);
 
          doc.setFontSize(12);
          doc.setFont('helvetica', 'bold');
@@ -173,22 +173,28 @@ export default function GenerarActaExamen() {
          y += 6;
          doc.setFontSize(12);
          doc.setFont('helvetica', 'bold');
-         doc.text("Alumnos inscriptos", 20, y);
-         y += 3;
+         doc.text("Alumnos inscriptos", 20, y + 2);
+         y += 6;
          doc.setLineWidth(0.1);
          doc.line(20, y, 190, y);
-         y += 6;
+
+         y += 8;
          doc.setFont('helvetica', 'bold');
          doc.text("Cedula", 20, y);
          doc.text("Nombre", 88, y);
          doc.text("Calificación", 150, y);
+
          doc.setFont('helvetica', 'normal');
+         doc.setLineWidth(0.1);
+         doc.setDrawColor(60, 57, 48);
 
          actaData.estudiantes.forEach(estudiante => {
             y += 6;
             doc.setFontSize(12);
             doc.text(`${formatoCi(estudiante.cedula)}`, 20, y);
             doc.text(`${estudiante.nombre}` + ` ` + `${estudiante.apellido}`, 88, y);
+            doc.setLineWidth(0.1);
+            doc.line(20, y + 1, 190, y + 1);
          });
 
          let largo = actaData.estudiantes.length;

@@ -261,12 +261,12 @@ export default function Navigation() {
 													Actas de asignatura
 													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', alignSelf: 'left' }}>
 														<ListItemButton>
-															<Button variant="plain" color="neutral" component="a" href='/not-found' size="sw" sx={{ alignSelf: 'left' }}>
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.generarActaCursoUri} size="sw" sx={{ alignSelf: 'left' }}>
 																Acta fin de curso
 															</Button>
 														</ListItemButton>
 														<ListItemButton>
-															<Button variant="plain" color="neutral" component="a" href='/not-found' size="sw" sx={{ alignSelf: 'left' }}>
+															<Button variant="plain" color="neutral" component="a" href={URI_FRONT.generarActaExamenUri} size="sw" sx={{ alignSelf: 'left' }}>
 																Acta de examen
 															</Button>
 														</ListItemButton>
