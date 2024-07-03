@@ -78,10 +78,10 @@ export default function GenerarActaFinDeCurso() {
    };
 
    async function getInfoExamen(idasignatura) {
-      console.log("ASIGNATURA: ", idasignatura);
+     // console.log("ASIGNATURA: ", idasignatura);
       if (idasignatura !== null && idasignatura !== undefined && idasignatura !== '') {
          let result = await getHorarios(idasignatura, user.jwtLogin);
-         console.log("HORARIOs: ", result);
+       //  console.log("HORARIOs: ", result);
 
          if (result.length > 0) {
             if (result[0].dtHorarioDias[0] !== null &&
@@ -150,19 +150,19 @@ export default function GenerarActaFinDeCurso() {
       });
    };
 
-   const consolidarHorarios = (horarios) => {
-      if (horarios !== null && horarios !== undefined) {
-         return horarios.map(horario => {
-            if (horario[0].dtHorarioDias !== null && horario[0].dtHorarioDias !== undefined) {
-               const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
-               return {
-                  ...horario,
-                  diasConsolidados: dias
-               };
-            }
-         });
-      }
-   };
+   // const consolidarHorarios = (horarios) => {
+   //    if (horarios !== null && horarios !== undefined) {
+   //       return horarios.map(horario => {
+   //          if (horario[0].dtHorarioDias !== null && horario[0].dtHorarioDias !== undefined) {
+   //             const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
+   //             return {
+   //                ...horario,
+   //                diasConsolidados: dias
+   //             };
+   //          }
+   //       });
+   //    }
+   // };
 
 
 
@@ -182,7 +182,7 @@ export default function GenerarActaFinDeCurso() {
          // doc.text(`Periodo ${horarioData.ANIO}`, 20, 25);
          doc.setFontSize(18);
          doc.setFont('helvetica', 'bold');
-         doc.text(`${actaCursoData.data.asignatura}`, 20, 45);
+       //  doc.text(`${actaCursoData.data.asignatura}`, 20, 45);
 
          doc.setFontSize(9);
          doc.setFont('helvetica', 'normal');
@@ -231,6 +231,7 @@ export default function GenerarActaFinDeCurso() {
             doc.setLineWidth(0.1);
             doc.line(15, y + 1, 195, y + 1);
          });
+         
          // doc.roundedRect(15, x, 180, y, 2, 1);
          let largo = actaCursoData.data.estudiantes.length;
          if (largo > 0) {
@@ -255,7 +256,7 @@ export default function GenerarActaFinDeCurso() {
    }, [pdfUrl]);
 
 
-   const horariosConsolidados = consolidarHorarios(horarioData);
+   // const horariosConsolidados = consolidarHorarios(horarioData);
    const handleValidateClick = (event, newValue) => {
       //  console.log("ID HORARIO ", newValue);
    };
@@ -285,10 +286,10 @@ export default function GenerarActaFinDeCurso() {
 
                      <Select size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick} required
                         slotProps={{ listbox: { placement: 'bottom-start', sx: { minWidth: 320 }, }, }}>
-                        {Array.isArray(horarioData) && horariosConsolidados.map((horario, index) => (
+                        {Array.isArray(horarioData) && horarioData.map((horario, index) => (
                            <>
                               <Option key={index} value={horario.idHorarioAsignatura}>
-                                 {`${horario.diasConsolidados}  (${horario.anio})`}
+                                 {`${horario.dtHorarioDias[0].diaSemana}  (${horario.anio})`}
                               </Option>
                               <Divider />
                            </>

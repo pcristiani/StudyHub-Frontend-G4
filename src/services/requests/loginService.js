@@ -68,3 +68,68 @@ export const modificarPassword = async (idUsuario, newPassword, jwtLogin) => {
         });
     }
 }
+
+
+
+export const registerUsr = async (nombre, apellido, email, fechaNacimiento, cedula, password, rol, jwtLogin) => {
+    let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": rol };
+    try {
+
+        // let response = await fetch(URL_BACK.registerUsr, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Bearer ${user.jwtLogin}`,
+        //     },
+        //     body: JSON.stringify(body)
+        // })
+
+
+        let headersList = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        }
+        let reqOptions = {
+            url: URL_BACK.registerUsr,
+            method: "POST",
+            headers: headersList,
+            data: body
+        }
+
+        let response = await axios.request(reqOptions);
+        //  console.log(response);
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+
+
+// async function registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password, rol) {
+//     let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": rol };
+//     let response = await fetch(URL_BACK.registerUsr, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${user.jwtLogin}`,
+//         },
+//         body: JSON.stringify(body)
+//     })
+
+//     if (response.ok) {
+//         console.log("response: ", response);
+//         swal({
+//             title: "Su usuario queda pendiente de validación\n\n",
+//             text: "\nNombre: " + nombre + " " + apellido + "\nCedula: " + cedula,
+//             icon: "success",
+//             position: "center",
+//             timer: 4000
+//         });
+//         history('/');
+//     } else {
+//         swal("¡Advertencia!", 'Los datos ingresados son incorrectos', "error", {
+//             timer: 3000
+//         });
+//     }
+// };

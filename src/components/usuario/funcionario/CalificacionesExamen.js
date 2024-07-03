@@ -71,12 +71,7 @@ export default function CalificacionesExamen() {
 		}
 	};
 
-	///
-
-
 	const handleChangeAnio = (event, newValue) => {
-		// setSelectedAnio(newValue);
-		// initPeriodo(newValue);
 		if (newValue !== null && newValue !== undefined) {
 			setSelectedAnio(newValue);
 			initPeriodo(newValue);
@@ -95,8 +90,6 @@ export default function CalificacionesExamen() {
 		}
 	};
 
-
-	///
 	const handleChangePeriodo = (event, idExamen) => {
 		if (idExamen !== null && idExamen !== undefined && idExamen !== '') {
 			setUsuarioData([]);
@@ -111,8 +104,6 @@ export default function CalificacionesExamen() {
 		}
 	}
 
-
-	///
 	const handleModificar = async (row) => {
 		let cursadaExam = row.idCursadaExamen;
 		if (cursadaExam !== null && cursadaExam !== undefined && resultadoData !== null && resultadoData !== undefined) {
@@ -121,7 +112,6 @@ export default function CalificacionesExamen() {
 			errors(title, '', result.status, false);
 		}
 	};
-
 
 	const [year, setYear] = useState(new Date().getFullYear());
 	const startYear = 2023;
@@ -171,7 +161,7 @@ export default function CalificacionesExamen() {
 						<Stack direction="row" spacing={0.8} sx={{ zIndex: '1000', width: '100%' }}>
 							<SelectProps size="sm" placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" sx={{ width: '60%' }} required onChange={handleChangeAnio}>
 								{years.map((year) => (
-									<Option key={years} value={year}>{year}</Option>
+									<Option key={year} value={year}>{year}</Option>
 								))}
 							</SelectProps>
 							<SelectProps sx={{ width: '100%' }} size="sm" placeholder="Seleccionar fecha" id="idperiodo" name="idperiodo" onChange={handleChangePeriodo}>
@@ -187,16 +177,11 @@ export default function CalificacionesExamen() {
 							<div>
 								{usuarioData.length > 0 && (
 									<Sheet variant="outlined"
-										sx={{
-											'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
+										sx={{'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
 											'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '80px', '--Table-buttonColumnWidth': '45px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)', borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer'
 										}}>
 										<Table aria-labelledby="tableTitle" hoverRow
-											sx={{
-												'& thead th:nth-child(1)': { width: '40%', },
-												'& thead th:nth-child(2)': { width: '65%', },
-												'& tr > *:nth-child(n+3)': { width: '12%', textAlign: 'center' }, maxWidth: '400px'
-											}}>
+											sx={{'& thead th:nth-child(1)': { width: '40%', }, '& thead th:nth-child(2)': { width: '65%', }, '& tr > *:nth-child(n+3)': { width: '12%', textAlign: 'center' }, maxWidth: '400px'}}>
 
 											<thead>
 												<tr>
@@ -207,12 +192,12 @@ export default function CalificacionesExamen() {
 											</thead>
 
 											<tbody>
-												{usuarioData.map((row) => (
+												{usuarioData.slice(0, 5).map((row) => ( // Aquí limitamos a 5 items
 													<tr key={row.idExamen}>
 														<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
 														<td>
 															<SelectProps size="sm" placeholder={row.calificacion} onChange={(event, newValue) => setResultadoData(newValue)} id="idresultado" name="idresultado">{notas.map((nota) => (
-																<Option key={notas} value={nota}>{nota}</Option>
+																<Option key={nota} value={nota}>{nota}</Option>
 															))}
 															</SelectProps>
 														</td>
@@ -239,7 +224,6 @@ export default function CalificacionesExamen() {
 						</section>
 					</FormControl>
 				</Stack>
-				{/* </Stack> */}
 			</Card >
 		</Box >
 	);
@@ -250,4 +234,3 @@ const timeSlots = Array.from(new Array(24 * 1)).map(
 		`${index < 20 ? '' : ''}${Math.floor(index / 1)
 		}:00`,
 );
-

@@ -8,11 +8,12 @@ import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
 import Container from '@mui/joy/Container';
 import swal from 'sweetalert';
-import { URL_BACK } from '../../services/util/constants'
 import { AuthContext } from '../../context/AuthContext';
 import { Sheet } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
-import { borrarFormatoCi  } from '../../services/util/formatoCi'
+import { borrarFormatoCi } from '../../services/util/formatoCi'
+import { registerUsr } from '../../services/requests/loginService';
+import { errors } from '../../services/util/errors';
 
 import logo from '../../img/logo.png';
 
@@ -21,35 +22,9 @@ function Register() {
 	const { user } = useContext(AuthContext);
 	const history = useNavigate();
 
-	async function registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password, rol) {
-		let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": rol };
-		let response = await fetch(URL_BACK.registerUsr, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${user.jwtLogin}`,
-			},
-			body: JSON.stringify(body)
-		})
+	// const handleSubmit = (event) => {
+	async function handleSubmit(event) {
 
-		if (response.ok) {
-			console.log("response: ", response);
-			swal({
-				title: "Su usuario queda pendiente de validación\n\n",
-				text: "\nNombre: " + nombre + " " + apellido + "\nCedula: " + cedula,
-				icon: "success",
-				position: "center",
-				timer: 4000
-			});
-			history('/');
-		} else {
-			swal("¡Advertencia!", 'Los datos ingresados son incorrectos', "error", {
-				timer: 3000
-			});
-		}
-	};
-
-	const handleSubmit = (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 		let nombre = data.get('nombre');
@@ -62,15 +37,16 @@ function Register() {
 		// Limpiar el formato de la cédula
 		let cedulaSinFormato = borrarFormatoCi(cedula);
 
-		// Validar la longitud de la cédula
+		//	 Validar la longitud de la cédula
 		if (cedulaSinFormato.length !== 8) {
 			swal("¡Advertencia!", 'La cédula ingresada no es válida', "error", {
 				timer: 3000
 			});
-			return;
+		} else {
+			const resp = await registerUsr(nombre, apellido, email, fechaNacimiento, cedulaSinFormato, password, `E`, user.jwtLogin);
+			let title = "Inscripcion realizada!\n\n";
+			errors(title, resp.data, resp.status, true);
 		}
-
-		registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password, `E`);
 	};
 
 	return (

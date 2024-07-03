@@ -13,7 +13,6 @@ import { UI } from '../services/util/constants';
 const HomePage = () => {
   const [init, setInit] = useState(false);
 
-
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
@@ -24,7 +23,6 @@ const HomePage = () => {
 
   const particlesLoaded = (container) => {
     // console.log(container);
-
   };
 
   const options = useMemo(
@@ -122,7 +120,6 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
 // <>
 //   <div id="demo_dark-mode-by-default">
 //     <Container component="main" maxWidth="xs">
