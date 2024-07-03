@@ -33,8 +33,10 @@ export default function GenerarActaFinDeCurso() {
    const [error, setError] = useState(null);
    const [asignaturaData, setAsignaturaData] = useState([]);
    const [actaCursoData, setActaCursoData] = useState('');
+
    const history = useNavigate();
    const [horarioData, setHorarioData] = useState('');
+
    const [pdfUrl, setPdfUrl] = useState('');
    const [open, setOpen] = useState(false);
 
@@ -77,25 +79,56 @@ export default function GenerarActaFinDeCurso() {
       }
    };
 
-   async function getInfoExamen(idasignatura) {
-     // console.log("ASIGNATURA: ", idasignatura);
-      if (idasignatura !== null && idasignatura !== undefined && idasignatura !== '') {
-         let result = await getHorarios(idasignatura, user.jwtLogin);
-       //  console.log("HORARIOs: ", result);
 
-         if (result.length > 0) {
-            if (result[0].dtHorarioDias[0] !== null &&
-               result[0].dtHorarioDias[0].horaInicio !== undefined
-               && result[0].dtHorarioDias[0] !== undefined &&
-               result[0].dtHorarioDias !== undefined &&
-               result[0].dtHorarioDias[0] !== '') {
+   // async function getInfoExamen(idHorario) {
+   //    if (idHorario !== null && idHorario !== undefined && idHorario !== '') {
+   //       let result = await getHorarios(idHorario, user.jwtLogin);
+   //       setHorarioData(result);
+   //       console.log("result: ", horarioData);
+   //    }
+   // }
+
+   async function getInfoExamen(idasignatura) {
+      console.log("ASIGNATURA: ", idasignatura);
+      if (idasignatura !== null && idasignatura !== undefined && idasignatura !== '') {
+         try {
+            const result = await getHorarios(idasignatura, user.jwtLogin);
+            console.log("HORARIOS: ", result);
+
+            if (Array.isArray(result) && result.length > 0) {
+               setHorarioData(consolidarHorarios(result));
+            } else {
+               setHorarioData([]);
             }
-            setHorarioData(result);
-         } else {
-            setHorarioData('');
+         } catch (error) {
+            console.error("Error fetching horarios: ", error);
+            setHorarioData([]);
          }
       }
    }
+
+
+   const consolidarHorarios = (result) => {
+      if (Array.isArray(result) && result.length > 0) {
+         return result.map(horario => {
+            if (horario.dtHorarioDias && Array.isArray(horario.dtHorarioDias)) {
+               let dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
+               return {
+                  ...horario,
+                  diasConsolidados: dias
+               };
+            } else {
+               return {
+                  ...horario,
+                  diasConsolidados: 'No hay datos de horario disponibles'
+               };
+            }
+         });
+      } else {
+         return [];
+      }
+   };
+
 
    const handleChangeAnio = (event, anio) => {
       if (anio !== null && anio !== undefined && anio !== '') {
@@ -106,21 +139,26 @@ export default function GenerarActaFinDeCurso() {
 
    async function getInfoAnio(idHorarioAsig) {
       if (idHorarioAsig !== null && idHorarioAsig !== undefined && idHorarioAsig !== '') {
-         let result = await getActaAsignatura(idHorarioAsig, user.jwtLogin);
-         setActaCursoData(result);
+         try {
+            const result = await getActaAsignatura(idHorarioAsig, user.jwtLogin);
+            setActaCursoData(result.data);
+         } catch (error) {
+            console.error("Error al obtener el acta de asignatura: ", error);
+         }
       }
    }
 
-   ///
-   const handleSubmit = async (event) => {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
-      let idC = data.get('idcarrera');
-      if (idC !== null && idC !== undefined && idC !== "") {
-         visualizarPDF(idC);
-      }
-   };
 
+   // async function getInfoAnio(idHorarioAsig) { 
+   //    if (idHorarioAsig !== null && idHorarioAsig !== undefined && idHorarioAsig !== '') {
+   //       const result = await getActaAsignatura(idHorarioAsig, user.jwtLogin);
+   //       console.log("ACTA: ", result);
+   //       setActaCursoData(result.data);
+   //    }
+   // }
+
+
+   ///
 
    function fechaEmision() {
       const date = new Date();
@@ -128,7 +166,6 @@ export default function GenerarActaFinDeCurso() {
       date.toLocaleDateString('es-UY', options);
       return formatFechaEmision(date);
    }
-
 
    const convertirURLaBase64 = (url) => {
       return new Promise((resolve, reject) => {
@@ -150,6 +187,16 @@ export default function GenerarActaFinDeCurso() {
       });
    };
 
+   const handleSubmit = async (event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      let idC = data.get('idcarrera');
+      if (idC !== null && idC !== undefined && idC !== "") {
+         visualizarPDF(idC);
+      }
+   };
+
+
    // const consolidarHorarios = (horarios) => {
    //    if (horarios !== null && horarios !== undefined) {
    //       return horarios.map(horario => {
@@ -166,7 +213,12 @@ export default function GenerarActaFinDeCurso() {
 
 
 
-   const visualizarPDF = async (idCarrera) => {
+   const visualizarPDF = async (idCarreras) => {
+      if (!actaCursoData || !actaCursoData.asignatura) {
+         console.error("ActaCursoData o asignatura no definidos");
+         return;
+      }
+
       try {
          var doc = new jsPDF();
          let y = 45;
@@ -179,15 +231,15 @@ export default function GenerarActaFinDeCurso() {
          doc.text("ACTA DE FIN DE CURSO", 20, 20);
          doc.setFontSize(14);
          doc.setFont('helvetica', 'normal');
-         // doc.text(`Periodo ${horarioData.ANIO}`, 20, 25);
+         doc.text(`Período ${actaCursoData.horarioAsignatura.anio}`, 20, 25);
          doc.setFontSize(18);
          doc.setFont('helvetica', 'bold');
-       //  doc.text(`${actaCursoData.data.asignatura}`, 20, 45);
+         doc.text(`${actaCursoData.asignatura}`, 20, 45);
 
          doc.setFontSize(9);
          doc.setFont('helvetica', 'normal');
-         doc.text(`Emisión ${fechaEmision()}`, 160, 8);
-         doc.addImage(logoBase64, 'PNG', 160, 13, 40, 10);
+         doc.text(`Emisión ${fechaEmision()}`, 150, 8);
+         doc.addImage(logoBase64, 'PNG', 150, 13, 40, 10);
 
          doc.setFontSize(12);
          doc.setFont('helvetica', 'bold');
@@ -199,7 +251,7 @@ export default function GenerarActaFinDeCurso() {
 
          doc.setFontSize(12);
          doc.setFont('helvetica', 'normal');
-         actaCursoData.data.docentes.forEach(docente => {
+         actaCursoData.docentes.forEach(docente => {
             y += 6;
             doc.text(`${docente.nombre}`, 150, y);
          });
@@ -212,28 +264,26 @@ export default function GenerarActaFinDeCurso() {
          doc.setLineWidth(0.1);
          doc.line(20, y, 190, y);
 
-
          y += 8;
          doc.setFont('helvetica', 'bold');
          doc.text("Cedula", 20, y);
          doc.text("Nombre", 88, y);
          doc.text("Calificación", 150, y);
 
-
          doc.setFont('helvetica', 'normal');
          doc.setLineWidth(0.1);
          doc.setDrawColor(60, 57, 48);
-         actaCursoData.data.estudiantes.forEach(estudiante => {
+
+         actaCursoData.estudiantes.forEach(estudiante => {
             y += 6;
             doc.setFontSize(12);
             doc.text(`${formatoCi(estudiante.cedula)}`, 20, y);
             doc.text(`${estudiante.nombre}` + ` ` + `${estudiante.apellido}`, 88, y);
             doc.setLineWidth(0.1);
-            doc.line(15, y + 1, 195, y + 1);
+            doc.line(20, y + 1, 190, y + 1);
          });
-         
-         // doc.roundedRect(15, x, 180, y, 2, 1);
-         let largo = actaCursoData.data.estudiantes.length;
+
+         let largo = actaCursoData.estudiantes.length;
          if (largo > 0) {
             largo = 0;
             var blob = doc.output("blob");
@@ -249,6 +299,7 @@ export default function GenerarActaFinDeCurso() {
       }
    };
 
+
    useEffect(() => {
       if (pdfUrl) {
          setOpen(true);
@@ -256,10 +307,25 @@ export default function GenerarActaFinDeCurso() {
    }, [pdfUrl]);
 
 
+   // const consolidarHorarios = (horarios) => {
+   //    if (horarios === null || horarios === undefined) {
+   //       return [];
+   //    } else {
+   //       return horarios.map(horarioa => {
+   //          let dias = horarioa.dtHorarioDias.map(dia => `${dia.horaInicio} a ${dia.horaFin} (${horarioa.anio})`).join(', ')
+   //          // const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
+   //          return {
+   //             ...horarioa,
+   //             diasConsolidados: dias
+   //          };
+   //       });
+   //    }
+   // };
    // const horariosConsolidados = consolidarHorarios(horarioData);
-   const handleValidateClick = (event, newValue) => {
-      //  console.log("ID HORARIO ", newValue);
-   };
+   // const handleValidateClick = (event, newValue) => {
+   //    //  console.log("ID HORARIO ", newValue);
+   // };
+
 
    return (
       <>
@@ -284,18 +350,41 @@ export default function GenerarActaFinDeCurso() {
                         ))}
                      </SelectProps>
 
-                     <Select size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick} required
-                        slotProps={{ listbox: { placement: 'bottom-start', sx: { minWidth: 320 }, }, }}>
+                     {/* <Select size="sm" placeholder="Seleccionar año" id="idanio" name="idanio" onChange={handleChangeAnio} >
                         {Array.isArray(horarioData) && horarioData.map((horario, index) => (
+                           <Option key={index} value={horario.idHorarioAsignatura}>{horario.anio} - {horario.idHorarioAsignatura}</Option>
+                        ))}
+                     </Select>
+                     <Divider /> */}
+                     {/* 
+                     <Select size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleChangeAnio} required
+                        slotProps={{ listbox: { placement: 'bottom-start', sx: { minWidth: 320 }, }, }}>
+                        {Array.isArray(consolidarHorarios) && consolidarHorarios.map((horario, index) => (
                            <>
                               <Option key={index} value={horario.idHorarioAsignatura}>
-                                 {`${horario.dtHorarioDias[0].diaSemana}  (${horario.anio})`}
+                                 {horario.diasConsolidados}    {horario.anio} - {horario.horaFin}
+                              </Option>
+                              <Divider />
+                           </>
+                        ))}
+                     </Select> */}
+                     {/* <Select size="sm" placeholder="Seleccionar año" id="idanio" name="idanio" onChange={handleChangeAnio} >
+                        {Array.isArray(horarioData) && horarioData.map((horario, index) => (
+                           <Option key={index} value={horario.idHorarioAsignatura}>{horario.anio} - {horariosConsolidados}</Option>
+                        ))}
+                     </Select> */}
+
+                     <Select size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleChangeAnio} required
+                        slotProps={{ listbox: { placement: 'bottom-start', sx: { minWidth: 320 } } }}>
+                        {Array.isArray(horarioData) && horarioData.map((horari, index) => (
+                           <>
+                              <Option key={index} value={horari.idHorarioAsignatura}>
+                                 {horari.diasConsolidados} ({horari.anio})
                               </Option>
                               <Divider />
                            </>
                         ))}
                      </Select>
-
                      <Stack direction="row" spacing={0.6} sx={{ marginTop: 0.8, justifyContent: 'right', zIndex: '1000' }}>
                         <Button size="sm" type='submit' fullWidth variant="soft" color="primary" sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }}>
                            Visualizar PDF
@@ -314,3 +403,78 @@ export default function GenerarActaFinDeCurso() {
       </>
    );
 };
+
+
+
+
+// const consolidarHorarios = (horarios) => {
+//    if (horarios === null || horarios === undefined) {
+//       return [];
+//    } else {
+//       return horarios.map(horario => {
+//          // const dias = horario.dtHorarioDias.map(dia => `${formatDiaSemana(horarios)} de ${dia.horaInicio} a ${dia.horaFin} (${horario.anio})`).join(', ');
+//          const dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
+//          return {
+//             ...horario,
+//             diasConsolidados: dias
+//          };
+//       });
+//    }
+// };
+
+// const horariosConsolidados = consolidarHorarios(horarioData);
+// const handleValidateClick = (event, newValue) => {
+//    console.log("ID HORARIO ", newValue);
+// };
+
+
+// return (
+//       <>
+//       <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit} >
+//          <Card sx={{ display: 'flex', alignSelf: 'center', }}>
+//             <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
+//                <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Generar acta de fin de curso</Typography>
+//             </Box>
+//             <Divider />
+//             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
+//                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
+
+//                   <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} required>
+//                      {carreraData.map((carrera, index) => (
+//                         <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
+//                      ))}
+//                   </SelectProps>
+
+//                   <SelectProps size="sm" placeholder="Seleccionar asignatura" id="idasignatura" name="idasignatura" onChange={handleChangeAsignatura} required >
+//                      {Array.isArray(asignaturaData) && asignaturaData.map((asignatura, index) => (
+//                         <Option key={index} value={asignatura.idAsignatura}>{asignatura.nombre}</Option>
+//                      ))}
+//                   </SelectProps>
+
+//                   <Select size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick} required
+//                      slotProps={{ listbox: { placement: 'bottom-start', sx: { minWidth: 320 }, }, }}>
+//                      {Array.isArray(horarioData) && horariosConsolidados.map((horario, index) => (
+//                         <>
+//                            <Option key={index} value={horario.idHorarioAsignatura}>
+//                               {`${horario.diasConsolidados}  (${horario.anio})`}
+//                            </Option>
+//                            <Divider />
+//                         </>
+//                      ))}
+//                   </Select>
+
+//                   <Stack direction="row" spacing={0.6} sx={{ marginTop: 0.8, justifyContent: 'right', zIndex: '1000' }}>
+//                      <Button size="sm" type='submit' fullWidth variant="soft" color="primary" sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }}>
+//                         Visualizar PDF
+//                      </Button>
+//                   </Stack>
+//                </FormControl>
+//             </Stack>
+//          </Card>
+//       </Box>
+//       <Modal open={open} onClose={() => setOpen(false)} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+//          {pdfUrl &&
+//             <iframe src={pdfUrl} style={{ width: '90%', maxWidth: '80vw', height: '100%', maxHeight: '95vh', border: 'none' }}
+//                frameBorder="0" title="PDF Viewer" />
+//          }
+//       </Modal>
