@@ -48,6 +48,11 @@ export default function Navigation() {
 											</ListItemButton>
 
 											<ListItemButton>
+												<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
+													Plan de Estudios
+												</Button>
+											</ListItemButton>
+											<ListItemButton>
 												<MenuButton variant="plain" color="neutral" component="a" size="sw">
 													Administración de usuarios
 													<Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
@@ -95,11 +100,7 @@ export default function Navigation() {
 										</ListItemButton>
 										<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
 										</Button>
-										<ListItemButton>
-											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
-												Plan de Estudios
-											</Button>
-										</ListItemButton>
+
 
 										<Dropdown>
 											<ListItemButton>

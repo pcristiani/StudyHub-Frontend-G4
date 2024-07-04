@@ -247,10 +247,10 @@ export default function Header() {
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
                                  Inscripciones
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='./inscripcion-carrera' size="sm">
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.inscripcionCarreraUri} size="sm">
                                        Carrera
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/inscripcion-asignatura' size="sm">
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.inscripcionAsignaturaUri} size="sm">
                                        Asignatura
                                     </MenuItem>
                                     <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.inscripcionExamenUri} size="sm">
@@ -276,7 +276,7 @@ export default function Header() {
                                  </Menu>
                               </MenuButton>
                            </Dropdown>
-                           <Button variant="plain" color="neutral" component="a" href='/gestion' size="sm" sx={{ alignSelf: 'center' }}>
+                           <Button variant="plain" color="neutral" component="a" href={URI_FRONT.gestionUri} size="sm" sx={{ alignSelf: 'center' }}>
                               Solicitar escolaridad
                            </Button>
                         </>
@@ -286,7 +286,7 @@ export default function Header() {
                         <>
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
-                                 Gestion de usuario
+                                 Gestión de usuario
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', gap: 0, '--ListItem-radius': 'var--joy-radius-sm)', }}>
                                     <MenuItem variant="plain" color="neutral" component="a" href='/nuevo-docente' size="sm">
                                        Alta de docente
@@ -336,10 +336,10 @@ export default function Header() {
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
                                  Calificaciones
                                  <Menu placement="bottom-start" size="sm" sx={{ zIndex: '99999', '--ListItem-radius': 'var--joy-radius-sm)', }}>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/calificaciones-fin-curso' size="sm">
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.calificacionesFinCursoUri} size="sm">
                                        Notas fin de curso
                                     </MenuItem>
-                                    <MenuItem variant="plain" color="neutral" component="a" href='/calificaciones-examen' size="sm" sx={{ alignSelf: 'left' }}>
+                                    <MenuItem variant="plain" color="neutral" component="a" href={URI_FRONT.calificacionesExamenUri} size="sm" sx={{ alignSelf: 'left' }}>
                                        Notas de examen
                                     </MenuItem>
                                  </Menu>
@@ -447,7 +447,7 @@ export default function Header() {
                         <MenuButton size="small" sx={{ maxWidth: '34px', maxHeight: '34px', borderRadius: '9999999px', marginRight: 0.5, marginLeft: 1 }}>
                            <Avatar variant="plain" color="neutral" src={LogoAvatar} srcSet={LogoAvatar} sx={{ maxWidth: '34px', maxHeight: '34px' }} />
                         </MenuButton>
-                        <Menu placement="bottom-end" size="small" sx={{ zIndex: '99999', p: 1, gap:1, '--ListItem-radius': 'var--joy-radius-sm)', marginLeft: 1 }}>
+                        <Menu placement="bottom-end" size="small" sx={{ zIndex: '99999', p: 1, gap: 1, '--ListItem-radius': 'var--joy-radius-sm)', marginLeft: 1 }}>
                            <MenuItem size="small" href={URI_FRONT.editPerfilUri} component="a">
                               <Box sx={{ display: 'flex', alignItems: 'center', }}>
                                  <Avatar variant="plain" color="neutral" src={LogoAvatar} srcSet={LogoAvatar} sx={{ borderRadius: '50%' }} />
@@ -464,20 +464,20 @@ export default function Header() {
                            <ListDivider />
 
                            <MenuItem href={URI_FRONT.editPerfilUri} size="sw" component="a">
-                              <AccountCircleOutlined sx={{marginRight: 0.5 }} size="sw" />
+                              <AccountCircleOutlined sx={{ marginRight: 0.8 }} size="sw" />
                               Perfil
                            </MenuItem>
                            <MenuItem href='/' component="a" size="sw" >
-                              <SettingsRoundedIcon sx={{ marginRight: 0.5 }} size="sw" />
+                              <SettingsRoundedIcon sx={{ marginRight: 0.8 }} size="sw" />
                               Ajustes
                            </MenuItem>
                            <ListDivider />
                            <MenuItem href={URI_FRONT.modificarPasswordUri} size="sw" component="a">
-                              <Key sx={{ marginRight: 0.5 }} size="sw" />
+                              <Key sx={{ marginRight: 0.8 }} size="sw" />
                               Cambiar contraseña
                            </MenuItem>
                            <MenuItem size="small" href={URI_FRONT.homeUri} onClick={handleLogout}>
-                              <LogoutRoundedIcon sx={{ marginRight: 0.5 }} size="sw" />
+                              <LogoutRoundedIcon sx={{ marginRight: 0.8 }} size="sw" />
                               Cerrar sesión
                            </MenuItem>
                         </Menu>

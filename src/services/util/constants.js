@@ -48,6 +48,9 @@ const URI_FRONT = {
   registrarHorarioAsignaturaUri: `/registrar-horario-asignatura`,
   RegistrarAsignaturaPeriodoExamenUri: `/registrar-asignatura-periodo-examen`,
   inscripcionExamenUri: `/inscripcion-examen`,
+  inscripcionCarreraUri: `/inscripcion-carrera`,
+  inscripcionAsignaturaUri: `/inscripcion-asignatura`,
+
 
   listadoCarrerasUri: `/listado-carreras`,
   InfoCarrerasUri: `/info-carrera`,
@@ -56,6 +59,8 @@ const URI_FRONT = {
   listadoAsignaturasNoAprobadasUri: `/listado-asignaturas-no-aprobadas`,
   generarActaExamenUri: `/generar-acta-examen`,
   generarActaCursoUri: `/generar-acta-curso`,
+  calificacionesFinCursoUri: `/calificaciones-fin-curso`,
+  calificacionesExamenUri: `/calificaciones-examen`,
 }
 
 

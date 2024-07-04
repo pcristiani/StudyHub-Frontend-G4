@@ -9,7 +9,11 @@ import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
+
+import Select from '@mui/joy/Select';
+
 import { SelectProps } from '../../common/SelectProps';
+import { Chip } from '@mui/joy';
 
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
@@ -120,20 +124,20 @@ export default function InscripcionAsignatura() {
 
 		const response = await inscripcionAsignatura(user.id, idasignatura, idhorario, user.jwtLogin)
 		let title = "Inscripcion realizada!\n\n";
-		errors(title, response.data, response.status,true);
+		errors(title, response.data, response.status, true);
 	};
 
 	const [small, setSmall] = React.useState(false);
 
 	return (
 		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
-			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
+			<Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000' }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Inscripción asignatura</Typography>
 				</Box>
 				<Divider />
 				<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '340px' }, gap: 0.8 }}>
+					<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 						<SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange} required>
 							{carreraData.map((carrera, index) => (
 								<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
@@ -147,13 +151,13 @@ export default function InscripcionAsignatura() {
 
 						<SelectProps size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleValidateClick} required>
 							{Array.isArray(horarioData) && horariosConsolidados.map((horario, index) => (
-								<Option key={index} value={horario.idHorarioAsignatura}>
+								<Option sx={{ maxWidth: '320px' }} key={index} value={horario.idHorarioAsignatura}>
 									{`${horario.diasConsolidados}  (${horario.anio})`}
 								</Option>
 							))}
 						</SelectProps>
-					</FormControl>
 
+					</FormControl>
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
 						<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
 						<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/">Cancelar</Button>
@@ -164,6 +168,7 @@ export default function InscripcionAsignatura() {
 
 	);
 };
+
 export function formatDiaSemana(diaSem) {
 	let dsem = [];
 	let result = [];

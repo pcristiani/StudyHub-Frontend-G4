@@ -17,11 +17,11 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import AccountCircleOutlined from '@mui/icons-material/AccountCircleOutlined';
 const filters = createFilterOptions();
@@ -215,6 +215,7 @@ EnhancedTableToolbar.propTypes = {
   onFilter: PropTypes.func.isRequired,
   selected: PropTypes.array.isRequired,
 };
+
 
 export default function ListadoCarreras() {
   const [order, setOrder] = useState('asc');

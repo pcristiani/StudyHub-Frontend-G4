@@ -122,7 +122,7 @@ export default function CalificacionesFinCurso() {
 	}
 
 	return (
-		<Box component="form" sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
 			<Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000' }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registro de calificaciones de fin de curso</Typography>
@@ -155,21 +155,23 @@ export default function CalificacionesFinCurso() {
 						<section className="text-black body-font">
 							<div>
 								{cursadasData.length > 0 && (
-									<Sheet variant="outlined"
+									<Sheet
 										sx={{
-											'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-											'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '80px', '--Table-lastColumnWidth2': '45px', '--Table-buttonColumnWidth': '45px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
-											borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer', zIndex: '1000'
+											'--TableCell-height': '20px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
+											maxHeight: 220, overflow: 'auto', background: 'none', msOverflowStyle: 'none',
+											scrollbarWidth: 'none', '--Table-lastColumnWidth': '130px',
 										}}>
-										<Table hoverRow>
+										{/* <Table stickyHeader> */}
+										<Table sx={{ '::-webkit-scrollbar': { display: 'none' } }}>
 											<thead>
 												<tr>
-													<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
+													<th style={{}}>Nombre</th>
 													<th style={{ width: 'var(--Table-lastColumnWidth)', textAlign: 'center' }}>Calificación</th>
 												</tr>
 											</thead>
 											<tbody>
-												{cursadasData.slice(0, 5).map((row) => (
+												{/* {cursadasData.slice(0, 5).map((row) => ( */}
+												{cursadasData.map((row) => (
 													row.rol !== 'E' && (
 														<tr key={row.idCursada}>
 															<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
@@ -194,18 +196,18 @@ export default function CalificacionesFinCurso() {
 										</Typography>
 									</Box>
 								)}
-								{cursadasData.length > 0 && (
-									<Box sx={{ marginTop: 1, textAlign: 'center' }}>
-										<IconButton size="sm" variant="plain" color="primary" onClick={handleGuardarTodas}>
-											<Save size="sw" />
-											<Typography variant="plain" color="primary"> Guardar calificaciones</Typography>
-										</IconButton>
-									</Box>
-								)}
 							</div>
 						</section>
 					</FormControl>
 				</Stack>
+				{cursadasData.length > 0 && (
+					<Box sx={{ marginTop: 0.5, textAlign: 'center' }}>
+						<IconButton size="sm" variant="plain" color="primary" sx={{ mt: 0, mb: 1, border: 0.001, borderColor: '#4e4e4e' }} onClick={handleGuardarTodas}>
+							<Save size="sw" />
+							<Typography variant="plain" color="primary" px={1}>Guardar calificaciones</Typography>
+						</IconButton>
+					</Box>
+				)}
 			</Card>
 		</Box>
 	);

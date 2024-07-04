@@ -57,14 +57,14 @@ export default function AltaCarrera() {
         let duracion = parseInt(data.get('duracion'), 10);
         let idcoordinador = user.id;
 
-        console.log(nombre, descripcion, requisitos, duracion, idcoordinador);
+        // console.log(nombre, descripcion, requisitos, duracion, idcoordinador);
         altaCarrera(nombre, descripcion, requisitos, duracion, idcoordinador);
         history('/');
     };
 
     return (
         <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
-            <Card sx={{ display: 'flex', alignSelf: 'center', }}>
+            <Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000' }}>
                 <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
                     <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Alta carrera</Typography>
                 </Box>
@@ -75,7 +75,7 @@ export default function AltaCarrera() {
                         <Textarea minRows={3} size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
                         <Textarea minRows={3} size="sm" id="requisitos" name="requisitos" placeholder="Requisitos" required />
                         <Input size="sm" type="number" id="duracion" name="duracion" placeholder="Duración" required />
-                        <Divider />
+                        {/* <Divider /> */}
                     </FormControl>
                     <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
                         <Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>

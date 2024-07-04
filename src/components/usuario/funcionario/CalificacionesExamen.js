@@ -8,15 +8,20 @@ import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarreras } from '../../../services/requests/carreraService';
-import { cambiarResultadoExamen, getExamenesAsignaturaPorAnio, getCursadasExamen } from '../../../services/requests/examenService';
+import PropTypes from 'prop-types';
+import Table from '@mui/joy/Table';
+import Sheet from '@mui/joy/Sheet';
 import IconButton from '@mui/joy/IconButton';
+import Link from '@mui/joy/Link';
 import Tooltip from '@mui/joy/Tooltip';
+import { cambiarResultadoExamen, getExamenesAsignaturaPorAnio, getCursadasExamen } from '../../../services/requests/examenService';
 import { getAsignaturasDeCarreraConExamen } from '../../../services/requests/asignaturaService';
 import { errors } from '../../../services/util/errors';
-import Sheet from '@mui/joy/Sheet';
-import Table from '@mui/joy/Table';
 import { Save } from '@mui/icons-material';
 import { SelectProps } from '../../common/SelectProps';
+import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
+
+// 15.0
 
 export default function CalificacionesExamen() {
 	const { user } = useContext(AuthContext);
@@ -29,6 +34,19 @@ export default function CalificacionesExamen() {
 	const [selectedAsignatura, setSelectedAsignatura] = useState('');
 	const [selectedAnio, setSelectedAnio] = useState('');
 	const [calificaciones, setCalificaciones] = useState({});
+
+
+	function stableSort(array, comparator) {
+		const stabilizedThis = array.map((el, index) => [el, index]);
+		stabilizedThis.sort((a, b) => {
+			const order = comparator(a[0], b[0]);
+			if (order !== 0) {
+				return order;
+			}
+			return a[1] - b[1];
+		});
+		return stabilizedThis.map((el) => el[0]);
+	}
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
@@ -47,6 +65,62 @@ export default function CalificacionesExamen() {
 			// console.log("Carreras: ", carreraData);
 		}
 	}, [carreraData]);
+
+
+	function EnhancedTableToolbar(props) {
+		const [anchorEl, setAnchorEl] = useState(null);
+		const { numSelected, onFilter, selected } = props;
+		const handleClick = (event) => setAnchorEl(event.currentTarget);
+		const handleClose = () => setAnchorEl(null);
+
+		return (
+			<Box sx={{ display: 'flex', alignItems: 'center', py: 0.8, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.body' : 'background.body', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }} >
+
+				<Box sx={{ alignSelf: 'center' }}>
+					{numSelected === 1 ? (
+						<Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="success" noWrap>Opciones habilitadas</Typography>
+					) : ''}
+					{numSelected === 0 ? (
+						<Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="neutral" noWrap>Seleccionar carrera</Typography>
+					) : ''}
+					{numSelected > 1 ? (
+						<Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="danger" noWrap>Selecionar una carrera</Typography>
+					) : ''}
+				</Box>
+
+				{numSelected === 1 ? (
+					<>
+						<Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
+							<Tooltip title="Ver información">
+								{/* <IconButton size="sm" variant="outlined" color="success" onClick={() => handleInfoCarreras(selected[0])}>
+									<PostAddOutlinedIcon />
+								</IconButton> */}
+							</Tooltip>
+						</Box>
+					</>
+				) : (
+					<>
+						<Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
+							<Tooltip title="Ver información">
+								<IconButton size="sm" variant="outlined" color="neutral" disabled>
+									<PostAddOutlinedIcon />
+								</IconButton>
+							</Tooltip>
+
+						</Box>
+
+					</>
+				)}
+			</Box>
+		);
+	}
+
+	EnhancedTableToolbar.propTypes = {
+		numSelected: PropTypes.number.isRequired,
+		onFilter: PropTypes.func.isRequired,
+		selected: PropTypes.array.isRequired,
+	};
+
 
 	const handleChangeCarrera = (event, newValue) => {
 		if (newValue !== null && newValue !== undefined && newValue !== '') {
@@ -118,6 +192,24 @@ export default function CalificacionesExamen() {
 		}
 	};
 
+
+	function descendingComparator(a, b, orderBy) {
+		if (b[orderBy] < a[orderBy]) {
+			return -1;
+		}
+		if (b[orderBy] > a[orderBy]) {
+			return 1;
+		}
+		return 0;
+	}
+
+	function getComparator(order, orderBy) {
+		return order === 'desc'
+			? (a, b) => descendingComparator(a, b, orderBy)
+			: (a, b) => -descendingComparator(a, b, orderBy);
+	}
+
+
 	const [year, setYear] = useState(new Date().getFullYear());
 	const startYear = 2023;
 	const endYear = new Date().getFullYear() + 1;
@@ -142,9 +234,10 @@ export default function CalificacionesExamen() {
 		notas.push(i);
 	}
 
+
 	return (
-		<Box component="form" sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} >
-			<Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000' }}>
+		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} >
+			<Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000', height: '100%' }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registro de calificaciones de examen</Typography>
 				</Box>
@@ -181,22 +274,23 @@ export default function CalificacionesExamen() {
 						<section className="text-black body-font">
 							<div>
 								{usuarioData.length > 0 && (
-									<Sheet variant="outlined"
+									<Sheet
 										sx={{
-											'--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-											'--Table-firstColumnWidth': '130px', '--Table-lastColumnWidth': '80px', '--Table-lastColumnWidth2': '45px', '--Table-buttonColumnWidth': '45px', '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
-											borderCollapse: 'separate', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto', cursor: 'pointer', zIndex: '1000'
+											'--TableCell-height': '20px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
+											maxHeight: 220, overflow: 'auto', background: 'none', msOverflowStyle: 'none',
+											scrollbarWidth: 'none', '--Table-lastColumnWidth': '130px',
 										}}>
-										<Table hoverRow>
+										<Table sx={{ '::-webkit-scrollbar': { display: 'none' } }}>
 											<thead>
 												<tr>
-													<th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
+													<th style={{}}>Nombre</th>
 													<th style={{ width: 'var(--Table-lastColumnWidth)', textAlign: 'center' }}>Calificación</th>
+
 												</tr>
 											</thead>
 
 											<tbody>
-												{usuarioData.slice(0, 5).map((row) => (
+												{usuarioData.map((row) => (
 													<tr key={row.idExamen}>
 														<td>{row.nombreEstudiante} {row.apellidoEstudiante}</td>
 														<td>
@@ -209,32 +303,31 @@ export default function CalificacionesExamen() {
 													</tr>
 												))}
 											</tbody>
+											{/*  */}
+
 										</Table>
 									</Sheet>
 								)}
 								{usuarioData.length === 0 && (
 									<Box sx={{ margin: 0, alignSelf: 'center' }}>
 										<Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="warning" noWrap>
-											No hay alumnos inscriptos</Typography>
-									</Box>
-								)}
-								{usuarioData.length > 0 && (
-									<Box sx={{ marginTop: 1, textAlign: 'center' }}>
-										<IconButton size="sm" variant="plain" color="primary" onClick={handleGuardarTodas}>
-											<Save size="sw" />
-											<Typography variant="plain" color="primary"> Guardar calificaciones</Typography>
-										</IconButton>
+											No hay alumnos inscriptos
+										</Typography>
 									</Box>
 								)}
 							</div>
 						</section>
-						{/* <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-							<IconButton size="sm" variant="solid" color="primary" onClick={handleGuardarTodas}>
-								Guardar todas las calificaciones
-							</IconButton>
-						</Box> */}
+
 					</FormControl>
 				</Stack>
+				{usuarioData.length > 0 && (
+					<Box sx={{ marginTop: 0.5, textAlign: 'center' }}>
+						<IconButton size="sm" variant="plain" color="primary" sx={{  mt: 0, mb: 1, border: 0.001, borderColor: '#4e4e4e' }} onClick={handleGuardarTodas}>
+							<Save size="sw" />
+							<Typography variant="plain" color="primary" px={1}>Guardar calificaciones</Typography>
+						</IconButton>
+					</Box>
+				)}
 			</Card>
 		</Box>
 	);

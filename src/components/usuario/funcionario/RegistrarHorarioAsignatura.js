@@ -157,7 +157,7 @@ export default function RegistrarHorarioAsignatura() {
 
    return (
       <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>
-         <Card sx={{ display: 'flex', alignSelf: 'center', }}>
+         <Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000'  }}>
             <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
                <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Registrar horario asignatura</Typography>
             </Box>

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState, useMemo } from 'react';
 
-import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
@@ -29,7 +28,7 @@ function EditarPerfil() {
 	const context = useContext(AuthContext);
 	const [init, setInit] = useState(false);
 
-	
+
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
@@ -95,13 +94,13 @@ function EditarPerfil() {
 
 	return (
 		<Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }}>
-			<Card sx={{ display: 'flex', alignSelf: 'center', }}>
+			<Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000' }}>
 				<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 					<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Datos de usuario</Typography>
 				</Box>
 				<Divider />
 				<Box component="form" sx={{ marginTop: 0, display: 'flex', flexDirection: 'column', width: '100%' }} onSubmit={handleModificar}>
-									<Stack>
+					<Stack>
 						<Stack>
 							<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
 								<Input size="sm" id="nombre" name="nombre" defaultValue={userData.nombre} />
@@ -115,7 +114,6 @@ function EditarPerfil() {
 											: user.rol === "E" ? <Input size="sm" id="rol" name="rol" defaultValue='Estudiante' readOnly />
 												: user.rol === "I" ? <Input size="sm" id="rol" name="rol" defaultValue='Invitado' readOnly />
 													: ''}
-								<Divider />
 							</FormControl>
 						</Stack>
 					</Stack>

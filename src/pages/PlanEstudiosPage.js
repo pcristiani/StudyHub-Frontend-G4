@@ -39,8 +39,11 @@ const PlanEstudiosPage = () => {
     setSelectedCarrera(idCarrera);
     if (idCarrera !== null) {
       getInfoPreviaturasGrafo(idCarrera);
+    } else {
     }
   };
+  
+  getInfoPreviaturasGrafo(1);
 
   const mostrarGrafo = COURSE.graph + `${previaturasGrafoData}}`;
 
@@ -57,7 +60,7 @@ const PlanEstudiosPage = () => {
     <>
       <CssVarsProvider sx={{ zIndex: '1000' }} >
         <Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', zIndex: '1000' }}>
-          <Select size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
+          <Select size="sm" placeholder="Seleccionar una carrera" id="idcarrera" name="idcarrera" onChange={handleChangeCarrera} >
             {carreraData.map((carrera, index) => (
               <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
             ))}
@@ -65,7 +68,7 @@ const PlanEstudiosPage = () => {
 
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1%', height: '70%', border: "0.5px solid #2596be", borderRadius: "20px", zIndex: '1000' }}>
-          <DAGViewer dot={mostrarGrafo} options={{}}/>
+          <DAGViewer dot={mostrarGrafo} options={{}} />
         </Box>
       </CssVarsProvider>
     </>

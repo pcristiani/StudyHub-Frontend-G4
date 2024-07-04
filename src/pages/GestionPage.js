@@ -7,8 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 import { Stack } from '@mui/joy';
 import { formatoCi } from '../services/util/formatoCi';
 import { getCalificacionesAsignaturas, getCalificacionesExamenes } from '../services/requests/estudianteService';
-import { getCarreras, getCarreraById } from '../services/requests/carreraService';
-import { errors } from '../services/util/errors';
+import { getCarrerasInscripto, getCarreraById } from '../services/requests/carreraService';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import Typography from '@mui/joy/Typography';
@@ -16,6 +15,7 @@ import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
 import { formatFechaEmision } from '../services/util/formatoFecha';
+import { errors } from '../services/util/errors';
 
 
 const GestionPage = () => {
@@ -23,25 +23,24 @@ const GestionPage = () => {
 	const [open, setOpen] = useState(false);
 	const [pdfUrl, setPdfUrl] = useState('');
 	const [carreraData, setCarreraData] = useState([]);
-	
+
 	useEffect(() => {
 		const fetchCarreras = async () => {
 			try {
-				const result = await getCarreras(user.jwtLogin);
+				const result = await getCarrerasInscripto(user.id, user.jwtLogin);
 				setCarreraData(result);
 			} catch (error) {
-				console.log(error.message);		
+				//	setError(error.message);
 			}
 		};
 		fetchCarreras();
 	}, [user]);
-	
+
 	useEffect(() => {
 		if (carreraData) {
-			//        console.log("Carreras: ", carreraData);
+			//	console.log("Carreras: ", carreraData);
 		}
 	}, [carreraData]);
-	
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -50,7 +49,9 @@ const GestionPage = () => {
 		// console.log("Carrera:sss ", idC.status);
 		if (idC !== null && idC !== undefined && idC !== "") {
 			visualizarPDF(idC);
-		}
+		} else
+			errors("¡Advertencia!", "No es posible generar escolaridad.", 400, true);
+
 	};
 
 	function fechaEmision() {
@@ -99,9 +100,9 @@ const GestionPage = () => {
 			doc.text(`${carrera.data.nombre}`, 20, 40);
 			doc.setFontSize(10);
 			doc.setFont('helvetica', 'normal');
-			doc.text(`Emisión ${fechaEmision()}`, 160, 8);
+			doc.text(`Emisión ${fechaEmision()}`, 150, 8);
 
-			doc.addImage(logoBase64, 'PNG', 160, 13, 40, 10);
+			doc.addImage(logoBase64, 'PNG', 150, 13, 40, 10);
 			doc.setLineWidth(0.2);
 			doc.line(20, 45, 190, 45);
 
@@ -117,7 +118,10 @@ const GestionPage = () => {
 			doc.setFontSize(14);
 			doc.setFont('helvetica', 'bold');
 			let resultCalificaciones = await getCalificacionesAsignaturas(user.id, idCarrera, user.jwtLogin);
-			if (resultCalificaciones !== null && resultCalificaciones !== undefined && resultCalificaciones !== '' && resultCalificaciones.status !== 200) {
+			console.log("Calificaciones: ", resultCalificaciones);
+
+			if (resultCalificaciones && resultCalificaciones.length > 0) {
+				//  resultCalificaciones.data !== undefined && resultCalificaciones !== '' && resultCalificaciones.status !== 200) {
 				doc.text("Cursos", 20, 87);
 				doc.setFontSize(12);
 				doc.setFont('helvetica', 'normal');
@@ -132,17 +136,22 @@ const GestionPage = () => {
 						y += 6;
 					}
 				});
+				doc.setLineWidth(0.2);
+				doc.line(20, y, 190, y);
+			} else {
+				let title = "No hay estudiantes inscriptos!\n\n";
+				errors(resultCalificaciones.data, resultCalificaciones.data, 400, false);
 			}
-			doc.setLineWidth(0.2);
-			doc.line(20, y, 190, y);
 
 			let contExamen = 0;
 			let calificacionExamen = 0;
 			y += 10;
-			doc.setFontSize(14);
-			doc.setFont('helvetica', 'bold');
-			let resultExamenes = await getCalificacionesExamenes(user.id, idCarrera, user.jwtLogin);
-			if (resultExamenes !== null && resultExamenes !== undefined && resultExamenes !== '') {
+			const resultExamenes = await getCalificacionesExamenes(user.id, idCarrera, user.jwtLogin);
+			console.log("Examenes: ", resultExamenes);
+
+			if (resultExamenes && resultExamenes.length > 0) {
+				doc.setFontSize(14);
+				doc.setFont('helvetica', 'bold');
 				doc.text("Examenes", 20, y);
 				doc.setFontSize(12);
 				doc.setFont('helvetica', 'normal');
@@ -158,11 +167,11 @@ const GestionPage = () => {
 						y += 6;
 					}
 				});
+				doc.setLineWidth(0.2);
+				doc.line(20, y, 190, y);
+				y += 10;
 			}
 
-			doc.setLineWidth(0.2);
-			doc.line(20, y, 190, y);
-			y += 10;
 			doc.setFontSize(12);
 			doc.text(`Cantidad cursadas: ${contCursos}`, 20, y);
 			y += 6
@@ -179,10 +188,18 @@ const GestionPage = () => {
 			doc.setFont('helvetica', 'bold');
 			doc.text(`Promedio General: ` + `${promedioFormat}`, 20, y);
 
-			var blob = doc.output("blob");
-			var url = URL.createObjectURL(blob);
-			setPdfUrl(url);
+			let largo = resultExamenes.length;
+			if (largo > 0) {
+				largo = 0;
+				var blob = doc.output("blob");
+				var url = URL.createObjectURL(blob);
+				setPdfUrl(url);
+			} else {
+				let title = "No hay estudiantes inscriptos!\n\n";
+				errors(resultExamenes.data, resultExamenes.data, 400, false);
+			}
 		}
+
 		catch (error) {
 			console.log("Error: ", error);
 		}
@@ -193,11 +210,12 @@ const GestionPage = () => {
 			setOpen(true);
 		}
 	}, [pdfUrl]);
-	
+
+
 	return (
 		<>
 			<Box component="form" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px', marginBottom: '80px' }} onSubmit={handleSubmit}>
-				<Card sx={{ marginTop: 8, display: 'flex', alignSelf: 'center', }}>
+				<Card sx={{ marginTop: 6, display: 'flex', alignSelf: 'center', }}>
 					<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 						<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Escolaridad</Typography>
 					</Box>
@@ -209,9 +227,9 @@ const GestionPage = () => {
 									<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 								))}
 							</Select>
-							<Stack direction="row" spacing={0.8} sx={{ marginTop: 2, justifyContent: 'right', zIndex: '1000' }}>
-								<Button size="sm" type='submit' fullWidth variant="soft" color="primary" sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }}>
-									Visualizar pdf
+							<Stack direction="row" spacing={0.6} sx={{ marginTop: 0.8, justifyContent: 'right', zIndex: '1000' }}>
+								<Button type='submit' fullWidth variant="soft" color="primary" sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }}>
+									Visualizar PDF
 								</Button>
 							</Stack>
 						</FormControl>
@@ -231,26 +249,3 @@ const GestionPage = () => {
 };
 
 export default GestionPage;
-
-
-
-// const downloadPDF = (event) => {
-//     var doc = new jsPDF();
-//     doc.setTextColor(100);
-//     doc.text(`gest`, 20, 20);
-
-//     doc.setTextColor(150);
-//     doc.text("StudyHub.", 20, 30);
-
-//     doc.setTextColor(255, 0, 0);
-//     doc.text("StudyHub", 20, 40);
-
-//     doc.setTextColor(0, 255, 0);
-//     doc.text("StudyHub", 20, 50);
-//     // doc.setTextColor("blue");
-//     // doc.text("This is blue.", 60, 60);
-//     // const doc = new jsPDF();
-
-//     doc.text("StudyHub", 10, 10);
-//     doc.save("a4.pdf");
-// }

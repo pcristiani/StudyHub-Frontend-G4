@@ -99,7 +99,7 @@ export default function GenerarActaFinDeCurso() {
       if (Array.isArray(result) && result.length > 0) {
          return result.map(horario => {
             if (horario.dtHorarioDias && Array.isArray(horario.dtHorarioDias)) {
-               let dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin}`).join(', ');
+               let dias = horario.dtHorarioDias.map(dia => `${dia.diaSemana} de ${dia.horaInicio} a ${dia.horaFin} (${horario.anio})`).join(', ');
                return {
                   ...horario,
                   diasConsolidados: dias
@@ -293,11 +293,11 @@ export default function GenerarActaFinDeCurso() {
                      </SelectProps>
 
                      <Select size="sm" placeholder="Seleccionar horario" id="idhorario" name="idhorario" onChange={handleChangeAnio} required
-                        slotProps={{ listbox: { placement: 'bottom-start', sx: { minWidth: 320 } } }}>
+                        slotProps={{ listbox: { placement: 'bottom-start', sx: { maxWidth: '320px' } } }}>
                         {Array.isArray(horarioData) && horarioData.map((horari, index) => (
                            <>
                               <Option key={index} value={horari.idHorarioAsignatura}>
-                                 {horari.diasConsolidados} ({horari.anio})
+                                 {horari.diasConsolidados}
                               </Option>
                               <Divider />
                            </>
