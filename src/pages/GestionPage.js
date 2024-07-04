@@ -51,7 +51,6 @@ const GestionPage = () => {
 			visualizarPDF(idC);
 		} else
 			errors("¡Advertencia!", "No es posible generar escolaridad.", 400, true);
-
 	};
 
 	function fechaEmision() {
@@ -94,7 +93,7 @@ const GestionPage = () => {
 			doc.text("Certificado de Escolaridad", 20, 20);
 			doc.setFontSize(14);
 			doc.setFont('helvetica', 'normal');
-			doc.text("Resultados finales", 20, 26);
+			doc.text("Resultados", 20, 26);
 			doc.setFontSize(18);
 			doc.setFont('helvetica', 'bold');
 			doc.text(`${carrera.data.nombre}`, 20, 40);
@@ -139,8 +138,8 @@ const GestionPage = () => {
 				doc.setLineWidth(0.2);
 				doc.line(20, y, 190, y);
 			} else {
-				let title = "No hay estudiantes inscriptos!\n\n";
-				errors(resultCalificaciones.data, resultCalificaciones.data, 400, false);
+				let title = "No hay calificaciones para la carrera seleccionada.";
+				errors(title, title, 400, false);
 			}
 
 			let contExamen = 0;
@@ -150,15 +149,23 @@ const GestionPage = () => {
 			console.log("Examenes: ", resultExamenes);
 
 			if (resultExamenes && resultExamenes.length > 0) {
-				doc.setFontSize(14);
-				doc.setFont('helvetica', 'bold');
-				doc.text("Examenes", 20, y);
-				doc.setFontSize(12);
-				doc.setFont('helvetica', 'normal');
-				y += 6;
 
+				let tieneExamen = true;
 				resultExamenes.forEach(notasx => {
+
 					if (notasx.calificacion !== 0) {
+
+						if (tieneExamen) {
+							doc.setFontSize(14);
+							doc.setFont('helvetica', 'bold');
+							doc.text("Examenes", 20, y);
+							doc.setFontSize(12);
+							doc.setFont('helvetica', 'normal');
+							y += 6;
+							tieneExamen = false;
+						}
+
+						
 						doc.text(`${notasx.asignatura}`, 20, y);
 						doc.text(`Calificación: ${notasx.calificacion}`, 90, y);
 						doc.text(`${notasx.resultado}`, 155, y);
@@ -195,8 +202,9 @@ const GestionPage = () => {
 				var url = URL.createObjectURL(blob);
 				setPdfUrl(url);
 			} else {
-				let title = "No hay estudiantes inscriptos!\n\n";
-				errors(resultExamenes.data, resultExamenes.data, 400, false);
+				let title = "No hay calificaciones para la carrera seleccionada.";
+
+				errors(title, title, 400, false);
 			}
 		}
 

@@ -285,7 +285,7 @@ export default function ListadoAsignaturasNoAprobadas() {
     <>
       <Stack sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', minHeight: '6vh', width: '100%', alignItems: 'center', }}>
         <Autocomplete
-          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '600px' }}
+          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '620px' }}
           placeholder="Filtrar por asignatura"
           autoSelect={true}
           autoHighlight={true}

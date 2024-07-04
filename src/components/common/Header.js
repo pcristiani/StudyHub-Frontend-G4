@@ -398,9 +398,9 @@ export default function Header() {
                   </>
                   :
                   <>
-                     <Button variant="plain" color="neutral" component="a" href={URI_FRONT.novedadesUri} size="sm" sx={{ alignSelf: 'center' }}>
+                     {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.novedadesUri} size="sm" sx={{ alignSelf: 'center' }}>
                         Novedades
-                     </Button>
+                     </Button> */}
 
                      <Button variant="plain" color="neutral" component="a" href={URI_FRONT.contactoUri} size="sm" sx={{ alignSelf: 'center' }}>
                         {/* <ListItem>

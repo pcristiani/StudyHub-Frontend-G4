@@ -2,8 +2,6 @@ const PORT = {
   back: 8080,   // Puerto backend
   front: 3000,  // Puerto frontend
 }
-// http://localhost:3000/  Encoder
-// http://localhost:3000/  Url encode
 const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
 const uriBaseFront = `https://frontstudyhub.vercel.app`
 
@@ -110,8 +108,8 @@ const URL_BACK = {
   getAsignaturasDeCarrera: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarrera/`,       // GET
   getAsignaturasDeEstudiante: `${uriBaseBack}/api/asignatura/getAsignaturasDeEstudiante/`, // GET
   getAsignaturasDeCarreraConExamen: `${uriBaseBack}/api/asignatura/getAsignaturasDeCarreraConExamen/`, // GET
-  getAsignaturasAprobadas: `${uriBaseBack}/api/asignatura/getAsignaturasAprobadas/`,     // GET
-  getAsignaturasNoAprobadas: `${uriBaseBack}/api/asignatura/getAsignaturasNoAprobadas/`, // GET
+  getAsignaturasAprobadas: `${uriBaseBack}/api/asignatura/getAsignaturasAprobadas/`,       // GET
+  getAsignaturasNoAprobadas: `${uriBaseBack}/api/asignatura/getAsignaturasNoAprobadas/`,   // GET
   getAsignaturasConExamenPendiente: `${uriBaseBack}/api/asignatura/getAsignaturasConExamenPendiente/`, // GET
   getHorarios: `${uriBaseBack}/api/asignatura/getHorarios/`,     // GET
   getCursadasPendientes: `${uriBaseBack}/api/asignatura/cursadasPendientes`,       // GET
@@ -126,8 +124,8 @@ const URL_BACK = {
   // CARRERASERVICE
   altaCarrera: `${uriBaseBack}/api/carrera/altaCarrera`,                  // POST
   altaPeriodoDeExamen: `${uriBaseBack}/api/carrera/altaPeriodoDeExamen/`, // POST
-  modificarCarrera: `${uriBaseBack}/api/carrera/modificarCarrera/`, // PUT
   inscripcionCarrera: `${uriBaseBack}/api/carrera/inscripcionCarrera`,    // POST
+  modificarCarrera: `${uriBaseBack}/api/carrera/modificarCarrera/`,       // PUT
   acceptEstudianteCarrera: `${uriBaseBack}/api/carrera/acceptEstudianteCarrera`,      // PUT
   asignarCoordinadorCarrera: `${uriBaseBack}/api/carrera/asignarCoordinadorCarrera/`, // PUT
 
@@ -138,9 +136,9 @@ const URL_BACK = {
   getInscriptosPendientes: `${uriBaseBack}/api/carrera/getInscriptosPendientes/`, // GET
   getCarrerasConPeriodo: `${uriBaseBack}/api/carrera/getCarrerasConPeriodo`,      // GET
   getPeriodosDeCarrera: `${uriBaseBack}/api/carrera/getPeriodosDeCarrera/`,       // GET
-  getPreviaturasGrafo: `${uriBaseBack}/getPreviaturasGrafo/`,         // GET
+  getPreviaturasGrafo: `${uriBaseBack}/getPreviaturasGrafo/`,                     // GET
   getCarreraById: `${uriBaseBack}/api/carrera/getCarreraById/`,                   // GET
-  getCarrerasPublic: `${uriBaseBack}/getCarrerasPublic`,                   // GET
+  getCarrerasPublic: `${uriBaseBack}/getCarrerasPublic`,                          // GET
 
 
   ///
@@ -150,7 +148,7 @@ const URL_BACK = {
   getExamenesAsignatura: `${uriBaseBack}/api/examen/getExamenesAsignatura/`, // GET
   getExamenesPeriodo: `${uriBaseBack}/api/examen/getExamenesPeriodo/`,       // GET
   getCursadasExamen: `${uriBaseBack}/api/examen/getCursadasExamen/`,         // GET
-  getActaExamen: `${uriBaseBack}/api/examen/getActa/`, // GET
+  getActaExamen: `${uriBaseBack}/api/examen/getActa/`,  // GET
   getExamenesAsignaturaPorAnio: `${uriBaseBack}/api/examen/getExamenesAsignaturaPorAnio/`, // GET
   registroAsignaturaAPeriodo: `${uriBaseBack}/api/examen/registroAsignaturaAPeriodo`,      // POST
   inscripcionExamen: `${uriBaseBack}/api/examen/inscripcionExamen`, // POST

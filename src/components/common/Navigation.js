@@ -340,15 +340,20 @@ export default function Navigation() {
 									<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
 									</Button>
 								</ListItemButton>
-								<ListItemButton>
+								{/* <ListItemButton>
 									<Button variant="plain" color="neutral" component="a" href={URI_FRONT.novedadesUri} size="sw" sx={{ alignSelf: 'left' }}>
 										Novedades
 									</Button>
-								</ListItemButton>
+								</ListItemButton> */}
 								{/* <ListItemButton> */}
 								{/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.preguntasFrecuentesUri} size="sw" sx={{ alignSelf: 'left' }}>Preguntas frecuentas
                                     </Button> 
 								</ListItemButton>*/}
+								<ListItemButton>
+									<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
+										Plan de Estudios
+									</Button>
+								</ListItemButton>
 								<ListItemButton>
 									<Button variant="plain" color="neutral" component="a" href={URI_FRONT.contactoUri} size="sw" sx={{ alignSelf: 'left' }}>
 										Contacto
