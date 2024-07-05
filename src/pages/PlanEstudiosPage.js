@@ -43,7 +43,7 @@ const PlanEstudiosPage = () => {
     }
   };
   
-  getInfoPreviaturasGrafo(1);
+  // getInfoPreviaturasGrafo(1);
 
   const mostrarGrafo = COURSE.graph + `${previaturasGrafoData}}`;
 
