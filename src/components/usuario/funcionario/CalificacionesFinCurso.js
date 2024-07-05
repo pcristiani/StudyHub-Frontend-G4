@@ -89,7 +89,7 @@ export default function CalificacionesFinCurso() {
 
 	const handleGuardarTodas = async () => {
 		const promises = Object.entries(calificaciones).map(([idCursada, calificacion]) => {
-			if (calificacion !== null && calificacion !== undefined && calificacion !== 0) {
+			if (calificacion !== null && calificacion !== undefined){//} && calificacion !== 0) {
 				return cambiarResultadoCursada(idCursada, calificacion, user.jwtLogin);
 			}
 			return Promise.resolve();

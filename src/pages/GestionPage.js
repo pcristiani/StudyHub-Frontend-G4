@@ -152,9 +152,7 @@ const GestionPage = () => {
 
 				let tieneExamen = true;
 				resultExamenes.forEach(notasx => {
-
 					if (notasx.calificacion !== 0) {
-
 						if (tieneExamen) {
 							doc.setFontSize(14);
 							doc.setFont('helvetica', 'bold');
@@ -165,7 +163,6 @@ const GestionPage = () => {
 							tieneExamen = false;
 						}
 
-						
 						doc.text(`${notasx.asignatura}`, 20, y);
 						doc.text(`Calificación: ${notasx.calificacion}`, 90, y);
 						doc.text(`${notasx.resultado}`, 155, y);
@@ -195,7 +192,7 @@ const GestionPage = () => {
 			doc.setFont('helvetica', 'bold');
 			doc.text(`Promedio General: ` + `${promedioFormat}`, 20, y);
 
-			let largo = resultExamenes.length;
+			let largo = resultCalificaciones.length;
 			if (largo > 0) {
 				largo = 0;
 				var blob = doc.output("blob");
