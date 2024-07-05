@@ -39,7 +39,7 @@ export const acceptEstudiante = async (idUsuario, jwtLogin) => {
 		}
 
 		const response = await axios.request(reqOptions);
-		return response.ok;
+		return response;
 	} catch (error) {
 		console.error('Error al actualizar el estudiante:', error);
 		throw error;
