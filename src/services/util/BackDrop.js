@@ -3,10 +3,13 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 
-export default function BackDrop() {
+// export default function BackDrop(estado) {
+export function BackDrop() {
+
     const [open, setOpen] = React.useState(false);
+
+    setOpen(true);
     const handleClose = () => {
-        setOpen(false);
     };
     const handleOpen = () => {
         setOpen(true);
@@ -14,14 +17,13 @@ export default function BackDrop() {
 
     return (
         <div>
-            <Button onClick={handleOpen}>Show backdrop</Button>
+            {/* <Button onClick={handleClose}>Show backdrop</Button> */}
             <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={open}
-                onClick={handleClose}
-            >
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 12 }} open={open} onClick={handleOpen}>
                 <CircularProgress color="inherit" />
             </Backdrop>
         </div>
     );
 }
+
+export default BackDrop;

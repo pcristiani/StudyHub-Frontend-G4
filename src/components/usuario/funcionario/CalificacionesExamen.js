@@ -20,8 +20,9 @@ import { errors } from '../../../services/util/errors';
 import { Save } from '@mui/icons-material';
 import { SelectProps } from '../../common/SelectProps';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
-// 15.0
 
 export default function CalificacionesExamen() {
 	const { user } = useContext(AuthContext);
@@ -34,6 +35,7 @@ export default function CalificacionesExamen() {
 	const [selectedAsignatura, setSelectedAsignatura] = useState('');
 	const [selectedAnio, setSelectedAnio] = useState('');
 	const [calificaciones, setCalificaciones] = useState({});
+	const [open, setOpen] = useState(false);
 
 
 	function stableSort(array, comparator) {
@@ -183,15 +185,21 @@ export default function CalificacionesExamen() {
 	};
 
 	const handleGuardarTodas = async () => {
+		setOpen(true)
+
 		for (const [idCursadaExamen, calificacion] of Object.entries(calificaciones)) {
 			if (calificacion !== null && calificacion !== undefined && calificacion !== 0) {
 				let result = await cambiarResultadoExamen(idCursadaExamen, calificacion, user.jwtLogin);
+				setOpen(false);
+
 				let title = "¡Calificación exitosa!\n\n";
 				errors(title, '', result.status, false);
 			}
 		}
 	};
-
+	const handleOpen = () => {
+		setOpen(false);
+	};
 
 	function descendingComparator(a, b, orderBy) {
 		if (b[orderBy] < a[orderBy]) {
@@ -329,6 +337,12 @@ export default function CalificacionesExamen() {
 					</Box>
 				)}
 			</Card>
+			<Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+				open={open}
+				onClick={handleOpen}
+			>
+				<CircularProgress color="inherit" />
+			</Backdrop>
 		</Box>
 	);
 }

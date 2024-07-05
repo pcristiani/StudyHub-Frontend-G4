@@ -13,6 +13,7 @@ import FormControl from '@mui/joy/FormControl';
 import Divider from '@mui/joy/Divider';
 import swal from 'sweetalert';
 
+
 ///
 
 export default function ValidarInscripcionesCarrera() {
@@ -26,6 +27,7 @@ export default function ValidarInscripcionesCarrera() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let idCarrera = data.get('idcarrera');
+
     if (idCarrera !== "Seleccionar carrera" && idCarrera !== "" && idCarrera !== null && idCarrera !== undefined) {
       let idCarreraInt = parseInt(idCarrera, 10);
       console.log(`IDcarrera: ${idCarreraInt}`);
@@ -36,6 +38,7 @@ export default function ValidarInscripcionesCarrera() {
       });
     }
   }
+
 
   useEffect(() => {
     const fetchCarreras = async () => {
@@ -67,7 +70,7 @@ export default function ValidarInscripcionesCarrera() {
       <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleSubmit}>
         <Card sx={{ display: 'flex', alignSelf: 'center', }}>
           <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
-            <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Validar inscripcion carrera</Typography>
+            <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Validar inscripción carrera</Typography>
           </Box>
           <Divider />
           <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
@@ -77,7 +80,6 @@ export default function ValidarInscripcionesCarrera() {
                   <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                 ))}
               </Select>
-              {/* <Divider /> */}
             </FormControl>
 
             <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>

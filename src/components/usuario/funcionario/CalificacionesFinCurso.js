@@ -17,6 +17,9 @@ import Sheet from '@mui/joy/Sheet';
 import Table from '@mui/joy/Table';
 import { errors } from '../../../services/util/errors';
 import { SelectProps } from '../../common/SelectProps';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 export default function CalificacionesFinCurso() {
 	const { user } = useContext(AuthContext);
@@ -28,6 +31,7 @@ export default function CalificacionesFinCurso() {
 	const [selectedAsignatura, setSelectedAsignatura] = useState('');
 	const [selectedAnio, setSelectedAnio] = useState('');
 	const [calificaciones, setCalificaciones] = useState({});
+	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		const fetchCarreras = async () => {
@@ -88,8 +92,11 @@ export default function CalificacionesFinCurso() {
 	};
 
 	const handleGuardarTodas = async () => {
+		setOpen(true)
 		const promises = Object.entries(calificaciones).map(([idCursada, calificacion]) => {
-			if (calificacion !== null && calificacion !== undefined){//} && calificacion !== 0) {
+
+			if (calificacion !== null && calificacion !== undefined) {//} && calificacion !== 0) {
+
 				return cambiarResultadoCursada(idCursada, calificacion, user.jwtLogin);
 			}
 			return Promise.resolve();
@@ -98,7 +105,9 @@ export default function CalificacionesFinCurso() {
 		try {
 			const results = await Promise.all(promises);
 			results.forEach(result => {
+
 				if (result && result.status === 200) {
+					setOpen(false);
 					let title = "¡Calificación exitosa!\n\n";
 					errors(title, result.data, result.status, false);
 				}
@@ -107,7 +116,12 @@ export default function CalificacionesFinCurso() {
 			console.error("Error saving calificaciones: ", error);
 		}
 	};
-
+	const handleOpen = () => {
+		setOpen(false);
+	};
+	// const handleClose = () => {
+	//   setOpen(false);
+	// };
 	const [year, setYear] = useState(new Date().getFullYear());
 	const startYear = 2023;
 	const endYear = new Date().getFullYear() + 1;
@@ -187,6 +201,7 @@ export default function CalificacionesFinCurso() {
 												))}
 											</tbody>
 										</Table>
+
 									</Sheet>
 								)}
 								{cursadasData.length === 0 && (
@@ -209,6 +224,12 @@ export default function CalificacionesFinCurso() {
 					</Box>
 				)}
 			</Card>
+			<Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+				open={open}
+				onClick={handleOpen}
+			>
+				<CircularProgress color="inherit" />
+			</Backdrop>
 		</Box>
 	);
 }

@@ -12,6 +12,8 @@ import { AuthContext } from '../../../context/AuthContext';
 import { formatoCi } from '../../../services/util/formatoCi';
 import Button from '@mui/joy/Button';
 import { getInscriptosPendientes, acceptEstudianteCarrera } from '../../../services/requests/carreraService';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 export default function TablaInscripcionesCarrera() {
@@ -24,6 +26,7 @@ export default function TablaInscripcionesCarrera() {
 
   const queryParams = new URLSearchParams(location.search);
   const idCarrera = queryParams.get('id');
+  const [open, setOpen] = useState(false);
 
 
   useEffect(() => {
@@ -46,11 +49,17 @@ export default function TablaInscripcionesCarrera() {
   }
 
   const handleValidar = async (idEstudiante) => {
+    setOpen(true)
     const res = await acceptEstudianteCarrera(idEstudiante, idCarrera, user.jwtLogin);
     fetchInscriptosPendientes();
   };
 
-
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
   ///
   return (
     <>
@@ -96,6 +105,12 @@ export default function TablaInscripcionesCarrera() {
                         )}
                       </tbody>
                     </Table>
+                    <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                      open={open}
+                      onClick={handleOpen}
+                    >
+                      <CircularProgress color="inherit" />
+                    </Backdrop>
                   </Sheet>
                 </Box>
               </div>
