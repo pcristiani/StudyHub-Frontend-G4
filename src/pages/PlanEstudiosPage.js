@@ -35,6 +35,12 @@ const PlanEstudiosPage = () => {
     }
   }, [carreraData]);
 
+
+  if (selectedCarrera === null || selectedCarrera === '' || selectedCarrera === undefined) {
+    getInfoPreviaturasGrafo(1);
+  }
+
+  
   const handleChangeCarrera = (event, idCarrera) => {
     setSelectedCarrera(idCarrera);
     if (idCarrera !== null) {

@@ -85,13 +85,13 @@ export default function RegistrarPreviaturas() {
 		const arrayPrevias = nroComoString.map(Number);
 		const response = await registroPreviaturas(idAsignatura, arrayPrevias, user.jwtLogin);
 
-		if (response.statusCodeValue === 200) {
+		if (response.status === 200) {
 			let title = "¡Previatura registada!\n\n";
-			errors(title, response.body, response.statusCodeValue);
+			errors(title, response.data, response.status);
 			history('/');
 		} else {
 			console.log("Error: ", response);
-			errors(response.body, response.body, response.status);
+			errors(response.data, response.data, response.status);
 		}
 	};
 

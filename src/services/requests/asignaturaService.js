@@ -217,7 +217,7 @@ export const registroPreviaturas = async (idAsignatura, idPreviaturas, jwtLogin)
 		}
 
 		let response = await axios.request(reqOptions);
-		return response.data;
+		return response;
 	} catch (error) {
 		return error.response;
 	}

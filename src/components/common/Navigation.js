@@ -46,6 +46,11 @@ export default function Navigation() {
 											<ListItemButton>
 												<img className="logo-navbar-mobile" src={Logo} alt="ico" />
 											</ListItemButton>
+											<ListItemButton>
+												<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
+													Plan de Estudios
+												</Button>
+											</ListItemButton>
 
 											<ListItemButton>
 												<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
@@ -98,9 +103,13 @@ export default function Navigation() {
 										<ListItemButton>
 											<img className="logo-navbar-mobile" src={Logo} alt="ico" />
 										</ListItemButton>
+										<ListItemButton>
+											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
+												Plan de Estudios
+											</Button>
+										</ListItemButton>
 										<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
 										</Button>
-
 
 										<Dropdown>
 											<ListItemButton>
@@ -168,6 +177,11 @@ export default function Navigation() {
 										<ListItemButton>
 											<img className="logo-navbar-mobile" src={Logo} alt="ico" />
 											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
+											</Button>
+										</ListItemButton>
+										<ListItemButton>
+											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
+												Plan de Estudios
 											</Button>
 										</ListItemButton>
 										<Dropdown>
@@ -281,6 +295,11 @@ export default function Navigation() {
 									<>
 										<ListItemButton>
 											<img className="logo-navbar-mobile" src={Logo} alt="ico" />
+										</ListItemButton>
+										<ListItemButton>
+											<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
+												Plan de Estudios
+											</Button>
 										</ListItemButton>
 										<Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sw" sx={{ alignSelf: 'left' }}>
 										</Button>

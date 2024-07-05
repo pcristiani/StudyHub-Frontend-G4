@@ -30,9 +30,11 @@ import PropTypes from 'prop-types';
 import Navigation from './Navigation';
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../img/logo.png';
+import Apk from '../../services/android/StudyHub.apk';
 import LogoAvatar from '../../img/avatar/graduated_3135810.png';
 import { URI_FRONT, redirigir, T_ROL, URL_BACK } from '../../services/util/constants';
-
+import AdbRoundedIcon from '@mui/icons-material/AdbRounded';
+import AndroidRoundedIcon from '@mui/icons-material/AndroidRounded';
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
 import { cerrarSesion } from '../../services/requests/loginService';
@@ -441,6 +443,11 @@ export default function Header() {
                <Input size="sm" variant="outlined" placeholder="Buscar…" startDecorator={<SearchRoundedIcon color="primary" />} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                   sx={{ alignSelf: 'center', display: { xs: 'none', sm: 'flex', }, }} />
                <ColorSchemeToggle />
+               {/* <MenuItem href='/' component="a" size="sw" >
+               </MenuItem> */}
+
+
+
                {(user.logged) ?
                   <>
                      <Dropdown size="small">
@@ -463,21 +470,21 @@ export default function Header() {
                            </MenuItem>
                            <ListDivider />
 
-                           <MenuItem href={URI_FRONT.editPerfilUri} size="sw" component="a">
-                              <AccountCircleOutlined sx={{ marginRight: 0.8 }} size="sw" />
+                           <MenuItem href={URI_FRONT.editPerfilUri} level="title-sm" textColor="text.primary" component="a">
+                              <AccountCircleOutlined sx={{ marginRight: 1, maxWidth: '20px', maxHeight: '20px' }} />
                               Perfil
                            </MenuItem>
-                           <MenuItem href='/' component="a" size="sw" >
-                              <SettingsRoundedIcon sx={{ marginRight: 0.8 }} size="sw" />
-                              Ajustes
+                           <MenuItem href={Apk} level="title-sm" textColor="text.primary" component="a">
+                              <AdbRoundedIcon sx={{ marginRight: 1, maxWidth: '20px', maxHeight: '20px' }} />
+                              Android apk
                            </MenuItem>
                            <ListDivider />
-                           <MenuItem href={URI_FRONT.modificarPasswordUri} size="sw" component="a">
-                              <Key sx={{ marginRight: 0.8 }} size="sw" />
+                           <MenuItem href={URI_FRONT.modificarPasswordUri} level="title-sm" textColor="text.primary" component="a">
+                              <Key sx={{ marginRight: 1, maxWidth: '20px', maxHeight: '20px' }} />
                               Cambiar contraseña
                            </MenuItem>
-                           <MenuItem size="small" href={URI_FRONT.homeUri} onClick={handleLogout}>
-                              <LogoutRoundedIcon sx={{ marginRight: 0.8 }} size="sw" />
+                           <MenuItem href={URI_FRONT.homeUri} level="title-sm" textColor="text.primary" onClick={handleLogout}>
+                              <LogoutRoundedIcon sx={{ marginRight: 1, maxWidth: '20px', maxHeight: '20px' }} />
                               Cerrar sesión
                            </MenuItem>
                         </Menu>

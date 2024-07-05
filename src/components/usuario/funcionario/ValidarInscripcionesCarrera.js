@@ -77,7 +77,7 @@ export default function ValidarInscripcionesCarrera() {
                   <Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
                 ))}
               </Select>
-              <Divider />
+              {/* <Divider /> */}
             </FormControl>
 
             <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
