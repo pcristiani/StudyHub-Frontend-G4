@@ -335,9 +335,7 @@ div {
   padding-right: 14px;
   justify-content: center;
   text-align: left;
-  
-
-  font-size: 9.5px;
+    font-size: 9.5px;
 }
 
 .options-list {
@@ -363,5 +361,4 @@ div {
 #graphviz0 {
   height: 100%;
   width: 100%;
-  z-index: 1000;
 }

@@ -250,14 +250,14 @@ export default function ListadoAsignaturas() {
     <>
       <Stack sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
         <Autocomplete
-          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '520px'}}
+          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '520px' }}
           placeholder="Filtrar por asignatura"
           autoSelect={true}
           autoHighlight={true}
           getOptionLabel={(option) => option.nombre}
           options={filteredUsers}
           onChange={handleAutocompleteChange}
-          value={value}       
+          value={value}
           filterOptions={(options, params) => {
             const filtered = filters(options, params);
             const { inputValue } = params;
@@ -284,9 +284,9 @@ export default function ListadoAsignaturas() {
               '--TableRow-hoverBackground': 'rgb(3, 87, 4, 0.20)',
               '--TableCell-headBackground': 'transparent',
               borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', overflow: 'auto',
-              '& thead th:nth-child(1)': { width: '68%', },
-              '& thead th:nth-child(2)': { width: '15%' },
-              '& tr > *:nth-child(n+3)': { width: '11%', textAlign: 'center' },
+              '& thead th:nth-child(1)': { width: '78%', },
+              '& thead th:nth-child(2)': { width: '16%' },
+              '& tr > *:nth-child(n+3)': { width: '1%' },
             }}
           >
             <EnhancedTableHead
@@ -311,17 +311,12 @@ export default function ListadoAsignaturas() {
                       tabIndex={-1}
                       key={asignatura.idAsignatura}
                       selected={isItemSelected}
-                    // style={
-                    //   isItemSelected
-                    //     ? { '--TableCell-dataBackground': 'var(--TableCell-selectedBackground)', '--TableCell-headBackground': 'var(--TableCell-selectedBackground)', 'cursor': 'pointer' }
-                    //     : { 'cursor': 'pointer' }
-                    // }
                     >
                       <th id={labelId} scope="row">
                         {asignatura.nombre}
                       </th>
                       {/* <td>{asignatura.descripcion}</td> */}
-                      <td>{asignatura.creditos}</td>
+                      <td style={{ textAlign: "center" }}>{asignatura.creditos}</td>
                       {/* <td>
                         <Tooltip title="Ver asignaturas">
                           <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(asignatura.idAsignatura)}>

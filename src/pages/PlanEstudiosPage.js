@@ -49,9 +49,8 @@ const PlanEstudiosPage = () => {
     }
   };
   
-  // getInfoPreviaturasGrafo(1);
-
   const mostrarGrafo = COURSE.graph + `${previaturasGrafoData}}`;
+  console.log("mostrarGrafo: ", mostrarGrafo);
 
   async function getInfoPreviaturasGrafo(idCarrera) {
     let result = await getPreviaturasGrafo(idCarrera, user.jwtLogin);
@@ -74,7 +73,7 @@ const PlanEstudiosPage = () => {
 
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1%', height: '70%', border: "0.5px solid #2596be", borderRadius: "20px", zIndex: '1000' }}>
-          <DAGViewer dot={mostrarGrafo} options={{}} />
+          <DAGViewer dot={mostrarGrafo}/>
         </Box>
       </CssVarsProvider>
     </>

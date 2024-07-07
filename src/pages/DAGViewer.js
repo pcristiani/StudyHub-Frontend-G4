@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { Graphviz } from "graphviz-react";
 import { graphviz } from "d3-graphviz";
+import { Input } from "@mui/joy/Input";
 
 export default ({ dot, width, height }) => {
     // gen css from props
@@ -20,6 +21,7 @@ export default ({ dot, width, height }) => {
             for (let [k, v] of Object.entries(style)) {
                 el.style[k] = v;
             }
+
             graphviz(`#${id}`);
         }
     }, [graphvizRoot, style]);
@@ -29,25 +31,19 @@ export default ({ dot, width, height }) => {
             {dot !== ""
                 ? [
                     <Graphviz
-                        dot={dot}
-                        options={{
-                            useWorker: false,
-                            ...style,
-                            zoom: true
+                    dot={dot}
+                    options={{
+                        useWorker: false,
+                        ...style,
+                            zoom: true,                      
                             //...props
                         }}
                         ref={graphvizRoot}
-                    />,
-                    // <button
-                    //     onClick={reset}
-                    //     style={{
-                    //         position: "absolute",
-                    //         right: "5%",
-                    //         top: "5%"
-                    //     }}>                    //     Reset
-                    // </button>
+                       
+                    />
                 ]
-                : null}
+                : null
+            }
         </div>
     );
 };

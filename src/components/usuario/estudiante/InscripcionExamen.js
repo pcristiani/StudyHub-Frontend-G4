@@ -20,7 +20,7 @@ import { errors } from '../../../services/util/errors';
 import DtFecha from '../../../services/util/formatoFecha';
 
 import CircularProgress from '@mui/joy/CircularProgress';
-import { Alerta } from '../../../services/util/Alerta';
+
 
 export default function InscripcionExamen() {
 	const { user } = useContext(AuthContext);

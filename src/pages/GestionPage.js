@@ -13,9 +13,9 @@ import FormControl from '@mui/joy/FormControl';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
 import { formatFechaEmision } from '../services/util/formatoFecha';
 import { errors } from '../services/util/errors';
+import { SelectProps } from '../components/common/SelectProps';
 
 
 const GestionPage = () => {
@@ -227,11 +227,11 @@ const GestionPage = () => {
 					<Divider />
 					<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
 						<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
-							<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
+							<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
 								{carreraData.map((carrera, index) => (
 									<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 								))}
-							</Select>
+							</SelectProps>
 							<Stack direction="row" spacing={0.6} sx={{ marginTop: 0.8, justifyContent: 'right', zIndex: '1000' }}>
 								<Button type='submit' fullWidth variant="soft" color="primary" sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }}>
 									Visualizar PDF
