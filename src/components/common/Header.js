@@ -512,6 +512,6 @@ export default function Header() {
             </Box>
 
          </Box>
-      </CssVarsProvider >
+      </CssVarsProvider>
    );
 }

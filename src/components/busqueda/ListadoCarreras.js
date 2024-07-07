@@ -64,8 +64,8 @@ const headCells = [
   {
     id: 'descripcion',
     numeric: false,
-    disablePadding: false,
-    label: 'Desripción',
+    disablePadding: true,
+    label: 'Duración',
   },
   {
     id: 'asignaturas',
@@ -135,7 +135,7 @@ const handleInfoCarreras = (idCarrera) => {
 
 const handleModificar = (idCarrera) => {
   redirigir(URI_FRONT.listadoAsignaturasUri + `?id=${idCarrera}`);
-  // redirigir(URI_FRONT.listadoAsignaturasUri);
+  //redirigir(URI_FRONT.listadoAsignaturasUri);
 
 }
 
@@ -150,62 +150,20 @@ function EnhancedTableToolbar(props) {
   const handleClose = () => setAnchorEl(null);
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', py: 0.8, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.body' : 'background.body', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }} >
+    <Box sx={{ display: 'flex', alignItems: 'center', py: 1, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.body' : 'background.body', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }} >
 
       <Box sx={{ alignSelf: 'center' }}>
         {numSelected === 1 ? (
           <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="success" noWrap>Opciones habilitadas</Typography>
         ) : ''}
         {numSelected === 0 ? (
-          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="neutral" noWrap>Seleccionar carrera</Typography>
+          <Typography level="label-md" sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Carreras</Typography>
         ) : ''}
         {numSelected > 1 ? (
           <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="danger" noWrap>Selecionar una carrera</Typography>
         ) : ''}
       </Box>
 
-      {numSelected === 1 ? (
-        <>
-          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-            <Tooltip title="Ver información">
-              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleInfoCarreras(selected[0])}>
-                <PostAddOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-
-            {/* <Tooltip title="Información">
-              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleModificar(selected[0])}>
-                <InsertChartOutlinedIcon />
-              </IconButton>
-            </Tooltip> */}
-          </Box>
-        </>
-      ) : (
-        <>
-          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-              <Tooltip title="Ver información">
-              <IconButton size="sm" variant="outlined" color="neutral" disabled>
-                  <PostAddOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-
-            {/* <Tooltip title="Información">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleModificar(selected[0])} disabled>
-                <DriveFileRenameOutlineOutlinedIcon />
-              </IconButton>
-            </Tooltip> */}
-          </Box>
-          {/* <IconButton size="sm" variant="outlined" color="neutral" onClick={handleClick}>
-            <FilterListIcon />
-          </IconButton>
-          <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem onClick={() => onFilter('La duración de la carrera será de 2 años')}>2 años de duración</MenuItem>
-            <MenuItem onClick={() => onFilter('La duración de la carrera será de 3 años')}>3 años de duración</MenuItem>
-            <MenuItem onClick={() => onFilter('La duración de la carrera será de 4 años')}>4 años de duración</MenuItem>
-            <MenuItem onClick={() => onFilter('')}>Todas las carreras</MenuItem>
-          </Menu> */}
-        </>
-      )}
     </Box>
   );
 }
@@ -288,9 +246,9 @@ export default function ListadoCarreras() {
   const loading = open && options.length === 0;
   return (
     <>
-      <Stack direction="row" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
+      <Stack direction="row" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
         <Autocomplete
-          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '620px' }}
+          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '520px' }}
           placeholder="Filtrar por carrera"
           autoSelect={true}
           autoHighlight={true}
@@ -315,18 +273,20 @@ export default function ListadoCarreras() {
         />
       </Stack>
       <Stack direction="row" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
-        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '620px' }}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '520px' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
 
           <Table aria-labelledby="tableTitle" hoverRow
             sx={{
+              cursor: 'pointer',
+              '--TableRow-hoverBackground': 'rgb(3, 87, 4, 0.20)',
               '--TableCell-headBackground': 'transparent',
-              '--TableCell-selectedBackground': (theme) =>
-                theme.vars.palette.success.softBg,
-              '& thead th:nth-child(1)': { width: '40%', },
-              '& thead th:nth-child(2)': { width: '50%', },
+              borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', overflow: 'auto',
+              '& thead th:nth-child(1)': { width: '68%', },
+              '& thead th:nth-child(2)': { width: '15%' },
               '& tr > *:nth-child(n+3)': { width: '11%', textAlign: 'center' },
-            }}>
+            }}
+          >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -343,26 +303,24 @@ export default function ListadoCarreras() {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <tr
-                      onClick={(event) => handleClick(event, carrera.idCarrera)}
+                      //   onClick={() => handleModificar(carrera.idCarrera)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={carrera.idCarrera}
                       selected={isItemSelected}
-                      style={
-                        isItemSelected
-                          ? { '--TableCell-dataBackground': 'var(--TableCell-selectedBackground)', '--TableCell-headBackground': 'var(--TableCell-selectedBackground)', 'cursor': 'pointer' }
-                          : { 'cursor': 'pointer' }
-                      }
+                    // style={
+                    //   isItemSelected ? { backgroundColor: 'var(--TableRow-selectedBackground)' } : { backgroundColor: 'var(--TableRow-hoverBackground)' }
+                    // }
                     >
 
-                      <th id={labelId} scope="row">
+                      <th id={labelId} scope="row" onClick={() => handleInfoCarreras(carrera.idCarrera)}>
                         {carrera.nombre}
                       </th>
-                      <td>{carrera.descripcion}</td>
-                      <td>
-                        <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(carrera.idCarrera)}>
-                          <ChevronRightRoundedIcon />
+                      <td onClick={() => handleInfoCarreras(carrera.idCarrera)}> {carrera.duracion} años</td>
+                                            <td onClick={() => handleModificar(carrera.idCarrera)}>
+                        <IconButton size="sm" variant="plain" color="success">
+                          <ChevronRightRoundedIcon onClick={() => handleModificar(carrera.idCarrera)} />
                         </IconButton>
                       </td>
                     </tr>
@@ -370,13 +328,13 @@ export default function ListadoCarreras() {
                 })}
               {emptyRows > 0 && (
                 <tr style={{ height: 63 * emptyRows }}>
-                  <td colSpan={4} />
+                  <td colSpan={3} />
                 </tr>
               )}
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan={4}>
+                <td colSpan={3}>
                   <Box sx={{ width: '100%', display: 'flex', alignItems: 'right', justifyContent: 'flex-end' }}>
                     <Box sx={{ width: '20%', display: 'flex', gap: 0.5, justifyContent: 'flex-end' }}>
                       <IconButton size="sm" color="neutral"

@@ -9,7 +9,6 @@ import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import Stack from '@mui/joy/Stack';
 import { useLocation } from 'react-router-dom';
-
 import IconButton from '@mui/joy/IconButton';
 import Link from '@mui/joy/Link';
 import Tooltip from '@mui/joy/Tooltip';
@@ -19,10 +18,11 @@ import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { visuallyHidden } from '@mui/utils';
+
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
-import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
+
 
 const filters = createFilterOptions();
 
@@ -62,23 +62,17 @@ const headCells = [
     label: 'Nombre',
   },
   {
-    id: 'descripcion',
+    id: 'creditos',
     numeric: false,
     disablePadding: false,
-    label: 'Desripción',
+    label: 'Créditos',
   },
   // {
-  //   id: 'creditos',
+  //   id: 'asignatura',
   //   numeric: false,
   //   disablePadding: false,
-  //   label: 'Créditos',
+  //   label: '',
   // },
-  {
-    id: 'asignatura',
-    numeric: false,
-    disablePadding: false,
-    label: '',
-  },
 ];
 
 function EnhancedTableHead(props) {
@@ -159,46 +153,13 @@ function EnhancedTableToolbar(props) {
           <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="success" noWrap>Opciones habilitadas</Typography>
         ) : ''}
         {numSelected === 0 ? (
-          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="neutral" noWrap>Seleccionar asignatura</Typography>
+          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Asignaturas</Typography>
         ) : ''}
         {numSelected > 1 ? (
           <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="danger" noWrap>Selecionar una asignatura</Typography>
         ) : ''}
       </Box>
 
-      {numSelected === 1 ? (
-        <>
-          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-            {/* <Tooltip title="Ver asignaturas">
-              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleAlta()}>
-                <AddBoxOutlinedIcon />
-              </IconButton>
-            </Tooltip> */}
-
-            <Tooltip title="Previaturas">
-              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleAlta(selected[0])}>
-                <DriveFileRenameOutlineOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </>
-      ) : (
-        <>
-          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-            {/* <Tooltip title="Ver asignaturas">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta()} disabled>
-                <AddBoxOutlinedIcon />
-              </IconButton>
-            </Tooltip> */}
-
-              <Tooltip title="Previaturas">
-                <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta(selected[0])} disabled>
-                <DriveFileRenameOutlineOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </>
-      )}
     </Box>
   );
 }
@@ -283,21 +244,20 @@ export default function ListadoAsignaturas() {
     setValue(newValue);
     setFilter(newValue ? newValue.nombre : '');
   };
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState([]);
-  const loading = open && options.length === 0;
+
+
   return (
     <>
       <Stack sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
         <Autocomplete
-          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '620px' }}
+          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '520px'}}
           placeholder="Filtrar por asignatura"
           autoSelect={true}
           autoHighlight={true}
           getOptionLabel={(option) => option.nombre}
           options={filteredUsers}
           onChange={handleAutocompleteChange}
-          value={value}
+          value={value}       
           filterOptions={(options, params) => {
             const filtered = filters(options, params);
             const { inputValue } = params;
@@ -308,24 +268,27 @@ export default function ListadoAsignaturas() {
             return filtered;
           }}
           renderOption={(props, option) => (
-            <AutocompleteOption {...props} key={option.nombre}>
+            <AutocompleteOption
+              {...props} key={option.nombre}>
               {option.nombre}
             </AutocompleteOption>
           )}
         />
       </Stack>
       <Stack direction="row" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
-        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '620px' }}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '520px' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
           <Table aria-labelledby="tableTitle" hoverRow
             sx={{
+              cursor: 'pointer',
+              '--TableRow-hoverBackground': 'rgb(3, 87, 4, 0.20)',
               '--TableCell-headBackground': 'transparent',
-              '--TableCell-selectedBackground': (theme) =>
-                theme.vars.palette.success.softBg,
-              '& thead th:nth-child(1)': { width: '62%', },
-              '& thead th:nth-child(2)': { width: '72%', },
-              '& tr > *:nth-child(n+3)': { width: '14%', textAlign: 'center' },
-            }}>
+              borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', overflow: 'auto',
+              '& thead th:nth-child(1)': { width: '68%', },
+              '& thead th:nth-child(2)': { width: '15%' },
+              '& tr > *:nth-child(n+3)': { width: '11%', textAlign: 'center' },
+            }}
+          >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -342,42 +305,41 @@ export default function ListadoAsignaturas() {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <tr
-                      onClick={(event) => handleClick(event, asignatura.idAsignatura)}
+                      onClick={() => handleModificar(asignatura.idAsignatura)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={asignatura.idAsignatura}
                       selected={isItemSelected}
-                      style={
-                        isItemSelected
-                          ? { '--TableCell-dataBackground': 'var(--TableCell-selectedBackground)', '--TableCell-headBackground': 'var(--TableCell-selectedBackground)', 'cursor': 'pointer' }
-                          : { 'cursor': 'pointer' }
-                      }
+                    // style={
+                    //   isItemSelected
+                    //     ? { '--TableCell-dataBackground': 'var(--TableCell-selectedBackground)', '--TableCell-headBackground': 'var(--TableCell-selectedBackground)', 'cursor': 'pointer' }
+                    //     : { 'cursor': 'pointer' }
+                    // }
                     >
                       <th id={labelId} scope="row">
                         {asignatura.nombre}
                       </th>
-                      <td>{asignatura.descripcion}</td>
-                      {/* <td>{asignatura.creditos}</td> */}
-
-                      <td>
+                      {/* <td>{asignatura.descripcion}</td> */}
+                      <td>{asignatura.creditos}</td>
+                      {/* <td>
                         <Tooltip title="Ver asignaturas">
                           <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(asignatura.idAsignatura)}>
                             <PostAddOutlinedIcon />
                           </IconButton>
-                        </Tooltip></td>
+                        </Tooltip></td> */}
                     </tr>
                   );
                 })}
               {emptyRows > 0 && (
                 <tr style={{ height: 63 * emptyRows }}>
-                  <td colSpan={3} />
+                  <td colSpan={2} />
                 </tr>
               )}
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan={3}>
+                <td colSpan={2}>
                   <Box sx={{ width: '100%', display: 'flex', alignItems: 'right', justifyContent: 'flex-end' }}>
                     <Box sx={{ width: '20%', display: 'flex', gap: 0.5, justifyContent: 'flex-end' }}>
                       <IconButton size="sm" color="neutral"
