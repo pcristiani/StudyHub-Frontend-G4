@@ -79,6 +79,7 @@ export const getExamenesAsignatura = async (idAsignatura, jwtLogin) => {
 ///
 export const getCursadasExamen = async (idExamen, jwtLogin) => {
     let url = `${URL_BACK.getCursadasExamen}${idExamen}`;
+
     let response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -97,6 +98,7 @@ export const getCursadasExamen = async (idExamen, jwtLogin) => {
 ///
 export const getAsignaturasConExamenPendiente = async (idEstudiante, idCarrera, jwtLogin) => {
     let url = `${URL_BACK.getAsignaturasConExamenPendiente}${idEstudiante}?idCarrera=${idCarrera}`;
+
     let response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -209,6 +211,27 @@ export const getActaExamen = async (idExamen, jwtLogin) => {
 
         let response = await axios.request(reqOptions);
         return response;
+    } catch (error) {
+        return error.response;
+    }
+}
+
+
+///
+
+export const getExamenes = async (idEstudiante, jwtLogin) => {
+    try {
+        let headersList = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtLogin}`,
+        }
+        let reqOptions = {
+            url: URL_BACK.getExamenes + idEstudiante,
+            method: "GET",
+            headers: headersList,
+        };
+        let response = await axios.request(reqOptions);
+        return response.data;
     } catch (error) {
         return error.response;
     }

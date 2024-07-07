@@ -23,23 +23,23 @@ export const getAsignaturas = async (jwtLogin) => {
 
 
 ///
-export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
-	const url = URL_BACK.getAsignaturasDeCarrera;
+// export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
+// 	const url = URL_BACK.getAsignaturasDeCarrera;
 
-	let headersList = {
-		'Content-Type': 'application/json',
-		'Authorization': `Bearer ${jwtLogin}`
-	}
+// 	let headersList = {
+// 		'Content-Type': 'application/json',
+// 		'Authorization': `Bearer ${jwtLogin}`
+// 	}
 
-	let response = await fetch(url + idCarrera, {
-		method: "GET",
-		headers: headersList
-	});
+// 	let response = await fetch(url + idCarrera, {
+// 		method: "GET",
+// 		headers: headersList
+// 	});
 
-	const data = await response.json();
-	console.log("Asignaturas de carrera: ", data);
-	return data.body;
-}
+// 	const data = await response.json();
+// 	console.log("Asignaturas de carrera: ", data);
+// 	return data.body;
+// }
 
 
 ///
@@ -391,4 +391,62 @@ export const getAsignaturaById = async (idAsignatura, jwtLogin) => {
 	} catch (error) {
 		return error.response;
 	}
+}
+
+
+
+///
+export const getAsignaturasDeEstudiante = async (idEstudiante, jwtLogin) => {
+	try {
+		let headersList = {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${jwtLogin}`,
+		}
+		let reqOptions = {
+			url: URL_BACK.getAsignaturasDeEstudiante + idEstudiante,
+			method: "GET",
+			headers: headersList,
+		};
+
+		let response = await axios.request(reqOptions);
+		return response.data;
+	} catch (error) {
+		return error.response;
+	}
+}
+
+export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
+
+	try {
+		let headersList = {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${jwtLogin}`,
+		}
+		let reqOptions = {
+			url: URL_BACK.getAsignaturasDeCarrera + idCarrera,
+			method: "GET",
+			headers: headersList,
+		};
+
+		let response = await axios.request(reqOptions);
+	//	console.log("Asignaturas de carrera: ", response.data.body);
+		return response.data.body;
+	} catch (error) {
+		return error.response;
+	}
+
+
+	// let headersList = {
+	// 	'Content-Type': 'application/json',
+	// 	'Authorization': `Bearer ${jwtLogin}`
+	// }
+
+	// let response = await fetch(url + idCarrera, {
+	// 	method: "GET",
+	// 	headers: headersList
+	// });
+
+	// const data = await response.json();
+	// console.log("Asignaturas de carrera: ", data);
+	// return data.body;
 }

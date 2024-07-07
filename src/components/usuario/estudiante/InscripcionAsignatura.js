@@ -18,7 +18,7 @@ import { Chip } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getCarrerasInscripto } from '../../../services/requests/carreraService';
-import { getAsignaturasDeCarrera, getHorarios, inscripcionAsignatura } from '../../../services/requests/asignaturaService';
+import { getAsignaturasDeCarrera, getHorarios, inscripcionAsignatura, getAsignaturasDeEstudiante } from '../../../services/requests/asignaturaService';
 import { errors } from '../../../services/util/errors';
 
 const diasSemana = [
@@ -37,6 +37,7 @@ export default function InscripcionAsignatura() {
 	const [error, setError] = useState(null);
 	const [carreraData, setCarreraData] = useState([]);
 	const [asignaturaData, setAsignaturaData] = useState([]);
+	const [asignaturasDeEstudianteData, setAsignaturasDeEstudianteData] = useState([]);
 	const [horarioData, setHorarioData] = useState([]);
 
 
@@ -60,18 +61,20 @@ export default function InscripcionAsignatura() {
 	}, [carreraData]);
 
 
+
 	///
-	const handleChange = (event, newValue) => {
-		// setSelectedCarrera(newValue);
-		getInfoAsignaturasDeCarrera(newValue);
+	const handleChange = async (event, idCarreraSelect) => {
+		try {
+			const asigEstudiante = await getAsignaturasDeEstudiante(user.id, user.jwtLogin);
+			const asigDeCarrera = await getAsignaturasDeCarrera(idCarreraSelect, user.jwtLogin);
+			const asigPendiente = asigDeCarrera.filter(asignatura1 => !asigEstudiante.some(asignatura2 => asignatura1.idAsignatura === asignatura2.idAsignatura));
+
+			setAsignaturaData(asigPendiente);
+		} catch (error) {
+			setError(error.message);
+		}
 	};
 
-	async function getInfoAsignaturasDeCarrera(idCarreraSeleccionada) {
-		if (idCarreraSeleccionada !== null) {
-			let result = await getAsignaturasDeCarrera(idCarreraSeleccionada, user.jwtLogin);
-			setAsignaturaData(result);
-		}
-	}
 
 	const handleChangeAsignatura = (event, newValue) => {
 		if (newValue !== null) {
@@ -94,6 +97,7 @@ export default function InscripcionAsignatura() {
 		}
 	}
 
+
 	const consolidarHorarios = (horarios) => {
 		if (horarios === null || horarios === undefined) {
 			return [];
@@ -111,7 +115,7 @@ export default function InscripcionAsignatura() {
 
 	const horariosConsolidados = consolidarHorarios(horarioData);
 	const handleValidateClick = (event, newValue) => {
-		console.log("ID HORARIO ", newValue);
+	//	console.log("ID HORARIO ", newValue);
 	};
 
 
@@ -127,7 +131,6 @@ export default function InscripcionAsignatura() {
 		errors(title, response.data, response.status, true);
 	};
 
-	const [small, setSmall] = React.useState(false);
 
 	return (
 		<Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={handleSubmit}>

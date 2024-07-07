@@ -21,6 +21,10 @@ export const getCarreras = async (jwtLogin) => {
     return data.body;
 }
 
+
+///
+
+
 export const getCarrerasPublic = async () => {
     const url = URL_BACK.getCarrerasPublic;
 
@@ -31,6 +35,8 @@ export const getCarrerasPublic = async () => {
     const data = await resp.json();
     return data.body;
 }
+
+
 ///
 export const getCarreraById = async (idCarrera, jwtLogin) => {
     try {
