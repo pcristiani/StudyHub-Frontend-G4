@@ -41,6 +41,7 @@ export default function AltaCarrera() {
                 position: "center",
                 timer: 4000
             });
+            history('/');
         } else {
             swal("Error", 'Los datos ingresados no son correctos o ya existe una carrera con ese nombre', "error", {
                 timer: 3000
@@ -59,7 +60,6 @@ export default function AltaCarrera() {
 
         // console.log(nombre, descripcion, requisitos, duracion, idcoordinador);
         altaCarrera(nombre, descripcion, requisitos, duracion, idcoordinador);
-        history('/');
     };
 
     return (
@@ -70,10 +70,10 @@ export default function AltaCarrera() {
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
+                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
                         <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
-                        <Textarea minRows={3} size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
-                        <Textarea minRows={3} size="sm" id="requisitos" name="requisitos" placeholder="Requisitos" required />
+                        <Textarea minRows={2} size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
+                        <Textarea minRows={2} size="sm" id="requisitos" name="requisitos" placeholder="Requisitos" required />
                         <Input size="sm" type="number" id="duracion" name="duracion" placeholder="Duración" required />
                         {/* <Divider /> */}
                     </FormControl>

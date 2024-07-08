@@ -102,12 +102,11 @@ export default function AltaAsignatura() {
 		const arrayPrevias = nroComoString.map(Number).filter(item => item !== 0);
 
 		let resp = await altaAsignatura(nombre, creditos, descripcion, departamento, arrayPrevias, idCarrera, arrayPreviasDocente, user.jwtLogin);
-
-		if (resp.statusCodeValue === 200) {
+	
+		if (resp.status === 200) {
 			let title = "¡Asignatura registada!\n\n";
-			errors(title, resp.body, resp.statusCodeValue);
-			history('/');
-		} else {
+			errors(title, resp.data, resp.status,true);
+				} else {
 			console.log("Error: ", resp);
 			errors(resp.data, resp.data, resp.status);
 		}
