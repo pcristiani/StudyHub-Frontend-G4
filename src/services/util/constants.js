@@ -5,7 +5,7 @@ const PORT = {
 const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
 const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-// const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+//  const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
 // const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 // ? http://localhost:3000/
