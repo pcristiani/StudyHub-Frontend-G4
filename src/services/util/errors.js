@@ -19,8 +19,13 @@ const errors = async (mensaje, text, status, redirect) => {
             position: "center",
             timer: 5000
         }).then(() => {
-            if (redirect) {
+            if (!redirect) {
+                console.log('Redirect FALSE');
+                // redirigir(redirect);
+            } else if (redirect === true) {
                 redirigir(URI_FRONT.homeUri);
+            } else {
+                redirigir(redirect);
             }
         });
 

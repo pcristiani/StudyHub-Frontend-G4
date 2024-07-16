@@ -70,7 +70,7 @@ export default function AltaCarrera() {
                 </Box>
                 <Divider />
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
+                    <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
                         <Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
                         <Textarea minRows={2} size="sm" id="descripcion" name="descripcion" placeholder="Descripción" required />
                         <Textarea minRows={2} size="sm" id="requisitos" name="requisitos" placeholder="Requisitos" required />

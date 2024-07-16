@@ -110,7 +110,7 @@ export default function ModificarFuncionarioCoordinador() {
                     <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Modificar Funcionario - Coordinador</Typography>
                 </Box>
                 <Divider />
-                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
+                <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
                     <Input size="sm" id="nombre" name="nombre" placeholder="Nombre:" required defaultValue={userData.nombre} />
                     <Input size="sm" id="apellido" name="apellido" placeholder="Apellido:" required defaultValue={userData.apellido} />
                     <Input size="sm" id="cedula" name="cedula" placeholder="Cedula:" required defaultValue={userData.cedula} />

@@ -102,7 +102,7 @@ function EditarPerfil() {
 				<Box component="form" sx={{ marginTop: 0, display: 'flex', flexDirection: 'column', width: '100%' }} onSubmit={handleModificar}>
 					<Stack>
 						<Stack>
-							<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
+							<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 								<Input size="sm" id="nombre" name="nombre" defaultValue={userData.nombre} />
 								<Input size="sm" id="apellido" name="apellido" defaultValue={userData.apellido} />
 								<Input size="sm" id="cedula" name="cedula" defaultValue={userData.cedula} readOnly />

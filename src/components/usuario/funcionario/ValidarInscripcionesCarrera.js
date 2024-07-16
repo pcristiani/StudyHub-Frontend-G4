@@ -30,7 +30,7 @@ export default function ValidarInscripcionesCarrera() {
 
     if (idCarrera !== "Seleccionar carrera" && idCarrera !== "" && idCarrera !== null && idCarrera !== undefined) {
       let idCarreraInt = parseInt(idCarrera, 10);
-      console.log(`IDcarrera: ${idCarreraInt}`);
+    //  console.log(`IDcarrera: ${idCarreraInt}`);
       history(`/tabla-inscripciones-carrera?id=${idCarreraInt}`);
     } else {
       swal("Información!", 'No hay carreras sin validar', "info", {

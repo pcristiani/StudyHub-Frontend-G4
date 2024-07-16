@@ -57,7 +57,7 @@ export default function ValidarEstudiantes() {
         let title = 'Estudiante validado: ' + userName + ` ` + userSurname;
         errors(resp.data, '', resp.status, false);
 
-        console.log(`Validar usuario con ID: ${usuarioId}`);
+        //   console.log(`Validar usuario con ID: ${usuarioId}`);
         setData(prevData => prevData.map(user =>
             user.id === usuarioId ? { ...user, validado: true } : user
         ));
@@ -72,17 +72,11 @@ export default function ValidarEstudiantes() {
         <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
             {/* <Card sx={{ display: 'flex', alignSelf: 'center', }}> */}
             <Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000', width: { xs: '90%', md: '610px' } }}>
-                {/* <Box sx={{ margin: 1, alignSelf: 'center' }}>
-                        <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>
-                            Validación de estudiantes
-                        </Typography>
-                    </Box> */}
                 <Box sx={{ margin: 0.2, alignSelf: 'center' }}>
                     <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Validación de estudiantes</Typography>
                 </Box>
                 <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
                     {/* <FormGroup row sx={{ display: { sm: 'flex', md: 'flex', justifyContent: "center", alignItems: "center" }, gap: 0.4, marginBottom: 2, }}>
-                     
                         <FormControlLabel
                             control={<Checkbox color="neutral" size="sm" variant="outlined" checked={dense} />
                             } sx={{ gap: 1 }} label="Vista compacta" onChange={(event) => setDense(event.target.checked)} />
@@ -104,11 +98,8 @@ export default function ValidarEstudiantes() {
                                                 </IconButton>
                                             </Tooltip>
                                         </ListItemAvatar>}>
-                                        {/* <ListItemAvatar>
-                                            <AccountCircleSharpIcon fontSize='large' />
-                                        </ListItemAvatar> */}
-                                        <ListItemAvatar>
 
+                                        <ListItemAvatar>
                                             <GroupAddRoundedIcon />
                                         </ListItemAvatar>
                                         <h4 className='list-item-text'>
@@ -139,9 +130,6 @@ export default function ValidarEstudiantes() {
                                             {`${usuario.nombre} ${usuario.apellido}`}
                                             <h4 className='list-item-sub'>{secondary ? `Cedula: ${usuario.cedula}` : `Cedula: ${usuario.cedula}`}</h4>
                                         </h4>
-                                        {/* <ListItemText
-                                                primary={`${usuario.nombre} ${usuario.apellido}`}
-                                                secondary={secondary ? `Cedula: ${usuario.cedula}` : null} /> */}
                                     </ListItem>
                                 ))}
                             </List>

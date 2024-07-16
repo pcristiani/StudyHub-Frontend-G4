@@ -59,7 +59,7 @@ export default function InfoUsuario() {
 				<Box component="form" sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
 					<Stack>
 						<Stack>
-							<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
+							<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 								<Input size="sm" id="nombre" name="nombre" defaultValue={userData.nombre} readOnly />
 								<Input size="sm" id="apellido" name="apellido" defaultValue={userData.apellido} readOnly />
 								<Input size="sm" id="cedula" name="cedula" defaultValue={userData.cedula} readOnly />
