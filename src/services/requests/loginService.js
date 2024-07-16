@@ -22,12 +22,14 @@ export const getToken = async (cedula, password) => {
 }
 
 
+
+///
+
 // Cierra la sesion del usuario
 export const cerrarSesion = async (jwtLogin) => {
     try {
         let response = await axios.post(URL_BACK.cerrarSesion, jwtLogin);
         if (response.status === 200) {
-            //    console.log(response.data);
             return response.data;
         }
     } catch (error) {
@@ -36,6 +38,7 @@ export const cerrarSesion = async (jwtLogin) => {
         });
     }
 }
+
 
 
 ///
@@ -55,7 +58,6 @@ export const modificarPassword = async (idUsuario, newPassword, jwtLogin) => {
 
         let response = await axios.request(reqOptions);
         if (response.status === 200) {
-            // console.log("Se cambio la passwords: ", response.data);
             return response.data;
         } else {
             swal("¡Advertencia!", 'Error al modificar la contraseña', "error", {
@@ -70,11 +72,12 @@ export const modificarPassword = async (idUsuario, newPassword, jwtLogin) => {
 }
 
 
+///
 
 export const registerUsr = async (nombre, apellido, email, fechaNacimiento, cedula, password, rol, jwtLogin) => {
     let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": rol };
 
-    try { 
+    try {
         let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
@@ -91,33 +94,3 @@ export const registerUsr = async (nombre, apellido, email, fechaNacimiento, cedu
         return error.response;
     }
 }
-
-
-
-// async function registerUsr(nombre, apellido, email, fechaNacimiento, cedula, password, rol) {
-//     let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": rol };
-//     let response = await fetch(URL_BACK.registerUsr, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${user.jwtLogin}`,
-//         },
-//         body: JSON.stringify(body)
-//     })
-
-//     if (response.ok) {
-//         console.log("response: ", response);
-//         swal({
-//             title: "Su usuario queda pendiente de validación\n\n",
-//             text: "\nNombre: " + nombre + " " + apellido + "\nCedula: " + cedula,
-//             icon: "success",
-//             position: "center",
-//             timer: 4000
-//         });
-//         history('/');
-//     } else {
-//         swal("¡Advertencia!", 'Los datos ingresados son incorrectos', "error", {
-//             timer: 3000
-//         });
-//     }
-// };

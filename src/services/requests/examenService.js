@@ -134,7 +134,7 @@ export const getAsignaturasConExamenPendiente = async (idEstudiante, idCarrera, 
 //     return await response.json();
 // };
 export const getExamenesAsignaturaPorAnio = async (idAsignatura, anio, jwtLogin) => {
-      try {
+    try {
         let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
@@ -166,7 +166,6 @@ export const cambiarResultadoExamen = async (idCursadaExamen, calificacion, jwtL
         }
 
         let response = await axios.request(reqOptions);
-        //   console.log(response.data);
         return response;
     } catch (error) {
         return error.response;

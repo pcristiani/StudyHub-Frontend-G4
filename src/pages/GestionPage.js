@@ -117,7 +117,7 @@ const GestionPage = () => {
 			doc.setFontSize(14);
 			doc.setFont('helvetica', 'bold');
 			let resultCalificaciones = await getCalificacionesAsignaturas(user.id, idCarrera, user.jwtLogin);
-			console.log("Calificaciones: ", resultCalificaciones);
+			// console.log("Calificaciones: ", resultCalificaciones);
 
 			if (resultCalificaciones && resultCalificaciones.length > 0) {
 				//  resultCalificaciones.data !== undefined && resultCalificaciones !== '' && resultCalificaciones.status !== 200) {
@@ -146,10 +146,8 @@ const GestionPage = () => {
 			let calificacionExamen = 0;
 			y += 10;
 			const resultExamenes = await getCalificacionesExamenes(user.id, idCarrera, user.jwtLogin);
-			console.log("Examenes: ", resultExamenes);
 
 			if (resultExamenes && resultExamenes.length > 0) {
-
 				let tieneExamen = true;
 				resultExamenes.forEach(notasx => {
 					if (notasx.calificacion !== 0) {
@@ -200,11 +198,9 @@ const GestionPage = () => {
 				setPdfUrl(url);
 			} else {
 				let title = "No hay calificaciones para la carrera seleccionada.";
-
 				errors(title, title, 400, false);
 			}
 		}
-
 		catch (error) {
 			console.log("Error: ", error);
 		}

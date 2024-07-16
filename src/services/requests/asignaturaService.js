@@ -70,15 +70,12 @@ export const getAsignaturasNoAprobadas = async (idEstudiante, jwtLogin) => {
 		'Content-Type': 'application/json',
 		'Authorization': `Bearer ${jwtLogin}`
 	}
-
 	let response = await fetch(url + idEstudiante, {
 		method: "GET",
 		headers: headersList
 	});
 
 	const data = await response.json();
-
-	console.log("Asignaturas no aprobadas: ", data);
 	return data;
 }
 
@@ -89,7 +86,6 @@ export const getAsignaturasAprobadas = async (idEstudiante, jwtLogin) => {
 		'Content-Type': 'application/json',
 		'Authorization': `Bearer ${jwtLogin}`
 	}
-
 	let response = await fetch(url + idEstudiante, {
 		method: "GET",
 		headers: headersList
@@ -142,7 +138,6 @@ export const getDocentesByAsignatura = async (idAsignatura, jwtLogin) => {
 		'Content-Type': 'application/json',
 		'Authorization': `Bearer ${jwtLogin}`
 	}
-
 	let response = await fetch(url + idAsignatura, {
 		method: "GET",
 		headers: headersList
@@ -371,8 +366,9 @@ export const getActaAsignatura = async (idHorarioAsignatura, jwtLogin) => {
 	}
 }
 
-///
 
+
+///
 export const getAsignaturaById = async (idAsignatura, jwtLogin) => {
 	try {
 		let headersList = {
@@ -416,7 +412,6 @@ export const getAsignaturasDeEstudiante = async (idEstudiante, jwtLogin) => {
 }
 
 export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
-
 	try {
 		let headersList = {
 			'Content-Type': 'application/json',
@@ -427,26 +422,9 @@ export const getAsignaturasDeCarrera = async (idCarrera, jwtLogin) => {
 			method: "GET",
 			headers: headersList,
 		};
-
 		let response = await axios.request(reqOptions);
-	//	console.log("Asignaturas de carrera: ", response.data.body);
 		return response.data.body;
 	} catch (error) {
 		return error.response;
 	}
-
-
-	// let headersList = {
-	// 	'Content-Type': 'application/json',
-	// 	'Authorization': `Bearer ${jwtLogin}`
-	// }
-
-	// let response = await fetch(url + idCarrera, {
-	// 	method: "GET",
-	// 	headers: headersList
-	// });
-
-	// const data = await response.json();
-	// console.log("Asignaturas de carrera: ", data);
-	// return data.body;
 }

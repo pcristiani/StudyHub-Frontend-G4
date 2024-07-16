@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ListadoCarreras from '../components/busqueda/ListadoCarreras';
 import Stack from '@mui/joy/Stack';
 

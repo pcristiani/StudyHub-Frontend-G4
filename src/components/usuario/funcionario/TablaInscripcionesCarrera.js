@@ -20,7 +20,6 @@ export default function TablaInscripcionesCarrera() {
   const history = useNavigate();
   const [error, setError] = useState(null);
   const [estudianteData, setEstudianteData] = useState([]);
-
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
@@ -55,7 +54,6 @@ export default function TablaInscripcionesCarrera() {
       setError(error.message);
     }
   }
-
 
 
   const handleValidar = async (idEstudiante) => {

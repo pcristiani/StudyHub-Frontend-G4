@@ -31,15 +31,14 @@ export default ({ dot, width, height }) => {
             {dot !== ""
                 ? [
                     <Graphviz
-                    dot={dot}
-                    options={{
-                        useWorker: false,
-                        ...style,
-                            zoom: true,                      
+                        dot={dot}
+                        options={{
+                            useWorker: false,
+                            ...style,
+                            zoom: true,
                             //...props
                         }}
                         ref={graphvizRoot}
-                       
                     />
                 ]
                 : null

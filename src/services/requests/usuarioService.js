@@ -47,6 +47,7 @@ export const getUsuarios = async (jwtLogin) => {
 };
 
 
+
 ///
 // Devuelve los datos de todos los usuarios
 export const getDocentes = async (jwtLogin) => {
@@ -68,6 +69,7 @@ export const getDocentes = async (jwtLogin) => {
       throw error;
    }
 };
+
 
 
 ///
@@ -113,6 +115,7 @@ export const modificarDatosUsuario = async (idUsuario, nombre, apellido, email, 
       console.error('Error al realizar el PUT:', error);
    }
 };
+
 
 
 ///
@@ -176,6 +179,7 @@ export const registrarUsuario = async (nombre, apellido, cedula, password, email
       });
    }
 };
+
 
 
 ///
