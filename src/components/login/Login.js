@@ -64,9 +64,9 @@ function Login() {
 		let password = data.get('password');
 
 		// console.log("log", !isNaN(password));
-		if (isNaN(password)) {
-			password = "\"" + password + "\"";
-		}
+		// if (isNaN(password)) {
+		// 	password = "\"" + password + "\"";
+		// }
 
 		async function validarLogin() {
 			const response = await getToken(cedula, password);

@@ -46,7 +46,7 @@ export const cerrarSesion = async (jwtLogin) => {
 export const modificarPassword = async (idUsuario, newPassword, jwtLogin) => {
     try {
         let headersList = {
-            'Content-Type': 'application/json',
+            'Content-Type': 'text/plain',
             'Authorization': `Bearer ${jwtLogin}`,
         }
         let reqOptions = {
