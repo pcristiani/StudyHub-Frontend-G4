@@ -52,7 +52,7 @@ export const getCarreraById = async (idCarrera, jwtLogin) => {
         };
 
         let response = await axios.request(reqOptions);
-        console.log("Datos de la Carrera: ", response.data);
+  //      console.log("Datos de la Carrera: ", response.data);
         return response;
     } catch (error) {
         return error.response;
@@ -77,7 +77,7 @@ export const asignarCoordinadorCarrera = async (idUsuario, idCarrera, jwtLogin) 
 
         let response = await axios.request(reqOptions);
         if (response.status === 200) {
-            console.log("Se cambio la passwords: ", response.data);
+          //  console.log("Se cambio la passwords: ", response.data);
             return response.data;
         } else {
             swal("¡Advertencia!", 'Error al modificar la contraseña', "error", {

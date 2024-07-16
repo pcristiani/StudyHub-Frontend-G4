@@ -63,12 +63,17 @@ function Login() {
 		let cedula = data.get('cedula');
 		let password = data.get('password');
 
+		// console.log("log", !isNaN(password));
+		if (isNaN(password)) {
+			password = "\"" + password + "\"";
+		}
+
 		async function validarLogin() {
 			const response = await getToken(cedula, password);
 			let payload = null;
 			if (response.status === 200) {
 				payload = decodificaJwt(response.data);
-				getInfoUsuario(payload, response.data).then(() => {					
+				getInfoUsuario(payload, response.data).then(() => {
 				});
 			} else {
 				errors(response.data, response.data, response.status);

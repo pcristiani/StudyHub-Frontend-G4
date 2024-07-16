@@ -27,7 +27,7 @@ export const cerrarSesion = async (jwtLogin) => {
     try {
         let response = await axios.post(URL_BACK.cerrarSesion, jwtLogin);
         if (response.status === 200) {
-        //    console.log(response.data);
+            //    console.log(response.data);
             return response.data;
         }
     } catch (error) {
@@ -55,7 +55,7 @@ export const modificarPassword = async (idUsuario, newPassword, jwtLogin) => {
 
         let response = await axios.request(reqOptions);
         if (response.status === 200) {
-            console.log("Se cambio la passwords: ", response.data);
+            // console.log("Se cambio la passwords: ", response.data);
             return response.data;
         } else {
             swal("¡Advertencia!", 'Error al modificar la contraseña', "error", {
@@ -73,18 +73,8 @@ export const modificarPassword = async (idUsuario, newPassword, jwtLogin) => {
 
 export const registerUsr = async (nombre, apellido, email, fechaNacimiento, cedula, password, rol, jwtLogin) => {
     let body = { "nombre": nombre, "apellido": apellido, "email": email, "fechaNacimiento": fechaNacimiento, "cedula": cedula, "password": password, "rol": rol };
-    try {
 
-        // let response = await fetch(URL_BACK.registerUsr, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer ${user.jwtLogin}`,
-        //     },
-        //     body: JSON.stringify(body)
-        // })
-
-
+    try { 
         let headersList = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwtLogin}`,
@@ -95,9 +85,7 @@ export const registerUsr = async (nombre, apellido, email, fechaNacimiento, cedu
             headers: headersList,
             data: body
         }
-
         let response = await axios.request(reqOptions);
-        //  console.log(response);
         return response;
     } catch (error) {
         return error.response;
