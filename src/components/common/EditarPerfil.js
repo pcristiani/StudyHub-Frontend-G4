@@ -12,7 +12,6 @@ import { AuthContext } from '../../context/AuthContext';
 import { getUsuario, modificarPerfilUsuario } from "../../services/requests/usuarioService";
 import { types } from '../../context/types';
 
-
 const DatosRol = [
 	{ cod: `A`, rol: `Administrador` },
 	{ cod: `C`, rol: `Coordinador` },
@@ -103,11 +102,12 @@ function EditarPerfil() {
 					<Stack>
 						<Stack>
 							<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
-								<Input size="sm" id="nombre" name="nombre" defaultValue={userData.nombre} />
-								<Input size="sm" id="apellido" name="apellido" defaultValue={userData.apellido} />
-								<Input size="sm" id="cedula" name="cedula" defaultValue={userData.cedula} readOnly />
-								<Input size="sm" id="fechanacimiento" name="fechanacimiento" type="date" placeholder="Fecha nacimientos:" defaultValue={userData.fechaNacimiento} />
-								<Input size="sm" id="email" name="email" type="email" defaultValue={userData.email} />
+								<Input size="sm" id="nombre" name="nombre" defaultValue={userData.nombre} required />
+								<Input size="sm" id="apellido" name="apellido" defaultValue={userData.apellido} required />
+								<Input size="sm" id="cedula" name="cedula" defaultValue={userData.cedula} noWrap readOnly />
+								
+								<Input size="sm" id="fechanacimiento" name="fechanacimiento" type="date" placeholder="Fecha nacimientos:" defaultValue={userData.fechaNacimiento} required />
+								<Input size="sm" id="email" name="email" type="email" defaultValue={userData.email} required />
 								{user.rol === "C" ? <Input size="sm" id="rol" name="rol" defaultValue='Coordinador' readOnly />
 									: user.rol === "A" ? <Input size="sm" id="rol" name="rol" defaultValue='Administrador' readOnly />
 										: user.rol === "F" ? <Input size="sm" id="rol" name="rol" defaultValue='Funcionario' readOnly />
@@ -118,7 +118,7 @@ function EditarPerfil() {
 						</Stack>
 					</Stack>
 					<Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
-						<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
+						<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
 						<Button size="sm" fullWidth variant="outlined" color="neutral" component="a" href='/'>Cancelar</Button>
 					</Stack>
 				</Box>

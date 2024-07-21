@@ -33,8 +33,15 @@ body {
 
 Input::-webkit-calendar-picker-indicator {
   filter: invert(1) brightness(70%) sepia(100%) saturate(10000%) hue-rotate(180deg) contrast(0.1);
-
 }
+
+Input[readonly] {
+  user-select: none; /* Evita la selección de texto */
+  pointer-events: none; /* Evita la interacción del usuario */
+  background-color: transparent; /* Opcional: hace el fondo transparente */
+  /* border: none; Opcional: elimina el borde */
+}
+
 
 .logo-desktop {
   max-width: 70px;

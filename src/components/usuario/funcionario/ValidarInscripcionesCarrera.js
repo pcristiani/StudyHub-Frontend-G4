@@ -83,7 +83,7 @@ export default function ValidarInscripcionesCarrera() {
             </FormControl>
 
             <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
-              <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Continuar</Button>
+              <Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Continuar</Button>
             </Stack>
           </Stack>
         </Card>

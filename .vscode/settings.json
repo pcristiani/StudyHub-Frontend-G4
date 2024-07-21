@@ -5,5 +5,6 @@
         "exportScale": 1,
         "exportWithBackground": true,
         "exportWithDarkMode": false
-    }
+    },
+    "scm.experimental.showHistoryGraph": true
 }

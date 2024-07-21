@@ -94,15 +94,18 @@ export default function TableAdministrador() {
 
 
   return (
-    <Box sx={{ minHeight: '20vh', maxWidth: '600px' }}>
-      <Typography level="body-sm" color='neutral' textAlign="center" sx={{ pb: 1 }}>
+    <Box sx={{ minHeight: '20vh', maxWidth: '550px' }}>
+      {/* <Typography level="body-sm" color='neutral' textAlign="center" sx={{ pb: 1 }}>
         ← Funcionarios y Coordinadores →
-      </Typography>
+      </Typography> */}
+      <Box sx={{ margin: 0.6, alignSelf: 'center', pb: 1.2 }}>
+        <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Funcionarios y Coordinadores</Typography>
+      </Box>
       <Sheet
         variant="outlined"
         sx={{
           '--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
-          '--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '75px',
+          '--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '60px',
           '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
           borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
           background: (theme) =>

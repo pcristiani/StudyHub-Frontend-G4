@@ -21,6 +21,7 @@ import logo from '../../img/logo.png';
 function Register() {
 	const { user } = useContext(AuthContext);
 	const history = useNavigate();
+	const today = new Date().toISOString().split('T')[0];
 
 	// const handleSubmit = (event) => {
 	async function handleSubmit(event) {
@@ -48,7 +49,6 @@ function Register() {
 			errors(title, resp.data, resp.status, true);
 		}
 	};
-
 	return (
 		<Sheet>
 			<Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
@@ -58,12 +58,12 @@ function Register() {
 					</div>
 					<h2 component="h1" variant="h4" style={{ textAlign: 'center' }}>Registrarse</h2>
 					<Typography level="body-sm" sx={{ textAlign: 'center' }}>Ingresa la información de tu cuenta</Typography>
-					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px', spacing: 4 }}>
+					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px', spacing: 4, zIndex: '1000' }}>
 						<Stack spacing={0.6}>
 							<Input size="sm" autoComplete="given-name" name="nombre" fullWidth id="nombre" placeholder="Nombre" autoFocus required />
 							<Input size="sm" required id="apellido" name="apellido" fullWidth placeholder="Apellido" autoComplete="family-name" />
 							<Input size="sm" required id="email" name="email" fullWidth placeholder="Email" autoComplete="email" />
-							<Input size="sm" id="fechaNacimiento" name="fechaNacimiento" fullWidth type='date' />
+							<Input size="sm" id="fechaNacimiento" name="fechaNacimiento" fullWidth type='date' defaultValue={today} required />
 							<Input size="sm" required id="cedula" name="cedula" fullWidth placeholder="Cédula" autoComplete="family-name" />
 							<Input size="sm" required name="password" type="password" id="password" fullWidth autoComplete="new-password" placeholder="Contraseña" />
 							<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d', zIndex: '1000' }} variant="soft">

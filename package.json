@@ -16,7 +16,7 @@
     "@mui/x-charts": "7.7.1",
     "@mui/x-date-pickers": "7.7.1",
     "@testing-library/react": "16.0.0",
-    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/react": "3.0.0",
     "axios": "1.7.2",
     "body-parser": "1.20.2",
     "bootstrap": "5.3.3",
