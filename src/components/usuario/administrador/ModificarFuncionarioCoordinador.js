@@ -104,7 +104,7 @@ export default function ModificarFuncionarioCoordinador() {
     };
 
     return (
-        <Box component="form" sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleModificar}>
+        <Box component="form" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} onSubmit={handleModificar}>
             <Card sx={{ display: 'flex', alignSelf: 'center', }}>
                 <Box sx={{ margin: 0.6, alignSelf: 'center' }}>
                     <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Modificar Funcionario - Coordinador</Typography>
@@ -116,8 +116,8 @@ export default function ModificarFuncionarioCoordinador() {
                     <Input size="sm" id="cedula" name="cedula" placeholder="Cedula:" required defaultValue={userData.cedula} />
                     <Input size="sm" id="email" name="email" type="email" placeholder="Email:" required defaultValue={userData.email} />
                     <Input size="sm" id="fecha" name="fecha" type="date" placeholder="Fecha nacimientos:" defaultValue={userData.fechaNacimiento} />
-                    <Divider />
-                    <div marginTop={1}>
+                    {/* <Divider /> */}
+                    <div marginTop={0}>
                         <SelectProps size="sm" id="rol" name="rol" defaultValue={userData.rol} >
                             {DatosRol.map((strRol, index) => (
                                 <Option key={index} value={strRol.cod}>{strRol.rol}</Option>
@@ -125,7 +125,7 @@ export default function ModificarFuncionarioCoordinador() {
                         </SelectProps>
                     </div>
                 </FormControl>
-                <Stack direction="row" spacing={0.8} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
+                <Stack direction="row" spacing={0.6} sx={{ marginTop: 0, justifyContent: 'right', zIndex: '1000' }}>
                     <Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Guardar</Button>
                     <Button size="sm" fullWidth variant="outlined" color="neutral" onClick={() => handleCancelar()}>Cancelar</Button>
                 </Stack>

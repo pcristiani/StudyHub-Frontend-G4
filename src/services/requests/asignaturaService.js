@@ -97,14 +97,14 @@ export const getAsignaturasAprobadas = async (idEstudiante, jwtLogin) => {
 
 
 ///
-export const altaAsignatura = async (nombre, creditos, descripcion, departamento, previaturas, idCarrera, idDocente, jwtLogin) => {
+export const altaAsignatura = async (nombre, creditos, descripcion, departamento, previaturas, idCarrera, idDocente, asignaturaConExamen, jwtLogin) => {
 	try {
 		let body = {
 			"nombre": nombre,
 			"creditos": creditos,
 			"descripcion": descripcion,
 			"departamento": departamento,
-			"tieneExamen": true,
+			"tieneExamen": asignaturaConExamen,
 			"activa": true,
 			"previaturas": previaturas,
 			"idCarrera": idCarrera,

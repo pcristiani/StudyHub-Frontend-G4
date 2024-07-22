@@ -18,6 +18,7 @@ import { getCarreras } from '../../../services/requests/carreraService';
 import { getAsignaturasDeCarrera, altaAsignatura } from '../../../services/requests/asignaturaService';
 import { getDocentes } from '../../../services/requests/usuarioService';
 import { errors } from '../../../services/util/errors';
+import { SelectProps } from '../../common/SelectProps';
 
 
 export default function AltaAsignatura() {
@@ -28,6 +29,13 @@ export default function AltaAsignatura() {
 	const [asignaturaData, setAsignaturaData] = useState([]);
 	const [error, setError] = useState(null);
 	const [selectedCarrera, setSelectedCarrera] = useState('');
+	const [selectedExamen, setSelectedExamen] = useState('');
+
+
+	const tieneExamen = [
+		{ value: true, label: 'Tiene examen' },
+		{ value: false, label: 'No tiene examen' },
+	];
 
 
 	useEffect(() => {
@@ -101,12 +109,12 @@ export default function AltaAsignatura() {
 		const nroComoString = idPrev.slice(1, -1).split(',');
 		const arrayPrevias = nroComoString.map(Number).filter(item => item !== 0);
 
-		let resp = await altaAsignatura(nombre, creditos, descripcion, departamento, arrayPrevias, idCarrera, arrayPreviasDocente, user.jwtLogin);
-	
+		let resp = await altaAsignatura(nombre, creditos, descripcion, departamento, arrayPrevias, idCarrera, arrayPreviasDocente, selectedExamen, user.jwtLogin);
+
 		if (resp.status === 200) {
 			let title = "¡Asignatura registada!\n\n";
-			errors(title, resp.data, resp.status,true);
-				} else {
+			errors(title, resp.data, resp.status, true);
+		} else {
 			console.log("Error: ", resp);
 			errors(resp.data, resp.data, resp.status);
 		}
@@ -158,7 +166,13 @@ export default function AltaAsignatura() {
 								<Option key={index} value={docente.idDocente}>{docente.nombre}</Option>
 							))}
 						</Select>
-
+						<SelectProps size="sm" value={selectedExamen} onChange={(event, newValue) => setSelectedExamen(newValue)} placeholder="Seleccionar si tiene examen" id="examen" name="examen" required>
+							{tieneExamen.map((examen) => (
+								<Option key={examen.value} value={examen.value}>
+									{examen.label}
+								</Option>
+							))}
+						</SelectProps>
 						{/* <Divider /> */}
 						<Input size="sm" id="nombre" name="nombre" placeholder="Nombre" required />
 						<Input size="sm" id="creditos" name="creditos" placeholder="Créditos" required />

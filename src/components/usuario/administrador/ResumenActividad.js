@@ -24,8 +24,6 @@ import { useNavigate } from 'react-router-dom';
 import Dropdown from '@mui/joy/Dropdown';
 import { formatFecha } from '../../../services/util/formatoFecha';
 import ListDivider from '@mui/joy/ListDivider';
-import ListItemDecorator from '@mui/joy/ListItemDecorator';
-import Check from '@mui/icons-material/Check';
 const filters = createFilterOptions();
 
 function descendingComparator(a, b, orderBy) {
