@@ -195,12 +195,12 @@ export default function Header() {
          <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', }}>
             {/* <Stack direction="row" width={'100%'} justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'none', sm: 'flex', md: 'flex' } }}> */}
             <Stack direction="row" justifyContent="center" alignItems="center" spacing={0} sx={{ display: { xs: 'none', sm: 'flex' } }}>
-               <IconButton size="md" sx={{ display: { xs: 'none', sm: 'flex' }, }}>
-                  <img className="logo-navbar mx-1" src={Logo} alt="ico" />
-                  <Nav.Link href={URI_FRONT.homeUri}>
+               <Nav.Link href={URI_FRONT.homeUri}>
+                  <IconButton size="md" sx={{ display: { xs: 'none', sm: 'flex' }, }}>
+                     <img className="logo-navbar mx-1" src={Logo} alt="ico" />
                      <DialogTitle>StudyHub</DialogTitle>
-                  </Nav.Link>
-               </IconButton>
+                  </IconButton>
+               </Nav.Link>
                <Button variant="plain" color="neutral" component="a" href={URI_FRONT.planEstudiosUri} size="sm" sx={{ alignSelf: 'center' }}>
                   Plan de estudios
                </Button>
