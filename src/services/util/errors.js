@@ -1,6 +1,7 @@
 import swal from 'sweetalert';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
 
+
 const errors = async (mensaje, text, status, redirect) => {
     let errorTitle = '', errorText = '';
 
@@ -97,7 +98,6 @@ function isNull(valor) {
 
 
 export { errors, isNull };
-
 
 // let title = "¡Fecha de examen registrada!\n\n";
 // errors(title, restul.data, restul.status);

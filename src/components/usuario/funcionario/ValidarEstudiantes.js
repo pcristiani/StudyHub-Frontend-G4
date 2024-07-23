@@ -4,23 +4,19 @@ import Box from '@mui/joy/Box';
 import List from '@mui/joy/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/joy/Checkbox';
 import Grid from '@mui/joy/Grid';
-import Divider from '@mui/joy/Divider';
 import { getEstudiantesPendientes, acceptEstudiante } from '../../../services/requests/estudianteService';
-
 import { AuthContext } from '../../../context/AuthContext';
 import Tooltip from '@mui/joy/Tooltip';
 import IconButton from '@mui/material/IconButton';
-import { TaskAltRounded, AccountCircle } from '@mui/icons-material';
+import PersonRemoveRoundedIcon from '@mui/icons-material/PersonRemoveRounded';
+import PersonAddAlt1RoundedIcon from '@mui/icons-material/PersonAddAlt1Rounded';
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
 import { errors } from '../../../services/util/errors';
-import GroupAddRoundedIcon from '@mui/icons-material/GroupAddRounded';
+import {formatoCi} from '../../../services/util/formatoCi';
+
 
 const Demo = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -42,6 +38,7 @@ export default function ValidarEstudiantes() {
                     nombre: user.nombre,
                     apellido: user.apellido,
                     cedula: user.cedula,
+                    activo: user.activo,
                     validado: user.validado
                 })));
             } catch (error) {
@@ -51,19 +48,26 @@ export default function ValidarEstudiantes() {
         fetchValidarEstudiantes();
     }, []);
 
-    // const handleValidateClick = (usuarioId) => {
+
     const handleValidateClick = async (usuarioId, userName, userSurname) => {
-        const resp = await acceptEstudiante(usuarioId, user.jwtLogin);
+        const resp = await acceptEstudiante(usuarioId, true, user.jwtLogin);
         let title = 'Estudiante validado: ' + userName + ` ` + userSurname;
         errors(resp.data, '', resp.status, false);
-
-        //   console.log(`Validar usuario con ID: ${usuarioId}`);
         setData(prevData => prevData.map(user =>
             user.id === usuarioId ? { ...user, validado: true } : user
         ));
     };
 
-    const usuariosNoValidados = data.filter(info => !info.validado);
+    const handleCancelarClick = async (usuarioId, userName, userSurname) => {
+        const resp = await acceptEstudiante(usuarioId, false, user.jwtLogin);
+        let title = 'Estudiante inhabilitado';
+        errors(title, '', resp.status, false);
+
+        setData(prevData => prevData.map(user =>
+            user.id === usuarioId ? { ...user, validado: true } : user
+        ));
+    };
+    const usuariosNoValidados = data.filter(info => !info.validado && info.activo);
     const mitad = Math.ceil(usuariosNoValidados.length / 2);
     const primeraMitad = usuariosNoValidados.slice(0, mitad);
     const segundaMitad = usuariosNoValidados.slice(mitad);
@@ -75,62 +79,82 @@ export default function ValidarEstudiantes() {
                 <Box sx={{ margin: 0.2, alignSelf: 'center' }}>
                     <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Validación de estudiantes</Typography>
                 </Box>
-                <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-                    {/* <FormGroup row sx={{ display: { sm: 'flex', md: 'flex', justifyContent: "center", alignItems: "center" }, gap: 0.4, marginBottom: 2, }}>
-                        <FormControlLabel
-                            control={<Checkbox color="neutral" size="sm" variant="outlined" checked={dense} />
-                            } sx={{ gap: 1 }} label="Vista compacta" onChange={(event) => setDense(event.target.checked)} />
-                        <FormControlLabel
-                            control={<Checkbox color="neutral" size="sm" variant="outlined" checked={secondary} />
-                            } sx={{ gap: 1 }} label="Más información" onChange={(event) => setSecondary(event.target.checked)} />
-                    </FormGroup> */}
-                    <Divider />
-
-                    <Grid container spacing={1} justifyContent="center" alignItems="center" sx={{ width: { xs: '100%', md: '610px' }, alignSelf: 'center' }}>
+                <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'left' }}>
+                    <Grid container spacing={3} justifyContent="center" alignItems="center" sx={{ width: { xs: '100%', md: '610px' }, alignSelf: 'center' }}>
                         <Grid item xs={12} md={6}>
                             <List dense={dense}>
                                 {primeraMitad.map(usuario => (
-                                    <ListItem key={usuario.id} secondaryAction={
-                                        <ListItemAvatar edge="end" aria-label="validate" onClick={() => handleValidateClick(usuario.id)}>
-                                            <Tooltip title="Validar cuenta estudiante" variant="plain" color="success">
-                                                <IconButton aria-label="save" size="medium" color="success">
-                                                    <TaskAltRounded fontSize="inherit" />
-                                                </IconButton>
-                                            </Tooltip>
-                                        </ListItemAvatar>}>
-
-                                        <ListItemAvatar>
-                                            <GroupAddRoundedIcon />
-                                        </ListItemAvatar>
-                                        <h4 className='list-item-text'>
-                                            {`${usuario.nombre} ${usuario.apellido}`}
-                                            <h4 className='list-item-sub'>
-                                                {secondary ? `Cedula: ${usuario.cedula}` : `Cedula: ${usuario.cedula}`}
-                                            </h4>
-                                        </h4>
-                                    </ListItem>
+                                    <>
+                                        {(usuario.activo) ?
+                                            <ListItem key={usuario.id} secondaryAction={
+                                                <>
+                                                    <Stack direction="row" spacing={-2.5} sx={{ marginTop: 1, justifyContent: 'left', zIndex: '1000' }}>
+                                                        <ListItemAvatar edge="end" aria-label="validate" onClick={() => handleValidateClick(usuario.id)}>
+                                                            <Tooltip title="Validar usuario" variant="plain" color="success">
+                                                                <IconButton aria-label="save" size="md" variant="plain" color="inherit">
+                                                                    <PersonAddAlt1RoundedIcon fontSize="inherit" />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </ListItemAvatar>
+                                                        <ListItemAvatar edge="end" aria-label="validate" onClick={() => handleCancelarClick(usuario.id)}>
+                                                            <Tooltip title="Inhabilitar usuario" variant="plain" color="danger">
+                                                                <IconButton aria-label="save" size="md" variant="plain" color="inherit">
+                                                                    <PersonRemoveRoundedIcon fontSize="inherit" />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </ListItemAvatar>
+                                                    </Stack>
+                                                </>}>
+                                                <h4 className='list-item-text'>
+                                                    {`${usuario.nombre} ${usuario.apellido}`}
+                                                    <h4 className='list-item-sub'>
+                                                        {secondary ? `Cedula:  ${formatoCi(usuario.cedula)}` : `Cedula: ${formatoCi(usuario.cedula)}`}
+                                                    </h4>
+                                                </h4>
+                                                {/* {formatoCi(estudiante.cedula)} */}
+                                            </ListItem>
+                                            :
+                                            null
+                                        }
+                                    </>
                                 ))}
                             </List>
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <List dense={dense}>
                                 {segundaMitad.map(usuario => (
-                                    <ListItem key={usuario.id} secondaryAction={
-                                        <ListItemAvatar edge="end" aria-label="validate" onClick={() => handleValidateClick(usuario.id, usuario.nombre, usuario.apellido)}>
-                                            <Tooltip title="Validar cuenta estudiante" variant="plain" color="success">
-                                                <IconButton aria-label="save" size="medium" color="success">
-                                                    <TaskAltRounded fontSize="inherit" />
-                                                </IconButton>
-                                            </Tooltip>
-                                        </ListItemAvatar>}>
-                                        <ListItemAvatar>
-                                            <GroupAddRoundedIcon />
-                                        </ListItemAvatar>
-                                        <h4 className='list-item-text'>
-                                            {`${usuario.nombre} ${usuario.apellido}`}
-                                            <h4 className='list-item-sub'>{secondary ? `Cedula: ${usuario.cedula}` : `Cedula: ${usuario.cedula}`}</h4>
-                                        </h4>
-                                    </ListItem>
+                                    <>
+                                        {(usuario.activo) ?
+                                            <ListItem key={usuario.id} secondaryAction={
+                                                <>
+                                                    <Stack direction="row" spacing={-3} sx={{ marginTop: 0, justifyContent: 'left', zIndex: '1000' }}>
+                                                        <ListItemAvatar edge="end" aria-label="validate" onClick={() => handleValidateClick(usuario.id)}>
+                                                            <Tooltip title="Validar usuario" variant="plain" color="success">
+                                                                <IconButton aria-label="save" size="md" variant="plain" color="inherit">
+                                                                    <PersonAddAlt1RoundedIcon fontSize="inherit" />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </ListItemAvatar>
+                                                        <ListItemAvatar edge="start" aria-label="validate" onClick={() => handleCancelarClick(usuario.id)}>
+                                                            <Tooltip title="Inhabilitar usuario" variant="plain" color="danger">
+                                                                <IconButton aria-label="save" size="md" variant="plain" color="inherit">
+                                                                    <PersonRemoveRoundedIcon fontSize="inherit" />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                        </ListItemAvatar>
+                                                    </Stack>
+                                                </>}>
+                                                <h4 className='list-item-text'>
+                                                    {`${usuario.nombre} ${usuario.apellido}`}
+                                                    <h4 className='list-item-sub'>
+                                                        {secondary ? `Cedula: ${formatoCi(usuario.cedula)}` : `Cedula: ${formatoCi(usuario.cedula)}`}
+                                                    </h4>
+                                                </h4>
+                                            </ListItem>
+                                            :
+                                            null
+                                        }
+                                    </>
                                 ))}
                             </List>
                         </Grid>

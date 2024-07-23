@@ -21,7 +21,6 @@ import { CssVarsProvider } from '@mui/joy/styles';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import AccountCircleOutlined from '@mui/icons-material/AccountCircleOutlined';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
@@ -32,9 +31,8 @@ import { useNavigate } from 'react-router-dom'
 import Logo from '../../img/logo.png';
 import Apk from '../../services/android/StudyHub.apk';
 import LogoAvatar from '../../img/avatar/graduated_3135810.png';
-import { URI_FRONT, redirigir, T_ROL, URL_BACK } from '../../services/util/constants';
+import { URI_FRONT, redirigir, T_ROL } from '../../services/util/constants';
 import AdbRoundedIcon from '@mui/icons-material/AdbRounded';
-import AndroidRoundedIcon from '@mui/icons-material/AndroidRounded';
 import { AuthContext } from '../../context/AuthContext';
 import { types } from '../../context/types';
 import { cerrarSesion } from '../../services/requests/loginService';
@@ -82,6 +80,7 @@ const modifiers = [
       },
    },
 ];
+
 
 function NavMenuButton({ children, menu, open, onOpen, onLeaveMenu, label, ...props }) {
    const isOnButton = React.useRef(false);
@@ -136,7 +135,6 @@ export default function Header() {
    const idA = 'a';
    const idM = 'm';
    const idL = 'l';
-
 
    async function cerrarSesionUsuario(jwtLogin) {
       const result = await cerrarSesion(jwtLogin);
@@ -244,7 +242,6 @@ export default function Header() {
                      {
                         (user.rol === T_ROL.ESTUDIANTE) &&
                         <>
-
                            <Dropdown>
                               <MenuButton variant="plain" color="neutral" aria-pressed="false" component="a">
                                  Inscripciones
@@ -361,7 +358,8 @@ export default function Header() {
                               </MenuButton>
                            </Dropdown>
                         </>
-                     }                     {
+                     }
+                     {
                         (user.rol === T_ROL.COORDINADOR) &&
                         <>
                            <Dropdown>
@@ -403,7 +401,6 @@ export default function Header() {
                      {/* <Button variant="plain" color="neutral" component="a" href={URI_FRONT.novedadesUri} size="sm" sx={{ alignSelf: 'center' }}>
                         Novedades
                      </Button> */}
-
                      <Button variant="plain" color="neutral" component="a" href={URI_FRONT.contactoUri} size="sm" sx={{ alignSelf: 'center' }}>
                         {/* <ListItem>
                            <NavMenuButton
@@ -446,8 +443,6 @@ export default function Header() {
                {/* <MenuItem href='/' component="a" size="sw" >
                </MenuItem> */}
 
-
-
                {(user.logged) ?
                   <>
                      <Dropdown size="small">
@@ -489,7 +484,6 @@ export default function Header() {
                            </MenuItem>
                         </Menu>
                      </Dropdown>
-
                   </>
                   :
                   <>
@@ -506,7 +500,6 @@ export default function Header() {
                            <Person />
                         </IconButton>
                      </Stack>
-
                   </>
                }
             </Box>

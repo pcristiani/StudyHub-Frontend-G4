@@ -12,6 +12,7 @@ export function formatoCi(ci) {
     return ci
 }
 
+
 ///
 // Quitar los puntos y guiones de la cédula.
 export function borrarFormatoCi(ci) {

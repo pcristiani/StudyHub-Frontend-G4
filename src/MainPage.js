@@ -9,6 +9,7 @@ const init = () => {
   return userCookie ? JSON.parse(decodeURIComponent(userCookie.split('=')[1])) : { logged: false };
 }
 
+
 export const MainPage = () => {
   const [user, dispatch] = useReducer(authReducer, {}, init);
 
@@ -23,7 +24,6 @@ export const MainPage = () => {
       }}>
         <AppRouter />
       </AuthContext.Provider>
-     </>
+    </>
   )
-
 }
