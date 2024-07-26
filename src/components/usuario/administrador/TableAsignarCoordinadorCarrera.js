@@ -43,9 +43,6 @@ export default function TableAsignarCoordinadorCarrera() {
   ///
   return (
     <Box sx={{ minHeight: '20vh', maxWidth: '550px' }}>
-      {/* <Typography level="body-sm" color='neutral' textAlign="center" sx={{ pb: 1 }}>
-        ← Asignar Coordinador a carrera →
-      </Typography> */}
       <Box sx={{ margin: 0.6, alignSelf: 'center', pb: 1.2 }}>
         <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Asignar Coordinador a carrera</Typography>
       </Box>

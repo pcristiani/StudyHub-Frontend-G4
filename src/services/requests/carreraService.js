@@ -156,7 +156,7 @@ export const getInscriptosPendientes = async (idCarrera, jwtLogin) => {
 
 ///
 /// Aceptar estudiante Carrera
-export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin) => {
+export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, validado, jwtLogin) => {
     try {
         let headersList = {
             'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ export const acceptEstudianteCarrera = async (idEstudiante, idCarrera, jwtLogin)
         let body = {
             idCarrera: idCarrera,
             idEstudiante: idEstudiante,
-            validado: true
+            validado: validado
         };
         let reqOptions = {
             url: URL_BACK.acceptEstudianteCarrera,

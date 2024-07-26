@@ -255,15 +255,18 @@ export function ResumenActividad() {
       <Stack direction="row" sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', zIndex: '1000' }} spacing={2}>
         <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '520px', zIndex: '1000' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
+
           <Table aria-labelledby="tableTitle" hoverRow
             sx={{
-              '--TableCell-headBackground': 'transparent', 'cursor': 'pointer',
-              '--TableCell-selectedBackground': (theme) =>
-                theme.vars.palette.success.softBg,
+              cursor: 'pointer',
+              '--TableRow-hoverBackground': 'rgb(3, 87, 4, 0.20)',
+              '--TableCell-headBackground': 'transparent',
+              borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', overflow: 'auto',
               '& thead th:nth-child(1)': { width: '48%', },
               '& thead th:nth-child(2)': { width: '25%', },
-              '& tr > *:nth-child(n+3)': { width: '15%', textAlign: 'center' },
-            }}>
+              '& tr > *:nth-child(n+3)': { width: '15%', textAlign: 'center' }, zIndex: '1000'
+            }}
+          >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}

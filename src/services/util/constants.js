@@ -3,11 +3,11 @@ const PORT = {
   front: 3000,  // Puerto frontend
 }
 
-const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
-const uriBaseFront = `https://frontstudyhub.vercel.app`
+// const uriBaseBack = `https://studyhub-backend-production.up.railway.app`
+// const uriBaseFront = `https://frontstudyhub.vercel.app`
 
-// const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
-// const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
+const uriBaseBack = `http://localhost:${PORT.back}`     // http://localhost:8080
+const uriBaseFront = `http://localhost:${PORT.front}`   // http://localhost:3000
 
 
 // ? http://localhost:3000/
@@ -27,7 +27,7 @@ const URI_FRONT = {
   // Uri Invitado
   novedadesUri: `/novedades`,
   dashboardUri: `/dashboard-admin`,
-  //pregFrecuentesUri: `/preg-frecuentes`,
+  // pregFrecuentesUri: `/preg-frecuentes`,
   contactoUri: `/contacto`,
 
   // Uri Auth
@@ -81,18 +81,18 @@ const URL_BACK = {
   getUsuario: `${uriBaseBack}/api/usuario/getUsuario/`,  // GET
   getEstudiantesPendientes: `${uriBaseBack}/api/usuario/getEstudiantesPendientes`, // GET
   getResumenActividad: `${uriBaseBack}/api/usuario/getResumenActividad/`, // GET
-  acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,   // PUT
-  modificarUsuario: `${uriBaseBack}/api/usuario/modificarUsuario/`,   // PUT
-  modificarPerfil: `${uriBaseBack}/api/usuario/modificarPerfil/`,     // PUT
-  modificarPassword: `${uriBaseBack}/api/usuario/modificarPassword/`, // PUT
-  deleteUsuario: `${uriBaseBack}/api/usuario/bajaUsuario/`,           // DELETE
+  acceptEstudiante: `${uriBaseBack}/api/usuario/acceptEstudiante/`,       // PUT
+  modificarUsuario: `${uriBaseBack}/api/usuario/modificarUsuario/`,       // PUT
+  modificarPerfil: `${uriBaseBack}/api/usuario/modificarPerfil/`,         // PUT
+  modificarPassword: `${uriBaseBack}/api/usuario/modificarPassword/`,     // PUT
+  deleteUsuario: `${uriBaseBack}/api/usuario/bajaUsuario/`,               // DELETE
 
   // ESTUDIANTESERVICE
   getCalificacionesExamenes: `${uriBaseBack}/api/estudiante/getCalificacionesExamenes/`,       // GET
   getCalificacionesAsignaturas: `${uriBaseBack}/api/estudiante/getCalificacionesAsignaturas/`, // GET
 
   // DOCENTESERVICE
-  getDocentes: `${uriBaseBack}/api/usuario/getDocentes`,            //GET
+  getDocentes: `${uriBaseBack}/api/usuario/getDocentes`,             //GET
   getDocentesByAsignatura: `${uriBaseBack}/api/docente/getDocentesByAsignaturaId/`,  // GET
   altaDocente: `${uriBaseBack}/api/docente/altaDocente`,             // POST
   modificarDocente: `${uriBaseBack}/api/docente/modificarDocente/`,  // PUT

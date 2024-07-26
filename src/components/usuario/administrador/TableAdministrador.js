@@ -5,9 +5,6 @@ import Table from '@mui/joy/Table';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import { formatoCi, borrarFormatoCi } from '../../../services/util/formatoCi';
-
-import { TablePagination, tablePaginationClasses as classes, } from '@mui/base/TablePagination';
-
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import { getUsuarios, bajaUsuario, getUsuario, modificarDatosUsuario } from '../../../services/requests/usuarioService';
@@ -18,9 +15,11 @@ import { URI_FRONT, redirigir } from '../../../services/util/constants';
 import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
 import ToggleOnOutlinedIcon from '@mui/icons-material/ToggleOnOutlined';
 
+
 function selectValidar(id, validado) {
   return { id, validado };
 }
+
 const dataSelect = [
   selectValidar(true, "Validado"),
   selectValidar(false, "No Validado"),
@@ -95,9 +94,6 @@ export default function TableAdministrador() {
 
   return (
     <Box sx={{ minHeight: '20vh', maxWidth: '550px' }}>
-      {/* <Typography level="body-sm" color='neutral' textAlign="center" sx={{ pb: 1 }}>
-        ← Funcionarios y Coordinadores →
-      </Typography> */}
       <Box sx={{ margin: 0.6, alignSelf: 'center', pb: 1.2 }}>
         <Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Funcionarios y Coordinadores</Typography>
       </Box>
@@ -107,20 +103,32 @@ export default function TableAdministrador() {
           '--TableCell-height': '30px', '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
           '--Table-firstColumnWidth': '120px', '--Table-lastColumnWidth': '90px', '--Table-lastColumnWidth2': '60px', '--Table-buttonColumnWidth': '60px',
           '--TableRow-hoverBackground': 'rgb(3, 202, 192, 0.30)',
-          borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '12px', borderTopRightRadius: '12px', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px', overflow: 'auto',
+          borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', overflow: 'auto',
           background: (theme) =>
             `linear-gradient(to right, ${theme.vars.palette.background.surface} 30%, rgba(255, 255, 255, 0)),
         linear-gradient(to right, rgba(255, 255, 255, 0), ${theme.vars.palette.background.surface} 90%) 0 100%`,
           backgroundSize:
             '40px calc(100% - var(--TableCell-height)), 40px calc(100% - var(--TableCell-height)), 14px calc(100% - var(--TableCell-height)), 14px calc(100% - var(--TableCell-height))', backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'local, local, scroll, scroll',
-          backgroundPosition:
-            'var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height), var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height)',
+
           backgroundColor: 'background.surface',
         }}
       >
+        {/* <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '520px' }}> */}
 
-        <Table hoverRow>
+        <Table aria-labelledby="tableTitle" hoverRow
+          sx={{
+            cursor: 'pointer',
+            '--TableRow-hoverBackground': 'rgb(3, 87, 4, 0.20)',
+            '--TableCell-headBackground': 'transparent',
+            borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', overflow: 'auto',
+            '& thead th:nth-child(1)': { width: '68%', },
+            '& thead th:nth-child(2)': { width: '15%' },
+            '& tr > *:nth-child(n+3)': { width: '11%', textAlign: 'center' },
+          }}
+        >
+          
+          {/* <Table hoverRow> */}
           <thead>
             <tr>
               <th style={{ width: 'var(--Table-firstColumnWidth)' }}>Nombre</th>
