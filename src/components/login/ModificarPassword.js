@@ -41,13 +41,13 @@ export default function ModificarPassword() {
 		const dat = new FormData(event.currentTarget);
 		let newPassword = dat.get('password');
 		let newPassword2 = dat.get('password2');
-
+	
 		if (newPassword2 !== newPassword) {
 			swal("¡Advertencia!", 'Contraseñas no coinciden', "error", {
 				timer: 2000,
 			});
 		} else {
-			modificarPasswordUsuario(user.id, newPassword, user.jwtLogin);
+			modificarPasswordUsuario(user.id, newPassword2, user.jwtLogin);
 		}
 	}
 	useEffect(() => {

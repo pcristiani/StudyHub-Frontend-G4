@@ -104,10 +104,10 @@ const ForgotPassword = () => {
 	return (
 		<Sheet>
 			<Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
-				<Box sx={{ marginTop: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+				<Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 					{(!token) ?
 						<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 0 }}>
-							<Card sx={{ display: 'flex', alignSelf: 'center', }}>
+							<Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000' }}>
 								<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 									<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Verificar su identidad</Typography>
 								</Box>
@@ -124,19 +124,20 @@ const ForgotPassword = () => {
 						</Box>
 						:
 						<Box component="form" onSubmit={resetPassword} noValidate sx={{ mt: 0 }}>
-							<Card sx={{ display: 'flex', alignSelf: 'center', }}>
+							<Card sx={{ display: 'flex', alignSelf: 'center', zIndex: '1000' }}>
 								<Box sx={{ margin: 0.6, alignSelf: 'center' }}>
 									<Typography sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Restablezca la contraseña</Typography>
 								</Box>
 								<Divider />
 								<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-									<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 1 }}>
+									<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '340px' }, gap: 1 }}>
 										<Input size="sm" name="newPass" placeholder="Nueva contraseña" type="password" id="newPass" autoComplete="current-password" required />
 										<Input size="sm" name="confirmNewPass" placeholder="Confirmar nueva contraseña" type="password" id="confirmNewPass" autoComplete="current-password" required />
 									</FormControl>
 									<Stack direction="row" spacing={1} sx={{ marginTop: 2, justifyContent: 'right' }}>
-										<Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Cambiar contraseña</Button>
-										<Button variant="outlined" fullWidth color="neutral" component={Link} to="/">Cancelar</Button>
+										
+										<Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Cambiar contraseña</Button>
+										<Button size="sm" variant="outlined" fullWidth color="neutral" component={Link} to="/">Cancelar</Button>
 									</Stack>
 								</Stack>
 							</Card>

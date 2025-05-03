@@ -13,9 +13,9 @@ import FormControl from '@mui/joy/FormControl';
 import Typography from '@mui/joy/Typography';
 import Card from '@mui/joy/Card';
 import Option from '@mui/joy/Option';
-import Select from '@mui/joy/Select';
 import { formatFechaEmision } from '../services/util/formatoFecha';
 import { errors } from '../services/util/errors';
+import { SelectProps } from '../components/common/SelectProps';
 
 
 const GestionPage = () => {
@@ -117,7 +117,7 @@ const GestionPage = () => {
 			doc.setFontSize(14);
 			doc.setFont('helvetica', 'bold');
 			let resultCalificaciones = await getCalificacionesAsignaturas(user.id, idCarrera, user.jwtLogin);
-			console.log("Calificaciones: ", resultCalificaciones);
+			// console.log("Calificaciones: ", resultCalificaciones);
 
 			if (resultCalificaciones && resultCalificaciones.length > 0) {
 				//  resultCalificaciones.data !== undefined && resultCalificaciones !== '' && resultCalificaciones.status !== 200) {
@@ -146,10 +146,8 @@ const GestionPage = () => {
 			let calificacionExamen = 0;
 			y += 10;
 			const resultExamenes = await getCalificacionesExamenes(user.id, idCarrera, user.jwtLogin);
-			console.log("Examenes: ", resultExamenes);
 
 			if (resultExamenes && resultExamenes.length > 0) {
-
 				let tieneExamen = true;
 				resultExamenes.forEach(notasx => {
 					if (notasx.calificacion !== 0) {
@@ -200,11 +198,9 @@ const GestionPage = () => {
 				setPdfUrl(url);
 			} else {
 				let title = "No hay calificaciones para la carrera seleccionada.";
-
 				errors(title, title, 400, false);
 			}
 		}
-
 		catch (error) {
 			console.log("Error: ", error);
 		}
@@ -227,11 +223,11 @@ const GestionPage = () => {
 					<Divider />
 					<Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
 						<FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
-							<Select size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
+							<SelectProps size="sm" defaultValue="Seleccionar carrera" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera">
 								{carreraData.map((carrera, index) => (
 									<Option key={index} value={carrera.idCarrera}>{carrera.nombre}</Option>
 								))}
-							</Select>
+							</SelectProps>
 							<Stack direction="row" spacing={0.6} sx={{ marginTop: 0.8, justifyContent: 'right', zIndex: '1000' }}>
 								<Button type='submit' fullWidth variant="soft" color="primary" sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }}>
 									Visualizar PDF

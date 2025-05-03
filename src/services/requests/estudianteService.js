@@ -24,7 +24,7 @@ export const getEstudiantesPendientes = async (jwtLogin) => {
 
 ///
 /// Validar estudiantes
-export const acceptEstudiante = async (idUsuario, jwtLogin) => {
+export const acceptEstudiante = async (idUsuario, validar, jwtLogin) => {
 	try {
 		let headersList = {
 			'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export const acceptEstudiante = async (idUsuario, jwtLogin) => {
 			url: URL_BACK.acceptEstudiante + idUsuario,
 			method: "PUT",
 			headers: headersList,
-			data: true
+			data: validar
 		}
 
 		const response = await axios.request(reqOptions);

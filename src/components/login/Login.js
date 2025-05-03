@@ -63,12 +63,17 @@ function Login() {
 		let cedula = data.get('cedula');
 		let password = data.get('password');
 
+		// console.log("log", !isNaN(password));
+		// if (isNaN(password)) {
+		// 	password = "\"" + password + "\"";
+		// }
+
 		async function validarLogin() {
 			const response = await getToken(cedula, password);
 			let payload = null;
 			if (response.status === 200) {
 				payload = decodificaJwt(response.data);
-				getInfoUsuario(payload, response.data).then(() => {					
+				getInfoUsuario(payload, response.data).then(() => {
 				});
 			} else {
 				errors(response.data, response.data, response.status);
@@ -79,7 +84,7 @@ function Login() {
 
 	return (
 		<Sheet>
-			<Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12 }}>
+			<Container component="main" maxWidth="xs" sx={{ marginBlockEnd: 12}}>
 				<Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 					<div sx={{ bgcolor: 'secondary.main' }}>
 						<img src={logo} className="animate-bounce" alt="logo" />
@@ -89,7 +94,7 @@ function Login() {
 					<Typography variant="body2" fontSize={15} color="text.secondary">¿Aun no tienes cuenta?
 						<Link href="/registrarse" fontSize={15} variant="body2" sx={{ p: 0.5 }}>Entra aquí</Link>
 					</Typography>
-					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px' }}>
+					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '300px', height: '35px', zIndex: '1000' }}>
 						<Stack spacing={0.8}>
 
 							<Input size="md" id="cedula" label="Cédula" name="cedula" autoComplete="text" placeholder="Cédula" autoFocus required />

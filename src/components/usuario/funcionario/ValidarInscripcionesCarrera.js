@@ -30,7 +30,7 @@ export default function ValidarInscripcionesCarrera() {
 
     if (idCarrera !== "Seleccionar carrera" && idCarrera !== "" && idCarrera !== null && idCarrera !== undefined) {
       let idCarreraInt = parseInt(idCarrera, 10);
-      console.log(`IDcarrera: ${idCarreraInt}`);
+    //  console.log(`IDcarrera: ${idCarreraInt}`);
       history(`/tabla-inscripciones-carrera?id=${idCarreraInt}`);
     } else {
       swal("Información!", 'No hay carreras sin validar', "info", {
@@ -44,6 +44,7 @@ export default function ValidarInscripcionesCarrera() {
     const fetchCarreras = async () => {
       try {
         const result = await getCarrerasInscripcionesPendientes(user.jwtLogin);
+        console.log("Carreras: ", result);
         if (result.length === 0) {
           swal("Información!", 'No hay carreras sin validar', "info", {
             timer: 3000
@@ -83,7 +84,7 @@ export default function ValidarInscripcionesCarrera() {
             </FormControl>
 
             <Stack direction="row" spacing={0.6} sx={{ marginTop: 1, justifyContent: 'right', zIndex: '1000' }}>
-              <Button type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Continuar</Button>
+              <Button size="sm" type="submit" fullWidth sx={{ mt: 1, mb: 3, border: 0.01, borderColor: '#3d3d3d' }} variant="soft">Continuar</Button>
             </Stack>
           </Stack>
         </Card>

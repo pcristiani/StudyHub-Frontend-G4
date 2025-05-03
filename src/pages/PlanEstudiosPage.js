@@ -40,7 +40,7 @@ const PlanEstudiosPage = () => {
     getInfoPreviaturasGrafo(1);
   }
 
-  
+
   const handleChangeCarrera = (event, idCarrera) => {
     setSelectedCarrera(idCarrera);
     if (idCarrera !== null) {
@@ -48,8 +48,6 @@ const PlanEstudiosPage = () => {
     } else {
     }
   };
-  
-  // getInfoPreviaturasGrafo(1);
 
   const mostrarGrafo = COURSE.graph + `${previaturasGrafoData}}`;
 
@@ -74,7 +72,7 @@ const PlanEstudiosPage = () => {
 
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1%', height: '70%', border: "0.5px solid #2596be", borderRadius: "20px", zIndex: '1000' }}>
-          <DAGViewer dot={mostrarGrafo} options={{}} />
+          <DAGViewer dot={mostrarGrafo} />
         </Box>
       </CssVarsProvider>
     </>

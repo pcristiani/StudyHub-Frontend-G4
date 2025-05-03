@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { AuthContext } from '../../context/AuthContext';
 import { getAsignaturasNoAprobadas } from '../../services/requests/asignaturaService';
-import { getCarreras } from '../../services/requests/carreraService';
 
 import PropTypes from 'prop-types';
 import Box from '@mui/joy/Box';

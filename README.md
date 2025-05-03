@@ -6,7 +6,7 @@
 
 ```sh
 node -v # v20.11.0
-npm -v  # v10.5.0
+npm -v  # v10.8.1
 ```
 
 ```sh
@@ -45,33 +45,4 @@ serve -s build  # Para servir la aplicación compilada en producción.
 npm i -g vercel@latest 
 vercel --version
 vercel login
-```
-
-```shell
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "deploy": "vercel --prod",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-```
-
-`graph {
-bgcolor = transparent;shape = rectangle; style = "rounded";
-node[shape = rectangle, style = "rounded,filled", fillcolor = "#d7f8fd", color = "#2596be", fontcolor = black, fontsize = 12, fontname = "Arial"];
-  edge[color = "#2596be"];
-  rankdir = TB;`
-"1" [label="Programacion I"];
-"2" [label="Programacion II"];
-"3" [label="Programacion III"];
-"4" [label="Estructura de Datos"];
-"5" [label="Programacion Avanzada"];
-"6" [label="Bases de Datos I"];
-"7" [label="Bases de Datos II"];
-"8" [label="Taller de Sistemas de Información.NET"];
-"13" [label="Álgebra Lineal I"];
-"1" -- "2";
-"2" -- "3";
-"3" -- "4";
 ```

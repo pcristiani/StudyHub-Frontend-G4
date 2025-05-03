@@ -163,7 +163,7 @@ export default function RegistrarHorarioAsignatura() {
             </Box>
             <Divider />
             <Stack direction="column" sx={{ display: { xs: 'flex', md: 'flex' }, alignSelf: 'center' }}>
-               <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.6 }}>
+               <FormControl sx={{ display: { sm: 'flex', md: 'flex', width: '320px' }, gap: 0.8 }}>
 
                   <SelectProps size="sm" placeholder="Seleccionar carrera" id="idcarrera" name="idcarrera" onChange={handleChange}>
                      {carreraData.map((carrera, index) => (
@@ -182,7 +182,7 @@ export default function RegistrarHorarioAsignatura() {
                         <Option key={index} value={docente.idDocente}>{docente.nombre}</Option>
                      ))}
                   </SelectProps>
-                  <Divider />
+                  {/* <Divider /> */}
 
                   <SelectProps size="sm" onChange={(event, newValue) => setYear(newValue)} placeholder="Año lectivo" id="aniolectivo" name="aniolectivo" required>
                      {years.map((year) => (
@@ -196,7 +196,7 @@ export default function RegistrarHorarioAsignatura() {
                      ))}
                   </SelectProps>
 
-                  <Stack direction="row" spacing={0.6} sx={{ justifyContent: 'right' }}>
+                  <Stack direction="row" spacing={0.8} sx={{ justifyContent: 'right' }}>
                      <Autocomplete size="sm" id="inicioclase" name="inicioclase" options={timeSlots} placeholder="Inicia" onChange={(event, newValue) => setSelectedInicio(newValue)} required />
                      <Autocomplete size="sm" id="finclase" name="finclase" options={timeSlots} placeholder="Finaliza" onChange={(event, newValue) => setSelectedFin(newValue)} required />
                      <Tooltip title="Agregar a horario de clase" variant="plain" color="primary">

@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getUsuarios } from '../services/requests/usuarioService';
 
-import Typography from '@mui/joy/Typography';
 import { CssVarsProvider } from '@mui/joy/styles';
 import Container from '@mui/joy/Container';
 import Box from '@mui/joy/Box';
@@ -25,7 +24,6 @@ const SolicitudesPage = () => {
   //     console.log("JWT: ", result);
   //   });
   // }, []);
-
 
 
   return (

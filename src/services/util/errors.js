@@ -1,6 +1,7 @@
 import swal from 'sweetalert';
 import { URI_FRONT, redirigir } from '../../services/util/constants';
 
+
 const errors = async (mensaje, text, status, redirect) => {
     let errorTitle = '', errorText = '';
 
@@ -19,8 +20,13 @@ const errors = async (mensaje, text, status, redirect) => {
             position: "center",
             timer: 5000
         }).then(() => {
-            if (redirect) {
+            if (!redirect) {
+                console.log('Redirect FALSE');
+                // redirigir(redirect);
+            } else if (redirect === true) {
                 redirigir(URI_FRONT.homeUri);
+            } else {
+                redirigir(redirect);
             }
         });
 
@@ -92,7 +98,6 @@ function isNull(valor) {
 
 
 export { errors, isNull };
-
 
 // let title = "¡Fecha de examen registrada!\n\n";
 // errors(title, restul.data, restul.status);

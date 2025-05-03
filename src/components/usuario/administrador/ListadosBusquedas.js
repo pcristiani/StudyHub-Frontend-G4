@@ -20,10 +20,8 @@ import { formatoCi } from '../../../services/util/formatoCi';
 import Autocomplete, { createFilterOptions } from '@mui/joy/Autocomplete';
 import AutocompleteOption from '@mui/joy/AutocompleteOption';
 import { URI_FRONT, redirigir } from '../../../services/util/constants';
-import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
-import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+
 
 const filters = createFilterOptions();
 
@@ -77,7 +75,7 @@ const headCells = [
   {
     id: 'usuario',
     numeric: false,
-    disablePadding: false,
+    disablePadding: true,
     label: '',
   }
 ];
@@ -157,67 +155,21 @@ function EnhancedTableToolbar(props) {
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
-
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', py: 0.8, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.body' : 'background.body', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }} >
+    <Box sx={{ display: 'flex', alignItems: 'center', py: 1, pl: { sm: 2 }, pr: { xs: 1, sm: 1 }, bgcolor: numSelected > 0 ? 'background.body' : 'background.body', borderTopLeftRadius: 'var(--unstable_actionRadius)', borderTopRightRadius: 'var(--unstable_actionRadius)' }} >
 
       <Box sx={{ alignSelf: 'center' }}>
         {numSelected === 1 ? (
           <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="success" noWrap>Opciones habilitadas</Typography>
         ) : ''}
         {numSelected === 0 ? (
-          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="neutral" noWrap>Seleccionar usuario</Typography>
+          <Typography level="label-md" sx={{ textAlign: 'center' }} variant="plain" color="primary" noWrap>Usuarios</Typography>
         ) : ''}
         {numSelected > 1 ? (
-          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="danger" noWrap>Selecionar un usuario</Typography>
+          <Typography level="body-sm" sx={{ textAlign: 'center' }} variant="plain" color="danger" noWrap>Selecionar una carrera</Typography>
         ) : ''}
       </Box>
 
-      {numSelected === 1 ? (
-        <>
-          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-
-            <Tooltip title="Alta funcionario/coordinador">
-              <IconButton size="sm" variant="outlined" color="success" onClick={handleAlta}>
-
-                <AddBoxOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-
-            <Tooltip title="Información">
-              <IconButton size="sm" variant="outlined" color="success" onClick={() => handleModificar(selected[0])}>
-                <DriveFileRenameOutlineOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </>
-      ) : (
-        <>
-          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
-            <Tooltip title="Alta funcionario/coordinador">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleAlta} disabled>
-
-                <AddBoxOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-
-            <Tooltip title="Información">
-              <IconButton size="sm" variant="outlined" color="neutral" onClick={() => handleModificar(selected[0])} disabled>
-                <DriveFileRenameOutlineOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-          </Box>
-          {/* <IconButton size="sm" variant="outlined" color="neutral" onClick={handleClick}>
-            <FilterListIcon />
-          </IconButton>
-          <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem onClick={() => onFilter('La duración de la carrera será de 2 años')}>2 años de duración</MenuItem>
-            <MenuItem onClick={() => onFilter('La duración de la carrera será de 3 años')}>3 años de duración</MenuItem>
-            <MenuItem onClick={() => onFilter('La duración de la carrera será de 4 años')}>4 años de duración</MenuItem>
-            <MenuItem onClick={() => onFilter('')}>Todas las carreras</MenuItem>
-          </Menu> */}
-        </>
-      )}
     </Box>
   );
 }
@@ -227,8 +179,6 @@ EnhancedTableToolbar.propTypes = {
   onFilter: PropTypes.func.isRequired,
   selected: PropTypes.array.isRequired,
 };
-
-
 
 ///
 
@@ -305,7 +255,7 @@ export default function ListadosBusquedas() {
     <>
       <Stack sx={{ marginTop: 3, display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
         <Autocomplete
-          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '550px', zIndex: '1000' }}
+          sx={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '500px', zIndex: '1000' }}
           placeholder="Filtrar por usuario"
           autoSelect={true}
           autoHighlight={true}
@@ -330,16 +280,18 @@ export default function ListadosBusquedas() {
         />
       </Stack>
       <Stack direction="row" sx={{ marginTop: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', }} spacing={2}>
-        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '550px', zIndex: '1000' }}>
+        <Sheet variant="outlined" sx={{ boxShadow: 'sm', borderRadius: 'sm', minHeight: '10vh', maxWidth: '500px', zIndex: '1000' }}>
           <EnhancedTableToolbar numSelected={selected.length} onFilter={handleFilter} selected={selected} />
 
           <Table aria-labelledby="tableTitle" hoverRow
             sx={{
+              cursor: 'pointer',
+              '--TableRow-hoverBackground': 'rgb(3, 87, 4, 0.20)',
               '--TableCell-headBackground': 'transparent',
-              '--TableCell-selectedBackground': (theme) =>
-                theme.vars.palette.success.softBg,
-              '& thead th:nth-child(1)': { width: '40%', }, '& thead th:nth-child(2)': { width: '20%', }, '& tr > *:nth-child(n+3)': { width: '20%', textAlign: 'center' }, zIndex: '1000'
-            }}>
+              borderCollapse: 'separate', borderSpacing: '0', borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', overflow: 'auto',
+              '& thead th:nth-child(1)': { width: '40%', }, '& thead th:nth-child(2)': { width: '25%', }, '& tr > *:nth-child(n+3)': { width: '20%', textAlign: 'center' }, zIndex: '1000'
+            }}
+          >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -357,7 +309,7 @@ export default function ListadosBusquedas() {
 
                   return (
                     <tr
-                      onClick={(event) => handleClick(event, usuario.idUsuario)}
+                      //   onClick={(event) => handleClick(event, usuario.idUsuario)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -368,37 +320,37 @@ export default function ListadosBusquedas() {
                           ? { '--TableCell-dataBackground': 'var(--TableCell-selectedBackground)', '--TableCell-headBackground': 'var(--TableCell-selectedBackground)', 'cursor': 'pointer' }
                           : { 'cursor': 'pointer' }
                       }>
-                      <th id={labelId} scope="row">
+                      <th id={labelId} scope="row" onClick={() => handleModificar(usuario.idUsuario)}>
                         {usuario.nombre} {usuario.apellido}
                       </th>
-                      <td>{formatoCi(usuario.cedula)}</td>
-                      <td>{usuario.rol === "F" ? 'Funcionario' : usuario.rol === "C" ? 'Coordinador' : usuario.rol === "E" ? 'Estudiante' : usuario.rol === "A" ? 'Administrador' : ''}
+                      <td onClick={() => handleModificar(usuario.idUsuario)}>{formatoCi(usuario.cedula)}</td>
+                      <td onClick={() => handleModificar(usuario.idUsuario)}>{usuario.rol === "F" ? 'Funcionario' : usuario.rol === "C" ? 'Coordinador' : usuario.rol === "E" ? 'Estudiante' : usuario.rol === "A" ? 'Administrador' : ''}
                       </td>
                       <td>
                         <Tooltip title="Resumen de actividad">
                           <IconButton size="sm" variant="plain" color="primary" onClick={() => handleActividades(usuario.idUsuario)}>
-                            <InsertChartOutlinedIcon />
+                            <ChevronRightRoundedIcon />
                           </IconButton>
                         </Tooltip>
 
-                        <Tooltip title="Información">
+                        {/* <Tooltip title="Información">
                           <IconButton size="sm" variant="plain" color="primary" onClick={() => handleModificar(usuario.idUsuario)}>
                             <AccountCircleOutlined />
                           </IconButton>
-                        </Tooltip>
+                        </Tooltip> */}
                       </td>
                     </tr>
                   );
                 })}
               {emptyRows > 0 && (
                 <tr style={{ height: 63 * emptyRows }}>
-                  <td colSpan={6} />
+                  <td colSpan={4} />
                 </tr>
               )}
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan={6}>
+                <td colSpan={4}>
                   <Box sx={{ width: '100%', display: 'flex', alignItems: 'right', justifyContent: 'flex-end' }}>
                     <Box sx={{ width: '20%', display: 'flex', gap: 0.5, justifyContent: 'flex-end' }}>
                       <IconButton size="sm" color="neutral"

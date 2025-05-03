@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import Sheet from '@mui/joy/Sheet';
-import { UI } from '../services/util/constants';
 
 
 ///
